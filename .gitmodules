@@ -1,0 +1,3 @@
+[submodule "Assets/UnityEnhanced"]
+	path = Assets/UnityEnhanced
+	url = git@github.com:hendrik-schulte/UnityEnhanced.git
