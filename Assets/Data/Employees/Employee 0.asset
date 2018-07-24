@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74bc7142195154b7b9b7a24b43c382ab, type: 3}
   m_Name: Employee 0
   m_EditorClassIdentifier: 
-  name: New Item
+  name: Max Mustermann
   itemIcon: {fileID: 0}
   itemObject: {fileID: 0}
   level: 1

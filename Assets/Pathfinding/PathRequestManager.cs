@@ -6,6 +6,9 @@ using System.Threading;
 
 namespace Pathfinding
 {
+	/// <summary>
+	/// Use this manager to request and receive paths between two tiles.
+	/// </summary>
 	public class PathRequestManager : MonoBehaviour
 	{
 
@@ -36,6 +39,11 @@ namespace Pathfinding
 			}
 		}
 
+		/// <summary>
+		/// Requests a path from a starting to and endpoint on the tilemap.
+		/// </summary>
+		/// <param name="request">Path Request object.</param>
+		/// <param name="employeeData">Employee that want's to walk on this path.</param>
 		public static void RequestPath(PathRequest request, EmployeeData employeeData)
 		{
 			ThreadStart threadStart = delegate
@@ -54,6 +62,9 @@ namespace Pathfinding
 		}
 	}
 
+	/// <summary>
+	/// Contains the pathfinding results.
+	/// </summary>
 	public struct PathResult
 	{
 		public List<Node> path;
@@ -61,6 +72,13 @@ namespace Pathfinding
 		public EmployeeData EmployeeData;
 		public Action<List<Node>, bool, EmployeeData> callback;
 
+		/// <summary>
+		/// Initialize a PathResult.
+		/// </summary>
+		/// <param name="path">List of Nodes which are the calculated path.</param>
+		/// <param name="success">Was a path found?</param>
+		/// <param name="employeeData">Employee that want's to walk on this path.</param>
+		/// <param name="callback">Callback object.</param>
 		public PathResult(List<Node> path, bool success, EmployeeData employeeData, Action<List<Node>, bool, EmployeeData> callback)
 		{
 			this.path = path;
@@ -70,12 +88,21 @@ namespace Pathfinding
 		}
 	}
 
+	/// <summary>
+	/// A struct containing all necessary information for a path request.
+	/// </summary>
 	public struct PathRequest
 	{
 		public Vector2Int pathStart;
 		public Vector2Int pathEnd;
 		public Action<List<Node>, bool, EmployeeData> callback;
 
+		/// <summary>
+		/// Initialize a PathRequest.
+		/// </summary>
+		/// <param name="_start">Start coordinates.</param>
+		/// <param name="_end">End coordinates.</param>
+		/// <param name="_callback">Callback object. Get's called when the pathfinding is done.</param>
 		public PathRequest(Vector2Int _start, Vector2Int _end, Action<List<Node>, bool, EmployeeData> _callback)
 		{
 			pathStart = _start;

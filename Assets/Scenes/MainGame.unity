@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99b8db29536b40aa992b7ef30000d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmployeeData: {fileID: 0}
+  EmployeeData: {fileID: 11400000, guid: 3faab075bf2c74912a9ce5e7d7ae29e1, type: 2}
 --- !u!4 &118193838
 Transform:
   m_ObjectHideFlags: 0
@@ -464,10 +464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a3f816ae4674e0ba17f014dba79fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unwalkableMask:
-    serializedVersion: 2
-    m_Bits: 0
-  obstacleProximityPenalty: 10
 --- !u!1 &1240959491
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +487,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1240959491}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1006203816}
@@ -558,7 +554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1759597637
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -629,7 +625,6 @@ GameObject:
   - component: {fileID: 1826169291}
   - component: {fileID: 1826169290}
   - component: {fileID: 1826169292}
-  - component: {fileID: 1826169293}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -656,7 +651,7 @@ TilemapRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1826169288}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2289,35 +2284,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1826169288}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0ae4eb7119784135b44f7c7f1f1000a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   tileMap: {fileID: 1826169291}
---- !u!114 &1826169293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1826169288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7bb9acb2cffc5f45abddc238a0ad9b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionIntKeys: []
-  m_PositionIntValues: 
-  m_PositionStringKeys: []
-  m_PositionStringValues: []
-  m_PositionFloatKeys: []
-  m_PositionFloatValues: []
-  m_PositionDoubleKeys: []
-  m_PositionDoubleValues: []
-  m_PositionObjectKeys: []
-  m_PositionObjectValues: []
-  m_PositionColorKeys: []
-  m_PositionColorValues: []
 --- !u!1 &1856728279
 GameObject:
   m_ObjectHideFlags: 0

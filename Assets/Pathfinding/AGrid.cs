@@ -11,15 +11,10 @@ namespace Pathfinding
 {
   public class AGrid : MonoBehaviour
   {
-
-    public LayerMask unwalkableMask;
-    public int obstacleProximityPenalty = 10;
-
     Node[,] grid;
 
     private GridInformation gridInformation;
 
-    float nodeDiameter;
     int gridSizeX = 13, gridSizeY = 13;
 
     private IReadOnlyList<Vector2Int> disabledTiles;
