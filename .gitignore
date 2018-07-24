@@ -36,3 +36,7 @@ sysinfo.txt
 *.unitypackage
 
 .DS_STORE
+.idea
+.vscode
+Assets/Plugins/Editor
+Assets/Plugins/Editor.meta

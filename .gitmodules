@@ -1,3 +1,6 @@
 [submodule "Assets/UnityEnhanced"]
 	path = Assets/UnityEnhanced
 	url = git@github.com:hendrik-schulte/UnityEnhanced.git
+[submodule "Assets/2d-extras"]
+	path = Assets/2d-extras
+	url = git@github.com:Unity-Technologies/2d-extras.git
