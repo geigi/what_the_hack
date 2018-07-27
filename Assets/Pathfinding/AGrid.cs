@@ -6,14 +6,16 @@ using Pathfinding;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace Pathfinding
 {
   public class AGrid : MonoBehaviour
   {
+    public Tilemap tilemap;
+    public Grid go_grid;
+    
     Node[,] grid;
-
-    private GridInformation gridInformation;
 
     int gridSizeX = 13, gridSizeY = 13;
 
@@ -55,10 +57,10 @@ namespace Pathfinding
       {
         for (int y = 0; y < gridSizeY; y++)
         {
-          var pos = new Vector2Int(x, y);
+          var pos = tilemap.GetCellCenterWorld(new Vector3Int(x, y, 0));
           var state = Enums.TileState.FREE;
 
-          if (this.disabledTiles.Any(v => v.Equals(pos)))
+          if (this.disabledTiles.Any(v => v.Equals(new Vector2Int(x, y))))
           {
             state = Enums.TileState.DISABLED;
           }
@@ -71,6 +73,23 @@ namespace Pathfinding
     public Node getNode(Vector2Int position)
     {
       return this.grid[position.x, position.y];
+    }
+
+    public Node getNode(Vector3 position)
+    {
+      var cell = this.go_grid.WorldToCell(position);
+      return grid[cell.x, cell.y];
+    }
+
+    public Node getRandomFreeNode()
+    {
+      var tile = getNode(new Vector2Int(Random.Range(0, 12), Random.Range(0, 12)));
+      while (tile.state != Enums.TileState.FREE)
+      {
+        tile = getNode(new Vector2Int(Random.Range(0, 12), Random.Range(0, 12)));
+      }
+
+      return tile;
     }
     
     public List<Node> GetNeighbours(Node node)

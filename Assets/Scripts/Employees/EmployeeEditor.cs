@@ -108,8 +108,7 @@ public class EmployeeEditor : EditorWindow
                 GUILayout.EndHorizontal();
 
                 employeeList.employeeList[viewIndex - 1].name = EditorGUILayout.TextField("Employee Name", employeeList.employeeList[viewIndex - 1].name as string);
-                employeeList.employeeList[viewIndex - 1].itemIcon = EditorGUILayout.ObjectField("Employee Texture", employeeList.employeeList[viewIndex - 1].itemIcon, typeof(Texture2D), false) as Texture2D;
-                employeeList.employeeList[viewIndex - 1].itemObject = EditorGUILayout.ObjectField("Employee Sprite", employeeList.employeeList[viewIndex - 1].itemObject, typeof(GameObject), false) as GameObject;
+                employeeList.employeeList[viewIndex - 1].sprite = EditorGUILayout.ObjectField("Employee Sprite", employeeList.employeeList[viewIndex - 1].sprite, typeof(Sprite), false) as Sprite;
 
                 GUILayout.Space(10);
 

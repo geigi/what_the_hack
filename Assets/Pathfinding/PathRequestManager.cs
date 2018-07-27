@@ -33,7 +33,7 @@ namespace Pathfinding
 					for (int i = 0; i < itemsInQueue; i++)
 					{
 						PathResult result = results.Dequeue();
-						result.callback(result.path, result.success, result.EmployeeData);
+						result.callback(result.path, result.success);
 					}
 				}
 			}
@@ -43,12 +43,11 @@ namespace Pathfinding
 		/// Requests a path from a starting to and endpoint on the tilemap.
 		/// </summary>
 		/// <param name="request">Path Request object.</param>
-		/// <param name="employeeData">Employee that want's to walk on this path.</param>
-		public static void RequestPath(PathRequest request, EmployeeData employeeData)
+		public static void RequestPath(PathRequest request)
 		{
 			ThreadStart threadStart = delegate
 			{
-				instance.pathfinding.FindPath(request, instance.FinishedProcessingPath, employeeData);
+				instance.pathfinding.FindPath(request, instance.FinishedProcessingPath);
 			};
 			threadStart.Invoke();
 		}
@@ -69,21 +68,18 @@ namespace Pathfinding
 	{
 		public List<Node> path;
 		public bool success;
-		public EmployeeData EmployeeData;
-		public Action<List<Node>, bool, EmployeeData> callback;
+		public Action<List<Node>, bool> callback;
 
 		/// <summary>
 		/// Initialize a PathResult.
 		/// </summary>
 		/// <param name="path">List of Nodes which are the calculated path.</param>
 		/// <param name="success">Was a path found?</param>
-		/// <param name="employeeData">Employee that want's to walk on this path.</param>
 		/// <param name="callback">Callback object.</param>
-		public PathResult(List<Node> path, bool success, EmployeeData employeeData, Action<List<Node>, bool, EmployeeData> callback)
+		public PathResult(List<Node> path, bool success, Action<List<Node>, bool> callback)
 		{
 			this.path = path;
 			this.success = success;
-			this.EmployeeData = employeeData;
 			this.callback = callback;
 		}
 	}
@@ -95,7 +91,7 @@ namespace Pathfinding
 	{
 		public Vector2Int pathStart;
 		public Vector2Int pathEnd;
-		public Action<List<Node>, bool, EmployeeData> callback;
+		public Action<List<Node>, bool> callback;
 
 		/// <summary>
 		/// Initialize a PathRequest.
@@ -103,7 +99,7 @@ namespace Pathfinding
 		/// <param name="_start">Start coordinates.</param>
 		/// <param name="_end">End coordinates.</param>
 		/// <param name="_callback">Callback object. Get's called when the pathfinding is done.</param>
-		public PathRequest(Vector2Int _start, Vector2Int _end, Action<List<Node>, bool, EmployeeData> _callback)
+		public PathRequest(Vector2Int _start, Vector2Int _end, Action<List<Node>, bool> _callback)
 		{
 			pathStart = _start;
 			pathEnd = _end;

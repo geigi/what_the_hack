@@ -22,8 +22,7 @@ namespace Pathfinding
 		/// </summary>
 		/// <param name="request">PathRequest object.</param>
 		/// <param name="callback">Callback object.</param>
-		/// <param name="employeeData">Employee that want's to walk this path.</param>
-		public void FindPath(PathRequest request, Action<PathResult> callback, EmployeeData employeeData)
+		public void FindPath(PathRequest request, Action<PathResult> callback)
 		{
 
 			Stopwatch sw = new Stopwatch();
@@ -86,7 +85,7 @@ namespace Pathfinding
 				pathSuccess = waypoints.Count > 0;
 			}
 
-			callback(new PathResult(waypoints, pathSuccess, employeeData, request.callback));
+			callback(new PathResult(waypoints, pathSuccess, request.callback));
 		}
 
 		List<Node> RetracePath(Node startNode, Node endNode)

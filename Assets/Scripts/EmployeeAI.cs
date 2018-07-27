@@ -1,47 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EmployeeAI : MonoBehaviour {
-	public EmployeeData EmployeeData;
+public class EmployeeAI : MonoBehaviour
+{
+	public EmployeeData employeeData;
 
-	// Use this for initialization
-	void Start () {
-		WalkEmployee();
-	}
+	private GameObject gameObject;
+	private List<Employee> employees;
 
-	void WalkEmployee() {
-		var callback = new System.Action<List<Node>, bool, EmployeeData>(Target);
-		Pathfinding.PathRequestManager.RequestPath(new Pathfinding.PathRequest(new Vector2Int(4,4), new Vector2Int(8,8), callback), EmployeeData);
-	}
+	private bool createdEmployee = false;
 
-	private void Target(List<Node> path, bool success, EmployeeData employeeData)
+	void Awake()
 	{
-		Debug.Log(success);
-		Debug.Log(path);
-		Debug.Log(employeeData.name);
+		
 	}
 	
-	IEnumerator FollowPath(List<Node> path, EmployeeData employeeData) {
-
-		bool followingPath = true;
-		int pathIndex = 0;
-
-		float speedPercent = 1;
-
-		while (followingPath)
+	// Use this for initialization
+	void Start ()
+	{
+		this.employees = new List<Employee>();
+		this.gameObject = new GameObject("Employee");
+		for (int i = 0; i < 4; i++)
 		{
-			float step = speedPercent * Time.deltaTime;
-			
-			yield return null;
-
+			var gameObject = new GameObject("Employee");
+			var employee = gameObject.AddComponent<Employee>();
+			employee.init(employeeData);
+			employees.Append(employee);
 		}
 	}
+
+	void WalkEmployee()
+	{
+		foreach (var employee in employees)
+		{
+			employee.idleWalking(true);
+		}
+	}
+
+	
+	
+	
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (!createdEmployee)
+		{
+			createdEmployee = true;
+			WalkEmployee();
+		}
 	}
 }
