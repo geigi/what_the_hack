@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEditor;
+using UnityEngine.Animations;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
 
+/// <summary>
+/// This class represents an employee in the Game. All data is saved in the EmployeeData Scriptable Object.
+/// All employee related logic is implemented here.
+/// </summary>
 public class Employee : MonoBehaviour {
 	const float minPathUpdateTime = .2f;
 	const float speed = 1.0f;
@@ -13,7 +18,8 @@ public class Employee : MonoBehaviour {
 	public EmployeeData employeeData;
 
 	private GameObject employeeLayer;
-	private SpriteRenderer renderer;
+	private SpriteRenderer spriteRenderer;
+	private Animator animator;
 
 	private AGrid grid;
 
@@ -22,10 +28,8 @@ public class Employee : MonoBehaviour {
 	private bool walking = false;
 	private bool idle = true;
 	private List<Node> path;
-	// Use this for initialization
+	
 	void Start () {
-		renderer = gameObject.AddComponent<SpriteRenderer>();
-		renderer.sprite = employeeData.sprite;
 		employeeLayer = GameObject.FindWithTag("EmployeeLayer");
 		this.grid = GameObject.FindWithTag("Pathfinding").GetComponent<AGrid>();
 		tilemap = GameObject.FindWithTag("Tilemap").GetComponent<Tilemap>();
@@ -35,11 +39,30 @@ public class Employee : MonoBehaviour {
 		gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(tile.gridX, tile.gridY, 0));
 	}
 
+	/// <summary>
+	/// This needs to be called before the employee is used.
+	/// Fills the object with specific data.
+	/// </summary>
+	/// <param name="employeeData">Data for this employee.</param>
 	public void init(EmployeeData employeeData)
 	{
 		this.employeeData = employeeData;
+
+		// place the right animations
+		spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+		this.animator = gameObject.AddComponent<Animator>();
+		this.animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("EmployeeAnimations");
+		var animatorOverrideController = new AnimatorOverrideController(this.animator.runtimeAnimatorController);
+		animatorOverrideController["idle"] = employeeData.idleAnimation;
+		animatorOverrideController["walking"] = employeeData.walkingAnimation;
+		animatorOverrideController["working"] = employeeData.workingAnimation;
+        //this.animator.runtimeAnimatorController = animatorOverrideController;
 	}
 
+	/// <summary>
+	/// Start/Stop idle walking.
+	/// </summary>
+	/// <param name="start"></param>
 	public void idleWalking(bool start)
 	{
 		idle = start;
@@ -56,14 +79,19 @@ public class Employee : MonoBehaviour {
 		var go = this.grid.getNode(position).gridPosition;
 		var end = this.grid.getRandomFreeNode().gridPosition;
 		Pathfinding.PathRequestManager.RequestPath(new Pathfinding.PathRequest(go, end, callback));
-		Debug.Log("Start: " + go.x.ToString() + ":" + go.y.ToString());
-		Debug.Log("End: " + end.x.ToString() + ":" + end.y.ToString());
+		Debug.unityLogger.Log(LogType.Log, "Start: " + go.x.ToString() + ":" + go.y.ToString());
+		Debug.unityLogger.Log(LogType.Log, "End: " + end.x.ToString() + ":" + end.y.ToString());
 	}
 
+	/// <summary>
+	/// Follow the calculated path.
+	/// </summary>
+	/// <returns></returns>
 	IEnumerator FollowPath() {
 		bool followingPath = true;
 		int pathIndex = 0;
 		this.walking = true;
+		this.animator.SetTrigger("walking");
 
 		while (followingPath & walking)
 		{
@@ -91,15 +119,28 @@ public class Employee : MonoBehaviour {
 
 			if (followingPath)
 			{
+				if (step.x < 0) {
+					spriteRenderer.flipX = false;
+				}
+				else if (step.x > 0) {
+					spriteRenderer.flipX = true;
+				}
+
 				transform.Translate(step);
 				yield return null;
 			}
 		}
 
+		this.animator.SetTrigger("idle");
 		yield return new WaitForSeconds(4);
 		walking = false;
 	}
 	
+	/// <summary>
+	/// Get's called when the PathRequester found a path for this employee.
+	/// </summary>
+	/// <param name="path"></param>
+	/// <param name="success"></param>
 	private void PathFound(List<Node> path, bool success)
 	{
 		if (success)
@@ -107,7 +148,7 @@ public class Employee : MonoBehaviour {
 			this.path = path;
 			foreach (var node in path)
 			{
-				Debug.Log("Node: " + node.gridX.ToString() + ":" + node.gridY.ToString());
+				Debug.unityLogger.Log(LogType.Log, "Node: " + node.gridX.ToString() + ":" + node.gridY.ToString());
 			}
 			StopCoroutine(nameof(FollowPath));
 			StartCoroutine(nameof(FollowPath));

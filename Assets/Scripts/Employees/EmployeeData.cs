@@ -4,7 +4,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class EmployeeData : ScriptableObject{
-    public string name = "Max Mustermann";
-    public Sprite sprite = null;
+    public string employeeName = "Max Mustermann";
+    public AnimationClip idleAnimation = null;
+    public AnimationClip walkingAnimation = null;
+    public AnimationClip workingAnimation = null;
     public int level = 1;
 }

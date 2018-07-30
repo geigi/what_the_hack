@@ -107,8 +107,10 @@ public class EmployeeEditor : EditorWindow
                 EditorGUILayout.LabelField("of   " + employeeList.employeeList.Count.ToString() + "  items", "", GUILayout.ExpandWidth(false));
                 GUILayout.EndHorizontal();
 
-                employeeList.employeeList[viewIndex - 1].name = EditorGUILayout.TextField("Employee Name", employeeList.employeeList[viewIndex - 1].name as string);
-                employeeList.employeeList[viewIndex - 1].sprite = EditorGUILayout.ObjectField("Employee Sprite", employeeList.employeeList[viewIndex - 1].sprite, typeof(Sprite), false) as Sprite;
+                employeeList.employeeList[viewIndex - 1].employeeName = EditorGUILayout.TextField("Employee Name", employeeList.employeeList[viewIndex - 1].employeeName as string);
+                employeeList.employeeList[viewIndex - 1].idleAnimation = EditorGUILayout.ObjectField("Idle Animation", employeeList.employeeList[viewIndex - 1].idleAnimation, typeof(AnimationClip), false) as AnimationClip;
+                employeeList.employeeList[viewIndex - 1].walkingAnimation = EditorGUILayout.ObjectField("Walking Animation", employeeList.employeeList[viewIndex - 1].walkingAnimation, typeof(AnimationClip), false) as AnimationClip;
+                employeeList.employeeList[viewIndex - 1].workingAnimation = EditorGUILayout.ObjectField("Working Animation", employeeList.employeeList[viewIndex - 1].workingAnimation, typeof(AnimationClip), false) as AnimationClip;
 
                 GUILayout.Space(10);
 
@@ -167,7 +169,7 @@ public class EmployeeEditor : EditorWindow
 
         AssetDatabase.CreateAsset(asset, "Assets/Data/Employees/Employee " + employeeList.employeeList.Count + ".asset");
         AssetDatabase.SaveAssets();
-        asset.name = "Max Mustermann";
+        asset.employeeName = "Max Mustermann";
         employeeList.employeeList.Add(asset);
         viewIndex = employeeList.employeeList.Count;
     }
