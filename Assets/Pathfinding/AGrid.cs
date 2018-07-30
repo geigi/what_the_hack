@@ -95,20 +95,20 @@ namespace Pathfinding
     public List<Node> GetNeighbours(Node node)
     {
       List<Node> neighbours = new List<Node>();
-      List<Tuple<int, int>> toTest = new List<Tuple<int, int>>
-      {
-        new Tuple<int, int>(node.gridX - 1, node.gridY),
-        new Tuple<int, int>(node.gridX + 1, node.gridY),
-        new Tuple<int, int>(node.gridX, node.gridY - 1),
-        new Tuple<int, int>(node.gridX, node.gridY + 1)
-      };
       
-      foreach (var p in toTest)
-      {
-        if (p.Item1 >= 0 && p.Item1 < gridSizeX && p.Item2 >= 0 && p.Item2 < gridSizeY)
-          {
-            neighbours.Add(grid[p.Item1, p.Item2]);
+      for (int x = -1; x < 2; x++) {
+        for (int y = -1; y < 2; y++) {
+          var newX = node.gridX + x;
+          var newY = node.gridY + y;
+          // we dont want to add the current node
+          if (x == 0 && y == 0) {
+            continue;
           }
+          // boundary check
+          else if (newX >= 0 && newX < gridSizeX && newY >= 0 && newY < gridSizeY) {
+            neighbours.Add(grid[newX, newY]);
+          }
+        }
       }
 
       return neighbours;
