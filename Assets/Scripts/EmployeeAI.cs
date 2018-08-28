@@ -10,7 +10,7 @@ public class EmployeeAI : MonoBehaviour
 {
 	public EmployeeData employeeData;
 
-	private GameObject gameObject;
+	private GameObject employeeGameObject;
 	private List<Employee> employees;
 
 	private bool createdEmployee = false;
@@ -24,7 +24,7 @@ public class EmployeeAI : MonoBehaviour
 	void Start ()
 	{
 		this.employees = new List<Employee>();
-		this.gameObject = new GameObject("Employee");
+		this.employeeGameObject = new GameObject("Employee");
 		for (int i = 0; i < 4; i++)
 		{
 			var gameObject = new GameObject("Employee");
