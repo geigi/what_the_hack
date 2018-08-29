@@ -109,3 +109,8 @@ AndroidPlugin/fastlane/Preview.html
 AndroidPlugin/fastlane/screenshots
 AndroidPlugin/fastlane/test_output
 AndroidPlugin/fastlane/readme.md
+
+# Eclipse project files
+.classpath
+.project
+.settings

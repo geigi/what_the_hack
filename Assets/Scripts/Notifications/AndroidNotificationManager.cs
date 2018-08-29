@@ -19,7 +19,14 @@ public class AndroidNotificationManager : MonoBehaviour {
 
 		notificationProvider = customClass.Get<AndroidJavaObject>("mService");
 		notificationProvider.Call("createNotificationChannel");
-		notificationProvider.Call("queueNotification", 5, "TestMessage");
+	}
+
+	public void queueNotification(int delay, string message) {
+		notificationProvider.Call("queueNotification", delay, message);
+	}
+
+	public void cancelNotifications() {
+		notificationProvider.Call("cancelAlarms");
 	}
 
 	void sendActivityReference(string packageName) {

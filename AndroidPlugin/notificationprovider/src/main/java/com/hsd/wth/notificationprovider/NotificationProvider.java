@@ -83,12 +83,11 @@ public class NotificationProvider extends Service {
 
     /**
      * Cancel a given alarm.
-     * @param context
      */
-    private void cancelAlarm(Context context)
+    private void cancelAlarms()
     {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, new Intent(context, AlarmReceiver.class), 0);
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, AlarmReceiver.class), 0);
         alarmManager.cancel(alarmIntent);
     }
 
