@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42231ad2e61e7a349b1e99e811c6985c, type: 3}
+  m_Name: MainUI_StateManager
+  m_EditorClassIdentifier: 
+  instanced: 0
+  fileLogging:
+    logToFile: 0
+    FileName: Logs/main.log
+  logToConsole: 1
+  DeveloperDescription: Manages the state of the main game UI. Each window or popup
+    has it's own state.
+  InitialState: {fileID: 11400000, guid: 8a8a4b6246328466d89b44191ee95eb5, type: 2}
