@@ -1,8 +1,9 @@
 ﻿#if (UNITY_EDITOR)
-using UnityEngine;
+using UnityEngine;                                                                    
 using System.Collections;
 using UnityEditor;
 
+namespace Wth.ModApi {
 public class CreateEmployeeList
 {
     [MenuItem("Assets/Create/Employee List")]
@@ -14,5 +15,6 @@ public class CreateEmployeeList
         AssetDatabase.SaveAssets();
         return asset;
     }
+}
 }
 #endif

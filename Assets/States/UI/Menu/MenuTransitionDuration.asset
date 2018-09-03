@@ -8,11 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1009295391, guid: b981ac5fea65cbf46ab728daad9c9206, type: 3}
-  m_Name: ModToolSettings
+  m_Script: {fileID: 11500000, guid: b7b65df9be8a4c6e853d889391698c9f, type: 3}
+  m_Name: MenuTransitionDuration
   m_EditorClassIdentifier: 
-  _productName: What the Hack
-  _unityVersion: 2018.2.6f1
-  _supportedPlatforms: 15
-  _supportedContent: 7
-  _logLevel: 3
+  DeveloperDescription: 
+  Value: 0.1

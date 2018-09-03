@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Pathfinding;
 using UnityEngine;
 using UnityEngine.UI;
+using Wth.ModApi;
 
 public class EmployeeAI : MonoBehaviour
 {

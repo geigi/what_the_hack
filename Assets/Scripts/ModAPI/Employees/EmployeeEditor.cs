@@ -4,6 +4,7 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
+namespace Wth.ModApi {
 public class EmployeeEditor : EditorWindow
 {
 
@@ -181,5 +182,6 @@ public class EmployeeEditor : EditorWindow
         AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(item));
         employeeList.employeeList.RemoveAt(index);
     }
+}
 }
 #endif

@@ -70,4 +70,4 @@ MonoBehaviour:
     nameSpace: System.IO
     includeNested: 1
   _apiAssemblies:
-  - 
+  - Wth.ModApi
