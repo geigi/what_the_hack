@@ -31,7 +31,7 @@ public class EmployeeAI : MonoBehaviour
 			var gameObject = new GameObject("Employee");
 			var employee = gameObject.AddComponent<Employee>();
 			employee.init(employeeData);
-			employees.Append(employee);
+			employees.Add(employee);
 		}
 	}
 
