@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AppPause : MonoBehaviour {
-	public AndroidNotificationManager notificationManager;
+public class AppPause : MonoBehaviour { 
 
 	// Use this for initialization
 	void Start () {
 		
 	}
-	
+
 #if UNITY_ANDROID
+public AndroidNotificationManager notificationManager;
 	void OnApplicationPause(bool pauseStatus)
     {
         if (pauseStatus) {

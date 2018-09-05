@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -365,7 +365,7 @@ Prefab:
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, UnityEnhanced
+      value: UE.StateMachine.State, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
@@ -863,7 +863,7 @@ Prefab:
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, UnityEnhanced
+      value: UE.StateMachine.State, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
@@ -2927,7 +2927,7 @@ Prefab:
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, UnityEnhanced
+      value: UE.StateMachine.State, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
