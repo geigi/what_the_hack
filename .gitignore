@@ -114,3 +114,6 @@ AndroidPlugin/fastlane/readme.md
 .classpath
 .project
 .settings
+
+!Wth.ModApi/Wth.ModApi.sln
+Wth.ModApi/Wth.ModApi/bin
