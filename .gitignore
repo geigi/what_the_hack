@@ -43,6 +43,7 @@ Assets/Plugins/Editor.meta
 wth.sublime-workspace
 ExampleMod
 Mods
+!Assets/Scripts/Mods
 
 # Built application files
 *.apk
@@ -117,3 +118,4 @@ AndroidPlugin/fastlane/readme.md
 
 !Wth.ModApi/Wth.ModApi.sln
 Wth.ModApi/Wth.ModApi/bin
+Wth.ModApi/Wth.ModApi.Editor/bin
