@@ -2,6 +2,8 @@ using UnityEditor;
 using System.Linq;
 using System;
 
+#if UNITY_EDITOR
+
 static class BuildCommand
 {
 	static string GetArgument (string name)
@@ -121,3 +123,5 @@ static class BuildCommand
 		Console.WriteLine (":: Done with build");
 	}
 }
+
+#endif

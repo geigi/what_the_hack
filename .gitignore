@@ -117,5 +117,7 @@ AndroidPlugin/fastlane/readme.md
 .settings
 
 !Wth.ModApi/Wth.ModApi.sln
+!Wth.ModApi/Wth.ModApi/Wth.ModApi.csproj
+!Wth.ModApi/Wth.ModApi.Editor/Wth.ModApi.Editor.csproj
 Wth.ModApi/Wth.ModApi/bin
 Wth.ModApi/Wth.ModApi.Editor/bin
