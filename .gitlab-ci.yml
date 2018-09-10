@@ -6,7 +6,8 @@ stages:
 - deploy
 
 variables:
-  BUILD_NAME: WhatTheHack
+  BUILD_NAME: What_The_Hack
+  GIT_SUBMODULE_STRATEGY: recursive
 
 .unity_before_script: &unity_before_script
   before_script:
@@ -41,6 +42,7 @@ variables:
   artifacts:
     paths:
     - $(pwd)/$TEST_PLATFORM-results.xml
+    expire_in: 2 weeks
 
 test-editmode:
   <<: *test
@@ -79,6 +81,7 @@ test-playmode:
   artifacts:
     paths:
     - ./Builds/
+    expire_in: 2 weeks
 #tip: uncomment following lines if you'd like to build only on master branch
 #   only:
 #     - master
@@ -117,5 +120,6 @@ pages:
   artifacts:
     paths:
     - public
+    expire_in: 2 weeks
   only:
   - master
