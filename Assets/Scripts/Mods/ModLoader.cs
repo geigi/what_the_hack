@@ -32,6 +32,18 @@ public class ModLoader : MonoBehaviour {
 		mods = new List<Mod>();
 		modManager = ModManager.instance;
 
+		var path = Application.dataPath;
+    	if (Application.platform == RuntimePlatform.OSXPlayer) {
+        	path += "/../../Mods";
+    	}
+    	else if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.LinuxPlayer) {
+        	path += "/../Mods";
+    	}
+
+#if !UNITY_ANDROID
+		modManager.AddSearchDirectory(path);
+#endif
+
 		modManager.refreshInterval = 15;
 
         foreach (Mod mod in modManager.mods)
