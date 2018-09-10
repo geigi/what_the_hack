@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 
 namespace Wth.ModApi.Editor
 {
@@ -9,13 +10,17 @@ namespace Wth.ModApi.Editor
     {
 
         public SkillSet skillSet;
+        private Dictionary<SkillDefinition, float> lastPercentageValues;
         private int viewIndex = 1;
 
+        private SkillDefinition skillToDecrease;
+        private float valueToDecreaseBy;
+        private float percentagesAdded = 0;
+        
         [MenuItem("Window/SkillEditor")]
         static void Init()
         {
             EditorWindow.GetWindow(typeof(SkillEditor));
-
         }
 
         void OnEnable()
@@ -36,6 +41,7 @@ namespace Wth.ModApi.Editor
             {
                 if (GUILayout.Button("Show Skill Set"))
                 {
+                    // Focuses the asset in the File Menu
                     EditorUtility.FocusProjectWindow();
                     Selection.activeObject = skillSet;
                 }
@@ -43,6 +49,7 @@ namespace Wth.ModApi.Editor
 
             if (GUILayout.Button("Open Skill Set"))
             {
+                //Opens an existing SkillSet
                 OpenSkillSet();
             }
 
@@ -60,11 +67,13 @@ namespace Wth.ModApi.Editor
                 GUILayout.Space(10);
                 if (GUILayout.Button("Create New Skill Set", GUILayout.ExpandWidth(false)))
                 {
+                    //Creates a new SkillSet and saves the Asset created
                     CreateNewSkillSet();
                 }
 
                 if (GUILayout.Button("Open Existing Skill Set", GUILayout.ExpandWidth(false)))
                 {
+                    //Opens an existing Skill Set
                     OpenSkillSet();
                 }
 
@@ -81,6 +90,7 @@ namespace Wth.ModApi.Editor
 
                 if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false)))
                 {
+                    //Gets the previous item in the Dictionary
                     if (viewIndex > 1)
                         viewIndex--;
                 }
@@ -90,6 +100,7 @@ namespace Wth.ModApi.Editor
                 {
                     if (viewIndex < skillSet.skills.Count)
                     {
+                        //Gets the next item in the Dictionary
                         viewIndex++;
                     }
                 }
@@ -98,11 +109,13 @@ namespace Wth.ModApi.Editor
 
                 if (GUILayout.Button("Add Skill", GUILayout.ExpandWidth(false)))
                 {
+                    //Adds a new Skill to the Dictionary
                     AddSkill();
                 }
 
                 if (GUILayout.Button("Delete Skill", GUILayout.ExpandWidth(false)))
                 {
+                    //Deletes a Skill from the Dictionary
                     DeleteSkill(viewIndex - 1);
                 }
 
@@ -128,7 +141,60 @@ namespace Wth.ModApi.Editor
                         skillsArray[viewIndex - 1].skillSprite, typeof(Sprite), false) as Sprite;
 
                     GUILayout.Space(10);
-                }
+
+                    EditorGUILayout.LabelField("The Skills occurence probability");
+
+                    GUILayout.Space(5);
+
+                    //The Percentage of a Skill, is saved as the Value in the Dictionary.
+
+                    if(percentagesAdded > 100)
+                    {
+                        skillSet.skills[skillToDecrease] -= valueToDecreaseBy;
+                    }
+                    this.percentagesAdded = 0;
+                    int arrayIndex = 0;
+                    List<KeyValuePair<SkillDefinition, float>> tempList = new List<KeyValuePair<SkillDefinition, float>>(skillSet.skills);
+                    SkillDefinition biggestPercentageSkill = skillSet.skills.FirstOrDefault(x => x.Value == skillSet.skills.Values.Max()).Key;
+                    SkillDefinition secondBiggestPercentageSkill = skillSet.skills.FirstOrDefault(x => x.Value == skillSet.skills.Values.Min()).Key;
+                    SkillDefinition lastModified = skillSet.skills.First().Key;
+
+                    foreach(KeyValuePair<SkillDefinition, float> skill in tempList) {
+                        //Create a new Slider for the percentage
+                        skillSet.skills[skill.Key] = EditorGUILayout.Slider(skill.Key.skillName, skillSet.skills[skill.Key], 0, 100);
+                        
+                        //Get the Skill with the second biggest Percentage, in case the Slider,
+                        // which is bein modified, is the one with the biggest Value.
+                        if (skill.Value > skillSet.skills[secondBiggestPercentageSkill] 
+                            && skill.Key != biggestPercentageSkill)
+                        {
+                            secondBiggestPercentageSkill = skill.Key;
+                        }
+
+                        //Get the skill which was last modified
+                        if (lastPercentageValues != null && arrayIndex < lastPercentageValues.Count()
+                            && lastPercentageValues[skill.Key] != skillSet.skills[skill.Key])
+                        {
+                            lastModified = skill.Key;
+                        } 
+                          
+                        // Add all Percentages together
+                        percentagesAdded += skillSet.skills[skill.Key];
+                        arrayIndex++;
+                    }
+                    if (percentagesAdded > 100)
+                    {
+                        skillToDecrease = biggestPercentageSkill;
+                        //Make sure, that the Slider which is being modified, does not decrease.
+                        if (lastModified == skillToDecrease)
+                        {
+                            skillToDecrease = secondBiggestPercentageSkill;
+                        }
+                        //Set the Amount to Decrease;
+                        this.valueToDecreaseBy = percentagesAdded - 100;
+                    }
+                    this.lastPercentageValues = skillSet.skills.ToDictionary(i => i.Key, i => i.Value);
+                } 
                 else
                 {
                     GUILayout.Label("This SkillSet is Empty.");
@@ -173,7 +239,7 @@ namespace Wth.ModApi.Editor
 
         void AddSkill()
         {
-            SkillDefinition newSkill = new SkillDefinition();
+            SkillDefinition newSkill = CreateInstance<SkillDefinition>();
             newSkill.skillName = "New Skill";
             skillSet.skills.Add(newSkill, 0);
             viewIndex = skillSet.skills.Count;
