@@ -10,17 +10,33 @@ public class CameraScreenFiller : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log(mainCamera.orthographicSize);
-		if (mainCamera.orthographicSize < 3.3f) {
-			pixelPerfectCamera.enabled = false;
-
-			//Fill ultra widescreen devices
-			float screenAspect = (float) Screen.width / (float) Screen.height;
-			if (screenAspect > 1.7777f) {
-				var width = background.sprite.bounds.size.x;
-				var height = width / screenAspect;
-				mainCamera.orthographicSize = height / 2;
+		if (pixelPerfectCamera != null) {
+			var pixelCameraSetting = PlayerPrefs.GetInt(SettingsManager.PixelPerfectCameraKey);
+			if (pixelCameraSetting == (int)SettingsManager.PixelPerfectCameraValue.Off) {
+				FillScreen();
 			}
+			else if (pixelCameraSetting == (int)SettingsManager.PixelPerfectCameraValue.Automatic) {
+				if (mainCamera.orthographicSize < 3.3f) {
+					FillScreen();
+				}
+			}
+			else if (pixelCameraSetting == (int)SettingsManager.PixelPerfectCameraValue.ForceOn) {
+				// Don't do anything, Pixel Perfect Camera is already enabled
+			}
+		}
+	}
+
+	private void FillScreen() {
+		if (pixelPerfectCamera != null) {
+			pixelPerfectCamera.enabled = false;
+		}
+
+		//Fill ultra widescreen devices
+		float screenAspect = (float) Screen.width / (float) Screen.height;
+		if (screenAspect > 1.7777f) {
+			var width = background.sprite.bounds.size.x;
+			var height = width / screenAspect;
+			mainCamera.orthographicSize = height / 2;
 		}
 	}
 }
