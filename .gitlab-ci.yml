@@ -107,7 +107,7 @@ Windows-x86_64:
   variables:
     BUILD_TARGET: StandaloneWindows64
 
-build-WebGL:
+WebGL:
   <<: *build
   variables:
     BUILD_TARGET: WebGL
