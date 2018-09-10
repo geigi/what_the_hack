@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+#if !UNITY_WEBGL
 using ModTool;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 using Wth.ModApi;
@@ -11,9 +13,12 @@ public class ModLoader : MonoBehaviour {
 	public Image banner;
 	public GameObject loadingPanel;
 
+#if !UNITY_WEBGL
 	private Mod currentMod;
 	private List<Mod> mods;
 	private ModManager modManager;
+#endif
+
 	private string baseTitle, baseDescription;
 	private Sprite baseBanner;
 
@@ -23,6 +28,7 @@ public class ModLoader : MonoBehaviour {
 		baseDescription = descriptionText.text;
 		baseBanner = banner.sprite;
 
+#if !UNITY_WEBGL
 		mods = new List<Mod>();
 		modManager = ModManager.instance;
 
@@ -34,8 +40,10 @@ public class ModLoader : MonoBehaviour {
         modManager.ModFound += OnModFound;
         modManager.ModRemoved += OnModRemoved;
 		modManager.ModLoaded += OnModLoaded;
+#endif
 	}
 
+#if !UNITY_WEBGL
 	public void NextMod() {
 		if (currentMod != null) {
 			var currentModIndex = mods.FindIndex(p => p == currentMod);
@@ -136,4 +144,5 @@ public class ModLoader : MonoBehaviour {
 		Debug.Log("AssetPaths:");
 		Debug.Log(mod.assetPaths);
 	}
+#endif
 }

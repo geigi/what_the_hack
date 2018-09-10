@@ -691,6 +691,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     1: 
     7: 
+    13: 
   platformArchitecture: {}
   scriptingBackend:
     Android: 0
