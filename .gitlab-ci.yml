@@ -86,12 +86,12 @@ test-playmode:
 #   only:
 #     - master
 
-build-StandaloneLinux64:
+Linux-x86_64:
   <<: *build
   variables:
     BUILD_TARGET: StandaloneLinux64
 
-build-StandaloneOSX:
+macOS:
   <<: *build
   variables:
     BUILD_TARGET: StandaloneOSX
@@ -102,12 +102,12 @@ build-StandaloneOSX:
 #   variables:
 #     BUILD_TARGET: StandaloneOSXUniversal
 
-build-StandaloneWindows64:
+Windows-x86_64:
   <<: *build
   variables:
     BUILD_TARGET: StandaloneWindows64
 
-build-WebGL:
+WebGL:
   <<: *build
   variables:
     BUILD_TARGET: WebGL
