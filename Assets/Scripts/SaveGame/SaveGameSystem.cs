@@ -15,7 +15,7 @@ public static class SaveGameSystem {
     /// <returns>Successfully saved?</returns>
 	public static bool SaveGame(SaveGame saveGame, string name)
     {
-        BinaryFormatter formatter = new BinaryFormatter();
+        var formatter = new BinaryFormatter();
 
         using (var stream = new FileStream(GetSavePath(name), FileMode.Create))
         {
@@ -44,7 +44,7 @@ public static class SaveGameSystem {
             return null;
         }
 
-        BinaryFormatter formatter = new BinaryFormatter();
+        var formatter = new BinaryFormatter();
    
         using (var stream = new FileStream(GetSavePath(name), FileMode.Open))
         {

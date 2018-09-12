@@ -33,7 +33,7 @@ public class CameraScreenFiller : MonoBehaviour {
 
 	private void FillScreen() {
 		//Fill ultra widescreen devices
-		float screenAspect = (float) Screen.width / (float) Screen.height;
+		float screenAspect = Screen.width / (float) Screen.height;
 		if (screenAspect > 1.7777f) {
 			var width = background.sprite.bounds.size.x;
 			var height = width / screenAspect;
