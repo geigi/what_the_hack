@@ -12,7 +12,8 @@ namespace Wth.ModApi.Editor
         public SkillSet skillSet;
         private int viewIndex = 1;
 
-        private SkillDefinition skillToDecrease;
+        private List<float> lastValues;
+        private int skillIndexToDecrease;
         private float valueToDecreaseBy;
         private float percentagesAdded = 0;
         
@@ -58,6 +59,23 @@ namespace Wth.ModApi.Editor
                 Selection.activeObject = skillSet;
             }
 
+            if (GUILayout.Button("Save Skills"))
+            {
+                int count = skillSet.keys.Count;
+                for(int i = 0; i < count; i++)
+                {
+                    var asset = skillSet.keys[i];
+                    SkillDefinition saved = ScriptableObject.CreateInstance<SkillDefinition>();
+                    saved.skillName = asset.skillName;
+                    saved.skillSprite = asset.skillSprite;
+                    string assetPath = AssetDatabase.GetAssetPath(asset);
+                    AssetDatabase.DeleteAsset(assetPath);
+                    AssetDatabase.CreateAsset(saved, assetPath);
+                    skillSet.keys[i] = saved;
+                    AssetDatabase.SaveAssets();
+                }
+            }
+
             GUILayout.EndHorizontal();
 
             if (skillSet == null)
@@ -97,7 +115,7 @@ namespace Wth.ModApi.Editor
                 GUILayout.Space(5);
                 if (GUILayout.Button("Next", GUILayout.ExpandWidth(false)))
                 {
-                    if (viewIndex < skillSet.skills.Count)
+                    if (viewIndex < skillSet.keys.Count)
                     {
                         //Gets the next item in the Dictionary
                         viewIndex++;
@@ -117,28 +135,24 @@ namespace Wth.ModApi.Editor
                     //Deletes a Skill from the Dictionary
                     DeleteSkill(viewIndex - 1);
                 }
-
                 GUILayout.EndHorizontal();
-                if (skillSet.skills == null)
+                if (skillSet.keys == null || skillSet.values == null)
                     Debug.Log("wtf");
-                if (skillSet.skills.Count > 0)
+                if (skillSet.keys.Count > 0)
                 {
                     GUILayout.BeginHorizontal();
                     viewIndex = Mathf.Clamp(
                         EditorGUILayout.IntField("Current Skill", viewIndex, GUILayout.ExpandWidth(false)), 1,
-                        skillSet.skills.Count);
-                    EditorGUILayout.LabelField("of   " + skillSet.skills.Count.ToString() + "  skills", "",
+                        skillSet.keys.Count);
+                    EditorGUILayout.LabelField("of   " + skillSet.keys.Count.ToString() + "  skills", "",
                         GUILayout.ExpandWidth(false));
                     GUILayout.EndHorizontal();
 
-                    Dictionary<SkillDefinition, float>.KeyCollection keyCollection = skillSet.skills.Keys;
-                    SkillDefinition[] skillsArray = new SkillDefinition[skillSet.skills.Count];
-                    keyCollection.CopyTo(skillsArray, 0);
-                    skillsArray[viewIndex - 1].skillName = EditorGUILayout.TextField("Skill Name",
-                        skillsArray[viewIndex - 1].skillName as string);
-                    skillsArray[viewIndex - 1].skillSprite = EditorGUILayout.ObjectField("Skill Icon",
-                        skillsArray[viewIndex - 1].skillSprite, typeof(Sprite), false) as Sprite;
-
+                    skillSet.keys[viewIndex - 1].skillName = EditorGUILayout.TextField("Skill Name",
+                        skillSet.keys[viewIndex - 1].skillName as string);
+                    skillSet.keys[viewIndex - 1].skillSprite = EditorGUILayout.ObjectField("Skill Icon",
+                        skillSet.keys[viewIndex - 1].skillSprite, typeof(Sprite), false) as Sprite;
+                    
                     GUILayout.Space(10);
 
                     EditorGUILayout.LabelField("The Skills occurence probability");
@@ -148,47 +162,47 @@ namespace Wth.ModApi.Editor
                     //Adjust the Probability, if there are over 100.
                     if(percentagesAdded > 100)
                     {
-                        skillSet.skills[skillToDecrease] -= valueToDecreaseBy;
+                        skillSet.values[skillIndexToDecrease] -= valueToDecreaseBy;
                     }
 
                     this.percentagesAdded = 0;
-                    List<KeyValuePair<SkillDefinition, float>> tempList = new List<KeyValuePair<SkillDefinition, float>>(skillSet.skills);
                     //Set the skill to be decreased, to the skill with the biggest Percentage
-                    this.skillToDecrease = skillSet.skills.FirstOrDefault(x => x.Value == skillSet.skills.Values.Max()).Key;
+                    this.skillIndexToDecrease = skillSet.values.IndexOf(skillSet.values.Max()); 
                     //Calculate the second Biggest Probability, in case the biggest skillProbability is being Modified.
-                    SkillDefinition secondBiggestPercentageSkill = skillSet.skills.FirstOrDefault(x => x.Value == skillSet.skills.Values.Min()).Key;
-                    SkillDefinition lastModified = skillSet.skills.First().Key;
+                    int secondBiggestPercentageSkillIndex = skillSet.values.IndexOf(skillSet.values.Min());
+                    SkillDefinition lastModified = skillSet.keys[0];
 
-                    foreach(KeyValuePair<SkillDefinition, float> skill in tempList) {
+                    for (int i = 0; i < skillSet.keys.Count; i++) {
                         //Create a new Slider for the percentage
-                        skillSet.skills[skill.Key] = EditorGUILayout.Slider(skill.Key.skillName, skillSet.skills[skill.Key], 0, 100);
+                        skillSet.values[i] = EditorGUILayout.Slider(skillSet.keys[i].skillName, skillSet.values[i], 0, 100);
                         
                         //Get the Skill with the second biggest Percentage
-                        if (skill.Value > skillSet.skills[secondBiggestPercentageSkill] 
-                            && skill.Key != this.skillToDecrease)
+                        if (skillSet.values[i] > skillSet.values[secondBiggestPercentageSkillIndex] 
+                            && i != skillIndexToDecrease)
                         {
-                            secondBiggestPercentageSkill = skill.Key;
+                            secondBiggestPercentageSkillIndex = i;
                         }
 
                         //Get the skill which was last modified
-                        if (skill.Value != skillSet.skills[skill.Key])
+                        if (lastValues != null && lastValues.Count > i && skillSet.values[i] != lastValues[i])
                         {
-                            lastModified = skill.Key;
+                            lastModified = skillSet.keys[i];
                         } 
                           
                         // Add all Percentages together
-                        percentagesAdded += skillSet.skills[skill.Key];
+                        percentagesAdded += skillSet.values[i];
                     }
                     if (percentagesAdded > 100)
                     {
                         //Make sure, that the Slider which is currently being modified, does not decrease.
-                        if (lastModified == skillToDecrease)
+                        if (lastModified == skillSet.keys[skillIndexToDecrease])
                         {
-                            skillToDecrease = secondBiggestPercentageSkill;
+                            skillIndexToDecrease = secondBiggestPercentageSkillIndex;
                         }
                         //Set the Amount to Decrease;
                         this.valueToDecreaseBy = percentagesAdded - 100;
                     }
+                    this.lastValues = new List<float>(skillSet.values);
                 } 
                 else
                 {
@@ -210,7 +224,8 @@ namespace Wth.ModApi.Editor
             skillSet = CreateSkillSet.Create();
             if (skillSet)
             {
-                skillSet.skills = new Dictionary<SkillDefinition, float>();
+                skillSet.keys = new List<SkillDefinition>();
+                skillSet.values = new List<float>();
                 string relPath = AssetDatabase.GetAssetPath(skillSet);
                 EditorPrefs.SetString("ObjectPath", relPath);
             }
@@ -223,8 +238,10 @@ namespace Wth.ModApi.Editor
             {
                 string relPath = absPath.Substring(Application.dataPath.Length - "Assets".Length);
                 skillSet = AssetDatabase.LoadAssetAtPath(relPath, typeof(SkillSet)) as SkillSet;
-                if (skillSet.skills == null)
-                    skillSet.skills = new Dictionary<SkillDefinition, float>();
+                if (skillSet.keys == null)
+                    skillSet.keys = new List<SkillDefinition>();
+                if (skillSet.values == null)
+                    skillSet.values = new List<float>();
                 if (skillSet)
                 {
                     EditorPrefs.SetString("ObjectPath", relPath);
@@ -234,19 +251,22 @@ namespace Wth.ModApi.Editor
 
         void AddSkill()
         {
-            SkillDefinition newSkill = CreateInstance<SkillDefinition>();
-            newSkill.skillName = "New Skill";
-            skillSet.skills.Add(newSkill, 0);
-            viewIndex = skillSet.skills.Count;
+            var asset = ScriptableObject.CreateInstance<SkillDefinition>();
+
+            AssetDatabase.CreateAsset(asset, "Assets/Data/Skills/Skill " + skillSet.keys.Count + ".asset");
+            AssetDatabase.SaveAssets();
+            asset.skillName = "New Skill";
+            skillSet.keys.Add(asset);
+            skillSet.values.Add(0);
+            viewIndex = skillSet.keys.Count;
         }
 
         void DeleteSkill(int index)
         {
-            Dictionary<SkillDefinition, float>.KeyCollection keyCollection = skillSet.skills.Keys;
-            SkillDefinition[] skillsArray = new SkillDefinition[skillSet.skills.Count];
-            keyCollection.CopyTo(skillsArray, 0);
-            SkillDefinition key = skillsArray[index];
-            skillSet.skills.Remove(key);
+            var item = skillSet.keys[index];
+            AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(item));
+            skillSet.keys.Remove(item);
+            skillSet.values.RemoveAt(index);
         }
     }
 }
