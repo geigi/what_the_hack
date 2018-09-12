@@ -12,8 +12,5 @@ namespace Wth.ModApi
 
         //Sprite des Skills
         public Sprite skillSprite;
-
-        //Auftrittswahrscheinlichkeit des Skills
-        [Range(0f, 1f)] public float percentage;
     }
 }

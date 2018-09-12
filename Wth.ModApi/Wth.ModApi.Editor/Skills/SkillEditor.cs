@@ -10,7 +10,6 @@ namespace Wth.ModApi.Editor
     {
 
         public SkillSet skillSet;
-        private Dictionary<SkillDefinition, float> lastPercentageValues;
         private int viewIndex = 1;
 
         private SkillDefinition skillToDecrease;
@@ -146,16 +145,17 @@ namespace Wth.ModApi.Editor
 
                     GUILayout.Space(5);
 
-                    //The Percentage of a Skill, is saved as the Value in the Dictionary.
-
+                    //Adjust the Probability, if there are over 100.
                     if(percentagesAdded > 100)
                     {
                         skillSet.skills[skillToDecrease] -= valueToDecreaseBy;
                     }
+
                     this.percentagesAdded = 0;
-                    int arrayIndex = 0;
                     List<KeyValuePair<SkillDefinition, float>> tempList = new List<KeyValuePair<SkillDefinition, float>>(skillSet.skills);
-                    SkillDefinition biggestPercentageSkill = skillSet.skills.FirstOrDefault(x => x.Value == skillSet.skills.Values.Max()).Key;
+                    //Set the skill to be decreased, to the skill with the biggest Percentage
+                    this.skillToDecrease = skillSet.skills.FirstOrDefault(x => x.Value == skillSet.skills.Values.Max()).Key;
+                    //Calculate the second Biggest Probability, in case the biggest skillProbability is being Modified.
                     SkillDefinition secondBiggestPercentageSkill = skillSet.skills.FirstOrDefault(x => x.Value == skillSet.skills.Values.Min()).Key;
                     SkillDefinition lastModified = skillSet.skills.First().Key;
 
@@ -163,29 +163,25 @@ namespace Wth.ModApi.Editor
                         //Create a new Slider for the percentage
                         skillSet.skills[skill.Key] = EditorGUILayout.Slider(skill.Key.skillName, skillSet.skills[skill.Key], 0, 100);
                         
-                        //Get the Skill with the second biggest Percentage, in case the Slider,
-                        // which is bein modified, is the one with the biggest Value.
+                        //Get the Skill with the second biggest Percentage
                         if (skill.Value > skillSet.skills[secondBiggestPercentageSkill] 
-                            && skill.Key != biggestPercentageSkill)
+                            && skill.Key != this.skillToDecrease)
                         {
                             secondBiggestPercentageSkill = skill.Key;
                         }
 
                         //Get the skill which was last modified
-                        if (lastPercentageValues != null && arrayIndex < lastPercentageValues.Count()
-                            && lastPercentageValues[skill.Key] != skillSet.skills[skill.Key])
+                        if (skill.Value != skillSet.skills[skill.Key])
                         {
                             lastModified = skill.Key;
                         } 
                           
                         // Add all Percentages together
                         percentagesAdded += skillSet.skills[skill.Key];
-                        arrayIndex++;
                     }
                     if (percentagesAdded > 100)
                     {
-                        skillToDecrease = biggestPercentageSkill;
-                        //Make sure, that the Slider which is being modified, does not decrease.
+                        //Make sure, that the Slider which is currently being modified, does not decrease.
                         if (lastModified == skillToDecrease)
                         {
                             skillToDecrease = secondBiggestPercentageSkill;
@@ -193,7 +189,6 @@ namespace Wth.ModApi.Editor
                         //Set the Amount to Decrease;
                         this.valueToDecreaseBy = percentagesAdded - 100;
                     }
-                    this.lastPercentageValues = skillSet.skills.ToDictionary(i => i.Key, i => i.Value);
                 } 
                 else
                 {
