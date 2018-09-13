@@ -63,7 +63,7 @@ test-playmode:
   script: |
     echo "Building Wth.Api Solution"
     export BUILD_PATH=./Wth.ModApi/Wth.ModApi/bin/Release/
-    /opt/Unity/Editor/Data/MonoBleedingEdge/lib/mono/msbuild ./Wth.ModApi/Wth.ModApi.sln /t:Build /p:Configuration=Release
+    /opt/Unity/Editor/Data/Mono/bin/xbuild ./Wth.ModApi/Wth.ModApi.sln /t:Build /p:Configuration=Release
     ls -la $BUILD_PATH
     [ -n "$(ls -A $BUILD_PATH)" ] # fail job if build folder is empty
 
