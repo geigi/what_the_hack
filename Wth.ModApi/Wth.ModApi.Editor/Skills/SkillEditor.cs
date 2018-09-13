@@ -251,10 +251,8 @@ namespace Wth.ModApi.Editor
 
         void AddSkill()
         {
-            var asset = ScriptableObject.CreateInstance<SkillDefinition>();
+            var asset = CreateSkillDefinition.Create("Assets/Data/Skills/Skill " + skillSet.keys.Count + ".asset");
 
-            AssetDatabase.CreateAsset(asset, "Assets/Data/Skills/Skill " + skillSet.keys.Count + ".asset");
-            AssetDatabase.SaveAssets();
             asset.skillName = "New Skill";
             skillSet.keys.Add(asset);
             skillSet.values.Add(0);
