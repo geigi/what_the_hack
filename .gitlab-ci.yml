@@ -10,7 +10,7 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
   ANDROID_COMPILE_SDK: "28"
   ANDROID_BUILD_TOOLS: "28.0.2"
-  ANDROID_SDK_TOOLS: "26.1.1"
+  ANDROID_SDK_TOOLS: "24.0.2"
 
 .android_before_script: &android_before_script
   before_script:
@@ -33,6 +33,8 @@ variables:
   - mkdir -p /root/.cache/unity3d
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
+#  - cp -rf ./AndroidPlugin/notificationprovider/build/outputs/aar/* ./Assets/Plugins/Android/
+#  - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
 
 #test-android:
 #  image: openjdk:8-jdk
