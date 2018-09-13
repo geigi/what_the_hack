@@ -19,7 +19,7 @@ test-api:
   image: "mono:latest"
   stage: test
   script:
-  - msbuild /p:Configuration="Debug" /p:Platform="Any CPU" "MyProject.sln" ./Wth.ModApi/Wth.ModApi.sln
+  - msbuild /p:Configuration="Debug" /p:Platform="Any CPU" ./Wth.ModApi/Wth.ModApi.sln
 
 .test: &test
   stage: test
