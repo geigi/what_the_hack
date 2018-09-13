@@ -34,14 +34,14 @@ variables:
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
 
-test-android:
-  image: openjdk:8-jdk
-  stage: test
-  <<: *android_before_script
-  script:
-    - ./AndroidPlugin/gradlew test
-  variables:
-    PROJECT_DIR: AndroidPlugin
+#test-android:
+#  image: openjdk:8-jdk
+#  stage: test
+#  <<: *android_before_script
+#  script:
+#    - ./AndroidPlugin/gradlew test
+#  variables:
+#    PROJECT_DIR: AndroidPlugin
 
 test-api:
   image: "mono:latest"
