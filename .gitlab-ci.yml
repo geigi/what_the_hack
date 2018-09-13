@@ -2,8 +2,7 @@ image: "gableroux/unity3d:2018.2.6f1"
 
 stages:
 - test
-- build-api
-- build-unity
+- build
 - deploy
 
 variables:
@@ -15,6 +14,12 @@ variables:
   - mkdir -p /root/.cache/unity3d
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
+
+test-api:
+  image: "mono:latest"
+  stage: test
+  script:
+  - msbuild /p:Configuration="Debug" /p:Platform="Any CPU" "MyProject.sln" ./Wth.ModApi/Wth.ModApi.sln
 
 .test: &test
   stage: test
@@ -54,16 +59,14 @@ test-playmode:
   <<: *test
   variables:
     TEST_PLATFORM: playmode
-    
-.build-api: &build-api
-  stage: build-api
-  #tip: you can reuse same stage to do everything in parallel and reduce overall time
-  # stage: test
-  <<: *unity_before_script
+
+build-api:
+  image: "mono:latest"
+  stage: build
   script: |
     echo "Building Wth.Api Solution"
     export BUILD_PATH=./Wth.ModApi/Wth.ModApi/bin/Release/
-    /opt/Unity/Editor/Data/Mono/bin/xbuild ./Wth.ModApi/Wth.ModApi.sln /t:Build /p:Configuration=Release
+    msbuild /p:Configuration="Release" ./Wth.ModApi/Wth.ModApi.sln
     ls -la $BUILD_PATH
     [ -n "$(ls -A $BUILD_PATH)" ] # fail job if build folder is empty
 
@@ -73,11 +76,8 @@ test-playmode:
     - ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/
     expire_in: 2 weeks
 
-Wth.ModApi:
-  <<: *build-api
-
 .build-unity: &build-unity
-  stage: build-unity
+  stage: build
   #tip: you can reuse same stage to do everything in parallel and reduce overall time
   # stage: test
   <<: *unity_before_script
