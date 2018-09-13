@@ -8,9 +8,9 @@ stages:
 variables:
   BUILD_NAME: What_The_Hack
   GIT_SUBMODULE_STRATEGY: recursive
-  ANDROID_COMPILE_SDK: "25"
-  ANDROID_BUILD_TOOLS: "24.0.0"
-  ANDROID_SDK_TOOLS: "24.4.1"
+  ANDROID_COMPILE_SDK: "28"
+  ANDROID_BUILD_TOOLS: "28.0.2"
+  ANDROID_SDK_TOOLS: "26.1.1"
 
 .android_before_script: &android_before_script
   before_script:
