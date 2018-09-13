@@ -13,6 +13,7 @@ variables:
   ANDROID_SDK_TOOLS: "24.4.1"
 
 .android_before_script: &android_before_script
+  before_script:
   - apt-get --quiet update --yes
   - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
   - wget --quiet --output-document=android-sdk.tgz https://dl.google.com/android/android-sdk_r${ANDROID_SDK_TOOLS}-linux.tgz
