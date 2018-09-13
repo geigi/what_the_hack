@@ -26,7 +26,7 @@ variables:
   - echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
-  - chmod +x ./gradlew
+  - chmod +x ./${PROJECT_DIR}/gradlew
 
 .unity_before_script: &unity_before_script
   before_script:
@@ -40,6 +40,8 @@ test-android:
   <<: *android_before_script
   script:
     - ./AndroidPlugin/gradlew test
+  variables:
+    PROJECT_DIR: AndroidPlugin
 
 test-api:
   image: "mono:latest"
@@ -76,17 +78,17 @@ test-api:
     - $(pwd)/$TEST_PLATFORM-results.xml
     expire_in: 2 weeks
 
-test-editmode:
+test-unity-editmode:
   <<: *test
   variables:
     TEST_PLATFORM: editmode
 
-test-playmode:
+test-unity-playmode:
   <<: *test
   variables:
     TEST_PLATFORM: playmode
 
-AndroidPlugin:
+build-AndroidPlugin:
   image: openjdk:8-jdk
   stage: build
   <<: *android_before_script
@@ -96,8 +98,10 @@ AndroidPlugin:
     paths:
     - AndroidPlugin/notificationprovider/build/outputs/
     expire_in: 2 weeks
+  variables:
+    PROJECT_DIR: AndroidPlugin
 
-Wth.ModApi:
+build-Wth.ModApi:
   image: "mono:latest"
   stage: build
   script: |
@@ -145,12 +149,12 @@ Wth.ModApi:
 #   only:
 #     - master
 
-Linux-x86_64:
+build-unity-Linux-x86_64:
   <<: *build-unity
   variables:
     BUILD_TARGET: StandaloneLinux64
 
-macOS:
+build-unity-macOS:
   <<: *build-unity
   variables:
     BUILD_TARGET: StandaloneOSX
@@ -161,12 +165,12 @@ macOS:
 #   variables:
 #     BUILD_TARGET: StandaloneOSXUniversal
 
-Windows-x86_64:
+build-unity-Windows-x86_64:
   <<: *build-unity
   variables:
     BUILD_TARGET: StandaloneWindows64
 
-WebGL:
+build-unity-WebGL:
   <<: *build-unity
   variables:
     BUILD_TARGET: WebGL
