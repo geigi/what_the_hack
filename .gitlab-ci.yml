@@ -8,27 +8,10 @@ stages:
 variables:
   BUILD_NAME: What_The_Hack
   GIT_SUBMODULE_STRATEGY: recursive
-  ANDROID_COMPILE_SDK: "28"
-  ANDROID_BUILD_TOOLS: "27.0.3"
-  ANDROID_SDK_TOOLS: "26.1.1"
 
 .android_before_script: &android_before_script
   before_script:
-  - apt-get --quiet update --yes
-  - apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
-  - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-  - mkdir android-sdk-linux
-  - unzip android-sdk.zip -d android-sdk-linux
-  - echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter android-${ANDROID_COMPILE_SDK}
-  - echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter "platforms;android-${ANDROID_COMPILE_SDK}"
-  - echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter platform-tools
-  - echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter build-tools-${ANDROID_BUILD_TOOLS}
-  - echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-android-m2repository
-  - echo y | android-sdk-linux/tools/android --silent update sdk --no-ui --all --filter extra-google-m2repository
-  - ls -la
-  - yes | ./android-sdk-linux/tools/bin/sdkmanager --licenses
-  - export ANDROID_HOME=$PWD/android-sdk-linux
-  - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
   - chmod +x ./${PROJECT_DIR}/gradlew
 
 .unity_before_script: &unity_before_script
@@ -94,7 +77,7 @@ test-unity-playmode:
     TEST_PLATFORM: playmode
 
 build-AndroidPlugin:
-  image: openjdk:8-jdk
+  image: jangrewe/gitlab-ci-android
   stage: build
   <<: *android_before_script
   script:
