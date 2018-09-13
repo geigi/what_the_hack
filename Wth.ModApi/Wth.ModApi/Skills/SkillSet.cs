@@ -6,8 +6,7 @@ namespace Wth.ModApi
 {
     public class SkillSet : ScriptableObject
     {
-        // Dictionary mit SkillDefinition als Key und deren Auftrittswahrscheinlichkeit als Value
-        public Dictionary<SkillDefinition, float> skills = new Dictionary<SkillDefinition, float>();
-
+        public List<SkillDefinition> keys;
+        public List<float> values;
     }
 }

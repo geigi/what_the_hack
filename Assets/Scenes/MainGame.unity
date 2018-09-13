@@ -4453,8 +4453,8 @@ GameObject:
   m_Component:
   - component: {fileID: 880719679}
   - component: {fileID: 880719678}
-  - component: {fileID: 880719677}
   - component: {fileID: 880719675}
+  - component: {fileID: 880719677}
   - component: {fileID: 880719676}
   m_Layer: 0
   m_Name: Main Camera
@@ -4469,7 +4469,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 880719674}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
   m_Name: 
@@ -4530,7 +4530,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.2
+  orthographic size: 3.4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5742,12 +5742,12 @@ Prefab:
     - target: {fileID: 224149335157836840, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224712547996869410, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1536429215832930, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 2}
       propertyPath: m_IsActive
