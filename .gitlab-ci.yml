@@ -21,12 +21,6 @@ variables:
   - mkdir -p /root/.cache/unity3d
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
-
-.copy_dependencies_before_script: &copy_dependencies_before_script
-  before_script:
-  - mkdir -p /root/.cache/unity3d
-  - mkdir -p /root/.local/share/unity3d/Unity/
-  - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
   - cp -rf ./AndroidPlugin/notificationprovider/build/outputs/aar/* ./Assets/Plugins/Android/
   - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
@@ -120,7 +114,7 @@ build-Wth.ModApi:
   stage: build-main
   #tip: you can reuse same stage to do everything in parallel and reduce overall time
   # stage: test
-  <<: *copy_dependencies_before_script
+  <<: *unity_before_script
   script: |
     echo "Building for $BUILD_TARGET"
     export BUILD_PATH=./Builds/$BUILD_TARGET/
