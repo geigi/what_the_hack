@@ -121,3 +121,6 @@ AndroidPlugin/fastlane/readme.md
 !Wth.ModApi/Wth.ModApi.Editor/Wth.ModApi.Editor.csproj
 Wth.ModApi/Wth.ModApi/bin
 Wth.ModApi/Wth.ModApi.Editor/bin
+
+# Mod API DLLs which should be build locally
+Assets/ModTool/Wth.ModApi.*
