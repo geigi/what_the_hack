@@ -2,7 +2,8 @@ image: "gableroux/unity3d:2018.2.6f1"
 
 stages:
 - test
-- build
+- build-dependencies
+- build-main
 - deploy
 
 variables:
@@ -19,8 +20,16 @@ variables:
   - mkdir -p /root/.cache/unity3d
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
-#  - cp -rf ./AndroidPlugin/notificationprovider/build/outputs/aar/* ./Assets/Plugins/Android/
-#  - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
+
+.copy_dependencies_before_script: &copy_dependencies_before_script
+  - mkdir -p /root/.cache/unity3d
+  - mkdir -p /root/.local/share/unity3d/Unity/
+  - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
+  - cp -rf ./AndroidPlugin/notificationprovider/build/outputs/aar/* ./Assets/Plugins/Android/
+  - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
+  - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
+  - cp -rf ./Wth.ModApi/Wth.ModApi.dll.txt ./Assets/ModTool/Wth.ModApi.dll.meta
+  - cp -rf ./Wth.ModApi/Wth.ModApi.Editor.dll.txt ./Assets/ModTool/Wth.ModApi.Editor.dll.meta
 
 #test-android:
 #  image: openjdk:8-jdk
@@ -78,7 +87,7 @@ test-unity-playmode:
 
 build-AndroidPlugin:
   image: jangrewe/gitlab-ci-android
-  stage: build
+  stage: build-dependencies
   <<: *android_before_script
   script:
     - ./AndroidPlugin/gradlew assembleDebug -p ./AndroidPlugin
@@ -91,7 +100,7 @@ build-AndroidPlugin:
 
 build-Wth.ModApi:
   image: "mono:latest"
-  stage: build
+  stage: build-dependencies
   script: |
     echo "Building Wth.Api Solution"
     export BUILD_PATH=./Wth.ModApi/Wth.ModApi/bin/Release/
@@ -106,10 +115,10 @@ build-Wth.ModApi:
     expire_in: 2 weeks
 
 .build-unity: &build-unity
-  stage: build
+  stage: build-main
   #tip: you can reuse same stage to do everything in parallel and reduce overall time
   # stage: test
-  <<: *unity_before_script
+  <<: *copy_dependencies_before_script
   script: |
     echo "Building for $BUILD_TARGET"
     export BUILD_PATH=./Builds/$BUILD_TARGET/
