@@ -63,6 +63,11 @@ public class EmployeeEditor : EditorWindow
             }
             GUILayout.EndHorizontal();
         }
+        
+        if (GUILayout.Button("Save Employees"))
+        {
+            AssetDatabase.SaveAssets();
+        }
 
         GUILayout.Space(20);
 
@@ -169,10 +174,10 @@ public class EmployeeEditor : EditorWindow
         var asset = ScriptableObject.CreateInstance<EmployeeData>();
 
         AssetDatabase.CreateAsset(asset, "Assets/Data/Employees/Employee " + employeeList.employeeList.Count + ".asset");
-        AssetDatabase.SaveAssets();
         asset.employeeName = "Max Mustermann";
         employeeList.employeeList.Add(asset);
         viewIndex = employeeList.employeeList.Count;
+        AssetDatabase.SaveAssets();
     }
 
     void DeleteItem(int index)
