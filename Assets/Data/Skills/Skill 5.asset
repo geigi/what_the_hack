@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1400036974, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
-  m_Name: Skill 1
+  m_Name: Skill 5
   m_EditorClassIdentifier: 
-  skillName: Social Engineering
-  skillSprite: {fileID: 21300000, guid: aabb6b0b7e43441c0b9b1d38bde2f91d, type: 3}
+  skillName: Search
+  skillSprite: {fileID: 21300000, guid: d99a74b7addf9497eb2d9254c0f8bf0a, type: 3}

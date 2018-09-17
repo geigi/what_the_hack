@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 1400036974, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
   m_Name: Skill 0
   m_EditorClassIdentifier: 
-  skillName: sadadasd
-  skillSprite: {fileID: 0}
+  skillName: All Purpose
+  skillSprite: {fileID: 21300000, guid: f7908a635e0d84abb9112295752d62e6, type: 3}

@@ -61,19 +61,7 @@ namespace Wth.ModApi.Editor
 
             if (GUILayout.Button("Save Skills"))
             {
-                int count = skillSet.keys.Count;
-                for(int i = 0; i < count; i++)
-                {
-                    var asset = skillSet.keys[i];
-                    SkillDefinition saved = ScriptableObject.CreateInstance<SkillDefinition>();
-                    saved.skillName = asset.skillName;
-                    saved.skillSprite = asset.skillSprite;
-                    string assetPath = AssetDatabase.GetAssetPath(asset);
-                    AssetDatabase.DeleteAsset(assetPath);
-                    AssetDatabase.CreateAsset(saved, assetPath);
-                    skillSet.keys[i] = saved;
-                    AssetDatabase.SaveAssets();
-                }
+                AssetDatabase.SaveAssets();
             }
 
             GUILayout.EndHorizontal();
