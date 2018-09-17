@@ -10,7 +10,7 @@ public class EmployeeEditor : EditorWindow
     public EmployeeList employeeList;
     private int viewIndex = 1;
 
-    [MenuItem("Window/Employee Editor %#e")]
+    [MenuItem("Tools/What_The_Hack ModApi/Employee Creator")]
     static void Init()
     {
         EditorWindow.GetWindow(typeof(EmployeeEditor));

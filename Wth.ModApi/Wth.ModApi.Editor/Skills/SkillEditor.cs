@@ -17,7 +17,7 @@ namespace Wth.ModApi.Editor
         private float valueToDecreaseBy;
         private float percentagesAdded = 0;
         
-        [MenuItem("Window/SkillEditor")]
+        [MenuItem("Tools/What_The_Hack ModApi/Skill Creator")]
         static void Init()
         {
             EditorWindow.GetWindow(typeof(SkillEditor));
