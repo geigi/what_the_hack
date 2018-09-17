@@ -8,7 +8,7 @@ namespace Wth.ModApi
     public class SkillDefinition : ScriptableObject
     {
         //Name des Skills
-        public String skillName;
+        public string skillName;
 
         //Sprite des Skills
         public Sprite skillSprite;

@@ -1,22 +1,49 @@
 image: "gableroux/unity3d:2018.2.6f1"
 
 stages:
-- test
-- build
+- test-dependencies
+- build-dependencies
+- test-main
+- build-main
 - deploy
 
 variables:
   BUILD_NAME: What_The_Hack
   GIT_SUBMODULE_STRATEGY: recursive
 
+.android_before_script: &android_before_script
+  before_script:
+  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - chmod +x ./${PROJECT_DIR}/gradlew
+
 .unity_before_script: &unity_before_script
   before_script:
   - mkdir -p /root/.cache/unity3d
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
+  - cp -rf ./AndroidPlugin/notificationprovider/build/outputs/aar/* ./Assets/Plugins/Android/
+  - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
+  - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
+  - cp -rf ./Wth.ModApi/Wth.ModApi.dll.txt ./Assets/ModTool/Wth.ModApi.dll.meta
+  - cp -rf ./Wth.ModApi/Wth.ModApi.Editor.dll.txt ./Assets/ModTool/Wth.ModApi.Editor.dll.meta
+
+#test-android:
+#  image: openjdk:8-jdk
+#  stage: test
+#  <<: *android_before_script
+#  script:
+#    - ./AndroidPlugin/gradlew test
+#  variables:
+#    PROJECT_DIR: AndroidPlugin
+
+test-api:
+  image: "mono:latest"
+  stage: test-dependencies
+  script:
+    - msbuild /p:Configuration="Debug" /p:Platform="Any CPU" ./Wth.ModApi/Wth.ModApi.sln
 
 .test: &test
-  stage: test
+  stage: test-main
   <<: *unity_before_script
   script: |
     xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' \
@@ -44,18 +71,47 @@ variables:
     - $(pwd)/$TEST_PLATFORM-results.xml
     expire_in: 2 weeks
 
-test-editmode:
+test-unity-editmode:
   <<: *test
   variables:
     TEST_PLATFORM: editmode
 
-test-playmode:
+test-unity-playmode:
   <<: *test
   variables:
     TEST_PLATFORM: playmode
 
-.build: &build
-  stage: build
+build-AndroidPlugin:
+  image: jangrewe/gitlab-ci-android
+  stage: build-dependencies
+  <<: *android_before_script
+  script:
+    - ./AndroidPlugin/gradlew assembleDebug -p ./AndroidPlugin
+  artifacts:
+    paths:
+    - AndroidPlugin/notificationprovider/build/outputs/
+    expire_in: 2 weeks
+  variables:
+    PROJECT_DIR: AndroidPlugin
+
+build-Wth.ModApi:
+  image: "mono:latest"
+  stage: build-dependencies
+  script: |
+    echo "Building Wth.Api Solution"
+    export BUILD_PATH=./Wth.ModApi/Wth.ModApi/bin/Release/
+    msbuild /p:Configuration="Release" ./Wth.ModApi/Wth.ModApi.sln
+    ls -la $BUILD_PATH
+    [ -n "$(ls -A $BUILD_PATH)" ] # fail job if build folder is empty
+
+  artifacts:
+    paths:
+    - ./Wth.ModApi/Wth.ModApi/bin/Release/
+    - ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/
+    expire_in: 2 weeks
+
+.build-unity: &build-unity
+  stage: build-main
   #tip: you can reuse same stage to do everything in parallel and reduce overall time
   # stage: test
   <<: *unity_before_script
@@ -86,13 +142,13 @@ test-playmode:
 #   only:
 #     - master
 
-Linux-x86_64:
-  <<: *build
+build-unity-Linux-x86_64:
+  <<: *build-unity
   variables:
     BUILD_TARGET: StandaloneLinux64
 
-macOS:
-  <<: *build
+build-unity-macOS:
+  <<: *build-unity
   variables:
     BUILD_TARGET: StandaloneOSX
 
@@ -102,13 +158,13 @@ macOS:
 #   variables:
 #     BUILD_TARGET: StandaloneOSXUniversal
 
-Windows-x86_64:
-  <<: *build
+build-unity-Windows-x86_64:
+  <<: *build-unity
   variables:
     BUILD_TARGET: StandaloneWindows64
 
-WebGL:
-  <<: *build
+build-unity-WebGL:
+  <<: *build-unity
   variables:
     BUILD_TARGET: WebGL
 
