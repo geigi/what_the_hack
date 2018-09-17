@@ -28,6 +28,53 @@ public class EmployeeEditor : EditorWindow
 
     void OnGUI()
     {
+        CreateListButtons();
+
+        GUILayout.Space(20);
+
+        if (employeeList != null)
+        {
+            CreateEmployeeNavigation();
+            
+            GUILayout.Space(10);
+            
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Add Employee", GUILayout.ExpandWidth(false)))
+            {
+                AddItem();
+            }
+            if (GUILayout.Button("Delete Employee", GUILayout.ExpandWidth(false)))
+            {
+                DeleteItem(viewIndex - 1);
+            }
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            
+            GUILayout.Space(10);
+            
+            CreateEmployeeGui();
+            
+            if (GUILayout.Button("Save Employees"))
+            {
+                AssetDatabase.SaveAssets();
+            }
+        }
+        
+        if (GUI.changed)
+        {
+            EditorUtility.SetDirty(employeeList);
+            foreach (var employee in employeeList.employeeList)
+            {
+                EditorUtility.SetDirty(employee);
+            }
+        }
+    }
+
+    #region GUI
+
+    private void CreateListButtons()
+    {
         GUILayout.BeginHorizontal();
         GUILayout.Label("Employee Editor", EditorStyles.boldLabel);
         if (employeeList != null)
@@ -44,99 +91,68 @@ public class EmployeeEditor : EditorWindow
         }
         if (GUILayout.Button("New Employee List"))
         {
+            CreateNewItemList();
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = employeeList;
         }
         GUILayout.EndHorizontal();
+    }
 
-        if (employeeList == null)
+    private void CreateEmployeeNavigation()
+    {
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        
+        if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false)))
         {
-            GUILayout.BeginHorizontal();
-            GUILayout.Space(10);
-            if (GUILayout.Button("Create New Employee List", GUILayout.ExpandWidth(false)))
-            {
-                CreateNewItemList();
-            }
-            if (GUILayout.Button("Open Existing Employee List", GUILayout.ExpandWidth(false)))
-            {
-                OpenItemList();
-            }
-            GUILayout.EndHorizontal();
+            if (viewIndex > 1)
+                viewIndex--;
         }
         
-        if (GUILayout.Button("Save Employees"))
-        {
-            AssetDatabase.SaveAssets();
-        }
+        GUILayout.Space(20);
+            
+        viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current Employee", viewIndex, GUILayout.ExpandWidth(false)), 1, employeeList.employeeList.Count);
+        GUILayout.Space(5);
+        EditorGUILayout.LabelField("of   " + employeeList.employeeList.Count.ToString() + "  items", "", GUILayout.ExpandWidth(false));
 
         GUILayout.Space(20);
-
-        if (employeeList != null)
+        
+        if (GUILayout.Button("Next", GUILayout.ExpandWidth(false)))
         {
-            GUILayout.BeginHorizontal();
+            if (viewIndex < employeeList.employeeList.Count)
+            {
+                viewIndex++;
+            }
+        }
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+    }
+
+    private void CreateEmployeeGui()
+    {
+        if (employeeList.employeeList.Count > 0)
+        {
+            employeeList.employeeList[viewIndex - 1].employeeName = EditorGUILayout.TextField("Employee Name", employeeList.employeeList[viewIndex - 1].employeeName as string);
+            employeeList.employeeList[viewIndex - 1].idleAnimation = EditorGUILayout.ObjectField("Idle Animation", employeeList.employeeList[viewIndex - 1].idleAnimation, typeof(AnimationClip), false) as AnimationClip;
+            employeeList.employeeList[viewIndex - 1].walkingAnimation = EditorGUILayout.ObjectField("Walking Animation", employeeList.employeeList[viewIndex - 1].walkingAnimation, typeof(AnimationClip), false) as AnimationClip;
+            employeeList.employeeList[viewIndex - 1].workingAnimation = EditorGUILayout.ObjectField("Working Animation", employeeList.employeeList[viewIndex - 1].workingAnimation, typeof(AnimationClip), false) as AnimationClip;
 
             GUILayout.Space(10);
 
-            if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false)))
-            {
-                if (viewIndex > 1)
-                    viewIndex--;
-            }
-            GUILayout.Space(5);
-            if (GUILayout.Button("Next", GUILayout.ExpandWidth(false)))
-            {
-                if (viewIndex < employeeList.employeeList.Count)
-                {
-                    viewIndex++;
-                }
-            }
-
-            GUILayout.Space(60);
-
-            if (GUILayout.Button("Add Employee", GUILayout.ExpandWidth(false)))
-            {
-                AddItem();
-            }
-            if (GUILayout.Button("Delete Employee", GUILayout.ExpandWidth(false)))
-            {
-                DeleteItem(viewIndex - 1);
-            }
-
+            GUILayout.BeginHorizontal();
+            employeeList.employeeList[viewIndex - 1].level = EditorGUILayout.IntField("Level", employeeList.employeeList[viewIndex - 1].level, GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
-            if (employeeList.employeeList == null)
-                Debug.Log("wtf");
-            if (employeeList.employeeList.Count > 0)
-            {
-                GUILayout.BeginHorizontal();
-                viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current Employee", viewIndex, GUILayout.ExpandWidth(false)), 1, employeeList.employeeList.Count);
-                //Mathf.Clamp (viewIndex, 1, inventoryItemList.itemList.Count);
-                EditorGUILayout.LabelField("of   " + employeeList.employeeList.Count.ToString() + "  items", "", GUILayout.ExpandWidth(false));
-                GUILayout.EndHorizontal();
 
-                employeeList.employeeList[viewIndex - 1].employeeName = EditorGUILayout.TextField("Employee Name", employeeList.employeeList[viewIndex - 1].employeeName as string);
-                employeeList.employeeList[viewIndex - 1].idleAnimation = EditorGUILayout.ObjectField("Idle Animation", employeeList.employeeList[viewIndex - 1].idleAnimation, typeof(AnimationClip), false) as AnimationClip;
-                employeeList.employeeList[viewIndex - 1].walkingAnimation = EditorGUILayout.ObjectField("Walking Animation", employeeList.employeeList[viewIndex - 1].walkingAnimation, typeof(AnimationClip), false) as AnimationClip;
-                employeeList.employeeList[viewIndex - 1].workingAnimation = EditorGUILayout.ObjectField("Working Animation", employeeList.employeeList[viewIndex - 1].workingAnimation, typeof(AnimationClip), false) as AnimationClip;
+            GUILayout.Space(10);
 
-                GUILayout.Space(10);
-
-                GUILayout.BeginHorizontal();
-                employeeList.employeeList[viewIndex - 1].level = EditorGUILayout.IntField("Level", employeeList.employeeList[viewIndex - 1].level, GUILayout.ExpandWidth(false));
-                GUILayout.EndHorizontal();
-
-                GUILayout.Space(10);
-
-            }
-            else
-            {
-                GUILayout.Label("This Employee List is Empty.");
-            }
         }
-        if (GUI.changed)
+        else
         {
-            EditorUtility.SetDirty(employeeList);
+            GUILayout.Label("This Employee List is Empty.");
         }
     }
+
+    #endregion
 
     void CreateNewItemList()
     {
