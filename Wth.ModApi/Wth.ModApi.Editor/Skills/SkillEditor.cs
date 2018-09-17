@@ -201,6 +201,10 @@ namespace Wth.ModApi.Editor
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(skillSet);
+                foreach (var skillDefinition in skillSet.keys)
+                {
+                    EditorUtility.SetDirty(skillDefinition);
+                }
             }
         }
 
