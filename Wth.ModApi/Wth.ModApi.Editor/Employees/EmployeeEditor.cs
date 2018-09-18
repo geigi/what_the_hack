@@ -18,9 +18,9 @@ public class EmployeeEditor : EditorWindow
 
     void OnEnable()
     {
-        if (EditorPrefs.HasKey("ObjectPath"))
+        if (EditorPrefs.HasKey("EmployeeListPath"))
         {
-            string objectPath = EditorPrefs.GetString("ObjectPath");
+            string objectPath = EditorPrefs.GetString("EmployeeListPath");
             employeeList = AssetDatabase.LoadAssetAtPath(objectPath, typeof(EmployeeList)) as EmployeeList;
         }
 
@@ -165,7 +165,7 @@ public class EmployeeEditor : EditorWindow
         {
             employeeList.employeeList = new List<EmployeeData>();
             string relPath = AssetDatabase.GetAssetPath(employeeList);
-            EditorPrefs.SetString("ObjectPath", relPath);
+            EditorPrefs.SetString("EmployeeListPath", relPath);
         }
     }
 
@@ -180,7 +180,7 @@ public class EmployeeEditor : EditorWindow
                 employeeList.employeeList = new List<EmployeeData>();
             if (employeeList)
             {
-                EditorPrefs.SetString("ObjectPath", relPath);
+                EditorPrefs.SetString("EmployeeListPath", relPath);
             }
         }
     }

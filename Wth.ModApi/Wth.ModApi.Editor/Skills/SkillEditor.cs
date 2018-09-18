@@ -25,9 +25,9 @@ namespace Wth.ModApi.Editor
 
         void OnEnable()
         {
-            if (EditorPrefs.HasKey("ObjectPath"))
+            if (EditorPrefs.HasKey("SkillSetPath"))
             {
-                string objectPath = EditorPrefs.GetString("ObjectPath");
+                string objectPath = EditorPrefs.GetString("SkillSetPath");
                 skillSet = AssetDatabase.LoadAssetAtPath(objectPath, typeof(SkillSet)) as SkillSet;
             }
         }
@@ -219,7 +219,7 @@ namespace Wth.ModApi.Editor
                 skillSet.keys = new List<SkillDefinition>();
                 skillSet.values = new List<float>();
                 string relPath = AssetDatabase.GetAssetPath(skillSet);
-                EditorPrefs.SetString("ObjectPath", relPath);
+                EditorPrefs.SetString("SkillSetPath", relPath);
             }
         }
 
@@ -236,7 +236,7 @@ namespace Wth.ModApi.Editor
                     skillSet.values = new List<float>();
                 if (skillSet)
                 {
-                    EditorPrefs.SetString("ObjectPath", relPath);
+                    EditorPrefs.SetString("SkillSetPath", relPath);
                 }
             }
         }
