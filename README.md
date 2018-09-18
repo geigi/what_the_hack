@@ -53,9 +53,10 @@ The following third party libraries are used by this game:
 - [ModTool][10] - MIT
 - [KinoGlitch][11] - No licence
 - [unityglitch][12] - [Creative Commons Attribution 3.0 Unported][13]
+- [NuGetForUnity][14] - MIT
 
 ## WTH contains code based on projects
-- [Pathfinding][14] - MIT
+- [Pathfinding][15] - MIT
 
 [1]:	https://unity3d.com/de/get-unity/download/archive
 [2]:	#creating-a-mod
@@ -70,7 +71,8 @@ The following third party libraries are used by this game:
 [11]:	https://github.com/keijiro/KinoGlitch
 [12]:	https://github.com/staffantan/unityglitch
 [13]:	http://creativecommons.org/licenses/by/3.0/deed.en_GB
-[14]:	https://github.com/SebLague/Pathfinding
+[14]:	https://github.com/GlitchEnzo/NuGetForUnity
+[15]:	https://github.com/SebLague/Pathfinding
 
 [image-1]:	Assets/Sprites/ui/GameLogo.png
 [image-2]:	Assets/Sprites/ui/base_game_banner.png
