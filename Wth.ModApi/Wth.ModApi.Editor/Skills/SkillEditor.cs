@@ -17,7 +17,7 @@ namespace Wth.ModApi.Editor
         private float valueToDecreaseBy;
         private float percentagesAdded = 0;
         
-        [MenuItem("Window/SkillEditor")]
+        [MenuItem("Tools/What_The_Hack ModApi/Skill Creator")]
         static void Init()
         {
             EditorWindow.GetWindow(typeof(SkillEditor));
@@ -61,19 +61,7 @@ namespace Wth.ModApi.Editor
 
             if (GUILayout.Button("Save Skills"))
             {
-                int count = skillSet.keys.Count;
-                for(int i = 0; i < count; i++)
-                {
-                    var asset = skillSet.keys[i];
-                    SkillDefinition saved = ScriptableObject.CreateInstance<SkillDefinition>();
-                    saved.skillName = asset.skillName;
-                    saved.skillSprite = asset.skillSprite;
-                    string assetPath = AssetDatabase.GetAssetPath(asset);
-                    AssetDatabase.DeleteAsset(assetPath);
-                    AssetDatabase.CreateAsset(saved, assetPath);
-                    skillSet.keys[i] = saved;
-                    AssetDatabase.SaveAssets();
-                }
+                AssetDatabase.SaveAssets();
             }
 
             GUILayout.EndHorizontal();
@@ -213,6 +201,10 @@ namespace Wth.ModApi.Editor
             if (GUI.changed)
             {
                 EditorUtility.SetDirty(skillSet);
+                foreach (var skillDefinition in skillSet.keys)
+                {
+                    EditorUtility.SetDirty(skillDefinition);
+                }
             }
         }
 
