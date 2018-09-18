@@ -163,10 +163,10 @@ build-unity-Windows-x86_64:
   variables:
     BUILD_TARGET: StandaloneWindows64
 
-build-unity-WebGL:
-  <<: *build-unity
-  variables:
-    BUILD_TARGET: WebGL
+#build-unity-WebGL:
+#  <<: *build-unity
+#  variables:
+#    BUILD_TARGET: WebGL
 
 pages:
   image: alpine:latest
