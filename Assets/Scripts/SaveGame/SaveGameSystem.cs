@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
@@ -15,21 +15,21 @@ public static class SaveGameSystem {
     /// <returns>Successfully saved?</returns>
 	public static bool SaveGame(SaveGame saveGame, string name)
     {
-        var formatter = new BinaryFormatter();
-
-        using (var stream = new FileStream(GetSavePath(name), FileMode.Create))
+        try
         {
-            try
+            using (StreamWriter file = File.CreateText(GetSavePath(name)))
             {
-                formatter.Serialize(stream, saveGame);
-            }
-            catch (Exception)
-            {
-                return false;
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Formatting = Formatting.Indented;
+                serializer.TypeNameHandling = TypeNameHandling.Auto;
+                serializer.Serialize(file, saveGame);
+                return true;
             }
         }
-
-        return true;
+        catch (Exception e)
+        {
+            return false;
+        }
     }
 
     /// <summary>
@@ -44,13 +44,13 @@ public static class SaveGameSystem {
             return null;
         }
 
-        var formatter = new BinaryFormatter();
-   
-        using (var stream = new FileStream(GetSavePath(name), FileMode.Open))
+        using (var stream = File.OpenText(GetSavePath(name)))
         {
             try
             {
-                return formatter.Deserialize(stream) as SaveGame;
+                var serializer = new JsonSerializer();
+                SaveGame saveGame = (SaveGame)serializer.Deserialize(stream, typeof(SaveGame));
+                return saveGame;
             }
             catch (Exception)
             {
