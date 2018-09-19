@@ -168,14 +168,14 @@ build-unity-Windows-x86_64:
 #  variables:
 #    BUILD_TARGET: WebGL
 
-pages:
-  image: alpine:latest
-  stage: deploy
-  script:
-  - mv ./Builds/WebGL public
-  artifacts:
-    paths:
-    - public
-    expire_in: 2 weeks
-  only:
-  - master
+#pages:
+#  image: alpine:latest
+#  stage: deploy
+#  script:
+#  - mv ./Builds/WebGL public
+#  artifacts:
+#    paths:
+#    - public
+#    expire_in: 2 weeks
+#  only:
+#  - master
