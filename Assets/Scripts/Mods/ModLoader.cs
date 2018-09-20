@@ -124,7 +124,7 @@ public class ModLoader : MonoBehaviour {
 
 	private void DisplayMod(Mod mod) {
 		titleText.text = mod.modInfo.name;
-		descriptionText.text = mod.modInfo.description;
+		descriptionText.text = mod.modInfo.description + Environment.NewLine + Environment.NewLine + "Created by " + mod.modInfo.author;
 		banner.sprite = mod.GetAsset<ModInfo>("modinfo").banner;
 	}
 
