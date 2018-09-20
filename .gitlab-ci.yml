@@ -71,6 +71,9 @@ test-api:
     paths:
     - $(pwd)/$TEST_PLATFORM-results.xml
     expire_in: 2 weeks
+  cache:
+    paths:
+    - Library
 
 test-unity-editmode:
   <<: *test
@@ -144,9 +147,9 @@ build-Wth.ModApi:
     paths:
     - ./Builds/
     expire_in: 2 weeks
-#tip: uncomment following lines if you'd like to build only on master branch
-#   only:
-#     - master
+  cache:
+    paths:
+    - Library
 
 build-unity-Linux-x86_64:
   <<: *build-unity
