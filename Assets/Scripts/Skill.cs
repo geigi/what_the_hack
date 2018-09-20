@@ -9,13 +9,13 @@ public class Skill : MonoBehaviour {
     private static float levelFactor = 1.1f;
 
     //Instance to store the skillDate
-    private SkillDefinition skillData;
+    public SkillDefinition skillData { get; set; }
 
     //the Points of this skill.
-    private float points;
+    public float points { get; set; }
 
     //The Level of this skill.
-    private int level;
+    public int level { get; set; }
 
     //The number of points needed to advance a Level.
     private float nextLevelPoints;
@@ -48,6 +48,7 @@ public class Skill : MonoBehaviour {
 
     /// <summary>
     /// Get the name of this Skill
+    /// This function is only left in for convenience.
     /// </summary>
     /// <returns>The name of this skill</returns>
     public string GetName()
@@ -57,29 +58,12 @@ public class Skill : MonoBehaviour {
 
     /// <summary>
     /// Get the sprite of this Skill
+    /// This function is only left in for convenience.
     /// </summary>
     /// <returns>The Sprite of this Skill</returns>
     public Sprite GetSprite()
     {
         return skillData.skillSprite;
-    }
-
-    /// <summary>
-    /// Get the points of this skill
-    /// </summary>
-    /// <returns>The points of this skill</returns>
-    public float GetPunktAnzahl()
-    {
-        return this.points;
-    }
-
-    /// <summary>
-    /// Get the Level of this Skill
-    /// </summary>
-    /// <returns>The Level of this Skill</returns>
-    public int GetLevel()
-    {
-        return this.level;
     }
 
 	// Use this for initialization
