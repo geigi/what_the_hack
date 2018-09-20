@@ -150,7 +150,6 @@ build-Wth.ModApi:
   cache:
     paths:
     - Library
-    - Builds
 
 build-unity-Linux-x86_64:
   <<: *build-unity
