@@ -126,3 +126,7 @@ Wth.ModApi/Wth.ModApi.Editor/bin
 Assets/ModTool/Wth.ModApi.*
 Assets/Packages
 Assets/Packages.meta
+Assets/BuildReports
+Assets/Editor
+Assets/BuildReports.meta
+Assets/Editor.meta

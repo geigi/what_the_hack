@@ -71,3 +71,4 @@ MonoBehaviour:
     includeNested: 1
   _apiAssemblies:
   - Wth.ModApi
+  - Wth.ModApi.Editor
