@@ -13,7 +13,8 @@ variables:
 
 .android_before_script: &android_before_script
   before_script:
-  - export GRADLE_USER_HOME=$(pwd)/.gradle
+  - export GRADLE_USER_HOME=.gradle
+  - export ANDROID_SDK_HOME=$CI_PROJECT_DIR
   - chmod +x ./${PROJECT_DIR}/gradlew
 
 .unity_before_script: &unity_before_script
@@ -93,6 +94,11 @@ build-AndroidPlugin:
     expire_in: 2 weeks
   variables:
     PROJECT_DIR: AndroidPlugin
+  cache:
+    paths:
+    - .gradle/wrapper
+    - .gradle/caches
+    - .android/build-cache/
 
 build-Wth.ModApi:
   image: "mono:latest"
