@@ -4,10 +4,8 @@ using Utils;
 
 namespace Pathfinding
 {
-	public class Node : IHeapItem<Node>
+	public class Node : IHeapItem<Node>, IDataObjectUser<NodeData>
 	{
-
-		public Enums.TileState state;
 		public Vector3 worldPosition;
 		public Vector2Int gridPosition;
 		public int gridX;
@@ -19,9 +17,12 @@ namespace Pathfinding
 		public Node parent;
 		int heapIndex;
 
+		private NodeData data;
+
 		public Node(Enums.TileState _state, Vector3 _worldPos, int _gridX, int _gridY)
 		{
-			state = _state;
+			data = new NodeData();
+			data.state = _state;
 			worldPosition = _worldPos;
 			gridX = _gridX;
 			gridY = _gridY;
@@ -49,6 +50,26 @@ namespace Pathfinding
 			}
 
 			return -compare;
+		}
+
+		public void SetState(Enums.TileState state)
+		{
+			data.state = state;
+		}
+
+		public Enums.TileState GetState()
+		{
+			return data.state;
+		}
+
+		public void SetData(NodeData data)
+		{
+			this.data = data;
+		}
+
+		public NodeData GetData()
+		{
+			return this.data;
 		}
 	}
 }
