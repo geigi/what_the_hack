@@ -8,8 +8,6 @@ namespace Wth.ModApi.Editor
 {
     public class CreateSkillSet : MonoBehaviour
     {
-
-        [MenuItem("Assets/Create/Skill Set")]
         public static SkillSet Create()
         {
             SkillSet asset = ScriptableObject.CreateInstance<SkillSet>();

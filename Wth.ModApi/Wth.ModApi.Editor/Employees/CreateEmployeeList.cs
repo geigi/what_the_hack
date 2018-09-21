@@ -6,7 +6,6 @@ using Wth.ModApi;
 namespace Wth.ModApi.Editor {
 public class CreateEmployeeList
 {
-    [MenuItem("Assets/Create/Employee List")]
     public static EmployeeList Create()
     {
         EmployeeList asset = ScriptableObject.CreateInstance<EmployeeList>();
