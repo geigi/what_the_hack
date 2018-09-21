@@ -17,7 +17,7 @@ namespace Pathfinding
     
     Node[,] grid;
 
-    int gridSizeX = 13, gridSizeY = 13;
+    public const int GridSizeX = 13, GridSizeY = 13;
 
     private IReadOnlyList<Vector2Int> disabledTiles;
 
@@ -28,12 +28,12 @@ namespace Pathfinding
 
     public int MaxSize
     {
-      get { return gridSizeX * gridSizeY; }
+      get { return GridSizeX * GridSizeY; }
     }
 
     void CreateGrid()
     {
-      grid = new Node[gridSizeX, gridSizeY];
+      grid = new Node[GridSizeX, GridSizeY];
 
       var disabled = new List<Vector2Int>
       {
@@ -53,9 +53,9 @@ namespace Pathfinding
 
       this.disabledTiles = disabled.AsReadOnly();
 
-      for (int x = 0; x < gridSizeX; x++)
+      for (int x = 0; x < GridSizeX; x++)
       {
-        for (int y = 0; y < gridSizeY; y++)
+        for (int y = 0; y < GridSizeY; y++)
         {
           var pos = tilemap.GetCellCenterWorld(new Vector3Int(x, y, 0));
           var state = Enums.TileState.FREE;
@@ -84,7 +84,7 @@ namespace Pathfinding
     public Node getRandomFreeNode()
     {
       var tile = getNode(new Vector2Int(Random.Range(0, 12), Random.Range(0, 12)));
-      while (tile.state != Enums.TileState.FREE)
+      while (tile.GetState() != Enums.TileState.FREE)
       {
         tile = getNode(new Vector2Int(Random.Range(0, 12), Random.Range(0, 12)));
       }
@@ -105,7 +105,7 @@ namespace Pathfinding
             continue;
           }
           // boundary check
-          else if (newX >= 0 && newX < gridSizeX && newY >= 0 && newY < gridSizeY) {
+          else if (newX >= 0 && newX < GridSizeX && newY >= 0 && newY < GridSizeY) {
             neighbours.Add(grid[newX, newY]);
           }
         }

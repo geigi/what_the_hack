@@ -1,20 +1,28 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
+using Pathfinding;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 /// <summary>
 /// This class is responsible for loading and saving a game.
 /// </summary>
-public static class SaveGameSystem {
+public static class SaveGameSystem
+{
     /// <summary>
     /// Save a saveGame to disk.
     /// </summary>
     /// <param name="saveGame">SaveGame Object to save.</param>
     /// <param name="name">Name of the SaveGame.</param>
     /// <returns>Successfully saved?</returns>
-	public static bool SaveGame(SaveGame saveGame, string name)
+    public static bool SaveGame(MainSaveGame saveGame, string name)
     {
+        // Prepare SaveGame object
+        saveGame.name = name;
+        saveGame.saveDate = DateTime.Now;
+        fillTileMapData(saveGame);
+        
         try
         {
             using (StreamWriter file = File.CreateText(GetSavePath(name)))
@@ -23,8 +31,8 @@ public static class SaveGameSystem {
                 serializer.Formatting = Formatting.Indented;
                 serializer.TypeNameHandling = TypeNameHandling.Auto;
                 serializer.Serialize(file, saveGame);
-                return true;
             }
+            return true;
         }
         catch (Exception e)
         {
@@ -49,7 +57,7 @@ public static class SaveGameSystem {
             try
             {
                 var serializer = new JsonSerializer();
-                SaveGame saveGame = (SaveGame)serializer.Deserialize(stream, typeof(SaveGame));
+                SaveGame saveGame = (SaveGame) serializer.Deserialize(stream, typeof(SaveGame));
                 return saveGame;
             }
             catch (Exception)
@@ -96,5 +104,26 @@ public static class SaveGameSystem {
     private static string GetSavePath(string name)
     {
         return Path.Combine(Application.persistentDataPath, name + ".sav");
+    }
+
+    /// <summary>
+    /// Fill a SaveGameObject with NodeMap data.
+    /// </summary>
+    /// <param name="saveGame"></param>
+    private static void fillTileMapData(MainSaveGame saveGame)
+    {
+        var go = GameObject.FindWithTag("Pathfinding");
+        var grid = go.GetComponent<AGrid>();
+        
+        saveGame.Tilemap = new NodeData[AGrid.GridSizeX, AGrid.GridSizeY];
+        
+        for (int x = 0; x < AGrid.GridSizeX; x++)
+        {
+            for (int y = 0; y < AGrid.GridSizeY; y++)
+            {
+                var node = grid.getNode(new Vector2Int(x, y));
+                saveGame.Tilemap[x, y] = node.GetData();
+            }
+        }
     }
 }
