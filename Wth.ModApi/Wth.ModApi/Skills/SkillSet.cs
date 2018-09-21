@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Wth.ModApi
 {
+    [CreateAssetMenu(fileName = "SkillSet", menuName = "What_The_Hack ModApi/Skills/Skill Set", order = 1)]
     public class SkillSet : ScriptableObject
     {
         public List<SkillDefinition> keys;
