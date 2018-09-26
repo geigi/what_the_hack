@@ -123,6 +123,10 @@ Wth.ModApi/Wth.ModApi/bin
 Wth.ModApi/Wth.ModApi.Editor/bin
 
 # Mod API DLLs which should be build locally
-Assets/ModTool/Wth.ModApi.*
+Assets/ModTool/Wth.ModApi*.dll
 Assets/Packages
 Assets/Packages.meta
+Assets/BuildReports
+Assets/Editor
+Assets/BuildReports.meta
+Assets/Editor.meta

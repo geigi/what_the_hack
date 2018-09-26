@@ -12,6 +12,7 @@ using UnityEditor;
 /// This class represents a tile used for the tilemap. The StatefulTile always has a state (free, occupied, ...)
 /// and sometimes an occupying object.
 /// </summary>
+[CreateAssetMenu(menuName = "What_The_Hack/Sateful Tile")]
 public class StatefulTile : TileBase
 {
     public Sprite sprite;
@@ -54,16 +55,4 @@ public class StatefulTile : TileBase
         tileData.sprite = this.sprite;
         tileData.colliderType = ColliderType.None;
     }
-
-#if UNITY_EDITOR
-    // The following is a helper that adds a menu item to create a RoadTile Asset
-    [MenuItem("Assets/Create/StatefulTile")]
-    public static void CreateStatefulTile()
-    {
-        string path = EditorUtility.SaveFilePanelInProject("Save Stateful Tile", "New Stateful Tile", "Asset", "Save Stateful Tile", "Assets");
-        if (path == "")
-            return;
-        AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<StatefulTile>(), path);
-    }
-#endif
 }

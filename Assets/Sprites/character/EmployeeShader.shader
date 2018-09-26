@@ -24,7 +24,6 @@
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			
 			#include "UnityCG.cginc"
 
 			
@@ -58,6 +57,7 @@
 			fixed4 _ShoeColor;
 			float4 _MainTex_TexelSize;
 			
+
 			fixed4 frag (v2f i) : COLOR
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
@@ -72,6 +72,8 @@
 				half4 newShortsColor = _ShortsColor;
 				half4 oldShoeColor = _ShoeGreyColor;
 				half4 newShoeColor = _ShoeColor;
+
+				//Check if the Color, does match with a color, that needs to be modified
 
 				if (col.r == oldHairColor.r && col.b == oldHairColor.b && col.g == oldHairColor.g && col.a == oldHairColor.a) {
 					col.rgba = newHairColor;
@@ -88,7 +90,7 @@
 				else if (col.r == oldShoeColor.r && col.b == oldShoeColor.b && col.g == oldShoeColor.g && col.a == oldShoeColor.a) {
 					col.rgba = newShoeColor;
 				}
-
+				//return the new Color
 				return col;
 			}
 			ENDCG

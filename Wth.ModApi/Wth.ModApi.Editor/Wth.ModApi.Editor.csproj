@@ -46,6 +46,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Editor\Base Editor.cs" />
+    <Compile Include="Editor\CreateAsset.cs" />
     <Compile Include="Employees\CreateEmployeeList.cs" />
     <Compile Include="Employees\EmployeeEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
