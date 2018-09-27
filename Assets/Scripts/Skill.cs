@@ -7,7 +7,7 @@ using Wth.ModApi;
 /// A class for skill objects.
 /// Skills are used to define the specialization of an Employee.
 /// </summary>
-public class Skill : MonoBehaviour {
+public class Skill {
 
     /// <summary>
     /// A factor by which nextLevelPoints is multiplied each time, this skill levels up.

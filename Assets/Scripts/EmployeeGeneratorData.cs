@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Class for holding data of a generated Employee.
 /// </summary>
-public class EmployeeGeneratedData : MonoBehaviour {
+public class EmployeeGeneratedData {
 
     /// <summary>
     /// The name of this Employee.
