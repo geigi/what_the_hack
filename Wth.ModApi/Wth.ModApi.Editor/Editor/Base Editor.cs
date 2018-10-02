@@ -25,32 +25,34 @@ namespace Wth.ModApi.Editor.Editor
         /// <summary>
         /// Creates a new Asset of type T.
         /// </summary>
-        protected virtual void CreateNewAsset()
+        /// <param name="assetPath">The Path the new Asset should be created.</param>
+        protected virtual void CreateNewAsset(string assetPath)
         {
             Debug.Log("Creating New Set");
             // There is no overwrite protection here!
             viewIndex = 1;
-            asset = CreateAsset.Create<T>("Assets/SkillSet.asset");
+            asset = CreateAsset.Create<T>(assetPath);
             if (asset)
             {
                 string relPath = AssetDatabase.GetAssetPath(asset);
-                EditorPrefs.SetString("SkillSetPath", relPath);
+                EditorPrefs.SetString("AssetPath", relPath);
             }
         }
 
         /// <summary>
         /// Opens an Asset at a user defined path.
         /// </summary>
-        protected virtual void OpenAsset()
+        /// <param name="objectName">The Name of this edited Scriptable Object.</param>
+        protected virtual void OpenAsset(string objectName)
         {
-            string absPath = EditorUtility.OpenFilePanel("Select Skill Set", "", "");
+            string absPath = EditorUtility.OpenFilePanel("Select " + objectName, "", "");
             if (absPath.StartsWith(Application.dataPath))
             {
                 string relPath = absPath.Substring(Application.dataPath.Length - "Assets".Length);
                 T asset = AssetDatabase.LoadAssetAtPath(relPath, typeof(T)) as T;
                 if (asset)
                 {
-                    EditorPrefs.SetString("SkillSetPath", relPath);
+                    EditorPrefs.SetString("AssetPath", relPath);
                 }
             }
         }
@@ -58,9 +60,10 @@ namespace Wth.ModApi.Editor.Editor
         /// <summary>
         /// Creates a Button to show, open anbd create a new Scriptable Object of type T.
         /// </summary>
+        /// <param name="assetPath">The Path a new Asset should be created </param>
         /// <param name="windowName">The Name of this editor window.</param>
         /// <param name="objectName">The name of this edited Scriptable Object (Usually the name of the Class)</param>
-        protected virtual void CreateListButtons(string windowName, string objectName)
+        protected virtual void CreateListButtons(string assetPath, string windowName, string objectName)
         {
             GUILayout.BeginHorizontal();
             GUILayout.Label(windowName, EditorStyles.boldLabel);
@@ -74,11 +77,11 @@ namespace Wth.ModApi.Editor.Editor
             }
             if (GUILayout.Button("Open " + objectName))
             {
-                this.OpenAsset();
+                this.OpenAsset(objectName);
             }
             if (GUILayout.Button("New " + objectName))
             {
-                this.CreateNewAsset();
+                this.CreateNewAsset(assetPath);
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = this.asset;
             }
@@ -91,7 +94,8 @@ namespace Wth.ModApi.Editor.Editor
         /// </summary>
         /// <param name="numItems">The current number of items in the List.</param>
         /// <param name="objectName">The name of this edited Scriptable Object (Usually the name of the Class)</param>
-        protected virtual void CreateAssetNavigation(int numItems, string objectName)
+        /// <param name="subassetName">The Name of the Subassets which this Scriptable Object is a list of.</param>
+        protected virtual void CreateAssetNavigation(int numItems, string objectName, string subassetName = "Asset")
         {
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
@@ -106,7 +110,7 @@ namespace Wth.ModApi.Editor.Editor
 
             viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current " + objectName, viewIndex, GUILayout.ExpandWidth(false)), 1, numItems);
             GUILayout.Space(5);
-            EditorGUILayout.LabelField("of   " + numItems.ToString() + "  skills", "", GUILayout.ExpandWidth(false));
+            EditorGUILayout.LabelField("of   " + numItems.ToString() + subassetName, "", GUILayout.ExpandWidth(false));
 
             GUILayout.Space(20);
 
