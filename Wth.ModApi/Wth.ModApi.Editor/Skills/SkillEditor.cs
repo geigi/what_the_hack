@@ -58,7 +58,7 @@ namespace Wth.ModApi.Editor
         /// </summary>
         public override void OnGUI()
         {
-            CreateListButtons("Skill Editor", "Skill Set");
+            CreateListButtons("Assets/SkillSet.asset", "Skill Editor", "Skill Set");
             GUILayout.Space(20);
 
             if (asset != null)
@@ -236,12 +236,12 @@ namespace Wth.ModApi.Editor
         /// <summary>
         /// Creates a new set of skills and saves it in the main folder.
         /// </summary>
-        protected override void CreateNewAsset()
+        protected void CreateNewAsset()
         {
             Debug.Log("Creating New Set");
             // There is no overwrite protection here!
             viewIndex = 1;
-            base.CreateNewAsset();
+            base.CreateNewAsset("Assets/SkillSet.asset");
             if (base.asset)
             {
                 base.asset.keys = new List<SkillDefinition>();
@@ -252,9 +252,9 @@ namespace Wth.ModApi.Editor
         /// <summary>
         /// Opens a SkillSet at a specific user defined location.
         /// </summary>
-        protected override void OpenAsset()
+        protected void OpenAsset()
         {
-            base.OpenAsset();
+            base.OpenAsset("Skil Set");
             if (base.asset.keys == null)
                 base.asset.keys = new List<SkillDefinition>();
             if (base.asset.values == null)
