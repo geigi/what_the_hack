@@ -1,6 +1,7 @@
 fileFormatVersion: 2
-guid: 89a037199d11087f1100e2b844295342
+guid: 508aeab58e3ff0f4b9ad5b113844e5c7
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
   defaultReferences:
   - blitCopyShader: {fileID: 4800000, guid: 3338b5ea2f3cb594698fae65cf060346, type: 3}
@@ -15,3 +16,5 @@ MonoImporter:
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

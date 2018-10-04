@@ -4,15 +4,17 @@
 	{
 		_MainTex ("Texture", 2D) = "white" {}
 		_HairGreyColor("Default Hair Color", Color) = (150, 150, 150, 1)
-		_HairColor("HairColor", Color) = (1, 1, 1, 1)
+		_HairColor("Hair Color", Color) = (1, 1, 1, 1)
 		_SkinGreyColor("Default Skin Color", Color) = (210, 210, 210, 1)
-		_SkinColor("SkinColor", Color) = (1, 1, 1, 1)
+		_SkinColor("Skin Color", Color) = (1, 1, 1, 1)
 		_ShirtGreyColor("Default Shirt Color", Color) = (113, 113, 113, 1)
-		_ShirtColor("ShirtColor", Color) = (1, 1, 1, 1)
+		_ShirtColor("Shirt Color", Color) = (1, 1, 1, 1)
 		_ShortsGreyColor("Default Shorts Color", Color) = (64, 64, 64, 1)
-		_ShortsColor("ShortsColor", Color) = (1, 1, 1, 1)
-		_ShoeGreyColor("Default Shoe Color", Color) = (45, 45, 45, 45)
-		_ShoeColor ("ShoeColor", Color) = (1, 1, 1, 1)
+		_ShortsColor("Shorts Color", Color) = (1, 1, 1, 1)
+		_ShoeGreyColor("Default Shoe Color", Color) = (45, 45, 45, 1)
+		_ShoeColor("Shoe Color", Color) = (1, 1, 1, 1)
+		_EyeGreyColor("Default Eye Color", Color) = (124, 124, 124, 1)
+		_EyeColor("Eye Color", Color) = (1, 1, 1, 1)
 	}
 	SubShader
 	{
@@ -55,6 +57,8 @@
 			fixed4 _ShortsColor;
 			fixed4 _ShoeGreyColor;
 			fixed4 _ShoeColor;
+			fixed4 _EyeGreyColor;
+			fixed4 _EyeColor;
 			float4 _MainTex_TexelSize;
 			
 
@@ -72,6 +76,8 @@
 				half4 newShortsColor = _ShortsColor;
 				half4 oldShoeColor = _ShoeGreyColor;
 				half4 newShoeColor = _ShoeColor;
+				half4 oldEyeColor = _EyeGreyColor;
+				half4 newEyeColor = _EyeColor;
 
 				//Check if the Color, does match with a color, that needs to be modified
 
@@ -89,6 +95,9 @@
 				}
 				else if (col.r == oldShoeColor.r && col.b == oldShoeColor.b && col.g == oldShoeColor.g && col.a == oldShoeColor.a) {
 					col.rgba = newShoeColor;
+				}
+				else if (col.r == oldEyeColor.r && col.b == oldEyeColor.b && col.g == oldEyeColor.g && col.a == oldEyeColor.a) {
+					col.rgba = newEyeColor;
 				}
 				//return the new Color
 				return col;

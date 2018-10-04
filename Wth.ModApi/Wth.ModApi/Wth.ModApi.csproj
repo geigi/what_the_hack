@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>References\UnityEngine.dll</HintPath>
+      <HintPath Condition="Exists('\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll')">\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
+      <HintPath Condition="Exists('\opt\Unity\Editor\Data\Managed\UnityEngine.dll')">\opt\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -66,5 +68,6 @@
     -->
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(OutputPath)Wth.ModApi.dll" DestinationFolder="$(ProjectDir)../../Assets/ModTool/" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)Wth.ModApi.pdb" DestinationFolder="$(ProjectDir)../../Assets/ModTool/" ContinueOnError="true" />
   </Target>
 </Project>
