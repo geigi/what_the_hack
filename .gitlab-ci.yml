@@ -1,6 +1,7 @@
 image: "gableroux/unity3d:2018.2.6f1"
 
 stages:
+- get-dependencies
 - test-dependencies
 - build-dependencies
 - test-main
@@ -25,8 +26,6 @@ variables:
   - cp -rf ./AndroidPlugin/notificationprovider/build/outputs/aar/* ./Assets/Plugins/Android/
   - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
-  - cp -rf ./Wth.ModApi/Wth.ModApi.dll.txt ./Assets/ModTool/Wth.ModApi.dll.meta
-  - cp -rf ./Wth.ModApi/Wth.ModApi.Editor.dll.txt ./Assets/ModTool/Wth.ModApi.Editor.dll.meta
 
 #test-android:
 #  image: openjdk:8-jdk
@@ -36,6 +35,18 @@ variables:
 #    - ./AndroidPlugin/gradlew test
 #  variables:
 #    PROJECT_DIR: AndroidPlugin
+
+get-unity-dlls:
+  image: "mono:latest"
+  stage: get-dependencies
+  script:
+  - cp /opt/Unity/Editor/Data/Managed/UnityEngine.* ./Wth.ModApi/Wth.ModApi/References/
+  - cp /opt/Unity/Editor/Data/Managed/UnityEditor.*./Wth.ModApi/Wth.ModApi/References/
+    
+  artifacts:
+    paths:
+    - ./Wth.ModApi/Wth.ModApi/References/
+    expire_in: 1 day
 
 test-api:
   image: "mono:latest"
