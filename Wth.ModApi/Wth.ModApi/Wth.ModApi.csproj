@@ -66,5 +66,6 @@
     -->
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(OutputPath)Wth.ModApi.dll" DestinationFolder="$(ProjectDir)../../Assets/ModTool/" ContinueOnError="true" />
+    <Copy SourceFiles="$(OutputPath)Wth.ModApi.pdb" DestinationFolder="$(ProjectDir)../../Assets/ModTool/" ContinueOnError="true" />
   </Target>
 </Project>

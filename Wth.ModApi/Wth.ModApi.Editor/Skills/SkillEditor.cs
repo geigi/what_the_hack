@@ -32,25 +32,18 @@ namespace Wth.ModApi.Editor
         /// </summary>
         private float percentagesAdded = 0;
 
+        public SkillEditor()
+        {
+            this.assetName = "Skill";
+        }
+        
         /// <summary>
         /// Initializes the editor window.
         /// </summary>
         [MenuItem("Tools/What_The_Hack ModApi/Skill Creator")]
         static void Init()
         {
-            EditorWindow.GetWindow(typeof(SkillEditor));
-        }
-
-        /// <summary>
-        /// Procedure which is called when a SkillSet is loaded into the editor.
-        /// </summary>
-        void OnEnable()
-        {
-            if (EditorPrefs.HasKey("SkillSetPath"))
-            {
-                string objectPath = EditorPrefs.GetString("SkillSetPath");
-                asset = AssetDatabase.LoadAssetAtPath(objectPath, typeof(SkillSet)) as SkillSet;
-            }
+            EditorWindow.GetWindow(typeof(SkillEditor), false, "Skill Creator");
         }
 
         /// <summary>
@@ -58,12 +51,17 @@ namespace Wth.ModApi.Editor
         /// </summary>
         public override void OnGUI()
         {
-            CreateListButtons("Assets/SkillSet.asset", "Skill Editor", "Skill Set");
+            CreateListButtons("Assets/Data/Skills/SkillSet.asset", "Skill Set");
             GUILayout.Space(20);
 
             if (asset != null)
             {
-                CreateAssetNavigation(asset.keys.Count, "Skill Set");
+                if (asset.keys == null)
+                    asset.keys = new List<SkillDefinition>();
+                if (asset.values == null)
+                    asset.values = new List<float>();
+                
+                CreateAssetNavigation(asset.keys.Count);
                 GUILayout.Space(10);
 
                 GUILayout.BeginHorizontal();
@@ -101,70 +99,6 @@ namespace Wth.ModApi.Editor
         #region GUI
 
         /// <summary>
-        /// Creates the buttons to open, show and create a new SkillSet.
-        /// </summary>
-        /*
-        void CreateListButtons()
-        {
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Skill Editor", EditorStyles.boldLabel);
-            if (this.asset != null)
-            {
-                if (GUILayout.Button("Show Skill Set"))
-                {
-                    EditorUtility.FocusProjectWindow();
-                    Selection.activeObject = this.asset;
-                }
-            }
-            if (GUILayout.Button("Open Skill Set"))
-            {
-                this.OpenSkillSet();
-            }
-            if (GUILayout.Button("New Skill Set"))
-            {
-                this.CreateNewSkillSet();
-                EditorUtility.FocusProjectWindow();
-                Selection.activeObject = this.asset;
-            }
-            GUILayout.EndHorizontal();
-        }
-        */
-        /// <summary>
-        /// Implements Buttons to navigate the set of skills.
-        /// </summary>
-        /*
-        private void CreateSkillSetNavigation()
-        {
-            GUILayout.BeginHorizontal();
-            GUILayout.FlexibleSpace();
-
-            if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false)))
-            {
-                if (viewIndex > 1)
-                    viewIndex--;
-            }
-
-            GUILayout.Space(20);
-
-            viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current Skill Set", viewIndex, GUILayout.ExpandWidth(false)), 1, this.asset.keys.Count);
-            GUILayout.Space(5);
-            EditorGUILayout.LabelField("of   " + this.asset.keys.Count.ToString() + "  skills", "", GUILayout.ExpandWidth(false));
-
-            GUILayout.Space(20);
-
-            if (GUILayout.Button("Next", GUILayout.ExpandWidth(false)))
-            {
-                if (viewIndex < this.asset.keys.Count)
-                {
-                    viewIndex++;
-                }
-            }
-            GUILayout.FlexibleSpace();
-            GUILayout.EndHorizontal();
-        }
-        */
-
-        /// <summary>
         /// Creates the GUI elements to change the occurence probability of a particular skill.
         /// </summary>
         private void CreateSkillSetGUI()
@@ -176,11 +110,15 @@ namespace Wth.ModApi.Editor
 
             GUILayout.Space(10);
 
-            EditorGUILayout.LabelField("The Skills occurence probability");
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField("SkillSet spawn probabilities", EditorStyles.boldLabel);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
 
             GUILayout.Space(5);
 
-            //Adjust the probability, if all probabilies together exceeds 100%.
+            //Adjust the probability, if all probabilities together exceeds 100%.
             if (percentagesAdded > 100)
             {
                 asset.values[skillIndexToDecrease] -= valueToDecreaseBy;
@@ -232,34 +170,6 @@ namespace Wth.ModApi.Editor
         }
 
         #endregion
-
-        /// <summary>
-        /// Creates a new set of skills and saves it in the main folder.
-        /// </summary>
-        protected void CreateNewAsset()
-        {
-            Debug.Log("Creating New Set");
-            // There is no overwrite protection here!
-            viewIndex = 1;
-            base.CreateNewAsset("Assets/SkillSet.asset");
-            if (base.asset)
-            {
-                base.asset.keys = new List<SkillDefinition>();
-                base.asset.values = new List<float>();
-            }
-        }
-
-        /// <summary>
-        /// Opens a SkillSet at a specific user defined location.
-        /// </summary>
-        protected void OpenAsset()
-        {
-            base.OpenAsset("Skil Set");
-            if (base.asset.keys == null)
-                base.asset.keys = new List<SkillDefinition>();
-            if (base.asset.values == null)
-                base.asset.values = new List<float>();
-        }
 
         /// <summary>
         /// Adds a new skill to the current SkillSet.

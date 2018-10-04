@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.IO;
+using UnityEngine;
 using UnityEditor;
 
 namespace Wth.ModApi.Editor.Editor
@@ -18,24 +20,51 @@ namespace Wth.ModApi.Editor.Editor
         public T asset;
 
         /// <summary>
+        /// The name of this Asset. This will be used for GUI and path saving.
+        /// </summary>
+        public string assetName;
+
+        /// <summary>
         /// The current Item of the SkillSet.
         /// </summary>
         protected int viewIndex = 1;
-
+        
+        protected void OnEnable()
+        {
+            if (EditorPrefs.HasKey("AssetPath" + assetName))
+            {
+                string objectPath = EditorPrefs.GetString("AssetPath" + assetName);
+                asset = AssetDatabase.LoadAssetAtPath(objectPath, typeof(T)) as T;
+            }
+        }
+        
         /// <summary>
         /// Creates a new Asset of type T.
         /// </summary>
         /// <param name="assetPath">The Path the new Asset should be created.</param>
         protected virtual void CreateNewAsset(string assetPath)
         {
-            Debug.Log("Creating New Set");
+            Debug.Log("Creating New Asset " + assetPath);
             // There is no overwrite protection here!
             viewIndex = 1;
+            
+            // Create directories if necessary
+            var dir = Path.GetDirectoryName(assetPath);
+            if (dir != null)
+            {
+                Directory.CreateDirectory(dir);
+            }
+            else
+            {
+                Debug.LogError("Invalid assetPath: " + assetPath);
+                return;
+            }
+            
             asset = CreateAsset.Create<T>(assetPath);
             if (asset)
             {
                 string relPath = AssetDatabase.GetAssetPath(asset);
-                EditorPrefs.SetString("AssetPath", relPath);
+                EditorPrefs.SetString("AssetPath" + assetName, relPath);
             }
         }
 
@@ -50,9 +79,11 @@ namespace Wth.ModApi.Editor.Editor
             {
                 string relPath = absPath.Substring(Application.dataPath.Length - "Assets".Length);
                 T asset = AssetDatabase.LoadAssetAtPath(relPath, typeof(T)) as T;
+                Debug.Log("Loaded Asset " + asset);
                 if (asset)
                 {
-                    EditorPrefs.SetString("AssetPath", relPath);
+                    this.asset = asset;
+                    EditorPrefs.SetString("AssetPath" + assetName, relPath);
                 }
             }
         }
@@ -63,10 +94,10 @@ namespace Wth.ModApi.Editor.Editor
         /// <param name="assetPath">The Path a new Asset should be created </param>
         /// <param name="windowName">The Name of this editor window.</param>
         /// <param name="objectName">The name of this edited Scriptable Object (Usually the name of the Class)</param>
-        protected virtual void CreateListButtons(string assetPath, string windowName, string objectName)
+        protected virtual void CreateListButtons(string assetPath, string objectName)
         {
             GUILayout.BeginHorizontal();
-            GUILayout.Label(windowName, EditorStyles.boldLabel);
+            GUILayout.Label(assetName + " Creator", EditorStyles.boldLabel);
             if (this.asset != null)
             {
                 if (GUILayout.Button("Show " + objectName))
@@ -95,7 +126,7 @@ namespace Wth.ModApi.Editor.Editor
         /// <param name="numItems">The current number of items in the List.</param>
         /// <param name="objectName">The name of this edited Scriptable Object (Usually the name of the Class)</param>
         /// <param name="subassetName">The Name of the Subassets which this Scriptable Object is a list of.</param>
-        protected virtual void CreateAssetNavigation(int numItems, string objectName, string subassetName = "Asset")
+        protected virtual void CreateAssetNavigation(int numItems)
         {
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
@@ -108,9 +139,9 @@ namespace Wth.ModApi.Editor.Editor
 
             GUILayout.Space(20);
 
-            viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current " + objectName, viewIndex, GUILayout.ExpandWidth(false)), 1, numItems);
+            viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current " + assetName, viewIndex, GUILayout.ExpandWidth(false)), 1, numItems);
             GUILayout.Space(5);
-            EditorGUILayout.LabelField("of   " + numItems.ToString() + subassetName, "", GUILayout.ExpandWidth(false));
+            EditorGUILayout.LabelField("of   " + numItems.ToString() + "   " + assetName + "s", "", GUILayout.ExpandWidth(false));
 
             GUILayout.Space(20);
 
