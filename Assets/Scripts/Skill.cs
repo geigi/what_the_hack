@@ -18,7 +18,6 @@ public class Skill {
     /// Instance to store the skillData.
     /// </summary>
     public SkillDefinition skillData { get; set; }
-
     
     /// <summary>
     /// The points of this skill.
@@ -50,10 +49,10 @@ public class Skill {
     /// <summary>
     /// Adds skillLevelPunkte to the points of this skill and advances a Level if this skill holds enough points.
     /// </summary>
-    /// <param name="skillLevelPunkte">The number of points added to the points of this skill.</param>
-    public void AdjustPunkteZahl(float skillLevelPunkte)
+    /// <param name="skillPoints">The number of points added to the points of this skill.</param>
+    public void AddSkillPoints(float skillPoints)
     {
-        points += skillLevelPunkte;
+        points += skillPoints;
         while(points >= nextLevelPoints)
         {
             level++;

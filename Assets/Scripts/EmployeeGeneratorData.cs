@@ -31,15 +31,4 @@ public class EmployeeGeneratedData {
     /// The shoe color of this Employee.
     /// </summary>
     private Color shoeColor;
-
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
