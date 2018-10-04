@@ -41,8 +41,8 @@ get-unity-dlls:
   script:
   - ls -la /opt/Unity/Editor/Data/Managed/
   - mkdir ./Wth.ModApi/Wth.ModApi/References/
-  - cp /opt/Unity/Editor/Data/Managed/UnityEngine.* ./Wth.ModApi/Wth.ModApi/References/
-  - cp /opt/Unity/Editor/Data/Managed/UnityEditor.* ./Wth.ModApi/Wth.ModApi/References/
+  - cp /opt/Unity/Editor/Data/Managed/UnityEngine.dll ./Wth.ModApi/Wth.ModApi/References/
+  - cp /opt/Unity/Editor/Data/Managed/UnityEditor.dll ./Wth.ModApi/Wth.ModApi/References/
     
   artifacts:
     paths:
