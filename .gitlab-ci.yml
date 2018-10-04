@@ -37,11 +37,11 @@ variables:
 #    PROJECT_DIR: AndroidPlugin
 
 get-unity-dlls:
-  image: "mono:latest"
   stage: get-dependencies
   script:
+  - ls -la /opt/Unity/Editor/Data/Managed/
   - cp /opt/Unity/Editor/Data/Managed/UnityEngine.* ./Wth.ModApi/Wth.ModApi/References/
-  - cp /opt/Unity/Editor/Data/Managed/UnityEditor.*./Wth.ModApi/Wth.ModApi/References/
+  - cp /opt/Unity/Editor/Data/Managed/UnityEditor.* ./Wth.ModApi/Wth.ModApi/References/
     
   artifacts:
     paths:
