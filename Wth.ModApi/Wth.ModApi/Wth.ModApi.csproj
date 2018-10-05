@@ -40,7 +40,6 @@
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>References\UnityEngine.dll</HintPath>
       <HintPath Condition="Exists('\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll')">\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
-      <HintPath Condition="Exists('\opt\Unity\Editor\Data\Managed\UnityEngine.dll')">\opt\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
