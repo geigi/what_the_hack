@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml.Serialization;
 using Pathfinding;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 /// <summary>
 /// This class is responsible for loading and saving a game.
@@ -16,7 +14,7 @@ public static class SaveGameSystem
         MainSaveGame saveGame = new MainSaveGame();
         saveGame.name = name;
         saveGame.saveDate = DateTime.Now;
-        fillTileMapData(saveGame);
+        FillTileMapData(saveGame);
 
         return saveGame;
     }
@@ -56,18 +54,22 @@ public static class SaveGameSystem
         }
 
         BinaryFormatter formatter = new BinaryFormatter();
+        MainSaveGame saveGame;
    
         using (var stream = new FileStream(GetSavePath(name), FileMode.Open))
         {
             try
             {
-                return formatter.Deserialize(stream) as MainSaveGame;
+                saveGame = formatter.Deserialize(stream) as MainSaveGame;
             }
             catch (Exception)
             {
                 return null;
             }
         }
+        
+        RestoreTileMapData(saveGame);
+        return saveGame;
     }
 
     /// <summary>
@@ -113,7 +115,7 @@ public static class SaveGameSystem
     /// Fill a SaveGameObject with NodeMap data.
     /// </summary>
     /// <param name="saveGame"></param>
-    private static void fillTileMapData(MainSaveGame saveGame)
+    private static void FillTileMapData(MainSaveGame saveGame)
     {
         var go = GameObject.FindWithTag("Pathfinding");
         var grid = go.GetComponent<AGrid>();
@@ -126,6 +128,21 @@ public static class SaveGameSystem
             {
                 var node = grid.getNode(new Vector2Int(x, y));
                 saveGame.Tilemap[x, y] = node.GetData();
+            }
+        }
+    }
+
+    private static void RestoreTileMapData(MainSaveGame saveGame)
+    {
+        var go = GameObject.FindWithTag("Pathfinding");
+        var grid = go.GetComponent<AGrid>();
+        
+        for (int x = 0; x < AGrid.GridSizeX; x++)
+        {
+            for (int y = 0; y < AGrid.GridSizeY; y++)
+            {
+                var node = grid.getNode(new Vector2Int(x, y));
+                node.SetData(saveGame.Tilemap[x, y]);
             }
         }
     }

@@ -28,7 +28,7 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
         if (asset != null)
         {
             if (asset.employeeList == null)
-                asset.employeeList = new List<EmployeeData>();
+                asset.employeeList = new List<EmployeeDefinition>();
             CreateAssetNavigation(asset.employeeList.Count);
             GUILayout.Space(10);
             
@@ -75,15 +75,15 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
     {
         if (asset.employeeList.Count > 0)
         {
-            asset.employeeList[viewIndex - 1].employeeName = EditorGUILayout.TextField("Employee Name", asset.employeeList[viewIndex - 1].employeeName as string);
-            asset.employeeList[viewIndex - 1].idleAnimation = EditorGUILayout.ObjectField("Idle Animation", asset.employeeList[viewIndex - 1].idleAnimation, typeof(AnimationClip), false) as AnimationClip;
-            asset.employeeList[viewIndex - 1].walkingAnimation = EditorGUILayout.ObjectField("Walking Animation", asset.employeeList[viewIndex - 1].walkingAnimation, typeof(AnimationClip), false) as AnimationClip;
-            asset.employeeList[viewIndex - 1].workingAnimation = EditorGUILayout.ObjectField("Working Animation", asset.employeeList[viewIndex - 1].workingAnimation, typeof(AnimationClip), false) as AnimationClip;
+            asset.employeeList[viewIndex - 1].EmployeeName = EditorGUILayout.TextField("Employee Name", asset.employeeList[viewIndex - 1].EmployeeName as string);
+            asset.employeeList[viewIndex - 1].IdleAnimation = EditorGUILayout.ObjectField("Idle Animation", asset.employeeList[viewIndex - 1].IdleAnimation, typeof(AnimationClip), false) as AnimationClip;
+            asset.employeeList[viewIndex - 1].WalkingAnimation = EditorGUILayout.ObjectField("Walking Animation", asset.employeeList[viewIndex - 1].WalkingAnimation, typeof(AnimationClip), false) as AnimationClip;
+            asset.employeeList[viewIndex - 1].WorkingAnimation = EditorGUILayout.ObjectField("Working Animation", asset.employeeList[viewIndex - 1].WorkingAnimation, typeof(AnimationClip), false) as AnimationClip;
 
             GUILayout.Space(10);
 
             GUILayout.BeginHorizontal();
-            asset.employeeList[viewIndex - 1].level = EditorGUILayout.IntField("Level", asset.employeeList[viewIndex - 1].level, GUILayout.ExpandWidth(false));
+            asset.employeeList[viewIndex - 1].Level = EditorGUILayout.IntField("Level", asset.employeeList[viewIndex - 1].Level, GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
 
             GUILayout.Space(10);
@@ -99,10 +99,10 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
 
     void AddItem()
     {
-        var asset = ScriptableObject.CreateInstance<EmployeeData>();
+        var asset = ScriptableObject.CreateInstance<EmployeeDefinition>();
 
         AssetDatabase.CreateAsset(asset, "Assets/Data/Employees/Employee " + this.asset.employeeList.Count + ".asset");
-        asset.employeeName = "Max Mustermann";
+        asset.EmployeeName = "Max Mustermann";
         this.asset.employeeList.Add(asset);
         viewIndex = this.asset.employeeList.Count;
         AssetDatabase.SaveAssets();

@@ -46,7 +46,9 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Employees\EmployeeData.cs" />
+    <Compile Include="Employees\EmployeeDefinition.cs" />
     <Compile Include="Employees\EmployeeList.cs" />
+    <Compile Include="Employees\EmployeeSpecial.cs" />
     <Compile Include="ModInfo.cs" />
     <Compile Include="Skills\SkillDefiniton.cs" />
     <Compile Include="Skills\SkillSet.cs" />
