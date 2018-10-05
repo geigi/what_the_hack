@@ -18,6 +18,7 @@
 	}
 	SubShader
 	{
+		Tags { "Queue" = "Transparent" }
 		Cull Off
 		Blend One OneMinusSrcAlpha
 

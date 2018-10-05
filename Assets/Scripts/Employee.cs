@@ -45,20 +45,27 @@ public class Employee : MonoBehaviour {
 	/// Fills the object with specific data.
 	/// </summary>
 	/// <param name="employeeData">Data for this employee.</param>
-	public void init(EmployeeData employeeData)
+	public void init(EmployeeData employeeData, Material material)
 	{
 		this.employeeData = employeeData;
+        spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+        // Add the Material.
+        spriteRenderer.material = EmployeeFactory.GenerateMaterial(material);
+        // place the right animations.
+        this.animator = gameObject.AddComponent<Animator>();
+        RuntimeAnimatorController run = Resources.Load<RuntimeAnimatorController>("EmployeeAnimations");
+        var animatorOverrideController = new AnimatorOverrideController(run);
 
-		// place the right animations
-		spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-		this.animator = gameObject.AddComponent<Animator>();
-		this.animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("EmployeeAnimations");
-		var animatorOverrideController = new AnimatorOverrideController(this.animator.runtimeAnimatorController);
-		animatorOverrideController["idle"] = employeeData.idleAnimation;
-		animatorOverrideController["walking"] = employeeData.walkingAnimation;
-		animatorOverrideController["working"] = employeeData.workingAnimation;
-        //this.animator.runtimeAnimatorController = animatorOverrideController;
-	}
+        if (employeeData.idleAnimation != null && 
+            employeeData.walkingAnimation != null && 
+            employeeData.workingAnimation != null)
+        {
+            animatorOverrideController["Special_Trump_Idle"] = employeeData.idleAnimation;
+            animatorOverrideController["Special_Trump_Walking"] = employeeData.walkingAnimation;
+            animatorOverrideController["Special_Trump_Working"] = employeeData.workingAnimation;
+        }
+        this.animator.runtimeAnimatorController = animatorOverrideController;
+    }
 
 	/// <summary>
 	/// Start/Stop idle walking.
@@ -158,9 +165,9 @@ public class Employee : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (idle & !walking)
+        if (idle & !walking)
 		{
-			RequestNewIdleWalk();
+            RequestNewIdleWalk();
 		}
 	}
 }
