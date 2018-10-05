@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
+using Pathfinding;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,17 +11,25 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public static class SaveGameSystem
 {
+    public static MainSaveGame CreateNewSaveGame(string name)
+    {
+        MainSaveGame saveGame = new MainSaveGame();
+        saveGame.name = name;
+        saveGame.saveDate = DateTime.Now;
+        fillTileMapData(saveGame);
+
+        return saveGame;
+    }
+    
     /// <summary>
     /// Save a saveGame to disk.
     /// </summary>
     /// <param name="saveGame">SaveGame Object to save.</param>
-    /// <param name="name">Name of the SaveGame.</param>
     /// <returns>Successfully saved?</returns>
-    public static bool SaveGame(MainSaveGame saveGame, string name)
+    public static bool SaveGame(MainSaveGame saveGame)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-
-        using (var stream = new FileStream(GetSavePath(name), FileMode.Create))
+        using (var stream = new FileStream(GetSavePath(saveGame.name), FileMode.Create))
         {
             try
             {
@@ -31,8 +41,6 @@ public static class SaveGameSystem
             }
             return true;
         }
-
-        return true;
     }
 
     /// <summary>
@@ -40,7 +48,7 @@ public static class SaveGameSystem
     /// </summary>
     /// <param name="name">Name of the savegame.</param>
     /// <returns>Successfully loaded?</returns>
-    public static SaveGame LoadGame(string name)
+    public static MainSaveGame LoadGame(string name)
     {
         if (!DoesSaveGameExist(name))
         {
@@ -53,7 +61,7 @@ public static class SaveGameSystem
         {
             try
             {
-                return formatter.Deserialize(stream) as SaveGame;
+                return formatter.Deserialize(stream) as MainSaveGame;
             }
             catch (Exception)
             {

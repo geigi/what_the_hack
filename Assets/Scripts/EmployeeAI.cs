@@ -16,11 +16,6 @@ public class EmployeeAI : MonoBehaviour
 	private List<Employee> employees;
 
 	private bool createdEmployee = false;
-
-	void Awake()
-	{
-		
-	}
 	
 	// Use this for initialization
 	void Start ()
@@ -43,10 +38,6 @@ public class EmployeeAI : MonoBehaviour
 			employee.idleWalking(true);
 		}
 	}
-
-	
-	
-	
 	
 	// Update is called once per frame
 	void Update () {

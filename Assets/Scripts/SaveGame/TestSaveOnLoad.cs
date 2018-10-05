@@ -16,8 +16,8 @@ public class TestSaveOnLoad : MonoBehaviour
 		if (!saved)
 		{
 			saved = true;
-			var saveGame = new MainSaveGame();
-			SaveGameSystem.SaveGame(saveGame, "test1");
+			var saveGame = SaveGameSystem.CreateNewSaveGame("test1");
+			SaveGameSystem.SaveGame(saveGame);
 		}
 	}
 }

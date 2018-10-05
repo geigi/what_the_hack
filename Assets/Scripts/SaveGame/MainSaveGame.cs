@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using Wth.ModApi;
 
 [Serializable]
-public class MainSaveGame : SaveGame
+public class MainSaveGame
 {
 	public string name { get; set; }
 	public string modId { get; set; }
