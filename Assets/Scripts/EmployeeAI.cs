@@ -9,6 +9,7 @@ using Wth.ModApi;
 
 public class EmployeeAI : MonoBehaviour
 {
+    public Material standardEmployeeMaterial;
 	public EmployeeData employeeData;
 
 	private GameObject employeeGameObject;
@@ -30,7 +31,7 @@ public class EmployeeAI : MonoBehaviour
 		{
 			var gameObject = new GameObject("Employee");
 			var employee = gameObject.AddComponent<Employee>();
-			employee.init(employeeData);
+			employee.init(employeeData, standardEmployeeMaterial);
 			employees.Add(employee);
 		}
 	}
