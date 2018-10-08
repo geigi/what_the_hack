@@ -29,9 +29,10 @@ variables:
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
 
 .doxygen_before_script: &doxygen_before_script:
-- apk update
-- apk add doxygen
-- apk add ttf-freefont graphviz
+  before_script:
+  - apk update
+  - apk add doxygen
+  - apk add ttf-freefont graphviz
 
 #test-android:
 #  image: openjdk:8-jdk
@@ -204,6 +205,7 @@ build-documentation:
   artifacts:
     paths:
     - ./Wth.ModApi/Documentation/html
+    expire_in: 2 weeks
 
 #pages:
 #  image: alpine:latest
