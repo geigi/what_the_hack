@@ -35,8 +35,6 @@ variables:
   - wget -q -P /tmp https://github.com/dotnet/docfx/releases/download/v2.39.2/docfx.zip
   - mkdir -p /opt/docfx
   - unzip /tmp/docfx.zip -d /opt/docfx
-  - echo '#!/bin/bash\nmono /opt/docfx/docfx.exe $@' > /usr/bin/docfx
-  - chmod +x /usr/bin/docfx
   - rm -f /tmp/*
   - docfx -h
 
@@ -207,7 +205,7 @@ build-documentation:
   image: mono:5.10.1
   <<: *docfx_before_script
   script:
-  - docfx Wth.ModApi/Documentation/docfx.json
+  - mono /opt/docfx/docfx.exe Wth.ModApi/Documentation/docfx.json
   - mv ./Wth.ModApi/Documentation/html ./Wth.ModApi_Documentation
   artifacts:
     paths:
