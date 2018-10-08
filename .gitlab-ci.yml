@@ -28,6 +28,18 @@ variables:
   - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
 
+.docfx_before_script: &docfx_before_script
+  before_script:
+  - apt-get update
+  - apt-get install unzip wget git -y
+  - wget -q -P /tmp https://github.com/dotnet/docfx/releases/download/v2.39.2/docfx.zip
+  - mkdir -p /opt/docfx
+  - unzip /tmp/docfx.zip -d /opt/docfx
+  - echo '#!/bin/bash\nmono /opt/docfx/docfx.exe $@' > /usr/bin/docfx
+  - chmod +x /usr/bin/docfx
+  - rm -f /tmp/*
+  - docfx -h
+
 #test-android:
 #  image: openjdk:8-jdk
 #  stage: test
@@ -192,7 +204,8 @@ build-unity-Windows-x86_64:
 
 build-documentation:
   stage: documentation
-  image: alvinsay/docfx:2.32.1
+  image: mono:5.10.1
+  <<: *docfx_before_script
   script:
   - docfx Wth.ModApi/Documentation/docfx.json
   - mv ./Wth.ModApi/Documentation/html ./Wth.ModApi_Documentation
