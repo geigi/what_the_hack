@@ -36,7 +36,7 @@ variables:
   - mkdir -p /opt/docfx
   - unzip /tmp/docfx.zip -d /opt/docfx
   - rm -f /tmp/*
-  - docfx -h
+  - mono /opt/docfx/docfx.exe -h
 
 #test-android:
 #  image: openjdk:8-jdk
