@@ -6,6 +6,7 @@ stages:
 - build-dependencies
 - test-main
 - build-main
+- documentation
 - deploy
 
 variables:
@@ -26,6 +27,11 @@ variables:
   - cp -rf ./AndroidPlugin/notificationprovider/build/outputs/aar/* ./Assets/Plugins/Android/
   - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
+
+.doxygen_before_script: &doxygen_before_script:
+- apk update
+- apk add doxygen
+- apk add ttf-freefont graphviz
 
 #test-android:
 #  image: openjdk:8-jdk
@@ -188,6 +194,16 @@ build-unity-Windows-x86_64:
 #  <<: *build-unity
 #  variables:
 #    BUILD_TARGET: WebGL
+
+build-documentation:
+  stage: documentation
+  image: alpine
+  <<: *doxygen_before_script
+  script:
+  - doxygen ./Wth.ModApi/Documentation/Doxyfile
+  artifacts:
+    paths:
+    - ./Wth.ModApi/Documentation/html
 
 #pages:
 #  image: alpine:latest
