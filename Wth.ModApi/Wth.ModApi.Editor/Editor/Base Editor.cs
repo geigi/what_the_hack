@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+using Wth.ModApi.Editor.Tools;
+using Object = System.Object;
 
 namespace Wth.ModApi.Editor.Editor
 {
@@ -23,6 +26,13 @@ namespace Wth.ModApi.Editor.Editor
         /// The name of this Asset. This will be used for GUI and path saving.
         /// </summary>
         public string assetName;
+
+        /// <summary>
+        /// If this editor handles scriptable objects that need references in savegames, it needs to keep track of those
+        /// in a <see cref="ScriptableObjectDictionary"/>.
+        /// Set this in the constructor of the inheritor if needed.
+        /// </summary>
+        public bool NeedsDictionary = false;
 
         /// <summary>
         /// The current Item of the SkillSet.
@@ -60,7 +70,7 @@ namespace Wth.ModApi.Editor.Editor
                 return;
             }
             
-            asset = CreateAsset.Create<T>(assetPath);
+            asset = EditorTools.Create<T>(assetPath);
             if (asset)
             {
                 string relPath = AssetDatabase.GetAssetPath(asset);
@@ -89,10 +99,9 @@ namespace Wth.ModApi.Editor.Editor
         }
 
         /// <summary>
-        /// Creates a Button to show, open anbd create a new Scriptable Object of type T.
+        /// Creates a Button to show, open and create a new Scriptable Object of type T.
         /// </summary>
         /// <param name="assetPath">The Path a new Asset should be created </param>
-        /// <param name="windowName">The Name of this editor window.</param>
         /// <param name="objectName">The name of this edited Scriptable Object (Usually the name of the Class)</param>
         protected virtual void CreateListButtons(string assetPath, string objectName)
         {
@@ -124,8 +133,6 @@ namespace Wth.ModApi.Editor.Editor
         /// Only for Scriptable Objects, which holds a List of other Objects.
         /// </summary>
         /// <param name="numItems">The current number of items in the List.</param>
-        /// <param name="objectName">The name of this edited Scriptable Object (Usually the name of the Class)</param>
-        /// <param name="subassetName">The Name of the Subassets which this Scriptable Object is a list of.</param>
         protected virtual void CreateAssetNavigation(int numItems)
         {
             GUILayout.BeginHorizontal();
@@ -154,6 +161,46 @@ namespace Wth.ModApi.Editor.Editor
             }
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
+        }
+
+        /// <summary>
+        /// Save all dirty assets to disk and update the scriptable object dictionary.
+        /// </summary>
+        protected void SaveAssets()
+        {
+            AssetDatabase.SaveAssets();
+            UpdateScriptableObjectDictionary();
+        }
+
+        /// <summary>
+        /// Update the scriptable object dictionary.
+        /// Uses the asset path as key.
+        /// </summary>
+        private void UpdateScriptableObjectDictionary()
+        {
+            if (asset == null)
+                return;
+
+            var dictionary = EditorTools.GetScriptableObjectDictionary();
+            
+            foreach (var item in GetList())
+            {
+                dictionary.AddUpdate(AssetDatabase.GetAssetPath(item), item);
+            }
+            
+            EditorUtility.SetDirty(dictionary);
+            AssetDatabase.SaveAssets();
+        }
+
+        /// <summary>
+        /// Return the list of this asset.
+        /// Needs to be overwritten by the derived class.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        protected virtual List<ScriptableObject> GetList()
+        {
+            throw new NotImplementedException("This method needs to be overwritten by its inheritor.");
         }
     }
 }

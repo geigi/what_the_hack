@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using Wth.ModApi.Editor.Tools;
 
 namespace Wth.ModApi.Editor
 {
@@ -34,7 +35,8 @@ namespace Wth.ModApi.Editor
 
         public SkillEditor()
         {
-            this.assetName = "Skill";
+            assetName = "Skill";
+            NeedsDictionary = true;
         }
         
         /// <summary>
@@ -83,7 +85,7 @@ namespace Wth.ModApi.Editor
 
                 if (GUILayout.Button("Save Skills"))
                 {
-                    AssetDatabase.SaveAssets();
+                    SaveAssets();
                 }
             }
             if (GUI.changed)
@@ -197,11 +199,19 @@ namespace Wth.ModApi.Editor
             if (index >= 0 && index < asset.keys.Count)
             {
                 var item = base.asset.keys[index];
-                AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(item));
+                var dictionary = EditorTools.GetScriptableObjectDictionary();
+                dictionary.Delete(item);
+                EditorUtility.SetDirty(dictionary);
+                AssetDatabase.SaveAssets();
                 base.asset.keys.Remove(item);
                 base.asset.values.RemoveAt(index);
                 base.viewIndex = base.asset.keys.Count;
             }
+        }
+        
+        protected override List<ScriptableObject> GetList()
+        {
+            return asset.keys.Cast<ScriptableObject>().ToList();
         }
     }
 }

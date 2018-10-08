@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Wth.ModApi.Editor</RootNamespace>
     <AssemblyName>Wth.ModApi.Editor</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -49,13 +49,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Editor\Base Editor.cs" />
-    <Compile Include="Editor\CreateAsset.cs" />
     <Compile Include="Employees\CreateEmployeeList.cs" />
     <Compile Include="Employees\EmployeeEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Skills\CreateSkillDefinition.cs" />
     <Compile Include="Skills\CreateSkillSet.cs" />
     <Compile Include="Skills\SkillEditor.cs" />
+    <Compile Include="Tools\EditorTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wth.ModApi\Wth.ModApi.csproj">

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Wth.ModApi</RootNamespace>
     <AssemblyName>Wth.ModApi</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
@@ -50,6 +50,7 @@
     <Compile Include="Employees\EmployeeList.cs" />
     <Compile Include="Employees\EmployeeSpecial.cs" />
     <Compile Include="ModInfo.cs" />
+    <Compile Include="ScriptableObjectDictionary.cs" />
     <Compile Include="Skills\SkillDefiniton.cs" />
     <Compile Include="Skills\SkillSet.cs" />
   </ItemGroup>

@@ -2,13 +2,17 @@
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Wth.ModApi.Editor.Tools;
 
 namespace Wth.ModApi.Editor {
 public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
 {
     public EmployeeEditor()
     {
-        this.assetName = "Employee";
+        assetName = "Employee";
+        NeedsDictionary = true;
     }
     
     [MenuItem("Tools/What_The_Hack ModApi/Employee Creator")]
@@ -40,7 +44,8 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
             }
             if (GUILayout.Button("Delete Employee", GUILayout.ExpandWidth(false)))
             {
-                DeleteItem(viewIndex - 1);
+                viewIndex -= 1;
+                DeleteItem(viewIndex);
             }
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
@@ -51,7 +56,7 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
             
             if (GUILayout.Button("Save Employees"))
             {
-                AssetDatabase.SaveAssets();
+                SaveAssets();
             }
         }
         
@@ -105,7 +110,7 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
         asset.EmployeeName = "Max Mustermann";
         this.asset.employeeList.Add(asset);
         viewIndex = this.asset.employeeList.Count;
-        AssetDatabase.SaveAssets();
+        SaveAssets();
     }
 
     void DeleteItem(int index)
@@ -113,6 +118,17 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
         var item = asset.employeeList[index];
         AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(item));
         asset.employeeList.RemoveAt(index);
+        viewIndex = asset.employeeList.Count;
+        
+        var dictionary = EditorTools.GetScriptableObjectDictionary();
+        dictionary.Delete(item);
+        EditorUtility.SetDirty(dictionary);
+        AssetDatabase.SaveAssets();
+    }
+
+    protected override List<ScriptableObject> GetList()
+    {
+        return asset.employeeList.Cast<ScriptableObject>().ToList();
     }
 }
 }
