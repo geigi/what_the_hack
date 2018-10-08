@@ -201,7 +201,7 @@ build-documentation:
   image: alpine
   <<: *doxygen_before_script
   script:
-  - doxygen ./Wth.ModApi/Documentation/Doxyfile
+  - doxygen ./Doxyfile
   artifacts:
     paths:
     - ./Wth.ModApi/Documentation/html
