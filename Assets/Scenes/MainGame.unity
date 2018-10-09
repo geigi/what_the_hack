@@ -4818,6 +4818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saved: 0
+  dictionary: {fileID: 11400000, guid: 91239629fe1664d5fa7d9ef3223df9de, type: 2}
 --- !u!4 &1067792378
 Transform:
   m_ObjectHideFlags: 0

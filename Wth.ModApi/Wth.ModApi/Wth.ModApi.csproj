@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ModTool, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\Assets\ModTool\ModTool.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -50,9 +53,11 @@
     <Compile Include="Employees\EmployeeList.cs" />
     <Compile Include="Employees\EmployeeSpecial.cs" />
     <Compile Include="ModInfo.cs" />
-    <Compile Include="ScriptableObjectDictionary.cs" />
     <Compile Include="Skills\SkillDefiniton.cs" />
     <Compile Include="Skills\SkillSet.cs" />
+    <Compile Include="Tools\ScriptableObjectDictionary.cs" />
+    <Compile Include="Tools\ScriptableObjectManager.cs" />
+    <Compile Include="Tools\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties" />

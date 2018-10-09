@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Pathfinding;
 using UnityEngine;
+using Wth.ModApi.Tools;
 
 /// <summary>
 /// This class is responsible for loading and saving a game.
@@ -33,8 +34,9 @@ public static class SaveGameSystem
             {
                 formatter.Serialize(stream, saveGame);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.LogError(e);
                 return false;
             }
             return true;

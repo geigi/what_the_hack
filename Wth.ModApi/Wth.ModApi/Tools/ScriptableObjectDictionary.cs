@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Wth.ModApi
+namespace Wth.ModApi.Tools
 {
     /// <summary>
     /// This Scriptable Object contains key value pairs for each Scriptable Object used in the game.
@@ -12,6 +12,7 @@ namespace Wth.ModApi
     /// The main game and each mod needs an instance of this class.
     /// </summary>
     [CreateAssetMenu(fileName = "SODictionary", menuName = "What_The_Hack ModApi/ScriptableObject Dictionary", order = 1)]
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class ScriptableObjectDictionary: ScriptableObject
     {
         /// <summary>
@@ -96,6 +97,28 @@ namespace Wth.ModApi
         public void Delete(ScriptableObject obj)
         {
             Dictionary.RemoveAll(i => i.ScriptableObject == obj);
+        }
+
+        /// <summary>
+        /// Find the key to a given object in this dictionary.
+        /// Returns null if not found.
+        /// </summary>
+        /// <param name="obj">Object to find</param>
+        /// <returns></returns>
+        public string GetKey(ScriptableObject obj)
+        {
+            return Dictionary.First(x => x.ScriptableObject == obj).Key;
+        }
+
+        /// <summary>
+        /// Find the object to a given key in this dictionary.
+        /// Returns null if not found.
+        /// </summary>
+        /// <param name="key">Key to find</param>
+        /// <returns></returns>
+        public ScriptableObject GetObject(string key)
+        {
+            return Dictionary.First(x => x.Key == key).ScriptableObject;
         }
     }
 }

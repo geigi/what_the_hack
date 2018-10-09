@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using UnityEngine;
+using Wth.ModApi.Tools;
 
 namespace Wth.ModApi
 {
@@ -42,6 +44,11 @@ namespace Wth.ModApi
         /// Only populated for special created Employees.
         /// </summary>
         public EmployeeDefinition EmployeeDefinition;
+
+        public EmployeeData()
+        {
+            
+        }
         
         /// <summary>
         /// Constructor for deserialization.
@@ -63,13 +70,11 @@ namespace Wth.ModApi
             info.AddValue("level", Level, typeof(int));
             info.AddValue("salary", Salary, typeof(int));
 
-            var skills = new List<string>();
-            info.AddValue("skills", null, typeof(List<string>));
-            info.AddValue("specials", null, typeof(List<string>));
+            info.AddValue("skills", ScriptableObjectManager.Instance.GetKeys(Skills), typeof(List<string>));
+            info.AddValue("specials", Specials, typeof(List<EmployeeSpecial>));
             info.AddValue("x", Position.x, typeof(float));
             info.AddValue("y", Position.y, typeof(float));
             info.AddValue("definition", Level, typeof(string));
-
         }
     }
 }

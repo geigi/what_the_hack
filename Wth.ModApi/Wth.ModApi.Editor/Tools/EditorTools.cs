@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using Wth.ModApi.Tools;
 
 namespace Wth.ModApi.Editor.Tools
 {
@@ -16,7 +17,7 @@ namespace Wth.ModApi.Editor.Tools
         /// <returns></returns>
         public static ScriptableObjectDictionary GetScriptableObjectDictionary()
         {
-            var assetPath = "Assets/Data/SODictionary.asset";
+            var assetPath = "Assets/Resources/SODictionary.asset";
             
             var dir = Path.GetDirectoryName(assetPath);
             if (dir != null)
