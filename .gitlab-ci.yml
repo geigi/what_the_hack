@@ -205,7 +205,7 @@ build-documentation:
   image: mono:5.10.1
   <<: *docfx_before_script
   script:
-  - mono /opt/docfx/docfx.exe Wth.ModApi/Documentation/docfx.json
+  - mono /opt/docfx/docfx.exe Wth.ModApi/Documentation/docfx.json --logLevel Verbose
   - mv ./Wth.ModApi/Documentation/html ./Wth.ModApi_Documentation
   artifacts:
     paths:
