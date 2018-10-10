@@ -41,15 +41,18 @@
     <Reference Include="UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Wth.ModApi\References\UnityEditor.dll</HintPath>
       <HintPath Condition="Exists('\Applications\Unity\Unity.app\Contents\Managed\UnityEditor.dll')">\Applications\Unity\Unity.app\Contents\Managed\UnityEditor.dll</HintPath>
+      <HintPath Condition="Exists('\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll')">\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Wth.ModApi\References\UnityEngine.dll</HintPath>
       <HintPath Condition="Exists('\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll')">\Applications\Unity\Unity.app\Contents\Managed\UnityEngine.dll</HintPath>
+      <HintPath Condition="Exists('\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll')">\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation\AnimationEditor.cs" />
     <Compile Include="Editor\Base Editor.cs" />
     <Compile Include="Editor\CreateAsset.cs" />
     <Compile Include="Employees\CreateEmployeeList.cs" />

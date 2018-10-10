@@ -76,10 +76,26 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
         if (asset.employeeList.Count > 0)
         {
             asset.employeeList[viewIndex - 1].employeeName = EditorGUILayout.TextField("Employee Name", asset.employeeList[viewIndex - 1].employeeName as string);
-            asset.employeeList[viewIndex - 1].idleAnimation = EditorGUILayout.ObjectField("Idle Animation", asset.employeeList[viewIndex - 1].idleAnimation, typeof(AnimationClip), false) as AnimationClip;
-            asset.employeeList[viewIndex - 1].walkingAnimation = EditorGUILayout.ObjectField("Walking Animation", asset.employeeList[viewIndex - 1].walkingAnimation, typeof(AnimationClip), false) as AnimationClip;
-            asset.employeeList[viewIndex - 1].workingAnimation = EditorGUILayout.ObjectField("Working Animation", asset.employeeList[viewIndex - 1].workingAnimation, typeof(AnimationClip), false) as AnimationClip;
-
+												GUILayout.BeginHorizontal();
+												asset.employeeList[viewIndex - 1].idleAnimation = EditorGUILayout.ObjectField("Idle Animation", asset.employeeList[viewIndex - 1].idleAnimation, typeof(AnimationClip), false) as AnimationClip;
+												if(GUILayout.Button("Create Idle Animation", GUILayout.MaxWidth(200))) {
+																				OpenAnimationEditor("Basic Idle Animation");
+												}
+												GUILayout.EndHorizontal();
+												GUILayout.BeginHorizontal();
+												asset.employeeList[viewIndex - 1].walkingAnimation = EditorGUILayout.ObjectField("Walking Animation", asset.employeeList[viewIndex - 1].walkingAnimation, typeof(AnimationClip), false) as AnimationClip;
+												if(GUILayout.Button("Create Walking Animation", GUILayout.MaxWidth(200)))
+												{
+																OpenAnimationEditor("Basic Walking Animation");
+												}
+												GUILayout.EndHorizontal();
+												GUILayout.BeginHorizontal();
+												asset.employeeList[viewIndex - 1].workingAnimation = EditorGUILayout.ObjectField("Working Animation", asset.employeeList[viewIndex - 1].workingAnimation, typeof(AnimationClip), false) as AnimationClip;
+												if(GUILayout.Button("Create Working Animation", GUILayout.MaxWidth(200)))
+												{
+												    OpenAnimationEditor("Basic Working Animation");
+												}
+												GUILayout.EndHorizontal();
             GUILayout.Space(10);
 
             GUILayout.BeginHorizontal();
@@ -114,5 +130,13 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
         AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(item));
         asset.employeeList.RemoveAt(index);
     }
+
+				void OpenAnimationEditor(string name)
+				{
+								AnimationEditor window = (AnimationEditor)EditorWindow.GetWindow(typeof(AnimationEditor));
+								window.animationName = name;
+								window.Show();
+								window.CreateNewAnimation();
+				}
 }
 }
