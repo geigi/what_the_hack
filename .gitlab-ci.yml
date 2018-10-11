@@ -28,16 +28,6 @@ variables:
   - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
 
-.docfx_before_script: &docfx_before_script
-  before_script:
-  - apt-get update
-  - apt-get install unzip wget git -y
-  - wget -q -P /tmp https://github.com/dotnet/docfx/releases/download/v2.39.2/docfx.zip
-  - mkdir -p /opt/docfx
-  - unzip /tmp/docfx.zip -d /opt/docfx
-  - rm -f /tmp/*
-  - mono /opt/docfx/docfx.exe -h
-
 #test-android:
 #  image: openjdk:8-jdk
 #  stage: test
@@ -95,6 +85,7 @@ test-api:
     - $(pwd)/$TEST_PLATFORM-results.xml
     expire_in: 2 weeks
   cache:
+    key: ${CI_PROJECT_ID}
     paths:
     - Library
 
@@ -170,6 +161,7 @@ build-Wth.ModApi:
     - ./Builds/
     expire_in: 2 weeks
   cache:
+    key: ${CI_PROJECT_ID}
     paths:
     - Library
 
@@ -201,10 +193,9 @@ build-unity-Windows-x86_64:
 
 build-documentation:
   stage: documentation
-  image: mono:5.10.1
-  <<: *docfx_before_script
+  image: tsgkadot/docker-docfx:latest
   script:
-  - mono /opt/docfx/docfx.exe Wth.ModApi/Documentation/docfx.json --logLevel Verbose
+  - docfx Wth.ModApi/Documentation/docfx.json --logLevel Verbose
   - mv ./Wth.ModApi/Documentation/html ./Wth.ModApi_Documentation
   artifacts:
     paths:
