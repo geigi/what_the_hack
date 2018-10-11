@@ -14,6 +14,5 @@ namespace Wth.ModApi.Editor.Skills
             AssetDatabase.SaveAssets();
             return asset;
         }
-
     }
 }

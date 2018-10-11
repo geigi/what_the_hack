@@ -1,24 +1,26 @@
-using System.Runtime.Serialization.Formatters.Binary;
 using System;
-using System.Runtime.Serialization;
 using System.Reflection;
+using System.Runtime.Serialization;
 
-public sealed class VersionDeserializationBinder : SerializationBinder 
-{ 
-    public override Type BindToType( string assemblyName, string typeName )
+namespace SaveGame
+{
+    public sealed class VersionDeserializationBinder : SerializationBinder 
     { 
-        if ( !string.IsNullOrEmpty( assemblyName ) && !string.IsNullOrEmpty( typeName ) ) 
+        public override Type BindToType( string assemblyName, string typeName )
         { 
-            Type typeToDeserialize = null; 
+            if ( !string.IsNullOrEmpty( assemblyName ) && !string.IsNullOrEmpty( typeName ) ) 
+            { 
+                Type typeToDeserialize = null; 
 
-            assemblyName = Assembly.GetExecutingAssembly().FullName; 
+                assemblyName = Assembly.GetExecutingAssembly().FullName; 
 
-            // The following line of code returns the type. 
-            typeToDeserialize = Type.GetType( String.Format( "{0}, {1}", typeName, assemblyName ) ); 
+                // The following line of code returns the type. 
+                typeToDeserialize = Type.GetType( String.Format( "{0}, {1}", typeName, assemblyName ) ); 
 
-            return typeToDeserialize; 
+                return typeToDeserialize; 
+            } 
+
+            return null; 
         } 
-
-        return null; 
-    } 
+    }
 }

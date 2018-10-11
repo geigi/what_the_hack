@@ -106,9 +106,10 @@ public class ModLoader : MonoBehaviour {
 			return true;
 		}
 		catch (Exception e) {
+			Debug.LogError("Mod " + mod.name + " doesn't contain a ModInfo asset which is required for each mod.");
+			Debug.LogError(e);
 			return false;
 		}
-		
 	}
 
 	private void LoadMod(Mod mod) {
