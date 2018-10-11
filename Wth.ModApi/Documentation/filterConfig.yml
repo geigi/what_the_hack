@@ -1,0 +1,7 @@
+apiRules:
+- exclude:
+      uidRegex: ^System
+      type: Type
+- exclude:
+      uidRegex: ^Unity
+      type: Type
