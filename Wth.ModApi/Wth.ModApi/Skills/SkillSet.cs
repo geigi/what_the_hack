@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Wth.ModApi
+namespace Wth.ModApi.Skills
 {
+    /// <inheritdoc />
     /// <summary>
     /// A Class which holds a Set of Skills, with their respective occurence probability
     /// </summary>

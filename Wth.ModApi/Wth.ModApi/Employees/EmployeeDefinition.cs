@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
-namespace Wth.ModApi {
+namespace Wth.ModApi.Employees {
     [System.Serializable]
     [CreateAssetMenu(fileName = "EmployeeDefinition", menuName = "What_The_Hack ModApi/Employees/Employee Definition", order = 1)]
     public class EmployeeDefinition : ScriptableObject{

@@ -52,6 +52,9 @@ namespace Wth.ModApi.Tools
         /// <returns></returns>
         public string GetKey(ScriptableObject obj)
         {
+            if (obj == null)
+                return "";
+            
             string key = MainDictionary.GetKey(obj);
             if (key == null && ModDictionary != null)
                 key = ModDictionary.GetKey(obj);
@@ -67,6 +70,9 @@ namespace Wth.ModApi.Tools
         /// <returns></returns>
         public ScriptableObject GetObject(string key)
         {
+            if (String.IsNullOrEmpty(key))
+                return null;
+            
             ScriptableObject scriptableObject = MainDictionary.GetObject(key);
             if (scriptableObject == null && ModDictionary != null)
                 scriptableObject = ModDictionary.GetObject(key);

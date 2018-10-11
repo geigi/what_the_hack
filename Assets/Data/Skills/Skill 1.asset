@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1400036974, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
+  m_Script: {fileID: -1181154900, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
   m_Name: Skill 1
   m_EditorClassIdentifier: 
   skillName: Social Engineering

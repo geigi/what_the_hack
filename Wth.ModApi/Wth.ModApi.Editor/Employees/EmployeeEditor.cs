@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 using Wth.ModApi.Editor.Tools;
+using Wth.ModApi.Employees;
 
-namespace Wth.ModApi.Editor {
+namespace Wth.ModApi.Editor.Employees {
 public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
 {
     public EmployeeEditor()

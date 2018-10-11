@@ -10,5 +10,4 @@ using Utils;
 [Serializable]
 public class NodeData {
     public Enums.TileState state { get; set; }
-    public GameObject occupyingObject { get; set; }
 }

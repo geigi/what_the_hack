@@ -4818,7 +4818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saved: 0
-  dictionary: {fileID: 11400000, guid: 91239629fe1664d5fa7d9ef3223df9de, type: 2}
+  SkillSet: {fileID: 11400000, guid: c58b24c8c7c20b44aba46d435d85e8d2, type: 2}
 --- !u!4 &1067792378
 Transform:
   m_ObjectHideFlags: 0

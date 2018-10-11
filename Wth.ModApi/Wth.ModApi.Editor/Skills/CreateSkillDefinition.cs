@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEditor;
 using UnityEngine;
-using UnityEditor;
+using Wth.ModApi.Skills;
 
-namespace Wth.ModApi.Editor
+namespace Wth.ModApi.Editor.Skills
 {
     public class CreateSkillDefinition : MonoBehaviour
     {

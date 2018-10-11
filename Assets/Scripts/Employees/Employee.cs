@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
 using Wth.ModApi;
+using Wth.ModApi.Employees;
 
 /// <summary>
 /// This class represents an employee in the Game. All data is saved in the EmployeeData Scriptable Object.

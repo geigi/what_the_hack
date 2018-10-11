@@ -6,6 +6,7 @@ using Pathfinding;
 using UnityEngine;
 using UnityEngine.UI;
 using Wth.ModApi;
+using Wth.ModApi.Employees;
 
 public class EmployeeAI : MonoBehaviour
 {

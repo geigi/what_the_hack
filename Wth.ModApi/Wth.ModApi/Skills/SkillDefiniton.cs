@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Wth.ModApi
+namespace Wth.ModApi.Skills
 {
     /// <summary>
     /// A Class for a Skill Scriptable Object.

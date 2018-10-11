@@ -48,7 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Editor\Base Editor.cs" />
+    <Compile Include="Base Editor.cs" />
     <Compile Include="Employees\CreateEmployeeList.cs" />
     <Compile Include="Employees\EmployeeEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,6 +62,9 @@
       <Project>{c956c2f7-7a1f-4436-ac58-b7fd64bec7eb}</Project>
       <Name>Wth.ModApi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Editor" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Permissions;
 using UnityEngine;
+using Wth.ModApi.Skills;
 using Wth.ModApi.Tools;
 
-namespace Wth.ModApi
+namespace Wth.ModApi.Employees
 {
     /// <summary>
     /// This class is a data container class for an employee. Do not implement any logic in here.
@@ -45,10 +47,7 @@ namespace Wth.ModApi
         /// </summary>
         public EmployeeDefinition EmployeeDefinition;
 
-        public EmployeeData()
-        {
-            
-        }
+        public EmployeeData() {}
         
         /// <summary>
         /// Constructor for deserialization.
@@ -57,7 +56,19 @@ namespace Wth.ModApi
         /// <param name="context"></param>
         public EmployeeData(SerializationInfo info, StreamingContext context)
         {
+            if (info == null)
+                throw new ArgumentNullException(nameof(info));
             
+            Level = (int)info.GetValue("level", typeof(int));
+            Salary = (int)info.GetValue("salary", typeof(int));
+            var keys = (List<string>) info.GetValue("skills", typeof(List<string>));
+            Skills = ScriptableObjectManager.Instance.GetObjects(keys).Cast<SkillDefinition>().ToList();
+            Specials = (List<EmployeeSpecial>)info.GetValue("specials", typeof(List<EmployeeSpecial>));
+            var x = (float)info.GetValue("x", typeof(float));
+            var y = (float)info.GetValue("y", typeof(float));
+            Position = new Vector2(x, y);
+            var key = (string)info.GetValue("definition", typeof(string));
+            EmployeeDefinition = (EmployeeDefinition)ScriptableObjectManager.Instance.GetObject(key);
         }
         
         /// <summary>
@@ -65,16 +76,16 @@ namespace Wth.ModApi
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("level", Level, typeof(int));
             info.AddValue("salary", Salary, typeof(int));
-
             info.AddValue("skills", ScriptableObjectManager.Instance.GetKeys(Skills), typeof(List<string>));
             info.AddValue("specials", Specials, typeof(List<EmployeeSpecial>));
             info.AddValue("x", Position.x, typeof(float));
             info.AddValue("y", Position.y, typeof(float));
-            info.AddValue("definition", Level, typeof(string));
+            info.AddValue("definition", ScriptableObjectManager.Instance.GetKey(EmployeeDefinition), typeof(string));
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Wth.ModApi;
+using Wth.ModApi.Employees;
+using Wth.ModApi.Skills;
 using Wth.ModApi.Tools;
 
 public class TestSaveOnLoad : MonoBehaviour
@@ -23,7 +25,10 @@ public class TestSaveOnLoad : MonoBehaviour
 			saveGame.employeesHired = new List<EmployeeData>();
 			var employee = new EmployeeData();
 			employee.Skills = SkillSet.keys;
+			employee.Specials = new List<EmployeeSpecial>();
+			saveGame.employeesHired.Add(employee);
 			SaveGameSystem.SaveGame(saveGame);
+			var test = SaveGameSystem.LoadGame("test1");
 		}
 	}
 }

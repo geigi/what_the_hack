@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 using Wth.ModApi.Editor.Tools;
 using Wth.ModApi.Tools;
-using Object = System.Object;
 
-namespace Wth.ModApi.Editor.Editor
+namespace Wth.ModApi.Editor
 {
     /// <summary>
     /// A Base Editor, for Editing a Scriptable Object.

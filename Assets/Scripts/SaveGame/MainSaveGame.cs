@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Wth.ModApi;
+using Wth.ModApi.Employees;
 
 [Serializable]
 public class MainSaveGame

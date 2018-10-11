@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 using Wth.ModApi.Editor.Tools;
+using Wth.ModApi.Skills;
 
-namespace Wth.ModApi.Editor
+namespace Wth.ModApi.Editor.Skills
 {
     /// <summary>
     /// An editor window, to modify an existing or create a new set of skills.

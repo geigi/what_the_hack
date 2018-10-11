@@ -107,7 +107,17 @@ namespace Wth.ModApi.Tools
         /// <returns></returns>
         public string GetKey(ScriptableObject obj)
         {
-            return Dictionary.First(x => x.ScriptableObject == obj).Key;
+            string key;
+            try
+            {
+                key = Dictionary.First(x => x.ScriptableObject == obj).Key;
+            }
+            catch (Exception)
+            {
+                key = "";
+            }
+
+            return key;
         }
 
         /// <summary>
@@ -118,7 +128,10 @@ namespace Wth.ModApi.Tools
         /// <returns></returns>
         public ScriptableObject GetObject(string key)
         {
-            return Dictionary.First(x => x.Key == key).ScriptableObject;
+            var entry = Dictionary.First(x => x.Key == key);
+            if (entry != null)
+                return entry.ScriptableObject;
+            else return null;
         }
     }
 }

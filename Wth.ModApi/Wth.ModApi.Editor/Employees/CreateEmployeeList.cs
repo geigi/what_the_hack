@@ -1,9 +1,8 @@
-﻿using UnityEngine;                                                                    
-using System.Collections;
-using UnityEditor;
-using Wth.ModApi;
+﻿using UnityEditor;
+using UnityEngine;
+using Wth.ModApi.Employees;
 
-namespace Wth.ModApi.Editor {
+namespace Wth.ModApi.Editor.Employees {
 public class CreateEmployeeList
 {
     public static EmployeeList Create()

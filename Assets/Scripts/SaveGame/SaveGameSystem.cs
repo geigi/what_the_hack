@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Pathfinding;
 using UnityEngine;
@@ -28,6 +29,7 @@ public static class SaveGameSystem
     public static bool SaveGame(MainSaveGame saveGame)
     {
         BinaryFormatter formatter = new BinaryFormatter();
+        formatter.Binder = new VersionDeserializationBinder();
         using (var stream = new FileStream(GetSavePath(saveGame.name), FileMode.Create))
         {
             try
@@ -56,6 +58,7 @@ public static class SaveGameSystem
         }
 
         BinaryFormatter formatter = new BinaryFormatter();
+        formatter.Binder = new VersionDeserializationBinder();
         MainSaveGame saveGame;
    
         using (var stream = new FileStream(GetSavePath(name), FileMode.Open))
@@ -64,8 +67,10 @@ public static class SaveGameSystem
             {
                 saveGame = formatter.Deserialize(stream) as MainSaveGame;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Debug.LogError("Error while loading savegame:");
+                Debug.LogError(e);
                 return null;
             }
         }
