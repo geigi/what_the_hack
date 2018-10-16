@@ -51,6 +51,32 @@ public final class ModAppManager {
     }
 
     /**
+     * Searches the mod folder for mods that belong to an addon app.
+     * This is done by testing whether a version.txt exists to verify that the mod was not installed manually.
+     * If the file exists the list of providers is searched for the mod folder.
+     */
+    public void RemoveUninstalledMods() {
+        Log.d(TAG, "Scanning for uninstalled mod apps...");
+        String modPath = EXT_STORAGE + "/Mods/";
+        File modDir = new File(modPath);
+        File[] modDirs = modDir.listFiles();
+
+        for (File dir: modDirs) {
+            Log.d(TAG, "Found installed mod: " + dir.getAbsolutePath());
+            if (dir.isDirectory()) {
+                File versionFile = new File(dir, "version.txt");
+                Log.d(TAG, "Testing for version file: " + versionFile.getAbsolutePath());
+                if (versionFile.exists()) {
+                    Log.d(TAG, "Testing installed apps for name: " + dir.getName());
+                    if (!containsId(dir.getName())) {
+                        RemoveMod(dir);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * For each valid addon app test if its installed, if the same version is installed and install it on demand.
      */
     public void GetMods() {
@@ -148,6 +174,7 @@ public final class ModAppManager {
      * @return
      */
     private Boolean RemoveMod(File dir) {
+        Log.d(TAG, "Removing mod: " + dir.getAbsolutePath());
         deleteRecursive(dir);
         return true;
     }
@@ -264,5 +291,14 @@ public final class ModAppManager {
                 deleteRecursive(child);
 
         fileOrDirectory.delete();
+    }
+
+    private boolean containsId(String name) {
+        for (ProviderInfo provider: validProviders) {
+            if (provider.packageName.equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

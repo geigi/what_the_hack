@@ -7,6 +7,7 @@ namespace Android
         public void CopyMods()
         {
             customClass.Call("FindModApps");
+            customClass.Call("RemoveUninstalledMods");
             customClass.Call("GetMods");
         }
     }
