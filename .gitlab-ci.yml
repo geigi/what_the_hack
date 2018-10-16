@@ -24,7 +24,7 @@ variables:
   - mkdir -p /root/.cache/unity3d
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
-  - cp -rf ./AndroidPlugin/notificationprovider/build/outputs/aar/* ./Assets/Plugins/Android/
+  - cp -rf ./AndroidPlugin/androidunitybridge/build/outputs/aar/* ./Assets/Plugins/Android/
   - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
 
@@ -107,7 +107,7 @@ build-AndroidPlugin:
     - ./AndroidPlugin/gradlew assembleDebug -p ./AndroidPlugin
   artifacts:
     paths:
-    - AndroidPlugin/notificationprovider/build/outputs/
+    - AndroidPlugin/androidunitybridge/build/outputs/
     expire_in: 2 weeks
   variables:
     PROJECT_DIR: AndroidPlugin
