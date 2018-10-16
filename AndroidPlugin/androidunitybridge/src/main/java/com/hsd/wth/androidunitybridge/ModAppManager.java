@@ -116,12 +116,7 @@ public final class ModAppManager {
                 AssetManager a = res.getAssets();
 
                 PackageInfo info = myActivity.getPackageManager().getPackageInfo(provider.applicationInfo.packageName, 0);
-
-                Log.d(TAG, String.valueOf(a.list("/").length));
             } catch (PackageManager.NameNotFoundException e) {
-                Log.d(TAG, "Failed to install mod: " + provider.packageName);
-                e.printStackTrace();
-            } catch (IOException e) {
                 Log.d(TAG, "Failed to install mod: " + provider.packageName);
                 e.printStackTrace();
             }
