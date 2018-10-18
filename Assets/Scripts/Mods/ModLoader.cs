@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Android;
+using UE.StateMachine;
 #if !UNITY_WEBGL
 using ModTool;
 #endif
@@ -12,6 +14,7 @@ public class ModLoader : MonoBehaviour {
 	public Text titleText, descriptionText;
 	public Image banner;
 	public GameObject loadingPanel;
+	public InstancedState startState;
 
 #if !UNITY_WEBGL
 	private Mod currentMod;
@@ -43,7 +46,11 @@ public class ModLoader : MonoBehaviour {
 #if !UNITY_ANDROID
 		modManager.AddSearchDirectory(path);
 #endif
-
+#if UNITY_ANDROID
+		var addonAppManager = new ModAppManager();
+		addonAppManager.RefreshMods();
+#endif
+		startState.Enter();
 		modManager.refreshInterval = 15;
 
         foreach (Mod mod in modManager.mods)
