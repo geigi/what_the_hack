@@ -150,8 +150,8 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
 				void OpenAnimationEditor(string name)
 				{
 								AnimationEditor window = (AnimationEditor)EditorWindow.GetWindow(typeof(AnimationEditor));
-								window.animationName = name;
 								window.Show();
+								window.SetAnimationName(name);
 								window.CreateNewAnimation();
 				}
 }
