@@ -241,13 +241,13 @@ generate-android-apk:
     ls -ahl
     find . -name '*.apk'
     ls -ahl build/outputs/apk/
-    cp ./build/outputs/apk/release/What_the_Hack-armeabi-v7a-release.apk ./What_the_Hack.apk
+    cp ./build/outputs/apk/release/What_the_Hack-armeabi-v7a-release.apk $CI_PROJECT_DIR/What_the_Hack.apk
   # retry because sometimes checkingout artifacts fails
   retry: 2
   artifacts:
     name: "$BUILD_NAME $CI_PIPELINE_IID $BUILD_TARGET"
     paths:
-    - ./What_the_Hack.apk
+    - $CI_PROJECT_DIR/What_the_Hack.apk
 
     expire_in: 1 week
   variables:
