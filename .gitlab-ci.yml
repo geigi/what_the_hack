@@ -233,7 +233,7 @@ generate-android-apk:
     cd ./Builds
     cd ./$BUILD_TARGET
     cd ./$BUILD_NAME
-    cd ./$BUILD_NAME
+    cd ./$BUILD_NAME2
     ls -ahl
     echo "${ANDROID_STOREFILE}" | base64 --decode > $CI_PROJECT_DIR/storefile
     gradle assembleRelease -Pandroid.injected.signing.store.file=$CI_PROJECT_DIR/storefile -Pandroid.injected.signing.store.password=$ANDROID_STOREPW -Pandroid.injected.signing.key.alias=$ANDROID_KALIAS -Pandroid.injected.signing.key.password=$ANDROID_KPW
@@ -241,7 +241,7 @@ generate-android-apk:
     ls -ahl
     find . -name '*.apk'
     ls -ahl build/outputs/apk/
-    cp ./Builds/$BUILD_TARGET/$BUILD_NAME/$BUILD_NAME/build/outputs/apk/release/$BUILD_NAME-release.apk ./What_The_Hack.apk
+    cp ./Builds/$BUILD_TARGET/$BUILD_NAME/$BUILD_NAME2/build/outputs/apk/release/$BUILD_NAME-release.apk ./What_The_Hack.apk
   # retry because sometimes checkingout artifacts fails
   retry: 2
   artifacts:
@@ -252,6 +252,7 @@ generate-android-apk:
     expire_in: 1 week
   variables:
     BUILD_TARGET: Android
+    BUILD_NAME2: What the Hack
 
 
 #build-unity-WebGL:
