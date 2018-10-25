@@ -151,8 +151,10 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
 				{
 								AnimationEditor window = (AnimationEditor)EditorWindow.GetWindow(typeof(AnimationEditor));
 								window.Show();
-								window.SetAnimationName(name);
 								window.CreateNewAnimation();
+								window.emp = asset.employeeList[viewIndex - 1];
+								window.SetAnimationName(name);
+								window.animationString = name;
 				}
 }
 }
