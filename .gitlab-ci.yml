@@ -252,7 +252,7 @@ generate-android-apk:
     expire_in: 1 week
   variables:
     BUILD_TARGET: Android
-    BUILD_NAME2: 'What the Hack'
+    BUILD_NAME2: 'What\ the\ Hack'
 
 
 #build-unity-WebGL:
