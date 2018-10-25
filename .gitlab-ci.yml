@@ -237,7 +237,7 @@ generate-android-apk:
     ls -ahl
     echo "${ANDROID_STOREFILE}" | base64 --decode > $CI_PROJECT_DIR/storefile
     gradle assembleRelease -Pandroid.injected.signing.store.file=$CI_PROJECT_DIR/storefile -Pandroid.injected.signing.store.password=$ANDROID_STOREPW -Pandroid.injected.signing.key.alias=$ANDROID_KALIAS -Pandroid.injected.signing.key.password=$ANDROID_KPW
-    rm ./storefile
+    rm $CI_PROJECT_DIR/storefile
     ls -ahl
     find . -name '*.apk'
     ls -ahl build/outputs/apk/
