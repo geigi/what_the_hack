@@ -6,6 +6,7 @@ stages:
 - build-dependencies
 - test-main
 - build-main
+- post-build
 - documentation
 - deploy
 
@@ -165,6 +166,40 @@ build-Wth.ModApi:
     paths:
     - Library
 
+.build-unity-android: &build-unity-android
+  stage: build-main
+  #tip: you can reuse same stage to do everything in parallel and reduce overall time
+  # stage: test
+  <<: *unity_before_script
+  image: unity-android:latest
+  script: |
+    echo "Building for $BUILD_TARGET"
+    export BUILD_PATH=./Builds/$BUILD_TARGET/
+    mkdir -p $BUILD_PATH
+    xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' \
+      /opt/Unity/Editor/Unity \
+        -projectPath $(pwd) \
+        -quit \
+        -batchmode \
+        -buildTarget $BUILD_TARGET \
+        -customBuildTarget $BUILD_TARGET \
+        -customBuildName $BUILD_NAME \
+        -customBuildPath $BUILD_PATH \
+        -customBuildOptions AcceptExternalModificationsToPlayer \
+        -executeMethod BuildCommand.PerformBuildAndroid \
+        -logFile
+    ls -la $BUILD_PATH
+    [ -n "$(ls -A $BUILD_PATH)" ] # fail job if build folder is empty
+  
+  artifacts:
+    paths:
+    - ./Builds/
+    expire_in: 2 weeks
+  cache:
+    key: ${CI_PROJECT_ID}
+    paths:
+    - Library
+
 build-unity-Linux-x86_64:
   <<: *build-unity
   variables:
@@ -185,6 +220,40 @@ build-unity-Windows-x86_64:
   <<: *build-unity
   variables:
     BUILD_TARGET: StandaloneWindows64
+
+build-android:
+  <<: *build-unity-android
+  variables:
+    BUILD_TARGET: Android
+
+generate-android-apk:
+  image: unity-android:latest
+  stage: post-build
+  script: |
+    cd ./Builds
+    cd ./$BUILD_TARGET
+    cd ./$BUILD_NAME
+    cd ./$BUILD_NAME2
+    ls -ahl
+    echo "${ANDROID_STOREFILE}" | base64 --decode > $CI_PROJECT_DIR/storefile
+    gradle assembleRelease -Pandroid.injected.signing.store.file=$CI_PROJECT_DIR/storefile -Pandroid.injected.signing.store.password=$ANDROID_STOREPW -Pandroid.injected.signing.key.alias=$ANDROID_KALIAS -Pandroid.injected.signing.key.password=$ANDROID_KPW
+    rm $CI_PROJECT_DIR/storefile
+    ls -ahl
+    find . -name '*.apk'
+    ls -ahl build/outputs/apk/
+    cp ./build/outputs/apk/release/What_the_Hack-armeabi-v7a-release.apk $CI_PROJECT_DIR/What_the_Hack.apk
+  # retry because sometimes checkingout artifacts fails
+  retry: 2
+  artifacts:
+    name: "$BUILD_NAME $CI_PIPELINE_IID $BUILD_TARGET"
+    paths:
+    - $CI_PROJECT_DIR/What_the_Hack.apk
+
+    expire_in: 1 week
+  variables:
+    BUILD_TARGET: Android
+    BUILD_NAME2: What_the_Hack
+
 
 #build-unity-WebGL:
 #  <<: *build-unity

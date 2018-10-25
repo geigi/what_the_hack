@@ -86,6 +86,11 @@
             Occurs when the export process is starting.
             </summary>
         </member>
+        <member name="E:ModTool.Exporting.Editor.ModExporter.ExportFinished">
+            <summary>
+            Occurs when the export process has finished.
+            </summary>
+        </member>
         <member name="P:ModTool.Exporting.Editor.ModExporter.isExporting">
             <summary>
             Is this ModExporter currently exporting a Mod?

@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 562734972, guid: b981ac5fea65cbf46ab728daad9c9206, type: 3}
+  m_Script: {fileID: 562734972, guid: a9af377409acb47eb825627170382d77, type: 3}
   m_Name: CodeSettings
   m_EditorClassIdentifier: 
   _inheritanceRestrictions:
@@ -69,6 +69,4 @@ MonoBehaviour:
     restrictionMode: 0
     nameSpace: System.IO
     includeNested: 1
-  _apiAssemblies:
-  - Wth.ModApi
-  - Wth.ModApi.Editor
+  _apiAssemblies: []
