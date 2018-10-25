@@ -186,6 +186,40 @@ build-unity-Windows-x86_64:
   variables:
     BUILD_TARGET: StandaloneWindows64
 
+build-android:
+  <<: *build
+  image: unity-android:latest
+  variables:
+    BUILD_TARGET: Android
+
+generate-android-apk:
+  image: unity-android:latest
+  stage: post-build
+  script: |
+    cd ./Builds
+    cd ./$BUILD_TARGET
+    cd ./$BUILD_NAME
+    cd ./$BUILD_NAME
+    ls -ahl
+    echo "${ANDROID_STOREFILE}" | base64 --decode > $CI_PROJECT_DIR/storefile
+    gradle assembleRelease -Pandroid.injected.signing.store.file=$CI_PROJECT_DIR/storefile -Pandroid.injected.signing.store.password=$ANDROID_STOREPW -Pandroid.injected.signing.key.alias=$ANDROID_KALIAS -Pandroid.injected.signing.key.password=$ANDROID_KPW
+    rm ./storefile
+    ls -ahl
+    find . -name '*.apk'
+    ls -ahl build/outputs/apk/
+    cp ./Builds/$BUILD_TARGET/$BUILD_NAME/$BUILD_NAME/build/outputs/apk/release/$BUILD_NAME-release.apk ./What_The_Hack.apk
+  # retry because sometimes checkingout artifacts fails
+  retry: 2
+  artifacts:
+    name: "$BUILD_NAME $CI_PIPELINE_IID $BUILD_TARGET"
+    paths:
+    - ./What_The_Hack.apk
+
+    expire_in: 1 week
+  variables:
+    BUILD_TARGET: Android
+
+
 #build-unity-WebGL:
 #  <<: *build-unity
 #  variables:
