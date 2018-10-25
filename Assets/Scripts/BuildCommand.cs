@@ -122,6 +122,35 @@ static class BuildCommand
 		BuildPipeline.BuildPlayer (GetEnabledScenes (), fixedBuildPath, buildTarget, GetBuildOptions ());
 		Console.WriteLine (":: Done with build");
 	}
+
+	static void PerformBuildAndroid()
+	{
+		Console.WriteLine (":: Performing build");
+		//PlayerSettings.keystorePass = getEnv ("KEYSTORE_PASS", true);
+		//PlayerSettings.keyaliasPass = getEnv ("KEY_ALIAS_PASS", true);
+		//EditorSetup.AndroidSdkRoot = getEnv ("ANDROID_SDK_HOME");
+		//EditorSetup.JdkRoot = getEnv ("JAVA_HOME");
+		//EditorSetup.AndroidNdkRoot = getEnv ("ANDROID_NDK_HOME");
+
+		// string keys from registry
+		EditorPrefs.SetString("AndroidSdkRoot", getEnv("ANDROID_HOME"));
+		// add `/bin`  -> https://forum.unity.com/threads/unable-to-build-jdk-error-unable-to-find-jdk.193057/
+		//string java_home = getEnv("JAVA_HOME") + "bin/";
+		string java_home = "/usr/lib/jvm/java-8-openjdk-amd64/" + "bin";
+		Console.WriteLine(":: JavaHome: {0}", java_home);
+		EditorPrefs.SetString("JdkPath", java_home);
+		EditorPrefs.SetString("AndroidNdkRoot", getEnv("ANDROID_NDK_HOME"));
+
+		var buildTarget = GetBuildTarget ();
+		var buildPath = GetBuildPath ();
+		var buildName = GetBuildName ();
+		var fixedBuildPath = GetFixedBuildPath (buildTarget, buildPath, buildName);
+
+		BuildPipeline.BuildPlayer (GetEnabledScenes (), fixedBuildPath, buildTarget, GetBuildOptions ());
+		Console.WriteLine (":: Done with build");
+
+	}
+
 }
 
 #endif
