@@ -241,7 +241,7 @@ generate-android-apk:
     ls -ahl
     find . -name '*.apk'
     ls -ahl build/outputs/apk/
-    cp ./Builds/$BUILD_TARGET/$BUILD_NAME/$BUILD_NAME2/build/outputs/apk/release/$BUILD_NAME-release.apk ./What_The_Hack.apk
+    cp ./Builds/$BUILD_TARGET/$BUILD_NAME/$BUILD_NAME2/build/outputs/apk/release/$BUILD_NAME-armeabi-v7a-release.apk ./What_The_Hack.apk
   # retry because sometimes checkingout artifacts fails
   retry: 2
   artifacts:
