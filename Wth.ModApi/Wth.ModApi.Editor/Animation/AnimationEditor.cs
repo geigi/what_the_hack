@@ -6,28 +6,93 @@ using Wth.ModApi.Employees;
 
 namespace Wth.ModApi.Editor
 {
-				class AnimationEditor : EditorWindow
+				/// <summary>
+				/// An editor window to modify and create animations.
+				/// </summary>
+				class AnimationEditor : BaseEditor<AnimationClip>
 				{
+								/// <summary>
+								/// The default amount of time, a sprite should be displayed in seconds.
+								/// </summary>
 								private static float defaultSpriteTime = 0.01f;
 
+								/// <summary>
+								/// The Employee this animation belongs to (can be null).
+								/// </summary>
 								public EmployeeDefinition emp { get; set; }
-								public String animationString { get; set; }
 
+								/// <summary>
+								/// The type of animation of the employee.
+								/// </summary>
+								public string animationString { get; set; }
+
+								/// <summary>
+								/// Name of the animation.
+								/// </summary>
 								string animationName = "Base Animation.anim";
+
+								/// <summary>
+								/// Relative path to the folder, this animation is located.
+								/// </summary>
 								string folderPath = "Assets/Animations/";
+
+								/// <summary>
+								/// Relative path to this animation.
+								/// </summary>
 								string filePath = "Assets/Animations/Base Animation.anim";
 
-								AnimationClip anim;
+								/// <summary>
+								/// Binding for the animation.
+								/// </summary>
 								EditorCurveBinding spriteBinding;
+
+								/// <summary>
+								/// List of all keyframes of this animation.
+								/// </summary>
 								List<ObjectReferenceKeyframe> spriteKeyFrames;
+
+								/// <summary>
+								/// List how long each sprite should be displayed.
+								/// </summary>
 								List<float> spriteShowingTime;
+
+								/// <summary>
+								/// The animation settings.
+								/// </summary>
 								AnimationClipSettings animClipSettings;
-								int frameIndex = 1;
+
+								public AnimationEditor()
+								{
+												this.assetName = "frame";
+								}
 
 								[MenuItem("Tools/What_The_Hack ModApi/Animation Editor")]
 								static void Init()
 								{
 												EditorWindow.GetWindow(typeof(AnimationEditor), false, "Animation Editor");
+								}
+
+								protected override void OnEnable()
+								{
+												if (EditorPrefs.HasKey("AssetPath" + assetName))
+												{
+																SetFilePath(EditorPrefs.GetString("AssetPath" + assetName));
+																asset = AssetDatabase.LoadAssetAtPath(filePath, typeof(AnimationClip)) as AnimationClip;
+																if (asset)
+																				GetSubAssets();
+																else
+																{
+																				asset = null;
+																				ResetPaths();
+																}
+												}
+								}
+
+								void ResetPaths()
+								{
+												animationName = "Base Animation.anim";
+												filePath = "Assets/Animations/Base Animation.anim";
+												folderPath = "Assets/Animations/";
 								}
 
 								public void Awake()
@@ -36,17 +101,18 @@ namespace Wth.ModApi.Editor
 												folderPath = "Assets/Animations/";
 								}
 
-								public void OnGUI()
+								public override void OnGUI()
 								{
-												CreateBaseButtons();
-												if (anim != null)
+												base.CreateListButtons(filePath, "Animation");
+												CreateFileNameNav();
+												if (asset != null)
 												{			
 																GUILayout.Space(20);
 
 																animClipSettings.loopTime = EditorGUILayout.Toggle("Loop Time", animClipSettings.loopTime);
 
 																GUILayout.Space(20);
-																CreateFrameNavigation();
+																base.CreateAssetNavigation(spriteKeyFrames.Count);
 																CreateFrameEditing();
 
 																if(GUILayout.Button("Save Animation"))
@@ -56,47 +122,28 @@ namespace Wth.ModApi.Editor
 												}
 												if(GUI.changed)
 												{
-																EditorUtility.SetDirty(anim);
+																EditorUtility.SetDirty(asset);
 												}
 								}
 
-								void CreateBaseButtons()
+								/// <summary>
+								/// Creates the navigation to change the name and path of this animation.
+								/// </summary>
+								void CreateFileNameNav()
 								{
-												string notification = "";
-												GUILayout.BeginHorizontal();
-												GUILayout.Label("Animation Editor", EditorStyles.boldLabel);
-												if (anim != null)
-												{
-																if (GUILayout.Button("Show Animation" ))
-																{
-																				EditorUtility.FocusProjectWindow();
-																				Selection.activeObject = this.anim;
-																}
-												}
-												if (GUILayout.Button("Open Animation"))
-												{
-																OpenAnimation();
-												}
-												if (GUILayout.Button("New Animation"))
-												{
-																this.CreateNewAnimation();
-																EditorUtility.FocusProjectWindow();
-																Selection.activeObject = this.anim;
-												}
-												GUILayout.EndHorizontal();
-
+												String notification = "";
 												GUILayout.Space(5);
 
 												GUILayout.BeginHorizontal();
 												SetAnimationName(EditorGUILayout.TextField("Animation Name", animationName));
-												if (GUILayout.Button("Change File Name", GUILayout.MaxWidth(200)) && anim)
+												if (GUILayout.Button("Change File Name", GUILayout.MaxWidth(200)) && asset)
 												{
 																notification = ChangeFileName();
 												}
 												GUILayout.EndHorizontal();
 												GUILayout.BeginHorizontal();
 												filePath = EditorGUILayout.TextField("Path", filePath);
-												if (GUILayout.Button("Change Path", GUILayout.MaxWidth(200)) && anim)
+												if (GUILayout.Button("Change Path", GUILayout.MaxWidth(200)) && asset)
 												{
 																notification = ChangePath();
 												}
@@ -107,36 +154,9 @@ namespace Wth.ModApi.Editor
 												GUILayout.EndHorizontal();
 								}
 
-								void CreateFrameNavigation()
-								{
-												GUILayout.BeginHorizontal();
-												GUILayout.FlexibleSpace();
-												if (GUILayout.Button("Prev", GUILayout.ExpandWidth(false)))
-												{
-																if (frameIndex > 1)
-																{
-																				frameIndex--;
-																}
-												}
-												GUILayout.Space(20);
-
-												frameIndex = Mathf.Clamp(EditorGUILayout.IntField("Current Frame ", frameIndex, GUILayout.ExpandWidth(false)),
-																1, spriteKeyFrames.Count);
-												GUILayout.Space(5);
-												EditorGUILayout.LabelField("of " + spriteKeyFrames.Count.ToString() + " frames", GUILayout.ExpandWidth(false));
-												GUILayout.Space(20);
-
-												if(GUILayout.Button("Next", GUILayout.ExpandWidth(false)))
-												{
-																if(frameIndex < spriteKeyFrames.Count)
-																{
-																				frameIndex++;
-																}
-												}
-												GUILayout.FlexibleSpace();
-												GUILayout.EndHorizontal();
-								}
-
+								/// <summary>
+								/// Drwas the GUI to modify the different keyFrames.
+								/// </summary>
 								void CreateFrameEditing()
 								{
 												GUILayout.BeginHorizontal();
@@ -162,16 +182,16 @@ namespace Wth.ModApi.Editor
 												{
 																SetSprite();
 																//How long to show the Sprite
-																if(frameIndex < spriteShowingTime.Count)
+																if(viewIndex < spriteShowingTime.Count)
 																{
 																				EditorGUILayout.BeginHorizontal();
 																				GUILayout.FlexibleSpace();
-																			 spriteShowingTime[frameIndex - 1] = EditorGUILayout.FloatField("Show Sprite for: ", spriteShowingTime[frameIndex - 1], GUILayout.ExpandWidth(false));
+																			 spriteShowingTime[viewIndex - 1] = EditorGUILayout.FloatField("Show Sprite for: ", spriteShowingTime[viewIndex - 1], GUILayout.ExpandWidth(false));
 																				EditorGUILayout.LabelField("seconds", GUILayout.ExpandWidth(false));
 
 																				if (GUILayout.Button("Adjust Showing time", GUILayout.ExpandWidth(false)))
 																				{
-																								String notification = SetSpriteShowingTime();
+																								String notification = SetSpriteDisplayTime();
 																								ShowNotification(new GUIContent(notification));
 																				}
 																				GUILayout.FlexibleSpace();
@@ -179,48 +199,60 @@ namespace Wth.ModApi.Editor
 																}
 												}
 								}
-								
-								void OpenAnimation()
-								{
-												emp = null;
-												SetFilePath(EditorUtility.OpenFilePanel("Select Animation", filePath, ""));
-												string[] s = filePath.Split('/');
-												animationName = s[s.Length - 1];
-												anim = AssetDatabase.LoadAssetAtPath(filePath, typeof(AnimationClip)) as AnimationClip;
-												if (anim)
-																getSubAssets();
-												else
-																CreateNewAnimation();
-								}
 
-								public void CreateNewAnimation()
+								/// <summary>
+								/// Creates a new asset at a specific path.
+								/// </summary>
+								/// <param name="path">The path, where the new animation should be created.</param>
+								public override void CreateNewAsset(String path)
 								{
 												emp = null;
-												anim = new AnimationClip();
-												anim.frameRate = 12;
+												asset = new AnimationClip();
+												asset.frameRate = 12;
 												spriteKeyFrames = new List<ObjectReferenceKeyframe>();
 												spriteShowingTime = new List<float>();
 												spriteBinding = new EditorCurveBinding();
 												spriteBinding.type = typeof(SpriteRenderer);
 												animClipSettings = new AnimationClipSettings();
 												animClipSettings.loopTime = true;
-												AssetDatabase.CreateAsset(anim, filePath);
+												AssetDatabase.CreateAsset(asset, path);
 												AssetDatabase.SaveAssets();
+								}
+
+								/// <summary>
+								/// Opens an Asset at an specific path and return the path, if the animation could be openend succesfully.
+								/// </summary>
+								/// <param name="objectName">The name of the Object.</param>
+								/// <returns>The file path if opening the animation was succesfull, otherwise null</returns>
+								protected override string OpenAsset(String objectName)
+								{
+												SetFilePath(base.OpenAsset(objectName));
+												Debug.Log(filePath);
+												if (asset != null)
+												{
+																GetSubAssets();
+																return filePath;
+												}
+												return null;
 								}
 
 #region UtilFunctions
 
-								void getSubAssets()
+								/// <summary>
+								/// Gets thje binding keyframes and displying times into their variables.
+								/// </summary>
+								void GetSubAssets()
 								{
+												Debug.Log(asset);
 												spriteShowingTime = new List<float>();
-												animClipSettings = AnimationUtility.GetAnimationClipSettings(anim);
+												animClipSettings = AnimationUtility.GetAnimationClipSettings(asset);
 												if (animClipSettings == null)
 																animClipSettings = new AnimationClipSettings();
-												EditorCurveBinding[] bind = AnimationUtility.GetObjectReferenceCurveBindings(anim);
+												EditorCurveBinding[] bind = AnimationUtility.GetObjectReferenceCurveBindings(asset);
 												if (bind.Length > 0)
 												{
 																spriteBinding = bind[0];
-																ObjectReferenceKeyframe[] frames = AnimationUtility.GetObjectReferenceCurve(anim, spriteBinding);
+																ObjectReferenceKeyframe[] frames = AnimationUtility.GetObjectReferenceCurve(asset, spriteBinding);
 																if (frames == null)
 																				frames = new ObjectReferenceKeyframe[0];
 																spriteKeyFrames = new List<ObjectReferenceKeyframe>(frames);
@@ -228,7 +260,7 @@ namespace Wth.ModApi.Editor
 																// Get the Sprite Time Showings
 																for(int i = 1; i < spriteKeyFrames.Count; i++)
 																{
-																				spriteShowingTime.Add((spriteKeyFrames[i].time - spriteKeyFrames[i - 1].time) * anim.frameRate/100);
+																				spriteShowingTime.Add((spriteKeyFrames[i].time - spriteKeyFrames[i - 1].time) * asset.frameRate/100);
 																}
 																//For Convinience add a Time to the last Frame, even though it can not be changed, except if I
 																// find a workaround.
@@ -241,27 +273,33 @@ namespace Wth.ModApi.Editor
 												}
 								}
 
+								/// <summary>
+								/// Builds and saves this animation.
+								/// </summary>
 								void SaveAnimation()
 								{
-												AnimationUtility.SetObjectReferenceCurve(anim, spriteBinding, spriteKeyFrames.ToArray());
-												EditorUtility.SetDirty(anim);
+												AnimationUtility.SetObjectReferenceCurve(asset, spriteBinding, spriteKeyFrames.ToArray());
+												EditorUtility.SetDirty(asset);
 												AssetDatabase.SaveAssets();
 												if (emp != null)
 												{
-																Debug.Log("Here");
 																if (animationString.Equals("Basic Idle Animation"))
-																				emp.IdleAnimation = anim;
+																				emp.IdleAnimation = asset;
 																else if (animationString.Equals("Basic Walking Animation"))
-																				emp.WalkingAnimation = anim;
+																				emp.WalkingAnimation = asset;
 																else if (animationString.Equals("Basic Working Animation"))
-																				emp.WorkingAnimation = anim;
+																				emp.WorkingAnimation = asset;
 												}
 								}
 
+								/// <summary>
+								/// Changes the file name of this animation.
+								/// </summary>
+								/// <returns>An empty String if the renaming was succesfull, otherwise an error specific message.</returns>
 								string ChangeFileName()
 								{
 												string message = "";
-												if (AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(anim), animationName) != "")
+												if (AssetDatabase.RenameAsset(AssetDatabase.GetAssetPath(asset), animationName) != "")
 												{
 																message = "Asset can't be renamed. Does a file with the " +
 																								"same name already exist?";
@@ -274,11 +312,15 @@ namespace Wth.ModApi.Editor
 												return message;
 								}
 
+								/// <summary>
+								/// Changes the apth to this animation.
+								/// </summary>
+								/// <returns>An empty String if the renaming was succesfull, otherwise an error specific message.</returns>
 								string ChangePath()
 								{
 												string returnString = "";
 												//Discard unsafed animationName changes.
-												if (!AssetDatabase.GetAssetPath(anim).EndsWith(animationName))
+												if (!AssetDatabase.GetAssetPath(asset).EndsWith(animationName))
 												{
 																animationName = filePath.Split('/')[filePath.Split('/').Length - 1];
 												}
@@ -296,27 +338,33 @@ namespace Wth.ModApi.Editor
 												return returnString;
 								}
 								
+								/// <summary>
+								/// Set the sprite for this keyframe.
+								/// </summary>
 								void SetSprite()
 								{
-												ObjectReferenceKeyframe frame = spriteKeyFrames[frameIndex - 1];
-												frame.value = EditorGUILayout.ObjectField("Sprite", spriteKeyFrames[frameIndex - 1].value, typeof(Sprite), false) as Sprite;
-												spriteKeyFrames[frameIndex - 1] = frame;
+												ObjectReferenceKeyframe frame = spriteKeyFrames[viewIndex - 1];
+												frame.value = EditorGUILayout.ObjectField("Sprite", spriteKeyFrames[viewIndex - 1].value, typeof(Sprite), false) as Sprite;
+												spriteKeyFrames[viewIndex - 1] = frame;
 								}
 
-								string SetSpriteShowingTime()
+								/// <summary>
+								/// Adjust the time a specific sprite should be displayed.
+								/// </summary>
+								/// <returns>An empty String if the renaming was succesfull, otherwise an error specific message.</returns>
+								string SetSpriteDisplayTime()
 								{
 												string notification;
-												//Needs to be 0.009 because of weird floating Point Comparisons
-												if (spriteShowingTime[frameIndex - 1] > 0.009)
+												if (spriteShowingTime[viewIndex - 1] >= 0.01f)
 												{
-																float oldTime = (spriteKeyFrames[frameIndex].time - spriteKeyFrames[frameIndex - 1].time) * anim.frameRate;
+																float oldTime = (spriteKeyFrames[viewIndex].time - spriteKeyFrames[viewIndex - 1].time) * asset.frameRate;
 																oldTime /= 100;
-																float diff = spriteShowingTime[frameIndex - 1] - oldTime;
-																for (int i = frameIndex; i < spriteShowingTime.Count; i++)
+																float diff = spriteShowingTime[viewIndex - 1] - oldTime;
+																for (int i = viewIndex; i < spriteShowingTime.Count; i++)
 																{
 																				ObjectReferenceKeyframe currentFrame = spriteKeyFrames[i];
-																				currentFrame.time = (currentFrame.time * anim.frameRate) + (diff * 100);
-																				currentFrame.time /= anim.frameRate;
+																				currentFrame.time = (currentFrame.time * asset.frameRate) + (diff * 100);
+																				currentFrame.time /= asset.frameRate;
 																				spriteKeyFrames[i] = currentFrame;
 																}
 																notification = "Adjustet Times succesfuly, dont forget to save your Animation!";
@@ -328,32 +376,43 @@ namespace Wth.ModApi.Editor
 												return notification;
 								}
 
+								/// <summary>
+								/// Adds a new Frame to this animation.
+								/// </summary>
 								void AddFrame()
 								{
 												ObjectReferenceKeyframe keyFrame = new ObjectReferenceKeyframe();
-												keyFrame.time = spriteKeyFrames.Count / anim.frameRate;
+												keyFrame.time = spriteKeyFrames.Count / asset.frameRate;
 												spriteKeyFrames.Add(keyFrame);
 												spriteShowingTime.Add(defaultSpriteTime);
-												frameIndex = spriteKeyFrames.Count;
+												viewIndex = spriteKeyFrames.Count;
 								}
 
+								/// <summary>
+								/// Deletes a Frame from this Animation.
+								/// </summary>
 								void DeleteFrame()
 								{
-												spriteShowingTime.RemoveAt(frameIndex - 1);
-												spriteKeyFrames.RemoveAt(frameIndex - 1);
+												float moveby = spriteShowingTime[viewIndex - 1];
+												spriteShowingTime.RemoveAt(viewIndex - 1);
+												spriteKeyFrames.RemoveAt(viewIndex - 1);
 												//Move all Frames after that
-												if (frameIndex <= spriteKeyFrames.Count)
+												if (viewIndex <= spriteKeyFrames.Count)
 												{
-																for (int i = frameIndex - 1; i < spriteKeyFrames.Count; i++)
+																for (int i = viewIndex - 1; i < spriteKeyFrames.Count; i++)
 																{
 																				ObjectReferenceKeyframe current = spriteKeyFrames[i];
-																				current.time -= spriteShowingTime[i] / anim.frameRate;
+																				current.time -= moveby / asset.frameRate;
 																				spriteKeyFrames[i] = current;
 																}
 												}
-												frameIndex = spriteKeyFrames.Count;
+												viewIndex = spriteKeyFrames.Count;
 								}
 
+								/// <summary>
+								/// Pseudo Bindings for the folder, file Path and the Animation Name.
+								/// </summary>
+								/// <param name="newName">The new animation name.</param>
 								public void SetAnimationName(string newName)
 								{
 												if (!newName.EndsWith(".anim"))
@@ -362,6 +421,10 @@ namespace Wth.ModApi.Editor
 												SetFilePath(folderPath + animationName);
 								}
 
+								/// <summary>
+								/// Pseudo Bindings for the folder, file Path and the Animation Name.
+								/// </summary>
+								/// <param name="newFolderPath">The new Folder path</param>
 								public void SetFolderPath(string newFolderPath)
 								{
 												if(newFolderPath != "")
@@ -379,19 +442,29 @@ namespace Wth.ModApi.Editor
 												}
 								}
 
+								/// <summary>
+								/// Pseudo Bindings for the folder, file Path and the Animation Name.
+								/// </summary>
+								/// <param name="newFilePath">The ne path of this animation.</param>
 								public void SetFilePath(string newFilePath)
 								{
-												if(newFilePath != "")
+												if (newFilePath != "")
 												{
 																if (newFilePath.StartsWith(Application.dataPath))
 																{
 																				newFilePath = newFilePath.Substring(Application.dataPath.Length - "Assets".Length);
 																}
 																filePath = newFilePath;
+																string[] s = filePath.Split('/');
+																animationName = s[s.Length - 1];
 																folderPath = filePath.Remove(filePath.Length - animationName.Length);
 												}
 								}
 
+								/// <summary>
+								/// Sets the Employee, if this animation is specific to an employee.
+								/// </summary>
+								/// <param name="_emp">The Employee.</param>
 								public void SetEmp(EmployeeDefinition _emp)
 								{
 												Debug.Log("Hello World!" + emp.EmployeeName);

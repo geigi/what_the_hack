@@ -116,9 +116,20 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
         }
     }
 
-    #endregion
+								#endregion
 
-    void AddItem()
+			public override void CreateNewAsset(string assetPath)
+			{   
+								base.CreateDirectories(assetPath);
+							 asset = EditorTools.Create<EmployeeList>(assetPath);
+								if (asset)
+								{
+								string relPath = AssetDatabase.GetAssetPath(asset);
+								EditorPrefs.SetString("AssetPath" + assetName, relPath);
+								}
+				}
+
+								void AddItem()
     {
         var asset = ScriptableObject.CreateInstance<EmployeeDefinition>();
 
@@ -151,7 +162,7 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
 				{
 								AnimationEditor window = (AnimationEditor)EditorWindow.GetWindow(typeof(AnimationEditor));
 								window.Show();
-								window.CreateNewAnimation();
+								window.CreateNewAsset("Asset/Animations");
 								window.emp = asset.employeeList[viewIndex - 1];
 								window.SetAnimationName(name);
 								window.animationString = name;

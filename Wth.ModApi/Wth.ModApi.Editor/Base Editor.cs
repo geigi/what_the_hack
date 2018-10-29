@@ -9,12 +9,11 @@ using Wth.ModApi.Tools;
 namespace Wth.ModApi.Editor
 {
     /// <summary>
-    /// A Base Editor, for Editing a Scriptable Object.
+    /// A Base Editor, for Editing a Unity Object.
     /// </summary>
     /// <typeparam name="T">The Type of ScriptableObject that is to be edited.</typeparam>
-    public abstract class BaseEditor<T> : EditorWindow where T : ScriptableObject
+    public abstract class BaseEditor<T> : EditorWindow where T : UnityEngine.Object
     {
-
         public abstract void OnGUI();
 
         /// <summary>
@@ -39,7 +38,7 @@ namespace Wth.ModApi.Editor
         /// </summary>
         protected int viewIndex = 1;
         
-        protected void OnEnable()
+        protected virtual void OnEnable()
         {
             if (EditorPrefs.HasKey("AssetPath" + assetName))
             {
@@ -47,14 +46,15 @@ namespace Wth.ModApi.Editor
                 asset = AssetDatabase.LoadAssetAtPath(objectPath, typeof(T)) as T;
             }
         }
-        
+
+								public abstract void CreateNewAsset(string assetPath);
+
         /// <summary>
         /// Creates a new Asset of type T.
         /// </summary>
         /// <param name="assetPath">The Path the new Asset should be created.</param>
-        protected virtual void CreateNewAsset(string assetPath)
+        protected virtual void CreateDirectories(string assetPath)
         {
-            Debug.Log("Creating New Asset " + assetPath);
             // There is no overwrite protection here!
             viewIndex = 1;
             
@@ -69,20 +69,13 @@ namespace Wth.ModApi.Editor
                 Debug.LogError("Invalid assetPath: " + assetPath);
                 return;
             }
-            
-            asset = EditorTools.Create<T>(assetPath);
-            if (asset)
-            {
-                string relPath = AssetDatabase.GetAssetPath(asset);
-                EditorPrefs.SetString("AssetPath" + assetName, relPath);
-            }
         }
 
         /// <summary>
         /// Opens an Asset at a user defined path.
         /// </summary>
         /// <param name="objectName">The Name of this edited Scriptable Object.</param>
-        protected virtual void OpenAsset(string objectName)
+        protected virtual string OpenAsset(string objectName)
         {
             string absPath = EditorUtility.OpenFilePanel("Select " + objectName, "", "");
             if (absPath.StartsWith(Application.dataPath))
@@ -95,7 +88,9 @@ namespace Wth.ModApi.Editor
                     this.asset = asset;
                     EditorPrefs.SetString("AssetPath" + assetName, relPath);
                 }
+																return relPath;
             }
+												return absPath;
         }
 
         /// <summary>

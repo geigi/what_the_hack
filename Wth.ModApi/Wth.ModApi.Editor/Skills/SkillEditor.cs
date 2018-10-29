@@ -175,12 +175,23 @@ namespace Wth.ModApi.Editor.Skills
             }
         }
 
-        #endregion
+								#endregion
 
-        /// <summary>
-        /// Adds a new skill to the current SkillSet.
-        /// </summary>
-        void AddSkill()
+								public override void CreateNewAsset(string assetPath)
+								{
+												base.CreateDirectories(assetPath);
+												asset = EditorTools.Create<SkillSet>(assetPath);
+												if (asset)
+												{
+																string relPath = AssetDatabase.GetAssetPath(asset);
+																EditorPrefs.SetString("AssetPath" + assetName, relPath);
+												}
+								}
+
+								/// <summary>
+								/// Adds a new skill to the current SkillSet.
+								/// </summary>
+								void AddSkill()
         {
             var newSkill = CreateSkillDefinition.Create("Assets/Data/Skills/Skill " + base.asset.keys.Count + ".asset");
 
