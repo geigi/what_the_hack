@@ -61,6 +61,8 @@
     <Compile Include="Skills\CreateSkillSet.cs" />
     <Compile Include="Skills\SkillEditor.cs" />
     <Compile Include="Tools\EditorTools.cs" />
+    <Compile Include="Names\Lists.cs" />
+    <Compile Include="Names\NameListEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wth.ModApi\Wth.ModApi.csproj">

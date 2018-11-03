@@ -56,6 +56,7 @@
     <Compile Include="Employees\EmployeeList.cs" />
     <Compile Include="Employees\EmployeeSpecial.cs" />
     <Compile Include="ModInfo.cs" />
+    <Compile Include="Names\NameLists.cs" />
     <Compile Include="Skills\SkillDefiniton.cs" />
     <Compile Include="Skills\SkillSet.cs" />
     <Compile Include="Tools\ScriptableObjectDictionary.cs" />
@@ -63,7 +64,7 @@
     <Compile Include="Tools\Singleton.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Employees\.DS_Store" />

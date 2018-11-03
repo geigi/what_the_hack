@@ -33,6 +33,12 @@ namespace Wth.ModApi.Editor
         /// </summary>
         public bool NeedsDictionary = false;
 
+								/// <summary>
+								/// If this Editor referes to a Scriptable Object, which should be able create new assets and save these assets
+								/// via Json, this variable should be set to true.
+								/// </summary>
+								public bool JsonSerializable = false;
+
         /// <summary>
         /// The current Item of the SkillSet.
         /// </summary>
@@ -120,6 +126,21 @@ namespace Wth.ModApi.Editor
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = this.asset;
             }
+												if(JsonSerializable && GUILayout.Button("New " + objectName + " from JSON"))
+												{
+																string path = EditorUtility.OpenFilePanel("Choose JSON file", "", "json");
+																if (File.Exists(path))
+																{
+																				try
+																				{
+																								string json = File.ReadAllText(path);
+																								JsonUtility.FromJsonOverwrite(json, asset);
+																				} catch (Exception e)
+																				{
+																								ShowNotification(new GUIContent("Could not parse JSON correctly"));
+																				}
+																}
+												}
             GUILayout.EndHorizontal();
         }
 
@@ -157,6 +178,32 @@ namespace Wth.ModApi.Editor
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
         }
+
+								/// <summary>
+								/// If JsonSerializable is set to true, this method will display a button to save the Scriptable Object to a JSON file.
+								/// If JsonSerializable is set to false, this method will do nothing.
+								/// </summary>
+								protected void SaveToJSON()
+								{
+												GUILayout.BeginHorizontal();
+												GUILayout.FlexibleSpace();
+												if (JsonSerializable && GUILayout.Button("Save To JSON", GUILayout.ExpandWidth(false)))
+												{
+																string path = EditorUtility.SaveFilePanel("Save Names as JSON", "", assetName + ".json", "json");
+																if (path.Length != 0)
+																{
+																				try
+																				{
+																								string json = JsonUtility.ToJson(asset);
+																								File.WriteAllText(path, json);
+																				} catch (Exception e)
+																				{
+																								ShowNotification(new GUIContent("Could not Save Object to JSON"));
+																				}
+																}
+												}
+												GUILayout.EndHorizontal();
+								}
 
         /// <summary>
         /// Save all dirty assets to disk and update the scriptable object dictionary.

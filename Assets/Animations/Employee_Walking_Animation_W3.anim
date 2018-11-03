@@ -5,7 +5,7 @@ AnimationClip:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Employee_Working_Animation_M
+  m_Name: Employee_Walking_Animation_W3
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -19,14 +19,14 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: ec9bee4d06b174f1fa7a5c9ee761420b, type: 3}
+      value: {fileID: 21300000, guid: db9c79b2d8fee4d4d8ef8cdd34aa22a6, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: d1fc9e2bdbf904d98a3d431f81cfddfd, type: 3}
+      value: {fileID: 21300000, guid: 04b5885f1e49142ce83c9e74d0b23f46, type: 3}
     - time: 0.16666667
-      value: {fileID: 21300000, guid: 7a2e7826ce96541ed8d6078fc53fbc4a, type: 3}
+      value: {fileID: 21300000, guid: 55c82936f84444a8781c4387bd3e037b, type: 3}
     - time: 0.25
-      value: {fileID: 21300000, guid: d0e41fe6c22234df484724b27a5c8749, type: 3}
-    attribute: m_Sprite
+      value: {fileID: 21300000, guid: db9c79b2d8fee4d4d8ef8cdd34aa22a6, type: 3}
+    attribute: 
     path: 
     classID: 212
     script: {fileID: 0}
@@ -42,19 +42,19 @@ AnimationClip:
       attribute: 0
       script: {fileID: 0}
       typeID: 212
-      customType: 23
+      customType: 0
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: ec9bee4d06b174f1fa7a5c9ee761420b, type: 3}
-    - {fileID: 21300000, guid: d1fc9e2bdbf904d98a3d431f81cfddfd, type: 3}
-    - {fileID: 21300000, guid: 7a2e7826ce96541ed8d6078fc53fbc4a, type: 3}
-    - {fileID: 21300000, guid: d0e41fe6c22234df484724b27a5c8749, type: 3}
+    - {fileID: 21300000, guid: db9c79b2d8fee4d4d8ef8cdd34aa22a6, type: 3}
+    - {fileID: 21300000, guid: 04b5885f1e49142ce83c9e74d0b23f46, type: 3}
+    - {fileID: 21300000, guid: 55c82936f84444a8781c4387bd3e037b, type: 3}
+    - {fileID: 21300000, guid: db9c79b2d8fee4d4d8ef8cdd34aa22a6, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.33333334
+    m_StopTime: 0
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -65,7 +65,7 @@ AnimationClip:
     m_LoopBlendPositionY: 0
     m_LoopBlendPositionXZ: 0
     m_KeepOriginalOrientation: 0
-    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionY: 0
     m_KeepOriginalPositionXZ: 0
     m_HeightFromFeet: 0
     m_Mirror: 0

@@ -206,6 +206,13 @@ namespace Wth.ModApi.Editor
 								/// <param name="path">The path, where the new animation should be created.</param>
 								public override void CreateNewAsset(String path)
 								{
+												if (AssetDatabase.LoadAssetAtPath(path, typeof(AnimationClip)) as AnimationClip != null)
+												{
+																SetAnimationName("Base Animation.anim");
+																SetFilePath("Assets/Animations/Base Animation.anim");
+																path = "Assets/Animations/Base Animation.anim";
+												}
+
 												emp = null;
 												asset = new AnimationClip();
 												asset.frameRate = 12;
@@ -214,6 +221,7 @@ namespace Wth.ModApi.Editor
 												spriteBinding = new EditorCurveBinding();
 												spriteBinding.type = typeof(SpriteRenderer);
 												animClipSettings = new AnimationClipSettings();
+												AnimationUtility.SetAnimationClipSettings(asset, animClipSettings);
 												animClipSettings.loopTime = true;
 												AssetDatabase.CreateAsset(asset, path);
 												AssetDatabase.SaveAssets();
@@ -279,6 +287,7 @@ namespace Wth.ModApi.Editor
 								void SaveAnimation()
 								{
 												AnimationUtility.SetObjectReferenceCurve(asset, spriteBinding, spriteKeyFrames.ToArray());
+												AnimationUtility.SetAnimationClipSettings(asset, animClipSettings);
 												EditorUtility.SetDirty(asset);
 												AssetDatabase.SaveAssets();
 												if (emp != null)

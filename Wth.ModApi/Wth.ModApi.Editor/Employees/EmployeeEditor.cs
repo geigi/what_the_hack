@@ -130,7 +130,7 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
 				}
 
 								void AddItem()
-    {
+								{
         var asset = ScriptableObject.CreateInstance<EmployeeDefinition>();
 
         AssetDatabase.CreateAsset(asset, "Assets/Data/Employees/Employee " + this.asset.employeeList.Count + ".asset");
@@ -138,7 +138,7 @@ public class EmployeeEditor : Editor.BaseEditor<EmployeeList>
         this.asset.employeeList.Add(asset);
         viewIndex = this.asset.employeeList.Count;
         SaveAssets();
-    }
+								}
 
     void DeleteItem(int index)
     {
