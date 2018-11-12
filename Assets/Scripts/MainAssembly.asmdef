@@ -1,0 +1,14 @@
+{
+    "name": "MainAssembly",
+    "references": [
+        "PathfindingAssembly",
+        "UtilsAssembly",
+        "KinoAssembly",
+        "UnityEnhancedAssembly",
+        "Unity.2D.PixelPerfect"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

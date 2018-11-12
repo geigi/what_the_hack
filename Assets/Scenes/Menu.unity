@@ -365,7 +365,7 @@ Prefab:
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, Assembly-CSharp
+      value: UE.StateMachine.State, UnityEnhancedAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
@@ -1051,7 +1051,7 @@ Prefab:
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, Assembly-CSharp
+      value: UE.StateMachine.State, UnityEnhancedAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
@@ -2140,7 +2140,7 @@ Prefab:
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, Assembly-CSharp
+      value: UE.StateMachine.State, UnityEnhancedAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
@@ -4053,7 +4053,7 @@ Prefab:
     - target: {fileID: 114200395142381142, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, Assembly-CSharp
+      value: UE.StateMachine.State, UnityEnhancedAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 114200395142381142, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 2}
@@ -5363,7 +5363,7 @@ Prefab:
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, Assembly-CSharp
+      value: UE.StateMachine.State, UnityEnhancedAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 2}

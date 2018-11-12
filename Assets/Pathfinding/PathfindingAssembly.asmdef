@@ -1,0 +1,10 @@
+{
+    "name": "PathfindingAssembly",
+    "references": [
+        "UtilsAssembly"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

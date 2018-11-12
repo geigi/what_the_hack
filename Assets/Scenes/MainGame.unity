@@ -3098,7 +3098,7 @@ Prefab:
     - target: {fileID: 114407139105710530, guid: ce75e7f6ab3a84195b5b65a47bae9dcd,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, Assembly-CSharp
+      value: UE.StateMachine.State, UnityEnhancedAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 114407139105710530, guid: ce75e7f6ab3a84195b5b65a47bae9dcd,
         type: 2}
@@ -3287,7 +3287,7 @@ Prefab:
     - target: {fileID: 114407139105710530, guid: ce75e7f6ab3a84195b5b65a47bae9dcd,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, Assembly-CSharp
+      value: UE.StateMachine.State, UnityEnhancedAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 114407139105710530, guid: ce75e7f6ab3a84195b5b65a47bae9dcd,
         type: 2}
@@ -4299,7 +4299,7 @@ Prefab:
     - target: {fileID: 114407139105710530, guid: ce75e7f6ab3a84195b5b65a47bae9dcd,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UE.StateMachine.State, Assembly-CSharp
+      value: UE.StateMachine.State, UnityEnhancedAssembly
       objectReference: {fileID: 0}
     - target: {fileID: 114407139105710530, guid: ce75e7f6ab3a84195b5b65a47bae9dcd,
         type: 2}
@@ -4799,7 +4799,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1067792378}
   - component: {fileID: 1067792377}
-  - component: {fileID: 1067792379}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -4833,17 +4832,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1067792379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1067792376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e79810a1de6c047e8926cf18648dd7a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1080537910
 GameObject:
   m_ObjectHideFlags: 0
@@ -5826,12 +5814,12 @@ Prefab:
     - target: {fileID: 224149335157836840, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224712547996869410, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1536429215832930, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 2}
       propertyPath: m_IsActive
