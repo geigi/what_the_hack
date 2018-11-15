@@ -1,6 +1,7 @@
-[submodule "Assets/UnityEnhanced"]
-	path = Assets/UnityEnhanced
-	url = https://github.com/hendrik-schulte/UnityEnhanced.git
 [submodule "Assets/2d-extras"]
 	path = Assets/2d-extras
 	url = https://github.com/Unity-Technologies/2d-extras.git
+[submodule "Assets/UnityEnhanced"]
+	path = Assets/UnityEnhanced
+	url = https://git.it-sec.medien.hs-duesseldorf.de/wth/unityenhanced.git
+	branch = master
