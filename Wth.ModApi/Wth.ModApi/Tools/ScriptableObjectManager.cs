@@ -15,6 +15,9 @@ namespace Wth.ModApi.Tools
         #region Singleton
         private static readonly Lazy<ScriptableObjectManager> lazy = new Lazy<ScriptableObjectManager>(() => new ScriptableObjectManager());
     
+        /// <summary>
+        /// Global and only instance of this class.
+        /// </summary>
         public static ScriptableObjectManager Instance { get { return lazy.Value; } }
         #endregion
 

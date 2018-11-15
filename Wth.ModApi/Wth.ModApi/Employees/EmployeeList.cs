@@ -2,9 +2,15 @@
 using UnityEngine;
 
 namespace Wth.ModApi.Employees {
-[CreateAssetMenu(fileName = "EmployeeList", menuName = "What_The_Hack ModApi/Employees/Employee List", order = 1)]
-public class EmployeeList : ScriptableObject
-{
-    public List<EmployeeDefinition> employeeList;
-}
+    /// <summary>
+    /// This class contains a list of all custom employees for this mod.
+    /// </summary>
+    [CreateAssetMenu(fileName = "EmployeeList", menuName = "What_The_Hack ModApi/Employees/Employee List", order = 1)]
+    public class EmployeeList : ScriptableObject
+    {
+        /// <summary>
+        /// List of all custom employees.
+        /// </summary>
+        public List<EmployeeDefinition> employeeList;
+    }
 }

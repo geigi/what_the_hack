@@ -47,6 +47,9 @@ namespace Wth.ModApi.Employees
         /// </summary>
         public EmployeeDefinition EmployeeDefinition;
 
+        /// <summary>
+        /// Empty Constructor.
+        /// </summary>
         public EmployeeData() {}
     }
 }

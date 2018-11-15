@@ -33,6 +33,9 @@ namespace Wth.ModApi.Editor.Skills
         /// </summary>
         private float percentagesAdded = 0;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public SkillEditor()
         {
             assetName = "Skill";
@@ -175,23 +178,27 @@ namespace Wth.ModApi.Editor.Skills
             }
         }
 
-								#endregion
+        #endregion
 
-								public override void CreateNewAsset(string assetPath)
-								{
-												base.CreateDirectories(assetPath);
-												asset = EditorTools.Create<SkillSet>(assetPath);
-												if (asset)
-												{
-																string relPath = AssetDatabase.GetAssetPath(asset);
-																EditorPrefs.SetString("AssetPath" + assetName, relPath);
-												}
-								}
+        /// <summary>
+        /// Create a new <see cref="SkillSet"/> at a given path.
+        /// </summary>
+        /// <param name="assetPath">Path where the <see cref="SkillSet"/> will be saved</param>
+        public override void CreateNewAsset(string assetPath)
+        {
+            base.CreateDirectories(assetPath);
+            asset = EditorTools.Create<SkillSet>(assetPath);
+            if (asset)
+            {
+                string relPath = AssetDatabase.GetAssetPath(asset);
+                EditorPrefs.SetString("AssetPath" + assetName, relPath);
+            }
+        }
 
-								/// <summary>
-								/// Adds a new skill to the current SkillSet.
-								/// </summary>
-								void AddSkill()
+        /// <summary>
+        /// Adds a new skill to the current SkillSet.
+        /// </summary>
+        void AddSkill()
         {
             var newSkill = CreateSkillDefinition.Create("Assets/Data/Skills/Skill " + base.asset.keys.Count + ".asset");
 
@@ -220,6 +227,10 @@ namespace Wth.ModApi.Editor.Skills
             }
         }
         
+        /// <summary>
+        /// Return a list of all skills in the current <see cref="SkillSet"/>.
+        /// </summary>
+        /// <returns>List of <see cref="ScriptableObject"/> which are <see cref="SkillDefinition"/></returns>
         protected override List<ScriptableObject> GetList()
         {
             return asset.keys.Cast<ScriptableObject>().ToList();

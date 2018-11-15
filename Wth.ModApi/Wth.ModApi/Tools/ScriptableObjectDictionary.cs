@@ -26,8 +26,16 @@ namespace Wth.ModApi.Tools
             /// </summary>
             public string Key;
             
+            /// <summary>
+            /// ScriptableObject that will be accessible using the <see cref="Key"/>.
+            /// </summary>
             public ScriptableObject ScriptableObject;
 
+            /// <summary>
+            /// Constructor.
+            /// </summary>
+            /// <param name="key">Key</param>
+            /// <param name="obj">ScriptableObject</param>
             public ScriptableObjectEntry(string key, ScriptableObject obj)
             {
                 Key = key;

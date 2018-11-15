@@ -11,12 +11,22 @@ namespace Wth.ModApi.Employees
     [Serializable]
     public abstract class EmployeeSpecial : ISerializable
     {
+        /// <summary>
+        /// Empty constructor.
+        /// </summary>
         public EmployeeSpecial()
         {
+            throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Constructor used for deserialization.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public EmployeeSpecial(SerializationInfo info, StreamingContext context)
         {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -112,8 +122,14 @@ namespace Wth.ModApi.Employees
             return true;
         }
 
+        /// <summary>
+        /// This method fills the SerializationInfo on serialization.
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            throw new NotImplementedException();
         }
     }
 }

@@ -14,6 +14,9 @@ namespace Wth.ModApi.Editor
     /// <typeparam name="T">The Type of ScriptableObject that is to be edited.</typeparam>
     public abstract class BaseEditor<T> : EditorWindow where T : UnityEngine.Object
     {
+	    /// <summary>
+	    /// This method constructs the editor GUI.
+	    /// </summary>
         public abstract void OnGUI();
 
         /// <summary>
@@ -44,6 +47,9 @@ namespace Wth.ModApi.Editor
         /// </summary>
         protected int viewIndex = 1;
         
+	    /// <summary>
+	    /// This method gets called when the GUI is enabled.
+	    /// </summary>
         protected virtual void OnEnable()
         {
             if (EditorPrefs.HasKey("AssetPath" + assetName))
@@ -53,7 +59,11 @@ namespace Wth.ModApi.Editor
             }
         }
 
-								public abstract void CreateNewAsset(string assetPath);
+	    /// <summary>
+	    /// Creates a new asset at the given path.
+	    /// </summary>
+	    /// <param name="assetPath">Path where asset will be saved</param>
+		public abstract void CreateNewAsset(string assetPath);
 
         /// <summary>
         /// Creates a new Asset of type T.
@@ -137,7 +147,8 @@ namespace Wth.ModApi.Editor
 																								JsonUtility.FromJsonOverwrite(json, asset);
 																				} catch (Exception e)
 																				{
-																								ShowNotification(new GUIContent("Could not parse JSON correctly"));
+																					Debug.Log(e);
+																					ShowNotification(new GUIContent("Could not parse JSON correctly"));
 																				}
 																}
 												}
@@ -198,7 +209,8 @@ namespace Wth.ModApi.Editor
 																								File.WriteAllText(path, json);
 																				} catch (Exception e)
 																				{
-																								ShowNotification(new GUIContent("Could not Save Object to JSON"));
+																					Debug.Log(e);
+																					ShowNotification(new GUIContent("Could not Save Object to JSON"));
 																				}
 																}
 												}
