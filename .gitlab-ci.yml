@@ -28,6 +28,9 @@ variables:
   - cp -rf ./AndroidPlugin/androidunitybridge/build/outputs/aar/* ./Assets/Plugins/Android/
   - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
+  - git submodule sync --recursive
+  - git submodule update  --remote --recursive
+
 
 #test-android:
 #  image: openjdk:8-jdk
