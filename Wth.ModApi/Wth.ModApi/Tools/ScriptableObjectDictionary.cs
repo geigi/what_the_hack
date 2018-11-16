@@ -11,7 +11,7 @@ namespace Wth.ModApi.Tools
     /// Use the key in your ISerializable implementation to save/load the reference.
     /// The main game and each mod needs an instance of this class.
     /// </summary>
-    [CreateAssetMenu(fileName = "SODictionary", menuName = "What_The_Hack ModApi/ScriptableObject Dictionary", order = 1)]
+    [CreateAssetMenu(fileName = "SODictionary", menuName = "What_The_Hack ModApi/ScriptableObject Dictionary", order = 41)]
     // ReSharper disable once ClassNeverInstantiated.Global
     public class ScriptableObjectDictionary: ScriptableObject
     {

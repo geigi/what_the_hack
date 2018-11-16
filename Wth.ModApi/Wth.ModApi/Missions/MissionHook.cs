@@ -9,6 +9,7 @@ namespace Wth.ModApi.Missions
     /// It can contain a GUI for the player to take extra actions.
     /// The hook has to fire HookSuccessful or HookFailed to continue the mission progress.
     /// </summary>
+    [CreateAssetMenu(fileName = "MissionHook", menuName = "What_The_Hack ModApi/Missions/Mission Hook", order = -399)]
     public sealed class MissionHook: ScriptableObject
     {
         /// <summary>

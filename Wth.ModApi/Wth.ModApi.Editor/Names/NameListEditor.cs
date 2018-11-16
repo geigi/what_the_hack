@@ -39,7 +39,7 @@ namespace Wth.ModApi.Editor.Names
 								/// <summary>
 								/// Initializes the window.
 								/// </summary>
-								[MenuItem("Tools/What_The_Hack ModApi/Name Editor")]
+								[MenuItem("Tools/What_The_Hack ModApi/Name Editor", priority = 60)]
 								static void Init()
 								{
 												EditorWindow.GetWindow(typeof(NameEditor), false, "Name Editor");

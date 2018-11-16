@@ -57,6 +57,8 @@
     <Compile Include="Employees\EmployeeSpecial.cs" />
     <Compile Include="Missions\MissionDefinition.cs" />
     <Compile Include="Missions\MissionHook.cs" />
+    <Compile Include="Missions\MissionList.cs" />
+    <Compile Include="Missions\MissionRequirements.cs" />
     <Compile Include="ModInfo.cs" />
     <Compile Include="Names\NameLists.cs" />
     <Compile Include="Skills\SkillDefiniton.cs" />

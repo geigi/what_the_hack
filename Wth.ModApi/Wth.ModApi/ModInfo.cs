@@ -10,7 +10,7 @@ namespace Wth.ModApi {
     /// This Scriptable Object is the gathering point for the mod data that will be loaded by the base game.
     /// Everything that should be loaded by the base game needs to be in here.
     /// </summary>
-    [CreateAssetMenu(fileName = "ModInfo", menuName = "What_The_Hack ModApi/Mod Info", order = 1)]
+    [CreateAssetMenu(fileName = "ModInfo", menuName = "What_The_Hack ModApi/Mod Info", order = -1000)]
     public class ModInfo : ScriptableObject {
         /// <summary>
         /// Each mod requires a unique id to identify within the game.

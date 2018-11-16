@@ -7,7 +7,7 @@ namespace Wth.ModApi.Skills
     /// <summary>
     /// A Class which holds a Set of Skills, with their respective occurence probability
     /// </summary>
-    [CreateAssetMenu(fileName = "SkillSet", menuName = "What_The_Hack ModApi/Skills/Skill Set", order = 1)]
+    [CreateAssetMenu(fileName = "SkillSet", menuName = "What_The_Hack ModApi/Skills/Skill Set", order = -701)]
     public class SkillSet : ScriptableObject
     {
         /// <summary>

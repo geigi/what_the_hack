@@ -66,7 +66,7 @@ namespace Wth.ModApi.Editor
 												this.assetName = "frame";
 								}
 
-								[MenuItem("Tools/What_The_Hack ModApi/Animation Editor")]
+								[MenuItem("Tools/What_The_Hack ModApi/Animation Editor", priority = 80)]
 								static void Init()
 								{
 												EditorWindow.GetWindow(typeof(AnimationEditor), false, "Animation Editor");

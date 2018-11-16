@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Wth.ModApi.Editor.Employees
             NeedsDictionary = true;
         }
 
-        [MenuItem("Tools/What_The_Hack ModApi/Employee Creator")]
+        [MenuItem("Tools/What_The_Hack ModApi/Employee Creator", priority = 42)]
         static void Init()
         {
             EditorWindow.GetWindow(typeof(EmployeeEditor), false, "Employee Creator");
@@ -155,7 +156,7 @@ namespace Wth.ModApi.Editor.Employees
             var asset = ScriptableObject.CreateInstance<EmployeeDefinition>();
 
             AssetDatabase.CreateAsset(asset,
-                "Assets/Data/Employees/Employee " + this.asset.employeeList.Count + ".asset");
+                "Assets/Data/Employees/" + Guid.NewGuid() + ".asset");
             asset.EmployeeName = "Max Mustermann";
             this.asset.employeeList.Add(asset);
             viewIndex = this.asset.employeeList.Count;
@@ -177,6 +178,7 @@ namespace Wth.ModApi.Editor.Employees
 
         /// <summary>
         /// Get a list of all custom <see cref="EmployeeDefinition"/> in this list.
+        /// This is used for the ScriptableObject Key Value dictionary used for serialization.
         /// </summary>
         /// <returns>List of <see cref="ScriptableObject"/> which are <see cref="EmployeeDefinition"/></returns>
         protected override List<ScriptableObject> GetList()

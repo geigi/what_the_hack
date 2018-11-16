@@ -7,7 +7,7 @@ namespace Wth.ModApi.Employees {
     /// It contains no data related to a running game.
     /// </summary>
     [System.Serializable]
-    [CreateAssetMenu(fileName = "EmployeeDefinition", menuName = "What_The_Hack ModApi/Employees/Employee Definition", order = 1)]
+    [CreateAssetMenu(fileName = "EmployeeDefinition", menuName = "What_The_Hack ModApi/Employees/Employee Definition", order = -300)]
     public class EmployeeDefinition : ScriptableObject{
         /// <summary>
         /// Name of the employee.

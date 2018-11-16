@@ -55,6 +55,7 @@
     <Compile Include="Animation\AnimationEditor.cs" />
     <Compile Include="Base Editor.cs" />
     <Compile Include="Employees\EmployeeEditor.cs" />
+    <Compile Include="Missions\MissionEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Skills\CreateSkillDefinition.cs" />
     <Compile Include="Skills\SkillEditor.cs" />

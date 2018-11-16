@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -45,7 +46,7 @@ namespace Wth.ModApi.Editor.Skills
         /// <summary>
         /// Initializes the editor window.
         /// </summary>
-        [MenuItem("Tools/What_The_Hack ModApi/Skill Creator")]
+        [MenuItem("Tools/What_The_Hack ModApi/Skill Creator", priority = 40)]
         static void Init()
         {
             EditorWindow.GetWindow(typeof(SkillEditor), false, "Skill Creator");
@@ -200,7 +201,7 @@ namespace Wth.ModApi.Editor.Skills
         /// </summary>
         void AddSkill()
         {
-            var newSkill = CreateSkillDefinition.Create("Assets/Data/Skills/Skill " + base.asset.keys.Count + ".asset");
+            var newSkill = CreateSkillDefinition.Create("Assets/Data/Skills/" + Guid.NewGuid() + ".asset");
 
             newSkill.skillName = "New Skill";
             base.asset.keys.Add(newSkill);
