@@ -29,7 +29,7 @@ variables:
   - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
   - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
   - apt-get update
-  - apt-get install git
+  - apt-get -y install git
   - git submodule sync --recursive
   - git submodule update  --remote --recursive
 
