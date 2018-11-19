@@ -1,0 +1,12 @@
+{
+    "name": "KinoEditorAssembly",
+    "references": [
+        "KinoAssembly"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
