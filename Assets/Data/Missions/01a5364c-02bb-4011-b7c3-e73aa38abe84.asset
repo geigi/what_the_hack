@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858271, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
+  m_Name: 01a5364c-02bb-4011-b7c3-e73aa38abe84
+  m_EditorClassIdentifier: 
+  Title: I'm too broke for this ****.
+  Description: You got a job offer at the %TOWN% film studios for a supernumerary
+    role as an evil super hacker. Don't forget to bring some impressive equipment.
+  Deadline: 4
+  MissionSucceeded: It's doubtful that this movie will receive much attention but
+    at least the villain is convincing.
+  MissionFailed: In front of the cameras you suddenly become stage fright and have
+    to leave the set. Embarrassing!
+  SkillsRequired:
+  - {fileID: 11400000, guid: 31dccd8e681f3451ab1616ef772cff77, type: 2}
+  Difficulty: 0
+  Hardness: 0.8
+  MissionHooks: []
+  RequiredLevel: 2
+  RequiredEmployees: 0
+  AppearAfterDays: 0
+  RequiredMissions: {fileID: 11400000, guid: 02094ba93f57445f99bcfbf6175060f4, type: 2}
+  ForceAppear: 0

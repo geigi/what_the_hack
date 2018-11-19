@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858271, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
+  m_Name: dc3ee684-99ba-4e16-92d4-fb12ebe516dd
+  m_EditorClassIdentifier: 
+  Title: IT security lecture
+  Description: Mister %CONTACT%, CEO at %COMPANY% in %TOWN% wants you to give a lecture
+    on IT security in cooperation with the %TOWN% %UNIVERSITY%.
+  Deadline: 5
+  MissionSucceeded: 
+  MissionFailed: 
+  SkillsRequired:
+  - {fileID: 11400000, guid: 31dccd8e681f3451ab1616ef772cff77, type: 2}
+  - {fileID: 11400000, guid: d02363dc77d7f4307a4aa077a48342de, type: 2}
+  Difficulty: 0
+  Hardness: 0.9
+  MissionHooks: []
+  RequiredLevel: 0
+  RequiredEmployees: 0
+  AppearAfterDays: 0
+  RequiredMissions: {fileID: 11400000, guid: 7fcc5a081a9134442a589fd342c06618, type: 2}
+  ForceAppear: 0

@@ -28,3 +28,47 @@ MonoBehaviour:
     ScriptableObject: {fileID: 11400000, guid: 31dccd8e681f3451ab1616ef772cff77, type: 2}
   - Key: Assets/Data/Skills/Skill 6.asset
     ScriptableObject: {fileID: 11400000, guid: 1ed05134a75da42249cd6d83424b16bb, type: 2}
+  - Key: Assets/Data/Missions/0fdc0dd9-5bd5-4f7d-8b97-0344fe1938e4.asset
+    ScriptableObject: {fileID: 0}
+  - Key: Assets/Data/Missions/6ccafc64-c048-4a34-b7e7-58be23921386.asset
+    ScriptableObject: {fileID: 0}
+  - Key: Assets/Data/Missions/764a0e0a-90d6-480f-b28d-5603800ff7d0.asset
+    ScriptableObject: {fileID: 11400000, guid: 6c81edc41f7d9421c847e1a73851facb, type: 2}
+  - Key: Assets/Data/Missions/e67eacbc-db91-416d-bc23-8afc85916de6.asset
+    ScriptableObject: {fileID: 11400000, guid: 75cc10006d1004c44a92e72d8badc3df, type: 2}
+  - Key: Assets/Data/Missions/dc3ee684-99ba-4e16-92d4-fb12ebe516dd.asset
+    ScriptableObject: {fileID: 11400000, guid: 15dc29502a26e445396bc8d620389c18, type: 2}
+  - Key: Assets/Data/Missions/11461123-ed20-443e-9750-34369964b3ab.asset
+    ScriptableObject: {fileID: 11400000, guid: 875ece686062d410e808b08919add4f1, type: 2}
+  - Key: Assets/Data/Missions/a86797e7-8a40-49ca-a841-4b2a1158dfe7.asset
+    ScriptableObject: {fileID: 11400000, guid: e90a1c0261252491bb458a9bfeb468d6, type: 2}
+  - Key: Assets/Data/Missions/47c80e1e-34f9-47e9-975b-7e3a156fc11c.asset
+    ScriptableObject: {fileID: 11400000, guid: cc5d5eabcd9b649999339136d22d88cb, type: 2}
+  - Key: Assets/Data/Missions/2bdbf859-a135-41c4-8ee4-d00629618363.asset
+    ScriptableObject: {fileID: 11400000, guid: f820ee457f90d40969adc4945d545e70, type: 2}
+  - Key: Assets/Data/Missions/77e456b7-84a6-48d3-bfcd-3e859abcb2d1.asset
+    ScriptableObject: {fileID: 11400000, guid: f8bb30a0f9f744aeeb581381a2d447d8, type: 2}
+  - Key: Assets/Data/Missions/f279537e-a231-4ba7-9c90-20edc93d43a9.asset
+    ScriptableObject: {fileID: 11400000, guid: 84c4a37bd287547b095f895186d3b5c8, type: 2}
+  - Key: Assets/Data/Missions/0132fdd0-4978-4558-a731-ac42835be9d1.asset
+    ScriptableObject: {fileID: 11400000, guid: 5e8b0ee47c7c04043b157649b1f88ea2, type: 2}
+  - Key: Assets/Data/Missions/8bc06bb2-554d-4656-a0d4-c7b9c45f3fa6.asset
+    ScriptableObject: {fileID: 11400000, guid: c152849f3ee5b4857897118802585354, type: 2}
+  - Key: Assets/Data/Missions/077b75df-dc56-4076-a89f-003ce25db1ed.asset
+    ScriptableObject: {fileID: 11400000, guid: 5841fdf4945c64923a85af643e7d07f8, type: 2}
+  - Key: Assets/Data/Missions/73189083-3182-4f78-9e56-9c5384e9e613.asset
+    ScriptableObject: {fileID: 11400000, guid: e01ba9e4439df405c89411a4602ef1c1, type: 2}
+  - Key: Assets/Data/Missions/d668a7ef-7658-4b87-82a0-99308a8a82ab.asset
+    ScriptableObject: {fileID: 11400000, guid: 2ba0ceb6c809a4a44adefe3db3be61e7, type: 2}
+  - Key: Assets/Data/Missions/795c743c-3139-444d-a735-6e89bbf8ef12.asset
+    ScriptableObject: {fileID: 11400000, guid: cb25a90f2875f4359ace052d6a709fda, type: 2}
+  - Key: Assets/Data/Missions/43b7e760-7302-4248-9b3e-bce6e364acd9.asset
+    ScriptableObject: {fileID: 11400000, guid: 3b6fafe294e8a4effbe86a8e15c3444a, type: 2}
+  - Key: Assets/Data/Missions/01a5364c-02bb-4011-b7c3-e73aa38abe84.asset
+    ScriptableObject: {fileID: 11400000, guid: f857a3341b53745cebebbe6254bc22a6, type: 2}
+  - Key: Assets/Data/Missions/e1a26e54-b278-4938-8003-52fea8abbd48.asset
+    ScriptableObject: {fileID: 11400000, guid: 54bc7ee44428e4c4fab701fe7e94ea53, type: 2}
+  - Key: Assets/Data/Missions/17e85ff9-db0e-44dd-985f-5d9d845f0d37.asset
+    ScriptableObject: {fileID: 11400000, guid: 8649f3774327746c3b04871828264f9c, type: 2}
+  - Key: Assets/Data/Missions/d01b52ac-2390-4455-b6d7-2491641a7a55.asset
+    ScriptableObject: {fileID: 11400000, guid: f0965a62e657d4d9587535cc0ca4766e, type: 2}

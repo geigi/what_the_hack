@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858271, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
+  m_Name: 17e85ff9-db0e-44dd-985f-5d9d845f0d37
+  m_EditorClassIdentifier: 
+  Title: 1984
+  Description: You are contacted by agent %CONTACT_L%. The %COUNTRY% government develops
+    a trojan that comprehensively spies on suspicious targets. They need you for developing
+    some zero day exploits.
+  Deadline: 5
+  MissionSucceeded: The news report on mass imprisonment of journalists and members
+    of oppositional movement. Certainly just a coincident.
+  MissionFailed: These modern operating systems really are a hard nut to crack.
+  SkillsRequired:
+  - {fileID: 11400000, guid: 31dccd8e681f3451ab1616ef772cff77, type: 2}
+  - {fileID: 11400000, guid: d02363dc77d7f4307a4aa077a48342de, type: 2}
+  Difficulty: 0
+  Hardness: 1.3
+  MissionHooks: []
+  RequiredLevel: 3
+  RequiredEmployees: 0
+  AppearAfterDays: 0
+  RequiredMissions: {fileID: 11400000, guid: 1aac6be9d7f65475ba9f50542d381d12, type: 2}
+  ForceAppear: 0

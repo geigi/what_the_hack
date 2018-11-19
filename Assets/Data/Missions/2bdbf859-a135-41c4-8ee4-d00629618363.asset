@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858271, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
+  m_Name: 2bdbf859-a135-41c4-8ee4-d00629618363
+  m_EditorClassIdentifier: 
+  Title: You, Robot
+  Description: '%COMPANY%, a smart home equipment manufacturer has been hijacked.
+    All it''s products are now part of a botnet. You need to wipe the malware and
+    find the companies security leak.'
+  Deadline: 7
+  MissionSucceeded: 
+  MissionFailed: 
+  SkillsRequired:
+  - {fileID: 11400000, guid: 31dccd8e681f3451ab1616ef772cff77, type: 2}
+  - {fileID: 11400000, guid: 6356987175fb34f9aae18590a80f7ab8, type: 2}
+  Difficulty: 0
+  Hardness: 1
+  MissionHooks: []
+  RequiredLevel: 0
+  RequiredEmployees: 0
+  AppearAfterDays: 0
+  RequiredMissions: {fileID: 11400000, guid: 7743215f4115f426ebcc49c7b70ceaed, type: 2}
+  ForceAppear: 0

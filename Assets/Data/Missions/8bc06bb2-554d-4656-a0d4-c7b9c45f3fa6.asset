@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1858271, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
+  m_Name: 8bc06bb2-554d-4656-a0d4-c7b9c45f3fa6
+  m_EditorClassIdentifier: 
+  Title: You have no power here
+  Description: The %TOWN% %INSTITUTION% organizes a competition for hackers to find
+    security vulnerabilities in their IT system.
+  Deadline: 5
+  MissionSucceeded: You won the competition! After dropping some USB sticks with the
+    exploit code it only took hours until you could control the test system. Piece
+    of cake since they are still running on XP.
+  MissionFailed: You did some cool stuff but your competitors were even better.
+  SkillsRequired:
+  - {fileID: 11400000, guid: 31dccd8e681f3451ab1616ef772cff77, type: 2}
+  - {fileID: 11400000, guid: d02363dc77d7f4307a4aa077a48342de, type: 2}
+  Difficulty: 0
+  Hardness: 1.5
+  MissionHooks: []
+  RequiredLevel: 0
+  RequiredEmployees: 0
+  AppearAfterDays: 0
+  RequiredMissions: {fileID: 11400000, guid: e76c24877d2694ef1b22f7f7cac734df, type: 2}
+  ForceAppear: 0
