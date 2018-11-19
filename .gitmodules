@@ -3,5 +3,4 @@
 	url = https://github.com/Unity-Technologies/2d-extras.git
 [submodule "Assets/UnityEnhanced"]
 	path = Assets/UnityEnhanced
-	url = https://git.it-sec.medien.hs-duesseldorf.de/wth/unityenhanced.git
-	branch = master
+	url = ../../wth/unityenhanced.git
