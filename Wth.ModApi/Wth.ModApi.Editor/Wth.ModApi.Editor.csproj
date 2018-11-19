@@ -34,6 +34,11 @@
     <DocumentationFile>bin\Release\Wth.ModApi.Editor.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>../packages/Newtonsoft.Json.11.0.2/lib/net45/Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -69,6 +74,9 @@
       <Name>Wth.ModApi</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
@@ -80,5 +88,6 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(OutputPath)Wth.ModApi.Editor.dll" DestinationFolder="$(ProjectDir)../../Assets/ModTool/" ContinueOnError="true" />
     <Copy SourceFiles="$(OutputPath)Wth.ModApi.Editor.pdb" DestinationFolder="$(ProjectDir)../../Assets/ModTool/" ContinueOnError="true" />
+    <Copy SourceFiles="$(ProjectDir)../packages/Newtonsoft.Json.11.0.2/lib/net45/Newtonsoft.Json.dll" DestinationFolder="$(ProjectDir)../../Assets/ModTool/" ContinueOnError="true" />
   </Target>
 </Project>

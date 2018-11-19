@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using Wth.ModApi.Editor.Tools;
 using Wth.ModApi.Missions;
 using Wth.ModApi.Skills;
-using Object = UnityEngine.Object;
 
 namespace Wth.ModApi.Editor.Missions
 {
@@ -36,6 +38,7 @@ namespace Wth.ModApi.Editor.Missions
         static void Init()
         {
             GetWindow(typeof(MissionEditor), false, "Mission Creator");
+            EditorStyles.textArea.wordWrap = true;
         }
 
         /// <summary>
@@ -64,6 +67,11 @@ namespace Wth.ModApi.Editor.Missions
                 {
                     viewIndex -= 1;
                     DeleteItem(viewIndex);
+                }
+                
+                if (GUILayout.Button("Import from JSON", GUILayout.ExpandWidth(false)))
+                {
+                    ImportFromJson();
                 }
 
                 GUILayout.FlexibleSpace();
@@ -114,22 +122,22 @@ namespace Wth.ModApi.Editor.Missions
             EditorGUILayout.LabelField(mission.name);
             GUILayout.EndHorizontal();
             
-            scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
+            scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.MaxWidth(EditorGUIUtility.currentViewWidth));
             mission.Title = EditorGUILayout.TextField("Title", mission.Title);
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("Description", GUILayout.Width(146));
-            mission.Description = EditorGUILayout.TextArea(mission.Description, GUILayout.Height(80));
+            mission.Description = EditorGUILayout.TextArea(mission.Description, EditorStyles.textArea, GUILayout.Height(80));
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("Success Message", GUILayout.Width(146));
-            mission.MissionSucceeded = EditorGUILayout.TextArea(mission.MissionSucceeded, GUILayout.Height(80));
+            mission.MissionSucceeded = EditorGUILayout.TextArea(mission.MissionSucceeded, EditorStyles.textArea, GUILayout.Height(80));
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("Failure Message", GUILayout.Width(146));
-            mission.MissionFailed = EditorGUILayout.TextArea(mission.MissionFailed, GUILayout.Height(80));
+            mission.MissionFailed = EditorGUILayout.TextArea(mission.MissionFailed, EditorStyles.textArea, GUILayout.Height(80));
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
@@ -299,6 +307,69 @@ namespace Wth.ModApi.Editor.Missions
             {
                 string relPath = AssetDatabase.GetAssetPath(asset);
                 EditorPrefs.SetString("AssetPath" + assetName, relPath);
+            }
+        }
+
+        private void ImportFromJson()
+        {
+            string path = EditorUtility.OpenFilePanel("Choose JSON file", "", "json");
+            if (File.Exists(path))
+            {
+                CreateDirectories("Assets/Data/Missions/Requirements/");
+                try
+                {
+                    string json = File.ReadAllText(path);
+                    var missions = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(json);
+                    foreach (var mission in missions)
+                    {
+                        Debug.Log("Importing: " + mission["name"]);
+                        var missionDefinition = CreateInstance<MissionDefinition>();
+                        AssetDatabase.CreateAsset(missionDefinition, "Assets/Data/Missions/" + Guid.NewGuid() + ".asset");
+                        
+                        missionDefinition.Title = mission["name"].ToString();
+                        missionDefinition.Description = mission["description"].ToString();
+                        missionDefinition.MissionSucceeded = mission["onSuccess"].ToString();
+                        missionDefinition.MissionFailed = mission["onFail"].ToString();
+                        Debug.Log(mission["duration"]);
+                        Debug.Log(mission["duration"].GetType());
+                        missionDefinition.Hardness = float.Parse(mission["hardness"].ToString());
+                        Debug.Log(missionDefinition.Hardness);
+                        missionDefinition.Deadline = int.Parse(mission["duration"].ToString());
+                        Debug.Log(missionDefinition.Deadline);
+                        missionDefinition.RequiredLevel = int.Parse(mission["minLevel"].ToString());
+                        
+                        Debug.Log(mission["skill"].GetType());
+                        
+                        var skills = ((JArray)mission["skill"]).ToObject<List<Dictionary<string, string>>>();
+                        string objectPath = EditorPrefs.GetString("AssetPath" + "Skill");
+                        var skillSet = AssetDatabase.LoadAssetAtPath(objectPath, typeof(SkillSet)) as SkillSet;
+                        foreach (var skill in skills)
+                        {
+                            foreach (var skillDefinition in skillSet.keys)
+                            {
+                                if (skillDefinition.skillName.ToLower() == skill["type"].ToLower())
+                                {
+                                    missionDefinition.SkillsRequired.Add(skillDefinition);
+                                }
+                            }
+                        }
+                        
+                        var requirements = CreateInstance<MissionRequirements>();
+                        AssetDatabase.CreateAsset(requirements, "Assets/Data/Missions/Requirements/" + Guid.NewGuid() + ".asset");
+                        missionDefinition.RequiredMissions = requirements;
+                        
+                        this.asset.missionList.Add(missionDefinition);
+                        EditorUtility.SetDirty(missionDefinition);
+                        EditorUtility.SetDirty(requirements);
+                    }
+                    viewIndex = this.asset.missionList.Count;
+                    EditorUtility.SetDirty(asset);
+                    SaveAssets();
+                } catch (Exception e)
+                {
+                    Debug.Log(e);
+                    ShowNotification(new GUIContent("Could not parse JSON correctly"));
+                }
             }
         }
     }
