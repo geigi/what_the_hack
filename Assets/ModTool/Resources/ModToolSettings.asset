@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 1009295391, guid: a9af377409acb47eb825627170382d77, type: 3}
   m_Name: ModToolSettings
   m_EditorClassIdentifier: 
-  _productName: What the Hack
+  _productName: What_the_Hack
   _unityVersion: 2018.2.9f1
   _supportedPlatforms: 15
   _supportedContent: 7

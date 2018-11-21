@@ -69,4 +69,7 @@ MonoBehaviour:
     restrictionMode: 0
     nameSpace: System.IO
     includeNested: 1
-  _apiAssemblies: []
+  _apiAssemblies:
+  - Wth.ModApi
+  - Wth.ModApi.Editor
+  - Newtonsoft.Json
