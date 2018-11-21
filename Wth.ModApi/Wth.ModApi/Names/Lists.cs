@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wth.ModApi.Editor.Names
+namespace Wth.ModApi.Names
 {
 				/// <summary>
 				/// An enum which contains all List of names.
 				/// </summary>
-				enum Lists
+				public enum Lists
 				{
 								surNamesMale,
 								surNamesFemale,

@@ -220,6 +220,7 @@ namespace Wth.ModApi.Editor
 												spriteShowingTime = new List<float>();
 												spriteBinding = new EditorCurveBinding();
 												spriteBinding.type = typeof(SpriteRenderer);
+								    spriteBinding.propertyName = "m_Sprite";
 												animClipSettings = new AnimationClipSettings();
 												AnimationUtility.SetAnimationClipSettings(asset, animClipSettings);
 												animClipSettings.loopTime = true;
@@ -259,7 +260,8 @@ namespace Wth.ModApi.Editor
 												EditorCurveBinding[] bind = AnimationUtility.GetObjectReferenceCurveBindings(asset);
 												if (bind.Length > 0)
 												{
-																spriteBinding = bind[0];
+												    spriteBinding = bind[0];
+												    spriteBinding.propertyName = "m_Sprite";
 																ObjectReferenceKeyframe[] frames = AnimationUtility.GetObjectReferenceCurve(asset, spriteBinding);
 																if (frames == null)
 																				frames = new ObjectReferenceKeyframe[0];
@@ -270,13 +272,14 @@ namespace Wth.ModApi.Editor
 																{
 																				spriteShowingTime.Add((spriteKeyFrames[i].time - spriteKeyFrames[i - 1].time) * asset.frameRate/100);
 																}
-																//For Convinience add a Time to the last Frame, even though it can not be changed, except if I
+																//For Convenience add a Time to the last Frame, even though it can not be changed, except if I
 																// find a workaround.
 																spriteShowingTime.Add(defaultSpriteTime);
 												}
 												else
 												{
 																spriteBinding = new EditorCurveBinding();
+												    spriteBinding.propertyName = "m_Sprite";
 																spriteKeyFrames = new List<ObjectReferenceKeyframe>();
 												}
 								}

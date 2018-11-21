@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Employees\EmployeePart.cs" />
+    <Compile Include="Employees\EmployeeGeneratedData.cs" />
     <Compile Include="Employees\EmployeeData.cs" />
     <Compile Include="Employees\EmployeeDefinition.cs" />
     <Compile Include="Employees\EmployeeList.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Missions\MissionList.cs" />
     <Compile Include="Missions\MissionRequirements.cs" />
     <Compile Include="ModInfo.cs" />
+    <Compile Include="Names\Lists.cs" />
     <Compile Include="Names\NameLists.cs" />
     <Compile Include="Skills\SkillDefiniton.cs" />
     <Compile Include="Skills\SkillSet.cs" />

@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEditor;
-using UnityEngine.Animations;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
-using Wth.ModApi;
 using Wth.ModApi.Employees;
 
 /// <summary>
@@ -16,9 +14,10 @@ using Wth.ModApi.Employees;
 public class Employee : MonoBehaviour {
 	const float minPathUpdateTime = .2f;
 	const float speed = 1.0f;
-	
-	public EmployeeDefinition EmployeeDefinition;
 
+ public EmployeeData EmployeeData;
+ private EmployeeFactory factory;
+ 
 	private GameObject employeeLayer;
 	private SpriteRenderer spriteRenderer;
 	private Animator animator;
@@ -45,25 +44,39 @@ public class Employee : MonoBehaviour {
 	/// This needs to be called before the employee is used.
 	/// Fills the object with specific data.
 	/// </summary>
-	/// <param name="employeeDefinition">Data for this employee.</param>
-	public void init(EmployeeDefinition employeeDefinition, Material material)
+	/// <param name="employeeData">Data for this employee.</param>
+	public void init(EmployeeData employeeData, Material material)
 	{
-		this.EmployeeDefinition = employeeDefinition;
+	    this.factory = new EmployeeFactory();
+        this.EmployeeData = employeeData;
         spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-        // Add the Material.
-        spriteRenderer.material = EmployeeFactory.GenerateMaterial(material);
+
         // place the right animations.
         this.animator = gameObject.AddComponent<Animator>();
         RuntimeAnimatorController run = Resources.Load<RuntimeAnimatorController>("EmployeeAnimations");
         var animatorOverrideController = new AnimatorOverrideController(run);
-
-        if (employeeDefinition.IdleAnimation != null && 
-            employeeDefinition.WalkingAnimation != null && 
-            employeeDefinition.WorkingAnimation != null)
+        
+        if(employeeData.EmployeeDefinition != null)
         {
-            animatorOverrideController["Special_Trump_Idle"] = employeeDefinition.IdleAnimation;
-            animatorOverrideController["Special_Trump_Walking"] = employeeDefinition.WalkingAnimation;
-            animatorOverrideController["Special_Trump_Working"] = employeeDefinition.WorkingAnimation;
+            Debug.Log("This is a special Employee");
+            //special employee
+            animatorOverrideController["Special_Trump_Idle"] = employeeData.EmployeeDefinition.IdleAnimation;
+            animatorOverrideController["Special_Trump_Walking"] = employeeData.EmployeeDefinition.WalkingAnimation;
+            animatorOverrideController["Special_Trump_Working"] = employeeData.EmployeeDefinition.WorkingAnimation;
+        } else
+        {
+            //generated Employee. Animation needs to be set.
+            string animationPath = "Assets/Animations/Employee_Idle_Animation_";
+            animationPath += (employeeData.generatedData.gender == "female") ? "W" : "M";
+            animationPath += new System.Random().Next(1, 5) + ".anim";
+            Debug.Log(animationPath);
+            animatorOverrideController["Special_Trump_Idle"] = AssetDatabase.LoadAssetAtPath<AnimationClip>(animationPath);
+            animationPath = animationPath.Replace("Idle", "Walking");
+            animatorOverrideController["Special_Trump_Walking"] = AssetDatabase.LoadAssetAtPath<AnimationClip>(animationPath);
+            animationPath = animationPath.Replace("Walking", "Working");
+            animatorOverrideController["Special_Trump_Working"] = AssetDatabase.LoadAssetAtPath<AnimationClip>(animationPath);
+            // Add the Material.
+            spriteRenderer.material = factory.GenerateMaterialForEmployee(material, employeeData.generatedData);
         }
         this.animator.runtimeAnimatorController = animatorOverrideController;
     }

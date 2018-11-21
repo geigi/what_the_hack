@@ -28,5 +28,20 @@ namespace Wth.ModApi.Names
 								/// A list containing all possible last names.
 								/// </summary>
 								public List<string> lastNames = new List<string>();
+
+        public string RandomName(Lists list)
+        {
+            System.Random rand = new System.Random();
+            switch (list)
+            {
+                case Lists.lastNames:
+                    return lastNames[rand.Next(this.lastNames.Count())];
+                case Lists.surNamesFemale:
+                    return surNamesFemale[rand.Next(this.surNamesFemale.Count())];
+                default:
+                    return surNamesMale[rand.Next(this.surNamesMale.Count())];
+                    
+            }
+        }
 				}
 }

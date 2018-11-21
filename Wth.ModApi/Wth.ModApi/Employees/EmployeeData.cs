@@ -48,6 +48,11 @@ namespace Wth.ModApi.Employees
         public EmployeeDefinition EmployeeDefinition;
 
         /// <summary>
+        /// This is null when the Employee is a special emplyoee.
+        /// Only Populated for genderated employees.
+        /// </summary>
+        public EmployeeGeneratedData generatedData;
+        /// <summary>
         /// Empty Constructor.
         /// </summary>
         public EmployeeData() {}

@@ -65,7 +65,6 @@
     <Compile Include="Skills\CreateSkillDefinition.cs" />
     <Compile Include="Skills\SkillEditor.cs" />
     <Compile Include="Tools\EditorTools.cs" />
-    <Compile Include="Names\Lists.cs" />
     <Compile Include="Names\NameListEditor.cs" />
   </ItemGroup>
   <ItemGroup>

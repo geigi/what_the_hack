@@ -13,6 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EmployeeName: Max Muster
   Level: 1
-  IdleAnimation: {fileID: 0}
-  WalkingAnimation: {fileID: 0}
-  WorkingAnimation: {fileID: 0}
+  IdleAnimation: {fileID: 7400000, guid: 462612ee09e600f4dbe179e32b481f6d, type: 2}
+  WalkingAnimation: {fileID: 7400000, guid: 7c1225d648e48074085d55316a8669f4, type: 2}
+  WorkingAnimation: {fileID: 7400000, guid: a79da60bfb0610c45b838f1e42cfcd60, type: 2}

@@ -16,18 +16,22 @@ public class EmployeeAI : MonoBehaviour
 	private GameObject employeeGameObject;
 	private List<Employee> employees;
 
+    private EmployeeManager manager;
 	private bool createdEmployee = false;
 	
 	// Use this for initialization
 	void Start ()
 	{
+  this.manager = new EmployeeManager();
 		this.employees = new List<Employee>();
 		this.employeeGameObject = new GameObject("Employee");
+  manager.init(employeeData);
 		for (int i = 0; i < 4; i++)
 		{
+   manager.GenerateEmployeeForHire();
 			var gameObject = new GameObject("Employee");
 			var employee = gameObject.AddComponent<Employee>();
-			employee.init(employeeData, standardEmployeeMaterial);
+			employee.init(manager.HireEmployee(), standardEmployeeMaterial);
 			employees.Add(employee);
 		}
 	}
