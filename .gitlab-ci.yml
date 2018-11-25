@@ -1,8 +1,6 @@
 image: "gableroux/unity3d:2018.2.6f1"
 
 stages:
-- get-dependencies
-- test-dependencies
 - build-dependencies
 - test-main
 - build-main
@@ -42,26 +40,6 @@ variables:
 #    - ./AndroidPlugin/gradlew test
 #  variables:
 #    PROJECT_DIR: AndroidPlugin
-
-get-unity-dlls:
-  stage: get-dependencies
-  script:
-  - ls -la /opt/Unity/Editor/Data/Managed/
-  - mkdir ./Wth.ModApi/Wth.ModApi/References/
-  - cp /opt/Unity/Editor/Data/Managed/UnityEngine.dll ./Wth.ModApi/Wth.ModApi/References/
-  - cp /opt/Unity/Editor/Data/Managed/UnityEditor.dll ./Wth.ModApi/Wth.ModApi/References/
-    
-  artifacts:
-    paths:
-    - ./Wth.ModApi/Wth.ModApi/References/
-    expire_in: 1 day
-
-test-api:
-  image: "mono:latest"
-  stage: test-dependencies
-  script:
-    - nuget restore ./Wth.ModApi/Wth.ModApi.sln
-    - msbuild /p:Configuration="Debug" /p:Platform="Any CPU" ./Wth.ModApi/Wth.ModApi.sln
 
 .test: &test
   stage: test-main
@@ -122,23 +100,6 @@ build-AndroidPlugin:
     key: ${CI_PROJECT_ID}
     paths:
     - .gradle/
-
-build-Wth.ModApi:
-  image: "mono:latest"
-  stage: build-dependencies
-  script: |
-    echo "Building Wth.Api Solution"
-    export BUILD_PATH=./Wth.ModApi/Wth.ModApi/bin/Release/
-    nuget restore ./Wth.ModApi/Wth.ModApi.sln
-    msbuild /p:Configuration="Release" ./Wth.ModApi/Wth.ModApi.sln
-    ls -la $BUILD_PATH
-    [ -n "$(ls -A $BUILD_PATH)" ] # fail job if build folder is empty
-
-  artifacts:
-    paths:
-    - ./Wth.ModApi/Wth.ModApi/bin/Release/
-    - ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/
-    expire_in: 2 weeks
 
 .build-unity: &build-unity
   stage: build-main
@@ -271,8 +232,8 @@ build-documentation:
   stage: documentation
   image: tsgkadot/docker-docfx:latest
   script:
-  - docfx Wth.ModApi/Documentation/docfx.json --logLevel Verbose
-  - mv ./Wth.ModApi/Documentation/html ./Wth.ModApi_Documentation
+  - docfx Documentation/docfx.json --logLevel Verbose
+  - mv ./Documentation/html ./Wth.ModApi_Documentation
   artifacts:
     paths:
     - ./Wth.ModApi_Documentation

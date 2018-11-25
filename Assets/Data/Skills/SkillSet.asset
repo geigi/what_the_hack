@@ -8,9 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 892564509, guid: 527d9c67063b4456db7b6d4a288137ae, type: 3}
+  m_Script: {fileID: 11500000, guid: b5d32166d6f464684a2ea332ca00bc1c, type: 3}
   m_Name: SkillSet
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Wth.ModApi:Wth.ModApi.Skills:SkillDefinition 
   keys:
   - {fileID: 11400000, guid: 53850490f73b4824d839e523f2f371f6, type: 2}
   - {fileID: 11400000, guid: 98d1e46ef779b6442a2e4d334c8c2009, type: 2}

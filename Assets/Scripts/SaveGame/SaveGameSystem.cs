@@ -5,8 +5,6 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Pathfinding;
 using UnityEngine;
-using Wth.ModApi.Employees;
-using Wth.ModApi.Skills;
 
 namespace SaveGame
 {

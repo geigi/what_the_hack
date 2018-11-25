@@ -29,18 +29,27 @@
             <param name="filter">The filter string can contain search data for: names, asset labels and types (class names).</param>
             <returns>A list of asset paths</returns>
         </member>
-        <member name="M:ModTool.Shared.Editor.AssetUtility.MoveAssets(System.Collections.Generic.List{System.String},System.String)">
+        <member name="M:ModTool.Shared.Editor.AssetUtility.MoveAssets(System.Collections.Generic.List{System.String},System.String,System.Collections.Generic.List{System.String}@)">
             <summary>
             Move assets to a directory.
             </summary>
             <param name="assetPaths">A list of asset paths</param>
             <param name="targetDirectory">The directory to move all assets to.</param>
+            <param name="includeButNotCopied"></param>
         </member>
         <member name="M:ModTool.Shared.Editor.AssetUtility.CreateAsset(UnityEngine.ScriptableObject)">
             <summary>
             Create an asset for a ScriptableObject in a ModTool Resources directory.
             </summary>
             <param name="scriptableObject">A ScriptableObject instance.</param>
+        </member>
+        <member name="M:ModTool.Shared.Editor.AssetUtility.ChangeGUIDs(System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Change the GUIDs of the given assets.
+            Empty fields or list will be ignored.
+            </summary>
+            <param name="assets"></param>
+            <param name="guids"></param>
         </member>
     </members>
 </doc>

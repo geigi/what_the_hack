@@ -1,7 +1,8 @@
 {
     "name": "Tests",
     "references": [
-        "MainAssembly"
+        "MainAssembly",
+        "Wth.ModApi"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"

@@ -34,6 +34,12 @@
             List of the Game's api Assembly names.
             </summary>
         </member>
+        <member name="P:ModTool.Shared.CodeSettings.assemblyGUIDs">
+            <summary>
+            List of GUIDs that the apiAssemblies should receive.
+            Keep same order as in apiAssemblies. Empty fields or list will be ignored.
+            </summary>
+        </member>
         <member name="T:ModTool.Shared.LogLevel">
             <summary>
             Filter level for logging messages to the console or log file.

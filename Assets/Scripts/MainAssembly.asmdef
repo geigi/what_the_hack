@@ -5,7 +5,8 @@
         "UtilsAssembly",
         "KinoAssembly",
         "UnityEnhancedAssembly",
-        "Unity.2D.PixelPerfect"
+        "Unity.2D.PixelPerfect",
+        "Wth.ModApi"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

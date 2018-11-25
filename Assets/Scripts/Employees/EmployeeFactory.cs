@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using Wth.ModApi.Employees;
-using Wth.ModApi.Skills;
 using Wth.ModApi.Names;
 
 /// <summary>

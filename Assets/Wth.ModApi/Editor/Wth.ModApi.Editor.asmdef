@@ -1,0 +1,12 @@
+{
+    "name": "Wth.ModApi.Editor",
+    "references": [
+        "Wth.ModApi"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

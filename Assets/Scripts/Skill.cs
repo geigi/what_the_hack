@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Wth.ModApi;
-using Wth.ModApi.Skills;
 
 /// <summary>
 /// A class for skill objects.
