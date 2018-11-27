@@ -46,15 +46,21 @@ public class EmployeeManager {
     /// Can only be hired once and does not reappear.
     /// </summary>
     private EmployeeDefinition specialEmployee;
-    
+
+    private SkillSet standardSkillSet;
+    private NameLists standardNameLists;
+
     /// <summary>
     /// Initializes the EmployeeManager. This Method should be called before using the Manager.
     /// Generates 4 employees for hire.
     /// </summary>
     /// <param name="_specialEmployee">The special employee, which can appear.</param>
     /// <param name="saveGame">Optional Parameter, when the game is loaded from a save game.</param>
-    public void init(EmployeeDefinition _specialEmployee, MainSaveGame saveGame = null)
+    public void init(EmployeeDefinition _specialEmployee, SkillSet standardSkills,
+        NameLists standardNames, MainSaveGame saveGame = null)
     {
+        this.standardSkillSet  = standardSkills;
+        this.standardNameLists = standardNames;
         factory = new EmployeeFactory();
         this.specialEmployee = _specialEmployee;
         this.daysPassed = 0;
@@ -83,7 +89,7 @@ public class EmployeeManager {
         }
         else
         {
-            this.employeesForHire.Add(factory.GenerateEmployee());
+            this.employeesForHire.Add(factory.GenerateEmployee(standardSkillSet, standardNameLists));
         }
     }
 

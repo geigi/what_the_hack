@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
@@ -12,7 +11,8 @@ using Wth.ModApi.Employees;
 /// All employee related logic is implemented here.
 /// </summary>
 public class Employee : MonoBehaviour {
-	const float minPathUpdateTime = .2f;
+
+    const float minPathUpdateTime = .2f;
 	const float speed = 1.0f;
 
  public EmployeeData EmployeeData;
@@ -45,7 +45,8 @@ public class Employee : MonoBehaviour {
 	/// Fills the object with specific data.
 	/// </summary>
 	/// <param name="employeeData">Data for this employee.</param>
-	public void init(EmployeeData employeeData, Material material)
+	public void init(EmployeeData employeeData, Material material, 
+	    AnimationClip[] clipsMale, AnimationClip[] clipsfemale)
 	{
 	    this.factory = new EmployeeFactory();
         this.EmployeeData = employeeData;
@@ -66,15 +67,11 @@ public class Employee : MonoBehaviour {
         } else
         {
             //generated Employee. Animation needs to be set.
-            string animationPath = "Assets/Animations/Employee_Idle_Animation_";
-            animationPath += (employeeData.generatedData.gender == "female") ? "W" : "M";
-            animationPath += new System.Random().Next(1, 5) + ".anim";
-            Debug.Log(animationPath);
-            animatorOverrideController["Special_Trump_Idle"] = AssetDatabase.LoadAssetAtPath<AnimationClip>(animationPath);
-            animationPath = animationPath.Replace("Idle", "Walking");
-            animatorOverrideController["Special_Trump_Walking"] = AssetDatabase.LoadAssetAtPath<AnimationClip>(animationPath);
-            animationPath = animationPath.Replace("Walking", "Working");
-            animatorOverrideController["Special_Trump_Working"] = AssetDatabase.LoadAssetAtPath<AnimationClip>(animationPath);
+            var anims = (employeeData.generatedData.gender == "female") ? clipsfemale : clipsMale;
+            int randIndex = new System.Random().Next(4);
+            animatorOverrideController["Special_Trump_Idle"] = anims[randIndex];  
+            animatorOverrideController["Special_Trump_Walking"] = anims[randIndex + 4];
+            animatorOverrideController["Special_Trump_Working"] = anims[randIndex + 8];
             // Add the Material.
             spriteRenderer.material = factory.GenerateMaterialForEmployee(material, employeeData.generatedData);
         }
