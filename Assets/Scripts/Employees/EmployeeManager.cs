@@ -127,4 +127,15 @@ public class EmployeeManager {
         exEmplyoees.Add(emp);
         hiredEmplyoees.Remove(emp);
     }
+
+    /// <summary>
+    /// Will be used later as a listener method.
+    /// Removes the first Employee from the EmployeeForHire List and creates a new one.
+    /// </summary>
+    public void newDay()
+    {
+        this.daysPassed++;
+        this.employeesForHire.RemoveAt(0);
+        GenerateEmployeeForHire();
+    }
 }

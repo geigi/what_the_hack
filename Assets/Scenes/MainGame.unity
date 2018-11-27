@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -793,6 +793,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99b8db29536b40aa992b7ef30000d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maleAnimationClips: []
+  femaleAnimationClips: []
+  standardSkills: {fileID: 11400000, guid: c58b24c8c7c20b44aba46d435d85e8d2, type: 2}
+  standardNames: {fileID: 11400000, guid: d7dc88df516b1d941ba499e7e82a9135, type: 2}
   standardEmployeeMaterial: {fileID: 2100000, guid: 6fad80bef751791479542efe0d71f597,
     type: 2}
   employeeData: {fileID: 11400000, guid: 3faab075bf2c74912a9ce5e7d7ae29e1, type: 2}
@@ -5814,12 +5818,12 @@ Prefab:
     - target: {fileID: 224149335157836840, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224712547996869410, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1536429215832930, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 2}
       propertyPath: m_IsActive
