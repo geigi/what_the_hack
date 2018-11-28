@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using Wth.ModApi.Employees;
 using Wth.ModApi.Names;
@@ -165,13 +164,13 @@ public class EmployeeFactory {
     /// Generates new and random EmployeeData.
     /// </summary>
     /// <returns>The generated EmployeeData.</returns>
-    public EmployeeData GenerateEmployee()
+    public EmployeeData GenerateEmployee(SkillSet skills, NameLists names)
     {
         EmployeeData employee = new EmployeeData();
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();
         //Skills
         employee.Skills = (this.ModIsLoaded()) ? holder.GetSkills().keys :
-            AssetDatabase.LoadAssetAtPath<SkillSet>("Assets/Data/Skills/SkillSet.asset").keys;
+           skills.keys;
         //Color
         var employeeParts = Enum.GetValues(typeof(EmployeePart));
         foreach (EmployeePart part in employeeParts)
@@ -180,7 +179,7 @@ public class EmployeeFactory {
         }
         //Name
         generatedData.AssignRandomGender();
-        NameLists employeeNames = AssetDatabase.LoadAssetAtPath<NameLists>("Assets/Data/Names/Names.asset");
+        NameLists employeeNames = names;
         generatedData.name = (generatedData.gender == "female") ? employeeNames.RandomName(Lists.surNamesFemale) :
             employeeNames.RandomName(Lists.surNamesMale);
         generatedData.name += " " + employeeNames.RandomName(Lists.lastNames);
