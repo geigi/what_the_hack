@@ -59,6 +59,8 @@ public class EmployeeFactory {
     private ModHolder holder;
     private bool modIsLoaded;
 
+    private static int numberOfBeginningSkills = 2;
+
     /// <summary>
     /// Generates a random Color for the specific part.
     /// </summary>
@@ -164,13 +166,21 @@ public class EmployeeFactory {
     /// Generates new and random EmployeeData.
     /// </summary>
     /// <returns>The generated EmployeeData.</returns>
-    public EmployeeData GenerateEmployee(SkillSet skills, NameLists names)
+    public EmployeeData GenerateEmployee(SkillSet skillSet, NameLists names)
     {
         EmployeeData employee = new EmployeeData();
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();
         //Skills
-        employee.Skills = (this.ModIsLoaded()) ? holder.GetSkills().keys :
-           skills.keys;
+        List<SkillDefinition> skills = (this.modIsLoaded) ? holder.GetSkills().keys : skillSet.keys;
+        List<Skill> skillList = new List<Skill>();
+        //2 Random Skills am Anfang
+        for (int i = 0; i < numberOfBeginningSkills; i++)
+        {
+            Skill s = new Skill(skills[new System.Random().Next(skills.Count)]);
+            s.AddSkillPoints(new System.Random().Next(150, 400));
+            skillList.Add(s);
+        }
+        employee.Skills = skillList;
         //Color
         var employeeParts = Enum.GetValues(typeof(EmployeePart));
         foreach (EmployeePart part in employeeParts)

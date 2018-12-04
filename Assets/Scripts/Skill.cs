@@ -34,10 +34,10 @@ public class Skill {
     private float nextLevelPoints;
 
     ///<summary>
-    ///Needs to be called before the skill is used.
+    ///Constructor for this skill.
     ///</summary>
     ///<param name="data">The data for this skill.</param>
-    public void Init(SkillDefinition data)
+    public Skill(SkillDefinition data)
     {
         this.points = 0;
         this.level = 0;
@@ -46,7 +46,7 @@ public class Skill {
     }
 
     /// <summary>
-    /// Adds skillLevelPunkte to the points of this skill and advances a Level if this skill holds enough points.
+    /// Adds skillLevel Punkte to the points of this skill and advances a Level if this skill holds enough points.
     /// </summary>
     /// <param name="skillPoints">The number of points added to the points of this skill.</param>
     public void AddSkillPoints(float skillPoints)

@@ -25,7 +25,7 @@ namespace Wth.ModApi.Employees
         /// <summary>
         /// List of learned skills.
         /// </summary>
-        public List<SkillDefinition> Skills;
+        public List<Skill> Skills;
         
         /// <summary>
         /// List of specials.

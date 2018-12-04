@@ -7,7 +7,7 @@ namespace SaveGame
 	public class TestSaveOnLoad : MonoBehaviour
 	{
 		public bool saved = false;
-		public SkillSet SkillSet;
+		public List<Skill> Skills;
 	
 		// Use this for initialization
 		void Start () {
@@ -22,7 +22,7 @@ namespace SaveGame
 				var saveGame = SaveGameSystem.CreateNewSaveGame("test1");
 				saveGame.employeesHired = new List<EmployeeData>();
 				var employee = new EmployeeData();
-				employee.Skills = SkillSet.keys;
+				employee.Skills = Skills;
 				employee.Specials = new List<EmployeeSpecial>();
 				saveGame.employeesHired.Add(employee);
 				SaveGameSystem.SaveGame(saveGame);
