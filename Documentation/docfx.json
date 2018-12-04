@@ -4,7 +4,7 @@
       "src": [
         {
           "files": [
-            "Wth.ModApi/**.csproj"
+            "**.csproj"
           ],
           "src": "../"
         }

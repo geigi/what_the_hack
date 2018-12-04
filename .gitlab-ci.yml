@@ -24,8 +24,6 @@ variables:
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
   - cp -rf ./AndroidPlugin/androidunitybridge/build/outputs/aar/* ./Assets/Plugins/Android/
-  - cp -rf ./Wth.ModApi/Wth.ModApi/bin/Release/* ./Assets/ModTool/
-  - cp -rf ./Wth.ModApi/Wth.ModApi.Editor/bin/Release/* ./Assets/ModTool/
   - apt-get update
   - apt-get -y install git
   - git submodule sync --recursive
