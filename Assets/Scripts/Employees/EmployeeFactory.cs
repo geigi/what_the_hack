@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Wth.ModApi.Employees;
 using Wth.ModApi.Names;
+using Random = System.Random;
 
 /// <summary>
 /// Class for generating random EmployeeData and setting the Material for an Employee.
@@ -59,8 +60,9 @@ public class EmployeeFactory {
     private ModHolder holder;
     private bool modIsLoaded;
 
-    private static int numberOfBeginningSkills = 2;
+    private static int numberOfBeginningSkills = 3;
 
+    private static Random rnd = new Random();
     /// <summary>
     /// Generates a random Color for the specific part.
     /// </summary>
@@ -73,7 +75,7 @@ public class EmployeeFactory {
         float rand = UnityEngine.Random.value;
         float totalWeight = 0;
         Color32 chosenColor = Color.black;
-        foreach (KeyValuePair<Color32, float> color in current)
+        foreach (var color in current)
         {
             totalWeight += color.Value;
             if(rand < totalWeight)
@@ -139,7 +141,7 @@ public class EmployeeFactory {
     }
 
     /// <summary>
-    /// Gets the Color Dictioanry for the EmployeePart.
+    /// Gets the Color Dictionary for the EmployeePart.
     /// </summary>
     /// <param name="part">The part of the Employee.</param>
     /// <returns>The Color Dictionary</returns>
@@ -176,8 +178,13 @@ public class EmployeeFactory {
         //2 Random Skills am Anfang
         for (int i = 0; i < numberOfBeginningSkills; i++)
         {
-            Skill s = new Skill(skills[new System.Random().Next(skills.Count)]);
-            s.AddSkillPoints(new System.Random().Next(150, 400));
+            Skill s;
+            do
+            {
+                int index = rnd.Next(maxValue: skills.Count);
+                s = new Skill(skills[index]);
+                s.AddSkillPoints(rnd.Next(100, 1000));
+            } while (skillList.Contains(s));
             skillList.Add(s);
         }
         employee.Skills = skillList;

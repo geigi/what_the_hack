@@ -23,7 +23,10 @@ public class EmployeeAI : MonoBehaviour
     public Material standardEmployeeMaterial;
 	   public EmployeeDefinition employeeData;
 
-	private GameObject employeeGameObject;
+    public GameObject empGUI;
+    public GameObject viewport;
+
+
 	private List<Employee> employees;
 
     private EmployeeManager manager;
@@ -32,22 +35,28 @@ public class EmployeeAI : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-  this.manager = new EmployeeManager();
+	    var gameObject = new GameObject("Employee Manager");
+  this.manager = gameObject.AddComponent<EmployeeManager>();
+	    gameObject.transform.parent = this.gameObject.transform;
+	    manager.transform.parent = gameObject.transform;
 		this.employees = new List<Employee>();
-		this.employeeGameObject = new GameObject("Employee");
-  manager.init(employeeData, standardSkills, standardNames);
+  manager.init(employeeData, standardSkills, standardNames, 
+      standardEmployeeMaterial, maleAnimationClips, femaleAnimationClips);
 		for (int i = 0; i < 4; i++)
 		{
    manager.GenerateEmployeeForHire();
-			var gameObject = new GameObject("Employee");
-			var employee = gameObject.AddComponent<Employee>();
-			employee.init(manager.HireEmployee(), standardEmployeeMaterial, 
-			    maleAnimationClips, femaleAnimationClips);
-			employees.Add(employee);
+		    Employee emp = manager.HireEmployee();
+		    GameObject employeeGUI = Instantiate(empGUI);
+		    employeeGUI.transform.parent = viewport.transform;
+		    employeeGUI.transform.position = new Vector3(employeeGUI.transform.position.x, (i*100), employeeGUI.transform.position.z);
+      employeeGUI.GetComponent<FillUI>().SetEmp(emp);  
+      employees.Add(emp);
 		}
+     RectTransform r = viewport.GetComponent<RectTransform>();
+     r.sizeDelta = new Vector2(r.rect.width, employees.Count * 145);
 	}
 
-	void WalkEmployee()
+    void WalkEmployee()
 	{
 		foreach (var employee in employees)
 		{

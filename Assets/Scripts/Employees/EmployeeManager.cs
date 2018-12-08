@@ -8,7 +8,7 @@ using Wth.ModApi.Employees;
 /// This class manages all Employees for the game and keeps track, of employees that can be hired,
 /// employees which are hired and ex-employees.
 /// </summary>
-public class EmployeeManager {
+public class EmployeeManager : MonoBehaviour {
 
     /// <summary>
     /// The Number of days should pass, before a specialEmployee can be hired. 
@@ -49,7 +49,9 @@ public class EmployeeManager {
 
     private SkillSet standardSkillSet;
     private NameLists standardNameLists;
-
+    private Material empMaterial;
+    private AnimationClip[] maleAnim;
+    private AnimationClip[] femaleAnim;
     /// <summary>
     /// Initializes the EmployeeManager. This Method should be called before using the Manager.
     /// Generates 4 employees for hire.
@@ -57,8 +59,13 @@ public class EmployeeManager {
     /// <param name="_specialEmployee">The special employee, which can appear.</param>
     /// <param name="saveGame">Optional Parameter, when the game is loaded from a save game.</param>
     public void init(EmployeeDefinition _specialEmployee, SkillSet standardSkills,
-        NameLists standardNames, MainSaveGame saveGame = null)
+        NameLists standardNames, 
+        Material mat, AnimationClip[] male, AnimationClip[] female, 
+        MainSaveGame saveGame = null)
     {
+        this.empMaterial = mat;
+        this.femaleAnim = female;
+        this.maleAnim = male;
         this.standardSkillSet  = standardSkills;
         this.standardNameLists = standardNames;
         factory = new EmployeeFactory();
@@ -97,11 +104,14 @@ public class EmployeeManager {
     /// Hires the first employee in the employeesForHire List.
     /// </summary>
     /// <returns>EmployeeData of the hired Employee.</returns>
-    public EmployeeData HireEmployee()
+    public Employee HireEmployee()
     {
-        EmployeeData emp = employeesForHire[0];
-        hiredEmplyoees.Add(emp);
-        employeesForHire.Remove(emp);
+        var gameObject = new GameObject("Employee");
+        var emp = gameObject.AddComponent<Employee>(); 
+        EmployeeData empData = employeesForHire[0];
+        hiredEmplyoees.Add(empData);
+        employeesForHire.Remove(empData);
+        emp.init(empData, empMaterial, maleAnim, femaleAnim);
         return emp;
     }
 
