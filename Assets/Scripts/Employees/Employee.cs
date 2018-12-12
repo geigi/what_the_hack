@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.XR.WSA.Persistence;
 using Utils;
 using Wth.ModApi.Employees;
 
@@ -26,9 +27,10 @@ public class Employee : MonoBehaviour {
 
 	private Tilemap tilemap;
 
-	private bool walking = false;
-	private bool idle = true;
-	private List<Node> path;
+    public bool walking { get; private set; } = false;
+    public bool idle { get; private set; } = true;
+
+    private List<Node> path;
 	
 	void Start () {
 		employeeLayer = GameObject.FindWithTag("EmployeeLayer");

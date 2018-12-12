@@ -1,4 +1,5 @@
-﻿using SaveGame;
+﻿using System;
+using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,12 @@ using Wth.ModApi.Employees;
 /// This class manages all Employees for the game and keeps track, of employees that can be hired,
 /// employees which are hired and ex-employees.
 /// </summary>
-public class EmployeeManager : MonoBehaviour {
+public class EmployeeManager {
+
+    private static readonly Lazy<EmployeeManager> lazy =
+        new Lazy<EmployeeManager>(() => new EmployeeManager());
+
+    public static EmployeeManager Instance => lazy.Value;
 
     /// <summary>
     /// The Number of days should pass, before a specialEmployee can be hired. 
@@ -52,6 +58,9 @@ public class EmployeeManager : MonoBehaviour {
     private Material empMaterial;
     private AnimationClip[] maleAnim;
     private AnimationClip[] femaleAnim;
+
+    private EmployeeManager() { }
+
     /// <summary>
     /// Initializes the EmployeeManager. This Method should be called before using the Manager.
     /// Generates 4 employees for hire.

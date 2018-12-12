@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 222304112968623990}
   - component: {fileID: 114765236617930020}
   - component: {fileID: 114297034207108782}
+  - component: {fileID: 114552507605667148}
   m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
@@ -85,6 +86,19 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 1
+--- !u!114 &114552507605667148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1734543074211814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 1
+  m_VerticalFit: 2
 --- !u!114 &114765236617930020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,8 +264,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 466.1, y: -23.9}
-  m_SizeDelta: {x: -97.63, y: 35.08}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 36.4, y: 0}
+  m_SizeDelta: {x: 101.4, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

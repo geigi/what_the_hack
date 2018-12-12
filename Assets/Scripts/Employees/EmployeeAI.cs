@@ -35,10 +35,8 @@ public class EmployeeAI : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    var gameObject = new GameObject("Employee Manager");
-  this.manager = gameObject.AddComponent<EmployeeManager>();
+  this.manager = EmployeeManager.Instance;
 	    gameObject.transform.parent = this.gameObject.transform;
-	    manager.transform.parent = gameObject.transform;
 		this.employees = new List<Employee>();
   manager.init(employeeData, standardSkills, standardNames, 
       standardEmployeeMaterial, maleAnimationClips, femaleAnimationClips);
@@ -52,8 +50,6 @@ public class EmployeeAI : MonoBehaviour
       employeeGUI.GetComponent<FillUI>().SetEmp(emp);  
       employees.Add(emp);
 		}
-     RectTransform r = viewport.GetComponent<RectTransform>();
-     r.sizeDelta = new Vector2(r.rect.width, employees.Count * 145);
 	}
 
     void WalkEmployee()

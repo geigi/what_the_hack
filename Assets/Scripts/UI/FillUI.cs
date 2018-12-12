@@ -12,7 +12,6 @@ using Object = UnityEngine.Object;
 public class FillUI : MonoBehaviour
 {
     public GameObject skillPrefab;
-    public GameObject specialPrefab;
 
     public Image empImage;
     public Text empName;
@@ -20,6 +19,8 @@ public class FillUI : MonoBehaviour
     public Text salary;
     public Text salaryTime;
     public Text specialList;
+    public Button DismissButton;
+    public Text employeeState;
 
     public Employee emp;
 
@@ -28,18 +29,26 @@ public class FillUI : MonoBehaviour
 
     public void Update()
     {
-        empImage.sprite = emp?.GetComponent<SpriteRenderer>().sprite;
-        empName.text = emp?.EmployeeData.generatedData.name;
-        salary.text = $"{emp?.EmployeeData.Salary}$";
-        salaryTime.text = "s week";
+        if (emp == null) return;
+        empImage.sprite = emp.GetComponent<SpriteRenderer>().sprite;
+        empName.text = emp.EmployeeData.generatedData.name;
+        salary.text = $"{emp.EmployeeData.Salary}$";
+        salaryTime.text = "a week";
         specialList.text = string.Join(",", specialNames);
+        employeeState.text = (emp.idle) ? "Idle" : "Working";
     }
-
+    
     public void SetEmp(Employee _emp)
     {
         this.emp = _emp;
         GenerateSkillGui();
+        empImage.material = emp.GetComponent<SpriteRenderer>().material;
         emp.EmployeeData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
+        DismissButton.onClick.AddListener(delegate()
+        {
+            EmployeeManager.Instance.FireEmployee(emp.EmployeeData);    
+            Destroy(this.gameObject);
+        });
     }
 
     private void GenerateSkillGui()
