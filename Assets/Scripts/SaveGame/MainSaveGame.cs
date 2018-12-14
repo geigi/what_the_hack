@@ -41,5 +41,10 @@ namespace SaveGame
 		/// Employees that are hired.
 		/// </summary>
 		public List<EmployeeData> employeesHired { get; set; }
+		
+		/// <summary>
+		/// Employees that were previously hired.
+		/// </summary>
+		public List<EmployeeData> exEmployees { get; set; }
 	}
 }

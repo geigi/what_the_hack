@@ -55,7 +55,14 @@ public sealed class ModHolder
     /// <returns>The mod specific SkillSet, or null if no mod is loaded.</returns>
     public SkillSet GetSkills()
     {
-        return this.mod?.skillSet;
+        if (mod != null)
+        {
+            return mod.skillSet;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /// <summary>
@@ -64,17 +71,61 @@ public sealed class ModHolder
     /// <returns>The mod specific EmplyoeeList, or null if no mod is loaded.</returns>
     public EmployeeList GetEmployees()
     {
-        return this.mod?.EmployeeList;
+        if (mod != null)
+        {
+            return mod.EmployeeList;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    /// <summary>
+    /// Returns the EmployeeList used by the loaded mod.
+    /// </summary>
+    /// <returns>The mod specific EmplyoeeList, or null if no mod is loaded.</returns>
+    public NameLists GetNameLists()
+    {
+        if (mod != null)
+        {
+            return mod.NameLists;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /// <summary>
     /// Returns the banner of the loaded mod
     /// </summary>
     /// <returns>The banner used by the mod, or null if no mod is loaded.</returns>
-    public Sprite getBanner()
+    public Sprite GetBanner()
     {
-        return this.mod?.banner;
+        if (mod != null)
+        {
+            return mod.banner;
+        }
+        else
+        {
+            return null;
+        }
     }
 
-    //Missions needs to be Implemented
+    /// <summary>
+    /// Returns the <see cref="MissionList"/> of the loaded mod
+    /// </summary>
+    /// <returns>The missionList used by the mod, or null if no mod is loaded.</returns>
+    public MissionList GetMissionList()
+    {
+        if (mod != null)
+        {
+            return mod.MissionList;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

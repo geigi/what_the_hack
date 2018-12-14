@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Employees;
 using UnityEngine;
 
 public class EmployeeAI : MonoBehaviour
@@ -17,50 +18,44 @@ public class EmployeeAI : MonoBehaviour
     /// </summary>
     public AnimationClip[] femaleAnimationClips;
 
-    public SkillSet standardSkills;
-    public NameLists standardNames;
-
     public Material standardEmployeeMaterial;
-	   public EmployeeDefinition employeeData;
 
-	private GameObject employeeGameObject;
-	private List<Employee> employees;
+    private GameObject employeeGameObject;
+    private List<Employee> employees;
 
-    private EmployeeManager manager;
-	private bool createdEmployee = false;
+    private bool createdEmployee = false;
 	
-	// Use this for initialization
-	void Start ()
-	{
-  this.manager = new EmployeeManager();
-		this.employees = new List<Employee>();
-		this.employeeGameObject = new GameObject("Employee");
-  manager.init(employeeData, standardSkills, standardNames);
-		for (int i = 0; i < 4; i++)
-		{
-   manager.GenerateEmployeeForHire();
-			var gameObject = new GameObject("Employee");
-			var employee = gameObject.AddComponent<Employee>();
-			employee.init(manager.HireEmployee(), standardEmployeeMaterial, 
-			    maleAnimationClips, femaleAnimationClips);
-			employees.Add(employee);
-		}
-	}
+    // Use this for initialization
+    void Start ()
+    {
+        this.employees = new List<Employee>();
+        this.employeeGameObject = new GameObject("Employee");
+        EmployeeManager.Instance.InitDefaultState();
+        for (int i = 0; i < 4; i++)
+        {
+            EmployeeManager.Instance.GenerateEmployeeForHire();
+            var gameObject = new GameObject("Employee");
+            var employee = gameObject.AddComponent<Employee>();
+            employee.init(EmployeeManager.Instance.HireEmployee(), standardEmployeeMaterial, 
+                maleAnimationClips, femaleAnimationClips);
+            employees.Add(employee);
+        }
+    }
 
-	void WalkEmployee()
-	{
-		foreach (var employee in employees)
-		{
-			employee.IdleWalking(true);
-		}
-	}
+    void WalkEmployee()
+    {
+        foreach (var employee in employees)
+        {
+            employee.IdleWalking(true);
+        }
+    }
 	
-	// Update is called once per frame
-	void Update () {
-		if (!createdEmployee)
-		{
-			createdEmployee = true;
-			WalkEmployee();
-		}
-	}
+    // Update is called once per frame
+    void Update () {
+        if (!createdEmployee)
+        {
+            createdEmployee = true;
+            WalkEmployee();
+        }
+    }
 }

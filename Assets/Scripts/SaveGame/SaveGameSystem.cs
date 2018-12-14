@@ -121,7 +121,8 @@ namespace SaveGame
             {
                 typeof(EmployeeDefinition),
                 typeof(SkillDefinition),
-                typeof(ScriptableObject)
+                typeof(ScriptableObject),
+                typeof(NameLists)
             };
         
             // Create a SurrogateSelector
