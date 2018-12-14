@@ -10,9 +10,10 @@
             </summary>
         </member>
         <member name="M:ModTool.Editor.ExporterCreator.CreateExporterPostBuild(UnityEditor.BuildTarget,System.String)">
-            <summary>
-            Create a mod exporter package after building the game.
-            </summary>
+             <summary>
+             Create a mod exporter package after building the game.
+             </summary>
+            [UnityEditor.Callbacks.PostProcessBuild]
         </member>
         <member name="M:ModTool.Editor.ExporterCreator.DisableExporter">
             <summary>
