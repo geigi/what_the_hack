@@ -16,8 +16,6 @@ namespace GameTime
         public float ClassicSecondsPerTick = 4.5f;
         public float RealtimeMinutesPerTick = 20f;
         public int ClockSteps = 9;
-
-        
         
         public void InitReferences()
         {
