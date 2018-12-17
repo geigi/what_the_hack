@@ -20,9 +20,14 @@ public class EmployeeAI : MonoBehaviour
 
     public Material standardEmployeeMaterial;
 
+    /// <summary>
+    /// The global employee manager.
+    /// </summary>
+    public EmployeeManager employeeManager;
+
     private GameObject employeeGameObject;
     private List<Employee> employees;
-
+    
     private bool createdEmployee = false;
 	
     // Use this for initialization
@@ -30,13 +35,13 @@ public class EmployeeAI : MonoBehaviour
     {
         this.employees = new List<Employee>();
         this.employeeGameObject = new GameObject("Employee");
-        EmployeeManager.Instance.InitDefaultState();
+        
         for (int i = 0; i < 4; i++)
         {
-            EmployeeManager.Instance.GenerateEmployeeForHire();
+            employeeManager.GenerateEmployeeForHire();
             var gameObject = new GameObject("Employee");
             var employee = gameObject.AddComponent<Employee>();
-            employee.init(EmployeeManager.Instance.HireEmployee(), standardEmployeeMaterial, 
+            employee.init(employeeManager.HireEmployee(), standardEmployeeMaterial, 
                 maleAnimationClips, femaleAnimationClips);
             employees.Add(employee);
         }

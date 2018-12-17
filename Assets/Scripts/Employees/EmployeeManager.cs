@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Interfaces;
 using SaveGame;
 using UnityEngine;
 using Wth.ModApi.Employees;
@@ -11,18 +10,7 @@ namespace Employees
     /// This class manages all Employees for the game and keeps track, of employees that can be hired,
     /// employees which are hired and ex-employees.
     /// </summary>
-    public class EmployeeManager: Manager{
-        private static readonly Lazy<EmployeeManager> lazy =
-            new Lazy<EmployeeManager>(() => new EmployeeManager());
-
-        /// <summary>
-        /// The single instance of this class.
-        /// </summary>
-        public static EmployeeManager Instance { get { return lazy.Value; } }
-
-        private EmployeeManager() { }
-    
-    
+    public class EmployeeManager: MonoBehaviour {
         /// <summary>
         /// List to store all employees that can be hired.
         /// </summary>
@@ -35,6 +23,8 @@ namespace Employees
         /// List to store all ex-employees.
         /// </summary>
         public List<EmployeeData> exEmplyoees { get; private set; }
+
+        public ContentHub contentHub;
 
         /// <summary>
         /// EmployeeFactory to generate random EmployeeData.
@@ -50,18 +40,17 @@ namespace Employees
         private SkillSet skillSet;
         private NameLists nameList;
 
-        public void InitReferences()
+        private void Awake()
         {
-            throw new System.NotImplementedException();
+            InitDefaultState();
         }
 
         /// <summary>
         /// Initializes the EmployeeManager to the default state. This Method must be called before using the Manager.
         /// Generates 4 employees for hire.
         /// </summary>
-        public void InitDefaultState()
+        private void InitDefaultState()
         {
-            var contentHub = GameObject.FindWithTag("GameManager").GetComponent<ContentHub>();
             factory = new EmployeeFactory();
         
             this.skillSet  = contentHub.GetSkillSet();
@@ -77,9 +66,8 @@ namespace Employees
         /// Load state from a given savegame.
         /// </summary>
         /// <param name="mainSaveGame"></param>
-        public void LoadState(MainSaveGame mainSaveGame)
+        private void LoadState(MainSaveGame mainSaveGame)
         {
-            var contentHub = GameObject.FindWithTag("GameManager").GetComponent<ContentHub>();
             factory = new EmployeeFactory();
         
             this.skillSet  = contentHub.GetSkillSet();
@@ -89,11 +77,6 @@ namespace Employees
             this.employeesForHire = mainSaveGame.employeesForHire;
             this.hiredEmplyoees = mainSaveGame.employeesHired;
             this.exEmplyoees = mainSaveGame.exEmployees;
-        }
-
-        public void Cleanup()
-        {
-            throw new System.NotImplementedException();
         }
 
         /// <summary>

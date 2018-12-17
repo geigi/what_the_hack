@@ -8,6 +8,7 @@ TagManager:
   - Pathfinding
   - Tilemap
   - GameManager
+  - Managers
   layers:
   - Default
   - TransparentFX
