@@ -14,6 +14,18 @@ namespace SaveGame
     public class SaveGameSystem : MonoBehaviour
     {
         public const string DEFAULT_SAVE_GAME_NAME = "savegame";
+
+        private MainSaveGame currentSaveGame;
+        
+        /// <summary>
+        /// Returns the savegame object that was loaded from disk.
+        /// May be null.
+        /// </summary>
+        /// <returns>Current deserialized savegame</returns>
+        public MainSaveGame GetCurrentSaveGame()
+        {
+            return currentSaveGame;
+        }
         
         /// <summary>
         /// Create a new savegame object.
@@ -189,6 +201,10 @@ namespace SaveGame
             }
         }
 
+        /// <summary>
+        /// Restore tilemap data from a savegame to the gameobjects.
+        /// </summary>
+        /// <param name="saveGame"></param>
         private static void RestoreTileMapData(MainSaveGame saveGame)
         {
             var go = GameObject.FindWithTag("Pathfinding");
