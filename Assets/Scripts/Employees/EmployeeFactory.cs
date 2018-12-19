@@ -168,14 +168,13 @@ public class EmployeeFactory {
     /// Generates new and random EmployeeData.
     /// </summary>
     /// <returns>The generated EmployeeData.</returns>
-    public EmployeeData GenerateEmployee(SkillSet skillSet, NameLists names)
+    public EmployeeData GenerateEmployee(SkillSet skillSet, NameLists names, int numDiffClips)
     {
         EmployeeData employee = new EmployeeData();
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();
         //Skills
         List<SkillDefinition> skills = (this.modIsLoaded) ? holder.GetSkills().keys : skillSet.keys;
         List<Skill> skillList = new List<Skill>();
-        //2 Random Skills am Anfang
         for (int i = 0; i < numberOfBeginningSkills; i++)
         {
             Skill s;
@@ -200,6 +199,12 @@ public class EmployeeFactory {
         generatedData.name = (generatedData.gender == "female") ? employeeNames.RandomName(Lists.surNamesFemale) :
             employeeNames.RandomName(Lists.surNamesMale);
         generatedData.name += " " + employeeNames.RandomName(Lists.lastNames);
+
+        //AnimationClips
+        int clipIndex = rnd.Next(numDiffClips);
+        generatedData.idleClipIndex = clipIndex;
+        generatedData.walkingClipIndex = clipIndex + numDiffClips;
+        generatedData.workingClipIndex = clipIndex + 2 * numDiffClips;
 
         employee.generatedData = generatedData;
         return employee;

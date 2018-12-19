@@ -2,14 +2,16 @@
 using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
+using Boo.Lang.Environments;
 using UnityEngine;
+using UnityEngine.Events;
 using Wth.ModApi.Employees;
 
 /// <summary>
 /// This class manages all Employees for the game and keeps track, of employees that can be hired,
 /// employees which are hired and ex-employees.
 /// </summary>
-public class EmployeeManager {
+public class EmployeeManager : MonoBehaviour {
 
     private static readonly Lazy<EmployeeManager> lazy =
         new Lazy<EmployeeManager>(() => new EmployeeManager());
@@ -95,7 +97,7 @@ public class EmployeeManager {
     /// <summary>
     /// Puts a new employee in the employeeForHire List.
     /// </summary>
-    public void GenerateEmployeeForHire()
+    public EmployeeData GenerateEmployeeForHire()
     {
         EmployeeData newEmployee = new EmployeeData();
         if(this.daysPassed >= dayThreshold && !usedSpecialEmployee)
@@ -105,8 +107,11 @@ public class EmployeeManager {
         }
         else
         {
-            this.employeesForHire.Add(factory.GenerateEmployee(standardSkillSet, standardNameLists));
+            newEmployee = factory.GenerateEmployee(standardSkillSet, standardNameLists, maleAnim.Length / 3);
+            this.employeesForHire.Add(newEmployee);
         }
+
+        return newEmployee;
     }
 
     /// <summary>
@@ -128,12 +133,16 @@ public class EmployeeManager {
     /// Hires the specified employee.
     /// If the employee does not exist in the employeesForHire List this method will do nothing;
     /// </summary>
-    /// <param name="emp">The employee to hire.</param>
-    public void HireEmployee(EmployeeData emp)
+    /// <param name="empData">The employee to hire.</param>
+    public Employee HireEmployee(EmployeeData empData)
     {
-        if (!this.employeesForHire.Contains(emp)) return;
-        hiredEmplyoees.Add(emp);
-        employeesForHire.Remove(emp);
+        if (!this.employeesForHire.Contains(empData)) return null;
+        var gameObject = new GameObject("Employee");
+        var emp = gameObject.AddComponent<Employee>();
+        hiredEmplyoees.Add(empData);
+        employeesForHire.Remove(empData);
+        emp.init(empData, empMaterial, maleAnim, femaleAnim);
+        return emp;
     }
 
     /// <summary>

@@ -4,57 +4,55 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Internal.Experimental.UIElements;
 using UnityEngine.UI;
 using Wth.ModApi.Employees;
 using Object = UnityEngine.Object;
 
-public class FillUI : MonoBehaviour
+public abstract class FillUI : MonoBehaviour
 {
+    public Material standardMat;
     public GameObject skillPrefab;
 
     public Image empImage;
     public Text empName;
     public GameObject skillPanel;
-    public Text salary;
-    public Text salaryTime;
-    public Text specialList;
+    public Text salary, salaryTime, specialList;
     public Button DismissButton;
-    public Text employeeState;
 
-    public Employee emp;
+    internal EmployeeData empData;
 
     private List<GameObject> skillUI;
-    private List<string> specialNames = new List<string>();
+    private readonly List<string> specialNames = new List<string>();
 
-    public void Update()
+    public abstract void FillSpecificGUIElements();
+
+    protected virtual void Update()
     {
-        if (emp == null) return;
-        empImage.sprite = emp.GetComponent<SpriteRenderer>().sprite;
-        empName.text = emp.EmployeeData.generatedData.name;
-        salary.text = $"{emp.EmployeeData.Salary}$";
-        salaryTime.text = "a week";
-        specialList.text = string.Join(",", specialNames);
-        employeeState.text = (emp.idle) ? "Idle" : "Working";
+        if (empData != null)
+        {
+            empName.text = empData.generatedData.name;
+            salary.text = $"{empData.Salary}$";
+            salaryTime.text = "a week";
+            specialList.text = string.Join(",", specialNames);
+            FillSpecificGUIElements();
+        }
     }
     
-    public void SetEmp(Employee _emp)
+    public virtual void SetEmp(EmployeeData _empData, UnityAction buttonAction)
     {
-        this.emp = _emp;
+        this.empData = _empData;
         GenerateSkillGui();
-        empImage.material = emp.GetComponent<SpriteRenderer>().material;
-        emp.EmployeeData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
-        DismissButton.onClick.AddListener(delegate()
-        {
-            EmployeeManager.Instance.FireEmployee(emp.EmployeeData);    
-            Destroy(this.gameObject);
-        });
+        empImage.material = new EmployeeFactory().GenerateMaterialForEmployee(standardMat, empData.generatedData);
+        empData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
+        DismissButton.onClick.AddListener(buttonAction);
     }
 
     private void GenerateSkillGui()
     {
         skillUI = new List<GameObject>();
-        var skills = emp.EmployeeData.Skills;
+        var skills = empData.Skills;
         if (skills == null) return;
         foreach (var s in skills)
         {

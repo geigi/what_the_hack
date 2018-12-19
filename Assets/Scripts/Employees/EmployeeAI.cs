@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Wth.ModApi.Employees;
 
 public class EmployeeAI : MonoBehaviour
 {
@@ -23,8 +26,10 @@ public class EmployeeAI : MonoBehaviour
     public Material standardEmployeeMaterial;
 	   public EmployeeDefinition employeeData;
 
-    public GameObject empGUI;
-    public GameObject viewport;
+    public GameObject hiredEmpGUIPrefab;
+    public GameObject hireableEmpGUIPrefab;
+    public GameObject hiredEmpContent;
+    public GameObject hireableEmpContent;
 
 
 	private List<Employee> employees;
@@ -33,22 +38,21 @@ public class EmployeeAI : MonoBehaviour
 	private bool createdEmployee = false;
 	
 	// Use this for initialization
-	void Start ()
-	{
-  this.manager = EmployeeManager.Instance;
+    void Start()
+    {
+    this.manager = EmployeeManager.Instance;
 	    gameObject.transform.parent = this.gameObject.transform;
 		this.employees = new List<Employee>();
   manager.init(employeeData, standardSkills, standardNames, 
       standardEmployeeMaterial, maleAnimationClips, femaleAnimationClips);
 		for (int i = 0; i < 4; i++)
 		{
-   manager.GenerateEmployeeForHire();
-		    Employee emp = manager.HireEmployee();
-		    GameObject employeeGUI = Instantiate(empGUI);
-		    employeeGUI.transform.parent = viewport.transform;
-		    employeeGUI.transform.position = new Vector3(employeeGUI.transform.position.x, (i*100), employeeGUI.transform.position.z);
-      employeeGUI.GetComponent<FillUI>().SetEmp(emp);  
-      employees.Add(emp);
+      EmployeeData empData = manager.GenerateEmployeeForHire();
+		    GameObject empGUI = Instantiate(hireableEmpGUIPrefab);
+		    empGUI.transform.parent = hireableEmpContent.transform;
+		    empGUI.transform.localScale = Vector3.one;
+      empGUI.transform.position = new Vector3(empGUI.transform.position.x, (i * 100), empGUI.transform.position.z);
+      empGUI.GetComponent<HireableEmployeeGUI>().SetEmp(empData, () => hireEmployee(empData, empGUI));
 		}
 	}
 
@@ -59,13 +63,32 @@ public class EmployeeAI : MonoBehaviour
 			employee.IdleWalking(true);
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		if (!createdEmployee)
 		{
 			createdEmployee = true;
 			WalkEmployee();
 		}
 	}
+
+    private void hireEmployee(EmployeeData empData, GameObject gui)
+    {
+        Employee emp = manager.HireEmployee(empData);
+        GameObject employeeGUI = Instantiate(hiredEmpGUIPrefab);
+        employeeGUI.transform.parent = hiredEmpContent.transform;
+        employeeGUI.transform.position = new Vector3(employeeGUI.transform.position.x, (employees.Count * 100), employeeGUI.transform.position.z);
+        //For whatever Reason the scale is set to 0.6. So we change it back to 1
+        employeeGUI.transform.localScale = Vector3.one;
+        employeeGUI.GetComponent<HiredEmployeeGUI>().SetEmp(emp, () =>
+        {
+            employees.Remove(emp);
+            manager.FireEmployee(emp.EmployeeData);
+            Destroy(emp.gameObject);
+            Destroy(employeeGUI);
+        });
+        employees.Add(emp);
+        Destroy(gui);
+    }
 }

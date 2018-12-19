@@ -70,10 +70,9 @@ public class Employee : MonoBehaviour {
         {
             //generated Employee. Animation needs to be set.
             var anims = (employeeData.generatedData.gender == "female") ? clipsfemale : clipsMale;
-            int randIndex = new System.Random().Next(4);
-            animatorOverrideController["Special_Trump_Idle"] = anims[randIndex];  
-            animatorOverrideController["Special_Trump_Walking"] = anims[randIndex + 4];
-            animatorOverrideController["Special_Trump_Working"] = anims[randIndex + 8];
+            animatorOverrideController["Special_Trump_Idle"] = anims[employeeData.generatedData.idleClipIndex];  
+            animatorOverrideController["Special_Trump_Walking"] = anims[employeeData.generatedData.walkingClipIndex];
+            animatorOverrideController["Special_Trump_Working"] = anims[employeeData.generatedData.workingClipIndex];
             // Add the Material.
             spriteRenderer.material = factory.GenerateMaterialForEmployee(material, employeeData.generatedData);
         }
