@@ -15,12 +15,31 @@
 		_ShoeColor("Shoe Color", Color) = (1, 1, 1, 1)
 		_EyeGreyColor("Default Eye Color", Color) = (124, 124, 124, 1)
 		_EyeColor("Eye Color", Color) = (1, 1, 1, 1)
+
+        // required for UI.Mask
+        _StencilComp("Stencil Comparison", Float) = 8
+        _Stencil("Stencil ID", Float) = 0
+        _StencilOp("Stencil Operation", Float) = 0
+        _StencilWriteMask("Stencil Write Mask", Float) = 255
+        _StencilReadMask("Stencil Read Mask", Float) = 255
+        _ColorMask("Color Mask", Float) = 15
 	}
 	SubShader
 	{
 		Tags { "Queue" = "Transparent" }
 		Cull Off
 		Blend One OneMinusSrcAlpha
+        
+        // required for UI.Mask
+        Stencil
+        {
+            Ref[_Stencil]
+            Comp[_StencilComp]
+            Pass[_StencilOp]
+            ReadMask[_StencilReadMask]
+            WriteMask[_StencilWriteMask]
+        }
+        ColorMask[_ColorMask]
 
 		Pass
 		{
@@ -28,21 +47,23 @@
 			#pragma vertex vert
 			#pragma fragment frag
 			#include "UnityCG.cginc"
-
+                float4 _ClipRect;
 			
 
 			struct v2f
 			{
 				float4 pos : SV_POSITION;
 				half2 uv : TEXCOORD0;
+                float4 worldPosition : TEXCOORD1; //we need to pass world pos to the fragment shader for clipping
 			};
 
-			sampler2D _MainTex;
-			
+            sampler2D _MainTex;
+
 			v2f vert (appdata_base v)
 			{
 				v2f o;
-				o.pos = UnityObjectToClipPos(v.vertex);
+                o.worldPosition = v.vertex;
+				o.pos = UnityObjectToClipPos(o.worldPosition);
 				o.uv = v.texcoord;
 				return o;
 			}

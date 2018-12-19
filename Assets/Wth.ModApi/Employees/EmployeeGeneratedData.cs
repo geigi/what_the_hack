@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Random = System.Random;
 
 namespace Wth.ModApi.Employees
 {
@@ -45,6 +46,10 @@ namespace Wth.ModApi.Employees
         /// The shoe color of this Employee.
         /// </summary>
         public Color32 shoeColor { get; private set; }
+
+        public int idleClipIndex { get; set; }
+        public int walkingClipIndex { get; set; }
+        public int workingClipIndex { get; set; }
 
         public void AssignRandomGender()
         {

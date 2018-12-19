@@ -1,8 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using Interfaces;
 using SaveGame;
+using System.Collections;
+using System.Collections.Generic;
+using Boo.Lang.Environments;
+using Interfaces;
 using UnityEngine;
+using UnityEngine.Events;
 using Wth.ModApi.Employees;
 
 namespace Employees
@@ -11,26 +14,36 @@ namespace Employees
     /// This class manages all Employees for the game and keeps track, of employees that can be hired,
     /// employees which are hired and ex-employees.
     /// </summary>
-    public class EmployeeManager: Manager{
+    public class EmployeeManager : Manager
+    {
         private static readonly Lazy<EmployeeManager> lazy =
             new Lazy<EmployeeManager>(() => new EmployeeManager());
 
         /// <summary>
         /// The single instance of this class.
         /// </summary>
-        public static EmployeeManager Instance { get { return lazy.Value; } }
+        public static EmployeeManager Instance
+        {
+            get { return lazy.Value; }
+        }
 
-        private EmployeeManager() { }
-    
-    
+        public static int dayThreshold = 10;
+
+        private EmployeeManager()
+        {
+        }
+
+
         /// <summary>
         /// List to store all employees that can be hired.
         /// </summary>
         public List<EmployeeData> employeesForHire { get; private set; }
+
         /// <summary>
         /// List to store all hired Employees.
         /// </summary>
         public List<EmployeeData> hiredEmplyoees { get; private set; }
+
         /// <summary>
         /// List to store all ex-employees.
         /// </summary>
@@ -41,14 +54,14 @@ namespace Employees
         /// </summary>
         private EmployeeFactory factory;
 
-        /// <summary>
-        /// The special Employee.
-        /// Can only be hired once and does not reappear.
-        /// </summary>
+        private bool usedSpecialEmployee;
         private EmployeeList specialEmployees;
-
-        private SkillSet skillSet;
-        private NameLists nameList;
+        private int daysPassed;
+        private SkillSet standardSkillSet;
+        private NameLists standardNameLists;
+        private Material empMaterial;
+        private AnimationClip[] maleAnim;
+        private AnimationClip[] femaleAnim;
 
         public void InitReferences()
         {
@@ -56,18 +69,37 @@ namespace Employees
         }
 
         /// <summary>
-        /// Initializes the EmployeeManager to the default state. This Method must be called before using the Manager.
+        /// Initializes the EmployeeManager. This Method should be called before using the Manager.
         /// Generates 4 employees for hire.
+        /// </summary>
+        /// <param name="_specialEmployee">The special employee, which can appear.</param>
+        /// <param name="saveGame">Optional Parameter, when the game is loaded from a save game.</param>
+        public void init( Material mat, AnimationClip[] male, AnimationClip[] female,
+            MainSaveGame saveGame = null)
+        {
+            this.empMaterial = mat;
+            this.femaleAnim = female;
+            this.maleAnim = male;
+            factory = new EmployeeFactory();
+            this.daysPassed = 0;
+            InitDefaultState();
+            if (saveGame != null)
+                LoadState(saveGame);
+        }
+
+        /// <summary>
+        /// Initializes the EmployeeManager to the default state. This Method must be called before using the Manager.
         /// </summary>
         public void InitDefaultState()
         {
+            Debug.Log("In Init");
             var contentHub = GameObject.FindWithTag("GameManager").GetComponent<ContentHub>();
             factory = new EmployeeFactory();
-        
-            this.skillSet  = contentHub.GetSkillSet();
-            this.nameList = contentHub.GetNameLists();
+
+            this.standardSkillSet = contentHub.GetSkillSet();
+            this.standardNameLists = contentHub.GetNameLists();
             this.specialEmployees = contentHub.GetEmployeeLists();
-        
+
             this.employeesForHire = new List<EmployeeData>();
             this.hiredEmplyoees = new List<EmployeeData>();
             this.exEmplyoees = new List<EmployeeData>();
@@ -81,14 +113,34 @@ namespace Employees
         {
             var contentHub = GameObject.FindWithTag("GameManager").GetComponent<ContentHub>();
             factory = new EmployeeFactory();
-        
-            this.skillSet  = contentHub.GetSkillSet();
-            this.nameList = contentHub.GetNameLists();
+
+            this.standardSkillSet = contentHub.GetSkillSet();
+            this.standardNameLists = contentHub.GetNameLists();
             this.specialEmployees = contentHub.GetEmployeeLists();
-        
+
             this.employeesForHire = mainSaveGame.employeesForHire;
             this.hiredEmplyoees = mainSaveGame.employeesHired;
             this.exEmplyoees = mainSaveGame.exEmployees;
+        }
+
+        /// <summary>
+        /// Puts a new employee in the employeeForHire List.
+        /// </summary>
+        public EmployeeData GenerateEmployeeForHire()
+        {
+            EmployeeData newEmployee = new EmployeeData();
+            if (this.daysPassed >= dayThreshold && !usedSpecialEmployee)
+            {
+                newEmployee.EmployeeDefinition = specialEmployees.employeeList[0];
+                this.employeesForHire.Add(newEmployee);
+            }
+            else
+            {
+                newEmployee = factory.GenerateEmployee(standardSkillSet, standardNameLists, maleAnim.Length / 3);
+                this.employeesForHire.Add(newEmployee);
+            }
+
+            return newEmployee;
         }
 
         public void Cleanup()
@@ -97,23 +149,17 @@ namespace Employees
         }
 
         /// <summary>
-        /// Puts a new employee in the employeeForHire List.
-        /// </summary>
-        public void GenerateEmployeeForHire()
-        {
-            EmployeeData newEmployee = new EmployeeData();
-            this.employeesForHire.Add(factory.GenerateEmployee(skillSet, nameList));
-        }
-
-        /// <summary>
         /// Hires the first employee in the employeesForHire List.
         /// </summary>
         /// <returns>EmployeeData of the hired Employee.</returns>
-        public EmployeeData HireEmployee()
+        public Employee HireEmployee()
         {
-            EmployeeData emp = employeesForHire[0];
-            hiredEmplyoees.Add(emp);
-            employeesForHire.Remove(emp);
+            var gameObject = new GameObject("Employee");
+            var emp = gameObject.AddComponent<Employee>();
+            EmployeeData empData = employeesForHire[0];
+            hiredEmplyoees.Add(empData);
+            employeesForHire.Remove(empData);
+            emp.init(empData, empMaterial, maleAnim, femaleAnim);
             return emp;
         }
 
@@ -121,12 +167,16 @@ namespace Employees
         /// Hires the specified employee.
         /// If the employee does not exist in the employeesForHire List this method will do nothing;
         /// </summary>
-        /// <param name="emp">The employee to hire.</param>
-        public void HireEmployee(EmployeeData emp)
+        /// <param name="empData">The employee to hire.</param>
+        public Employee HireEmployee(EmployeeData empData)
         {
-            if (!this.employeesForHire.Contains(emp)) return;
-            hiredEmplyoees.Add(emp);
-            employeesForHire.Remove(emp);
+            if (!this.employeesForHire.Contains(empData)) return null;
+            var gameObject = new GameObject("Employee");
+            var emp = gameObject.AddComponent<Employee>();
+            hiredEmplyoees.Add(empData);
+            employeesForHire.Remove(empData);
+            emp.init(empData, empMaterial, maleAnim, femaleAnim);
+            return emp;
         }
 
         /// <summary>

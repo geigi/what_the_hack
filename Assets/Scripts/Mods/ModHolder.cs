@@ -21,7 +21,7 @@ public sealed class ModHolder
     /// <summary>
     /// The single instance of this class.
     /// </summary>
-    public static ModHolder Instance { get { return lazy.Value; } }
+    public static ModHolder Instance => lazy.Value;
 
     private ModHolder() { }
 

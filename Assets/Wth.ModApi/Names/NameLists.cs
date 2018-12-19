@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Wth.ModApi.Names;
+using Random = System.Random;
 
 /// <summary>
 /// A Scriptable Object to store any number of first names (male / female) and last names.
@@ -28,17 +29,18 @@ public class NameLists : ScriptableObject
     /// </summary>
     public List<string> lastNames = new List<string>();
 
+    private static Random rng = new Random();
+
     public string RandomName(Lists list)
     {
-        System.Random rand = new System.Random();
         switch (list)
         {
             case Lists.lastNames:
-                return lastNames[rand.Next(this.lastNames.Count())];
+                return lastNames[rng.Next(this.lastNames.Count())];
             case Lists.surNamesFemale:
-                return surNamesFemale[rand.Next(this.surNamesFemale.Count())];
+                return surNamesFemale[rng.Next(this.surNamesFemale.Count())];
             default:
-                return surNamesMale[rand.Next(this.surNamesMale.Count())];
+                return surNamesMale[rng.Next(this.surNamesMale.Count())];
         }
     }
 }
