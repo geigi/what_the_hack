@@ -57,12 +57,10 @@ public class EmployeeFactory {
 
     #endregion
 
-    private ModHolder holder;
-    private bool modIsLoaded;
-
     private static int numberOfBeginningSkills = 3;
 
     private static Random rnd = new Random();
+
     /// <summary>
     /// Generates a random Color for the specific part.
     /// </summary>
@@ -173,7 +171,7 @@ public class EmployeeFactory {
         EmployeeData employee = new EmployeeData();
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();
         //Skills
-        List<SkillDefinition> skills = (this.modIsLoaded) ? holder.GetSkills().keys : skillSet.keys;
+        List<SkillDefinition> skills = skillSet.keys;
         List<Skill> skillList = new List<Skill>();
         for (int i = 0; i < numberOfBeginningSkills; i++)
         {
@@ -208,15 +206,5 @@ public class EmployeeFactory {
 
         employee.generatedData = generatedData;
         return employee;
-    }
-
-    /// <summary>
-    /// Checks if a mod is loaded.
-    /// </summary>
-    private bool ModIsLoaded()
-    {
-        holder = ModHolder.Instance;
-        holder.GetLoadedMod();
-        return holder.GetModInfo() != null;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Employees;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
@@ -20,22 +21,17 @@ public class EmployeeAI : MonoBehaviour
     /// </summary>
     public AnimationClip[] femaleAnimationClips;
 
-    public SkillSet standardSkills;
-    public NameLists standardNames;
-
     public Material standardEmployeeMaterial;
-	   public EmployeeDefinition employeeData;
 
     public GameObject hiredEmpGUIPrefab;
     public GameObject hireableEmpGUIPrefab;
     public GameObject hiredEmpContent;
     public GameObject hireableEmpContent;
+    public EmployeeManager manager;
 
+	   private List<Employee> employees;
 
-	private List<Employee> employees;
-
-    private EmployeeManager manager;
-	private bool createdEmployee = false;
+    private bool createdEmployee = false;
 	
 	// Use this for initialization
     void Start()
@@ -43,8 +39,7 @@ public class EmployeeAI : MonoBehaviour
     this.manager = EmployeeManager.Instance;
 	    gameObject.transform.parent = this.gameObject.transform;
 		this.employees = new List<Employee>();
-  manager.init(employeeData, standardSkills, standardNames, 
-      standardEmployeeMaterial, maleAnimationClips, femaleAnimationClips);
+  manager.init(standardEmployeeMaterial, maleAnimationClips, femaleAnimationClips);
 		for (int i = 0; i < 4; i++)
 		{
       EmployeeData empData = manager.GenerateEmployeeForHire();
@@ -78,7 +73,7 @@ public class EmployeeAI : MonoBehaviour
         Employee emp = manager.HireEmployee(empData);
         GameObject employeeGUI = Instantiate(hiredEmpGUIPrefab);
         employeeGUI.transform.parent = hiredEmpContent.transform;
-        employeeGUI.transform.position = new Vector3(employeeGUI.transform.position.x, (employees.Count * 100), employeeGUI.transform.position.z);
+        //employeeGUI.transform.position = new Vector3(employeeGUI.transform.position.x, (employees.Count * 100), employeeGUI.transform.position.z);
         //For whatever Reason the scale is set to 0.6. So we change it back to 1
         employeeGUI.transform.localScale = Vector3.one;
         employeeGUI.GetComponent<HiredEmployeeGUI>().SetEmp(emp, () =>

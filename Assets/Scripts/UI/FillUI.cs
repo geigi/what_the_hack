@@ -58,7 +58,7 @@ public abstract class FillUI : MonoBehaviour
         {
             GameObject skill = Object.Instantiate(skillPrefab);
             skill.transform.parent = skillPanel.gameObject.transform;
-            skill.GetComponent<SkillUi>().skill = s;
+            skill.GetComponent<SkillUI>().skill = s;
             skillUI.Add(skill);
         }
     }

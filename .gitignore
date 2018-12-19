@@ -155,3 +155,4 @@ Wth.ModApi/Documentation/html
 # format (NuGet v4 and .NET Core).
 project.lock.json
 project.assets.json
+.gradle

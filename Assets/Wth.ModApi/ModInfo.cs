@@ -46,4 +46,18 @@ public class ModInfo : ScriptableObject {
     [Header("Custom Employees")]
     [Tooltip("If you created custom employees drop them here.")]
     public EmployeeList EmployeeList;
+    
+    /// <summary>
+    /// The mods custom <see cref="NameLists"/>.
+    /// </summary>
+    [Header("Custom Name Lists")]
+    [Tooltip("If you created custom name lists drop them here.")]
+    public NameLists NameLists;
+    
+    /// <summary>
+    /// The mods custom <see cref="MissionList"/>.
+    /// </summary>
+    [Header("Custom Mission List")]
+    [Tooltip("If you created custom missions lists drop them here.")]
+    public MissionList MissionList;
 }

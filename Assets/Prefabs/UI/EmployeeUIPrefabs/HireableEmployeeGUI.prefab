@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 114298628013205410}
   - component: {fileID: 114113090220717216}
   - component: {fileID: 331408370086009818}
+  - component: {fileID: 7271553114148199729}
   m_Layer: 5
   m_Name: HireableEmployeeGUI
   m_TagString: Untagged
@@ -276,6 +277,26 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7271553114148199729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1123180270652526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 540
+  m_PreferredHeight: -1
+  m_FlexibleWidth: 1
+  m_FlexibleHeight: 1
+  m_LayoutPriority: 1
 --- !u!1 &1241834912499302
 GameObject:
   m_ObjectHideFlags: 0

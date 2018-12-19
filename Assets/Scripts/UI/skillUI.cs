@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillUi : MonoBehaviour
+public class SkillUI : MonoBehaviour
 {
 
     public Image skillImage;
