@@ -46,7 +46,6 @@ public class EmployeeAI : MonoBehaviour
 		    GameObject empGUI = Instantiate(hireableEmpGUIPrefab);
 		    empGUI.transform.parent = hireableEmpContent.transform;
 		    empGUI.transform.localScale = Vector3.one;
-      empGUI.transform.position = new Vector3(empGUI.transform.position.x, (i * 100), empGUI.transform.position.z);
       empGUI.GetComponent<HireableEmployeeGUI>().SetEmp(empData, () => hireEmployee(empData, empGUI));
 		}
 	}
@@ -73,7 +72,6 @@ public class EmployeeAI : MonoBehaviour
         Employee emp = manager.HireEmployee(empData);
         GameObject employeeGUI = Instantiate(hiredEmpGUIPrefab);
         employeeGUI.transform.parent = hiredEmpContent.transform;
-        //employeeGUI.transform.position = new Vector3(employeeGUI.transform.position.x, (employees.Count * 100), employeeGUI.transform.position.z);
         //For whatever Reason the scale is set to 0.6. So we change it back to 1
         employeeGUI.transform.localScale = Vector3.one;
         employeeGUI.GetComponent<HiredEmployeeGUI>().SetEmp(emp, () =>
