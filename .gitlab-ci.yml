@@ -163,7 +163,6 @@ build-AndroidPlugin:
     paths:
     - ./Builds/
     expire_in: 2 weeks
-    - Library
 
 build-unity-Linux-x86_64:
   <<: *build-unity
