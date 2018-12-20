@@ -85,11 +85,13 @@ variables:
 
 test-unity-editmode:
   <<: *test
+  retry: 2
   variables:
     TEST_PLATFORM: editmode
 
 test-unity-playmode:
   <<: *test
+  retry: 2
   variables:
     TEST_PLATFORM: playmode
 
@@ -97,6 +99,7 @@ build-AndroidPlugin:
   image: jangrewe/gitlab-ci-android
   stage: build-dependencies
   <<: *android_before_script
+  retry: 2
   script:
     - ./AndroidPlugin/gradlew assembleDebug -p ./AndroidPlugin --stacktrace --info
   artifacts:
@@ -179,11 +182,13 @@ build-AndroidPlugin:
 
 build-unity-Linux-x86_64:
   <<: *build-unity
+  retry: 2
   variables:
     BUILD_TARGET: StandaloneLinux64
 
 build-unity-macOS:
   <<: *build-unity
+  retry: 2
   variables:
     BUILD_TARGET: StandaloneOSX
 
@@ -195,11 +200,13 @@ build-unity-macOS:
 
 build-unity-Windows-x86_64:
   <<: *build-unity
+  retry: 2
   variables:
     BUILD_TARGET: StandaloneWindows64
 
 build-android:
   <<: *build-unity-android
+  retry: 2
   variables:
     BUILD_TARGET: Android
 
@@ -247,6 +254,7 @@ build-documentation:
     paths:
     - ./Wth.ModApi_Documentation
     expire_in: 2 weeks
+  retry: 2
 
 #pages:
 #  image: alpine:latest
