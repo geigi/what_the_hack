@@ -1,4 +1,4 @@
-image: "gableroux/unity3d:2018.2.6f1"
+image: "gableroux/unity3d:2018.3.0f2"
 
 stages:
 - build-dependencies
@@ -23,6 +23,17 @@ variables:
   - mkdir -p /root/.cache/unity3d
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
+  - cp -rf ./AndroidPlugin/androidunitybridge/build/outputs/aar/* ./Assets/Plugins/Android/
+  - apt-get update
+  - apt-get -y install git
+  - git submodule sync --recursive
+  - git submodule update  --remote --recursive
+
+.unity_android_before_script: &unity_android_before_script
+  before_script:
+  - mkdir -p /root/.cache/unity3d
+  - mkdir -p /root/.local/share/unity3d/Unity/
+  - echo "$UNITY_LICENSE_CONTENT_ANDROID" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
   - cp -rf ./AndroidPlugin/androidunitybridge/build/outputs/aar/* ./Assets/Plugins/Android/
   - apt-get update
   - apt-get -y install git
@@ -136,7 +147,7 @@ build-AndroidPlugin:
   stage: build-main
   #tip: you can reuse same stage to do everything in parallel and reduce overall time
   # stage: test
-  <<: *unity_before_script
+  <<: *unity_android_before_script
   image: unity-android:latest
   script: |
     echo "Building for $BUILD_TARGET"

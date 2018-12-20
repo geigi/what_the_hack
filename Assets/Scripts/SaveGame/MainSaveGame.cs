@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameTime;
 using Wth.ModApi.Employees;
 
 namespace SaveGame
@@ -31,6 +32,11 @@ namespace SaveGame
 		/// TODO: Maybe this is not necessary.
 		/// </summary>
 		public NodeData[,] Tilemap { get; set; }
+		
+		/// <summary>
+		/// The game time.
+		/// </summary>
+		public GameTimeData gameTime { get; set; }
 	
 		/// <summary>
 		/// Employees that are available for hire.

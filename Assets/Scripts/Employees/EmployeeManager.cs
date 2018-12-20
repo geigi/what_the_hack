@@ -2,8 +2,7 @@
 using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
-using Boo.Lang.Environments;
-using Interfaces;
+using SaveGame;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
@@ -14,26 +13,7 @@ namespace Employees
     /// This class manages all Employees for the game and keeps track, of employees that can be hired,
     /// employees which are hired and ex-employees.
     /// </summary>
-    public class EmployeeManager : Manager
-    {
-        private static readonly Lazy<EmployeeManager> lazy =
-            new Lazy<EmployeeManager>(() => new EmployeeManager());
-
-        /// <summary>
-        /// The single instance of this class.
-        /// </summary>
-        public static EmployeeManager Instance
-        {
-            get { return lazy.Value; }
-        }
-
-        public static int dayThreshold = 10;
-
-        private EmployeeManager()
-        {
-        }
-
-
+    public class EmployeeManager: MonoBehaviour {
         /// <summary>
         /// List to store all employees that can be hired.
         /// </summary>
@@ -49,51 +29,43 @@ namespace Employees
         /// </summary>
         public List<EmployeeData> exEmplyoees { get; private set; }
 
+        public ContentHub contentHub;
+        
+        /// <summary>
+        /// All Animation Clips that a male generated Employee can use.
+        /// It is Required, that there are the same number of idle, walking and working animations.
+        /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 
+        /// </summary>
+        public AnimationClip[] maleAnim;
+        /// <summary>
+        /// All Animation Clips that a female generated Employee can use.
+        /// It is Required, that there are the same number of idle, walking and working animations.
+        /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 
+        /// </summary>
+        public AnimationClip[] femaleAnim;
+        
+        public Material empMaterial;
+        
         /// <summary>
         /// EmployeeFactory to generate random EmployeeData.
         /// </summary>
         private EmployeeFactory factory;
 
-        private bool usedSpecialEmployee;
         private EmployeeList specialEmployees;
-        private int daysPassed;
         private SkillSet standardSkillSet;
         private NameLists standardNameLists;
-        private Material empMaterial;
-        private AnimationClip[] maleAnim;
-        private AnimationClip[] femaleAnim;
-
-        public void InitReferences()
+        
+        private void Awake()
         {
-            throw new System.NotImplementedException();
+            InitDefaultState();
         }
 
         /// <summary>
         /// Initializes the EmployeeManager. This Method should be called before using the Manager.
         /// Generates 4 employees for hire.
         /// </summary>
-        /// <param name="_specialEmployee">The special employee, which can appear.</param>
-        /// <param name="saveGame">Optional Parameter, when the game is loaded from a save game.</param>
-        public void init( Material mat, AnimationClip[] male, AnimationClip[] female,
-            MainSaveGame saveGame = null)
+        private void InitDefaultState()
         {
-            this.empMaterial = mat;
-            this.femaleAnim = female;
-            this.maleAnim = male;
-            factory = new EmployeeFactory();
-            this.daysPassed = 0;
-            InitDefaultState();
-            if (saveGame != null)
-                LoadState(saveGame);
-        }
-
-        /// <summary>
-        /// Initializes the EmployeeManager to the default state. This Method must be called before using the Manager.
-        /// </summary>
-        public void InitDefaultState()
-        {
-            Debug.Log("In Init");
-            var contentHub = GameObject.FindWithTag("GameManager").GetComponent<ContentHub>();
             factory = new EmployeeFactory();
 
             this.standardSkillSet = contentHub.GetSkillSet();
@@ -109,9 +81,8 @@ namespace Employees
         /// Load state from a given savegame.
         /// </summary>
         /// <param name="mainSaveGame"></param>
-        public void LoadState(MainSaveGame mainSaveGame)
+        private void LoadState(MainSaveGame mainSaveGame)
         {
-            var contentHub = GameObject.FindWithTag("GameManager").GetComponent<ContentHub>();
             factory = new EmployeeFactory();
 
             this.standardSkillSet = contentHub.GetSkillSet();
@@ -129,16 +100,13 @@ namespace Employees
         public EmployeeData GenerateEmployeeForHire()
         {
             EmployeeData newEmployee = new EmployeeData();
-            if (this.daysPassed >= dayThreshold && !usedSpecialEmployee)
+            /*if (this.daysPassed >= dayThreshold && !usedSpecialEmployee)
             {
                 newEmployee.EmployeeDefinition = specialEmployees.employeeList[0];
                 this.employeesForHire.Add(newEmployee);
-            }
-            else
-            {
-                newEmployee = factory.GenerateEmployee(standardSkillSet, standardNameLists, maleAnim.Length / 3);
-                this.employeesForHire.Add(newEmployee);
-            }
+            }*/
+            newEmployee = factory.GenerateEmployee(standardSkillSet, standardNameLists, maleAnim.Length / 3);
+            this.employeesForHire.Add(newEmployee);
 
             return newEmployee;
         }
