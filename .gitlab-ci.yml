@@ -78,10 +78,6 @@ variables:
     paths:
     - $(pwd)/$TEST_PLATFORM-results.xml
     expire_in: 2 weeks
-  cache:
-    key: ${CI_PROJECT_ID}
-    paths:
-    - Library
 
 test-unity-editmode:
   <<: *test
@@ -108,10 +104,6 @@ build-AndroidPlugin:
     expire_in: 2 weeks
   variables:
     PROJECT_DIR: AndroidPlugin
-  cache:
-    key: ${CI_PROJECT_ID}
-    paths:
-    - .gradle/
 
 .build-unity: &build-unity
   stage: build-main
@@ -141,10 +133,6 @@ build-AndroidPlugin:
     paths:
     - ./Builds/
     expire_in: 2 weeks
-  cache:
-    key: ${CI_PROJECT_ID}
-    paths:
-    - Library
 
 .build-unity-android: &build-unity-android
   stage: build-main
@@ -175,9 +163,6 @@ build-AndroidPlugin:
     paths:
     - ./Builds/
     expire_in: 2 weeks
-  cache:
-    key: ${CI_PROJECT_ID}
-    paths:
     - Library
 
 build-unity-Linux-x86_64:
