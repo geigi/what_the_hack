@@ -9,7 +9,7 @@ namespace GameSystem
         /// <summary>
         /// Is the game a new game?
         /// </summary>
-        public static bool NewGame;
+        public static bool NewGame = true;
         
         /// <summary>
         /// Name of the savegame to be loaded.
