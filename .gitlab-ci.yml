@@ -98,7 +98,7 @@ build-AndroidPlugin:
   stage: build-dependencies
   <<: *android_before_script
   script:
-    - ./AndroidPlugin/gradlew assembleDebug -p ./AndroidPlugin
+    - ./AndroidPlugin/gradlew assembleDebug -p ./AndroidPlugin --stacktrace --info
   artifacts:
     paths:
     - AndroidPlugin/androidunitybridge/build/outputs/
