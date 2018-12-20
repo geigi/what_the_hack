@@ -257,7 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83259d33f9ad1cf478259933ba01a793, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardMat: {fileID: 2100000, guid: 6fad80bef751791479542efe0d71f597, type: 2}
   skillPrefab: {fileID: 1626743750923716, guid: b4cce68b7218f9143863eec0d909c4c1,
     type: 3}
   empImage: {fileID: 114885641567513292}
@@ -266,7 +265,7 @@ MonoBehaviour:
   salary: {fileID: 114994257170851040}
   salaryTime: {fileID: 114711912105587286}
   specialList: {fileID: 114835096592363146}
-  DismissButton: {fileID: 114409749614301312}
+  button: {fileID: 114409749614301312}
   employeeState: {fileID: 114781202094196160}
 --- !u!114 &4788503516618372359
 MonoBehaviour:

@@ -2,7 +2,7 @@
 using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
-using SaveGame;
+using GameSystem;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
@@ -14,6 +14,7 @@ namespace Employees
     /// employees which are hired and ex-employees.
     /// </summary>
     public class EmployeeManager: MonoBehaviour {
+        
         /// <summary>
         /// List to store all employees that can be hired.
         /// </summary>
@@ -29,35 +30,24 @@ namespace Employees
         /// </summary>
         public List<EmployeeData> exEmplyoees { get; private set; }
 
-        public ContentHub contentHub;
+        /// <summary>
+        /// EmployeeFactory to generate the employees. 
+        /// </summary>
+        public EmployeeFactory factoryObject;
         
         /// <summary>
-        /// All Animation Clips that a male generated Employee can use.
-        /// It is Required, that there are the same number of idle, walking and working animations.
-        /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 
+        /// List of all special employees.
         /// </summary>
-        public AnimationClip[] maleAnim;
-        /// <summary>
-        /// All Animation Clips that a female generated Employee can use.
-        /// It is Required, that there are the same number of idle, walking and working animations.
-        /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 
-        /// </summary>
-        public AnimationClip[] femaleAnim;
-        
-        public Material empMaterial;
-        
-        /// <summary>
-        /// EmployeeFactory to generate random EmployeeData.
-        /// </summary>
-        private EmployeeFactory factory;
-
         private EmployeeList specialEmployees;
-        private SkillSet standardSkillSet;
-        private NameLists standardNameLists;
-        
+
+        private ContentHub contentHub;
+
         private void Awake()
-        {
-            InitDefaultState();
+        {   
+            if(GameSettings.NewGame)
+                InitDefaultState();
+            else
+                LoadState();
         }
 
         /// <summary>
@@ -66,10 +56,8 @@ namespace Employees
         /// </summary>
         private void InitDefaultState()
         {
-            factory = new EmployeeFactory();
+            contentHub = ContentHub.Instance;
 
-            this.standardSkillSet = contentHub.GetSkillSet();
-            this.standardNameLists = contentHub.GetNameLists();
             this.specialEmployees = contentHub.GetEmployeeLists();
 
             this.employeesForHire = new List<EmployeeData>();
@@ -81,12 +69,10 @@ namespace Employees
         /// Load state from a given savegame.
         /// </summary>
         /// <param name="mainSaveGame"></param>
-        private void LoadState(MainSaveGame mainSaveGame)
+        private void LoadState()
         {
-            factory = new EmployeeFactory();
+            var mainSaveGame = gameObject.GetComponent<SaveGameSystem>().GetCurrentSaveGame();
 
-            this.standardSkillSet = contentHub.GetSkillSet();
-            this.standardNameLists = contentHub.GetNameLists();
             this.specialEmployees = contentHub.GetEmployeeLists();
 
             this.employeesForHire = mainSaveGame.employeesForHire;
@@ -105,7 +91,7 @@ namespace Employees
                 newEmployee.EmployeeDefinition = specialEmployees.employeeList[0];
                 this.employeesForHire.Add(newEmployee);
             }*/
-            newEmployee = factory.GenerateEmployee(standardSkillSet, standardNameLists, maleAnim.Length / 3);
+            newEmployee = factoryObject.GetComponent<EmployeeFactory>().GenerateEmployee();
             this.employeesForHire.Add(newEmployee);
 
             return newEmployee;
@@ -127,7 +113,7 @@ namespace Employees
             EmployeeData empData = employeesForHire[0];
             hiredEmplyoees.Add(empData);
             employeesForHire.Remove(empData);
-            emp.init(empData, empMaterial, maleAnim, femaleAnim);
+            emp.init(empData);
             return emp;
         }
 
@@ -143,7 +129,7 @@ namespace Employees
             var emp = gameObject.AddComponent<Employee>();
             hiredEmplyoees.Add(empData);
             employeesForHire.Remove(empData);
-            emp.init(empData, empMaterial, maleAnim, femaleAnim);
+            emp.init(empData);
             return emp;
         }
 

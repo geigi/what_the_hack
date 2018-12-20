@@ -1,12 +1,23 @@
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
 /// This class is the hub where other classes can get the game content.
 /// If a mod is loaded it returns the mods content, otherwise the default content.
 /// </summary>
-public class ContentHub: MonoBehaviour
+public sealed class ContentHub: MonoBehaviour
 {
+    private static readonly Lazy<ContentHub> lazy = 
+        new Lazy<ContentHub>(() => GameObject.FindWithTag("Managers").GetComponent<ContentHub>());
+
+    /// <summary>
+    /// The single Instance of this class
+    /// </summary>
+    public static ContentHub Instance => lazy.Value;
+
+    private ContentHub() { }
     /// <summary>
     /// The <see cref="SkillSet"/> of the base game.
     /// </summary>
@@ -23,6 +34,22 @@ public class ContentHub: MonoBehaviour
     /// The <see cref="MissionList"/> of the base game.
     /// </summary>
     public MissionList DefaultMissionList;
+    /// <summary>
+    /// The default Material for all Employees.
+    /// </summary>
+    public Material DefaultEmpMaterial;
+    /// <summary>
+    /// All Animation Clips that a male generated Employee can use.
+    /// It is Required, that there are the same number of idle, walking and working animations.
+    /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 
+    /// </summary>
+    public AnimationClip[] maleAnimationClips;
+    /// <summary>
+    /// All Animation Clips that a female generated Employee can use.
+    /// It is Required, that there are the same number of idle, walking and working animations.
+    /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 
+    /// </summary>
+    public AnimationClip[] femaleAnimationClips;
 
     /// <summary>
     /// Get the current <see cref="SkillSet"/>. 

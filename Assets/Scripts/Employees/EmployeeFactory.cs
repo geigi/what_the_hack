@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameSystem;
+using SaveGame;
 using UnityEngine;
 using Wth.ModApi.Employees;
 using Wth.ModApi.Names;
@@ -8,7 +10,7 @@ using Random = System.Random;
 /// <summary>
 /// Class for generating random EmployeeData and setting the Material for an Employee.
 /// </summary>
-public class EmployeeFactory {
+public class EmployeeFactory : MonoBehaviour {
 
     #region Colors
 
@@ -57,9 +59,20 @@ public class EmployeeFactory {
 
     #endregion
 
+    private ContentHub contentHub;
     private static int numberOfBeginningSkills = 3;
 
     private static Random rnd = new Random();
+
+    private NameLists names;
+    private Material empMaterial;
+
+    public void Awake()
+    {
+        contentHub = ContentHub.Instance;
+        names = contentHub.GetNameLists();
+        empMaterial = contentHub.DefaultEmpMaterial;
+    }
 
     /// <summary>
     /// Generates a random Color for the specific part.
@@ -89,14 +102,14 @@ public class EmployeeFactory {
     /// Sets each grey_color of the material, to the default color, for that part.
     /// </summary>
     /// <param name="mat">The material, where the default colors should be set.</param>
-    public void SetDefaultMaterialColors(Material mat)
+    public void SetDefaultMaterialColors(Material newMat)
     {
-        mat.SetColor("_HairGreyColor", defaultHair);
-        mat.SetColor("_SkinGreyColor", defaultSkin);
-        mat.SetColor("_ShirtGreyColor", defaultShirt);
-        mat.SetColor("_ShortsGreyColor", defaultShorts);
-        mat.SetColor("_ShoeGreyColor", defaultShoes);
-        mat.SetColor("_EyeGreyColor", defaultEyes);
+        newMat.SetColor("_HairGreyColor", defaultHair);
+        newMat.SetColor("_SkinGreyColor", defaultSkin);
+        newMat.SetColor("_ShirtGreyColor", defaultShirt);
+        newMat.SetColor("_ShortsGreyColor", defaultShorts);
+        newMat.SetColor("_ShoeGreyColor", defaultShoes);
+        newMat.SetColor("_EyeGreyColor", defaultEyes);
     }
 
     /// <summary>
@@ -105,9 +118,9 @@ public class EmployeeFactory {
     /// </summary>
     /// <param name="standardMaterial">The standard Material, from which a new Material should be generated.</param>
     /// <returns>A new Material with random colors.</returns>
-    public Material GenerateMaterial(Material standardMaterial)
+    public Material GenerateMaterial()
     {
-        var newMat = new Material(standardMaterial);
+        var newMat = new Material(empMaterial);
         SetDefaultMaterialColors(newMat);
         newMat.SetColor("_HairColor", GenerateColor(EmployeePart.HAIR));
         newMat.SetColor("_SkinColor", GenerateColor(EmployeePart.SKIN));
@@ -125,9 +138,10 @@ public class EmployeeFactory {
     /// <param name="standardMaterial">The standard Material, from which a new Material should be generated.</param>
     /// <param name="empData">The generated Data, where the colors are specified.</param>
     /// <returns></returns>
-    public Material GenerateMaterialForEmployee(Material standardMaterial, EmployeeGeneratedData empData)
+    public Material GenerateMaterialForEmployee( EmployeeGeneratedData empData)
     {
-        Material newMat = new Material(standardMaterial);
+        
+        Material newMat = new Material(empMaterial);
         SetDefaultMaterialColors(newMat);
         newMat.SetColor("_HairColor", empData.hairColor);
         newMat.SetColor("_SkinColor", empData.skinColor);
@@ -166,8 +180,9 @@ public class EmployeeFactory {
     /// Generates new and random EmployeeData.
     /// </summary>
     /// <returns>The generated EmployeeData.</returns>
-    public EmployeeData GenerateEmployee(SkillSet skillSet, NameLists names, int numDiffClips)
+    public EmployeeData GenerateEmployee()
     {
+        SkillSet skillSet = contentHub.GetSkillSet();
         EmployeeData employee = new EmployeeData();
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();
         //Skills
@@ -199,6 +214,7 @@ public class EmployeeFactory {
         generatedData.name += " " + employeeNames.RandomName(Lists.lastNames);
 
         //AnimationClips
+        int numDiffClips = contentHub.maleAnimationClips.Length / 3;
         int clipIndex = rnd.Next(numDiffClips);
         generatedData.idleClipIndex = clipIndex;
         generatedData.walkingClipIndex = clipIndex + numDiffClips;

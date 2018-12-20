@@ -17,11 +17,11 @@ public class Employee : MonoBehaviour {
 
     public EmployeeData EmployeeData;
     private EmployeeFactory factory;
- 
+    private ContentHub contentHub;
     private GameObject employeeLayer;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-
+    private AnimationClip[] clipsMale, clipsFemale;
     private AGrid grid;
 
     private Tilemap tilemap;
@@ -30,7 +30,14 @@ public class Employee : MonoBehaviour {
     public bool idle { get; private set; } = true;
 
     private List<Node> path;
-	
+
+    public void Awake()
+    {
+        contentHub = ContentHub.Instance;
+        clipsMale = contentHub.maleAnimationClips;
+        clipsFemale = contentHub.femaleAnimationClips;
+    }
+
     void Start () {
         employeeLayer = GameObject.FindWithTag("EmployeeLayer");
         this.grid = GameObject.FindWithTag("Pathfinding").GetComponent<AGrid>();
@@ -46,10 +53,9 @@ public class Employee : MonoBehaviour {
     /// Fills the object with specific data.
     /// </summary>
     /// <param name="employeeData">Data for this employee.</param>
-    public void init(EmployeeData employeeData, Material material, 
-        AnimationClip[] clipsMale, AnimationClip[] clipsfemale)
+    public void init(EmployeeData employeeData)
     {
-        this.factory = new EmployeeFactory();
+        this.factory = GameObject.FindWithTag("EmpFactory").GetComponent<EmployeeFactory>();
         this.EmployeeData = employeeData;
         spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 
@@ -68,12 +74,12 @@ public class Employee : MonoBehaviour {
         } else
         {
             //generated Employee. Animation needs to be set.
-            var anims = (employeeData.generatedData.gender == "female") ? clipsfemale : clipsMale;
+            var anims = (employeeData.generatedData.gender == "female") ? clipsFemale : clipsMale;
             animatorOverrideController["Special_Trump_Idle"] = anims[employeeData.generatedData.idleClipIndex];  
             animatorOverrideController["Special_Trump_Walking"] = anims[employeeData.generatedData.walkingClipIndex];
             animatorOverrideController["Special_Trump_Working"] = anims[employeeData.generatedData.workingClipIndex];
             // Add the Material.
-            spriteRenderer.material = factory.GenerateMaterialForEmployee(material, employeeData.generatedData);
+            spriteRenderer.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
         }
         this.animator.runtimeAnimatorController = animatorOverrideController;
     }
