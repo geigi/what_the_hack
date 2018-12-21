@@ -13,7 +13,7 @@ using Object = UnityEngine.Object;
 /// <summary>
 /// Parent Class for the EmployeeUI
 /// </summary>
-public abstract class UiBuilder : MonoBehaviour
+public abstract class EmployeeUiBuilder : MonoBehaviour
 {
     /// <summary>
     /// Prefab for the SkillUI.

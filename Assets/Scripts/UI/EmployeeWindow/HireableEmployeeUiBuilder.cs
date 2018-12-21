@@ -8,7 +8,7 @@ using Wth.ModApi.Employees;
 /// <summary>
 /// UiBuilder for hireable employees. 
 /// </summary>
-public class HireableEmployeeUiBuilder : UiBuilder
+public class HireableEmployeeEmployeeUiBuilder : EmployeeUiBuilder
 {
     /// <summary>
     /// Contains every sprite, the employee could have. 

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /// <summary>
 /// UiBuilder for hired employees.
 /// </summary>
-public class HiredEmployeeUiBuilder : UiBuilder
+public class HiredEmployeeEmployeeUiBuilder : EmployeeUiBuilder
 {
     /// <summary>
     /// Employee for which the UI is build
