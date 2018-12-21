@@ -101,6 +101,7 @@ namespace UI.EmployeeWindow
             {
                 GameObject skill = Object.Instantiate(skillPrefab);
                 skill.transform.parent = skillPanel.gameObject.transform;
+                skill.transform.localScale = new Vector3(1f, 1f, 1f);
                 skill.GetComponent<SkillUIBuilder>().skill = s;
                 skillUI.Add(skill);
             }
