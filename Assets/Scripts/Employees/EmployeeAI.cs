@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Employees;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
@@ -29,7 +30,7 @@ public class EmployeeAI : MonoBehaviour
             GameObject empGUI = Instantiate(hireableEmpGUIPrefab);
             empGUI.transform.parent = hireableEmpContent.transform;
             empGUI.transform.localScale = Vector3.one;
-            empGUI.GetComponent<HireableEmployeeEmployeeUiBuilder>().SetEmp(empData, () => hireEmployee(empData, empGUI));
+            empGUI.GetComponent<HireableEmployeeUiBuilder>().SetEmp(empData, () => hireEmployee(empData, empGUI));
         }
     }
 
@@ -57,7 +58,7 @@ public class EmployeeAI : MonoBehaviour
         employeeGUI.transform.parent = hiredEmpContent.transform;
         //For whatever Reason the scale is set to 0.6. So we change it back to 1
         employeeGUI.transform.localScale = Vector3.one;
-        employeeGUI.GetComponent<HiredEmployeeEmployeeUiBuilder>().SetEmp(emp, () =>
+        employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, () =>
         {
             employees.Remove(emp);
             manager.FireEmployee(emp.EmployeeData);
