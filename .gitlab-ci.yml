@@ -97,7 +97,7 @@ build-AndroidPlugin:
   <<: *android_before_script
   retry: 2
   script:
-    - ./AndroidPlugin/gradlew assembleDebug -p ./AndroidPlugin --stacktrace --info
+    - ./AndroidPlugin/gradlew assembleDebug -p ./AndroidPlugin
   artifacts:
     paths:
     - AndroidPlugin/androidunitybridge/build/outputs/
@@ -204,7 +204,7 @@ generate-android-apk:
     cd ./$BUILD_NAME2
     ls -ahl
     echo "${ANDROID_STOREFILE}" | base64 --decode > $CI_PROJECT_DIR/storefile
-    gradle assembleRelease -Pandroid.injected.signing.store.file=$CI_PROJECT_DIR/storefile -Pandroid.injected.signing.store.password=$ANDROID_STOREPW -Pandroid.injected.signing.key.alias=$ANDROID_KALIAS -Pandroid.injected.signing.key.password=$ANDROID_KPW
+    gradle assembleRelease -Pandroid.injected.signing.store.file=$CI_PROJECT_DIR/storefile -Pandroid.injected.signing.store.password=$ANDROID_STOREPW -Pandroid.injected.signing.key.alias=$ANDROID_KALIAS -Pandroid.injected.signing.key.password=$ANDROID_KPW  --stacktrace --info
     rm $CI_PROJECT_DIR/storefile
     ls -ahl
     find . -name '*.apk'
