@@ -8,7 +8,6 @@ public class TabTextPaddingChanger : MonoBehaviour {
 	public Toggle toggle;
 	public int activeTop, activeBottom;
 	private int inactiveTop, inactiveBottom;
-    public List<GameObject> tabs;
 	
 	/// <summary>
 	/// Start is called on the frame when a script is enabled just before
@@ -35,7 +34,6 @@ public class TabTextPaddingChanger : MonoBehaviour {
 		else {
 			topPadding = inactiveTop;
 			bottomPadding = inactiveBottom;
-		    tabs?.ForEach((tab) => tab.SetActive(!tab.activeSelf));
         }
 
 		RectOffset tempPadding = new RectOffset(
