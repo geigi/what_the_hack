@@ -9,6 +9,8 @@ TagManager:
   - Tilemap
   - GameManager
   - Managers
+  - EmployeeGUI
+  - EmpFactory
   layers:
   - Default
   - TransparentFX

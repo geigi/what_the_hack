@@ -210,7 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551c2b01d3864744ea3048e925837aa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardMat: {fileID: 2100000, guid: 6fad80bef751791479542efe0d71f597, type: 2}
   skillPrefab: {fileID: 1626743750923716, guid: b4cce68b7218f9143863eec0d909c4c1,
     type: 3}
   empImage: {fileID: 114885641567513292}
@@ -219,7 +218,7 @@ MonoBehaviour:
   salary: {fileID: 114426941892791324}
   salaryTime: {fileID: 114046706530502720}
   specialList: {fileID: 114835096592363146}
-  DismissButton: {fileID: 114409749614301312}
+  button: {fileID: 114409749614301312}
   sprites:
   - {fileID: 21300000, guid: 11faddc9d011f4f9eb2c908c376bd667, type: 3}
   - {fileID: 21300000, guid: cf389b25e130b4842bb755cc8216b26d, type: 3}
@@ -229,6 +228,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 48b7abb50e3dd455c85eb424d60c7f2e, type: 3}
   - {fileID: 21300000, guid: db9c79b2d8fee4d4d8ef8cdd34aa22a6, type: 3}
   - {fileID: 21300000, guid: 3d70374db5af149e19deef76b9ea2f3b, type: 3}
+  sprite: {fileID: 0}
   prize: {fileID: 114994257170851040}
 --- !u!331 &331408370086009818
 SpriteMask:
@@ -878,9 +878,9 @@ RectTransform:
   m_Father: {fileID: 224041918136114200}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 199.44, y: -10}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 199.44, y: 0}
   m_SizeDelta: {x: 270.8, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222271912709429450
