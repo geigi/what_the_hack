@@ -12,8 +12,10 @@ using Wth.ModApi.Employees;
 /// </summary>
 public class Employee : MonoBehaviour {
 
-    const float minPathUpdateTime = .2f;
-    const float speed = 1.0f;
+    public const float minPathUpdateTime = .2f;
+    public const float walkingSpeed = 1.0f;
+    public const float regularAnimationSpeed = 1.0f;
+    public const float idleAnimationSpeed = 0.75f;
 
     public EmployeeData EmployeeData;
     private EmployeeFactory factory;
@@ -30,6 +32,8 @@ public class Employee : MonoBehaviour {
     public bool idle { get; private set; } = true;
 
     private List<Node> path;
+    private static readonly int walkingProperty = Animator.StringToHash("walking");
+    private static readonly int idleProperty = Animator.StringToHash("idle");
 
     public void Awake()
     {
@@ -116,11 +120,12 @@ public class Employee : MonoBehaviour {
         bool followingPath = true;
         int pathIndex = 0;
         this.walking = true;
-        this.animator.SetTrigger("walking");
+        this.animator.SetTrigger(walkingProperty);
+        this.animator.speed = regularAnimationSpeed;
 
         while (followingPath & walking)
         {
-            var stepLength = speed * Time.deltaTime;
+            var stepLength = walkingSpeed * Time.deltaTime;
             var step = (path[pathIndex].worldPosition - transform.position).normalized * stepLength;
             var distance = Vector3.Distance(transform.position, path[pathIndex].worldPosition);
 
@@ -156,7 +161,8 @@ public class Employee : MonoBehaviour {
             }
         }
 
-        this.animator.SetTrigger("idle");
+        this.animator.SetTrigger(idleProperty);
+        this.animator.speed = idleAnimationSpeed;
         yield return new WaitForSeconds(4);
         walking = false;
     }
