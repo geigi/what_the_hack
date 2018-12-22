@@ -65,23 +65,23 @@ public class Employee : MonoBehaviour {
 
         // place the right animations.
         this.animator = gameObject.AddComponent<Animator>();
-        RuntimeAnimatorController run = Resources.Load<RuntimeAnimatorController>("EmployeeAnimations");
+        RuntimeAnimatorController run = ContentHub.Instance.EmployeeAnimations;
         var animatorOverrideController = new AnimatorOverrideController(run);
         
         if(employeeData.EmployeeDefinition != null)
         {
             Debug.Log("This is a special Employee");
             //special employee
-            animatorOverrideController["Special_Trump_Idle"] = employeeData.EmployeeDefinition.IdleAnimation;
-            animatorOverrideController["Special_Trump_Walking"] = employeeData.EmployeeDefinition.WalkingAnimation;
-            animatorOverrideController["Special_Trump_Working"] = employeeData.EmployeeDefinition.WorkingAnimation;
+            animatorOverrideController["idle"] = employeeData.EmployeeDefinition.IdleAnimation;
+            animatorOverrideController["walking"] = employeeData.EmployeeDefinition.WalkingAnimation;
+            animatorOverrideController["working"] = employeeData.EmployeeDefinition.WorkingAnimation;
         } else
         {
             //generated Employee. Animation needs to be set.
             var anims = (employeeData.generatedData.gender == "female") ? clipsFemale : clipsMale;
-            animatorOverrideController["Special_Trump_Idle"] = anims[employeeData.generatedData.idleClipIndex];  
-            animatorOverrideController["Special_Trump_Walking"] = anims[employeeData.generatedData.walkingClipIndex];
-            animatorOverrideController["Special_Trump_Working"] = anims[employeeData.generatedData.workingClipIndex];
+            animatorOverrideController["idle"] = anims[employeeData.generatedData.idleClipIndex];  
+            animatorOverrideController["walking"] = anims[employeeData.generatedData.walkingClipIndex];
+            animatorOverrideController["working"] = anims[employeeData.generatedData.workingClipIndex];
             // Add the Material.
             spriteRenderer.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
         }

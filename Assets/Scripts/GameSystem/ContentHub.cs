@@ -52,6 +52,11 @@ public sealed class ContentHub: MonoBehaviour
     public AnimationClip[] femaleAnimationClips;
 
     /// <summary>
+    /// Animator controller for employee animations.
+    /// </summary>
+    public RuntimeAnimatorController EmployeeAnimations;
+
+    /// <summary>
     /// Get the current <see cref="SkillSet"/>. 
     /// </summary>
     /// <returns>The base <see cref="SkillSet"/> if no mod is present, otherwise the one from the mod.</returns>
