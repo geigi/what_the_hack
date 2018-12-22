@@ -74,16 +74,16 @@ public class Employee : MonoBehaviour {
         {
             Debug.Log("This is a special Employee");
             //special employee
-            animatorOverrideController["idle"] = employeeData.EmployeeDefinition.IdleAnimation;
-            animatorOverrideController["walking"] = employeeData.EmployeeDefinition.WalkingAnimation;
-            animatorOverrideController["working"] = employeeData.EmployeeDefinition.WorkingAnimation;
+            animatorOverrideController["dummy_idle"] = employeeData.EmployeeDefinition.IdleAnimation;
+            animatorOverrideController["dummy_walking"] = employeeData.EmployeeDefinition.WalkingAnimation;
+            animatorOverrideController["dummy_working"] = employeeData.EmployeeDefinition.WorkingAnimation;
         } else
         {
             //generated Employee. Animation needs to be set.
             var anims = (employeeData.generatedData.gender == "female") ? clipsFemale : clipsMale;
-            animatorOverrideController["idle"] = anims[employeeData.generatedData.idleClipIndex];  
-            animatorOverrideController["walking"] = anims[employeeData.generatedData.walkingClipIndex];
-            animatorOverrideController["working"] = anims[employeeData.generatedData.workingClipIndex];
+            animatorOverrideController["dummy_idle"] = anims[employeeData.generatedData.idleClipIndex];  
+            animatorOverrideController["dummy_walking"] = anims[employeeData.generatedData.walkingClipIndex];
+            animatorOverrideController["dummy_working"] = anims[employeeData.generatedData.workingClipIndex];
             // Add the Material.
             spriteRenderer.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
         }
