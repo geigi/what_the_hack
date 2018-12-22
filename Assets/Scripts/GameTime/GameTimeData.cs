@@ -10,14 +10,9 @@ namespace GameTime
     public class GameTimeData
     {
         /// <summary>
-        /// GameTimeMode of this savegame.
-        /// </summary>
-        public SettingsManager.GameTimeMode GameTimeMode;
-        
-        /// <summary>
         /// In-game date in classic game mode.
         /// </summary>
-        public DateTime ClassicDate;
+        public GameDate Date;
         
         /// <summary>
         /// Date when the last step occured in realtime game mode.
@@ -28,5 +23,11 @@ namespace GameTime
         /// Current step of day in either game mode.
         /// </summary>
         public int Step;
+
+        public GameTimeData()
+        {
+            Date = new GameDate();
+            Step = 0;
+        }
     }
 }

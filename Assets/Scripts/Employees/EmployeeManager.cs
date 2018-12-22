@@ -4,11 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Employees;
 using GameSystem;
+using GameTime;
 using Interfaces;
+using UE.Events;
 using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
+using Object = UnityEngine.Object;
 
 namespace Employees
 {
@@ -22,13 +25,30 @@ namespace Employees
         /// </summary>
         public EmployeeFactory factoryObject;
 
+        /// <summary>
+        /// Prefab that displays an employee for hire.
+        /// </summary>
         public GameObject EmployeeForHirePrefab;
 
+        /// <summary>
+        /// Prefab that displays an hired employee.
+        /// </summary>
         public GameObject EmployeeHiredPrefab;
 
+        /// <summary>
+        /// GameObject that will contain a list of all employees for hire.
+        /// </summary>
         public GameObject EmployeeForHireContent;
 
+        /// <summary>
+        /// GameObject that will contain a list of all hired employees.
+        /// </summary>
         public GameObject EmployeeHiredContent;
+
+        /// <summary>
+        /// Event that will be fired when a day changes.
+        /// </summary>
+        public ObjectEvent GameTimeDayTickEvent;
 
         private EmployeeManagerData data;
         
@@ -39,12 +59,17 @@ namespace Employees
 
         private ContentHub contentHub;
 
+        private UnityAction<Object> dayChangedAction;
+
         private void Awake()
-        {   
-            if(GameSettings.NewGame)
+        {
+            if  (GameSettings.NewGame)
                 InitDefaultState();
             else
                 LoadState();
+
+            dayChangedAction += DayChanged;
+            GameTimeDayTickEvent.AddListener(dayChangedAction);
         }
         
         void Start()
@@ -105,9 +130,19 @@ namespace Employees
             return newEmployee;
         }
 
+        public void AddEmployeeForHire(EmployeeData employeeData)
+        {
+            
+        }
+        
+        public void RemoveEmployeeForHire(EmployeeData employeeData)
+        {
+            
+        }
+        
         public void Cleanup()
         {
-            throw new System.NotImplementedException();
+            GameTimeDayTickEvent.RemoveListener(dayChangedAction);
         }
 
         /// <summary>
@@ -150,13 +185,16 @@ namespace Employees
         }
 
         /// <summary>
-        /// Will be used later as a listener method.
         /// Removes the first Employee from the EmployeeForHire List and creates a new one.
+        /// TODO: Pay Employees
         /// </summary>
-        public void newDay()
+        public void DayChanged(Object date)
         {
+            var gameDate = (GameDate) date;
+            
             data.employeesForHire.RemoveAt(0);
-            GenerateEmployeeForHire();
+            var employeeData = GenerateEmployeeForHire();
+            AddEmployeeForHire(employeeData);
         }
         
         public EmployeeManagerData GetData()

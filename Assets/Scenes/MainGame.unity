@@ -3051,6 +3051,7 @@ GameObject:
   - component: {fileID: 1368057858}
   - component: {fileID: 1368057860}
   - component: {fileID: 1368057859}
+  - component: {fileID: 1368057861}
   m_Layer: 5
   m_Name: Date
   m_TagString: Untagged
@@ -3110,7 +3111,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 01 Jan
+  m_Text: Mon   01 Jan 1
 --- !u!222 &1368057860
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3119,6 +3120,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368057857}
   m_CullTransparentMesh: 0
+--- !u!114 &1368057861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368057857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d9e560f49eff48ad8d181ac4f1c95ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameTimeDayEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7, type: 2}
+  DayDateSeparator: '   '
 --- !u!1 &1372586685
 GameObject:
   m_ObjectHideFlags: 0
@@ -4344,6 +4359,7 @@ GameObject:
   - component: {fileID: 1696728228}
   - component: {fileID: 1696728230}
   - component: {fileID: 1696728229}
+  - component: {fileID: 1696728231}
   m_Layer: 5
   m_Name: Clock
   m_TagString: Untagged
@@ -4407,6 +4423,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696728227}
   m_CullTransparentMesh: 0
+--- !u!114 &1696728231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1696728227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c70083071264325b0977da22c6a1d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameTimeTickEvent: {fileID: 11400000, guid: 431622ad2d21640deb054b4a96e031d5, type: 2}
+  ClockSprites:
+  - {fileID: 21300000, guid: a75bf221464d741239eeed687ecdafe4, type: 3}
+  - {fileID: 21300000, guid: 43f323a274aa946758701f30bb4d7f63, type: 3}
+  - {fileID: 21300000, guid: aef57ca0be6c84e979aa21b3dae015e2, type: 3}
+  - {fileID: 21300000, guid: 7ff23dcd828914aa2a98c3a69f19590f, type: 3}
+  - {fileID: 21300000, guid: c155fcb1db3464d19ac3475571e45d95, type: 3}
+  - {fileID: 21300000, guid: d93a969e7745e4d6294dd85b24d75d8d, type: 3}
+  - {fileID: 21300000, guid: b3897c5b8a9d149389262278e01cfb31, type: 3}
+  - {fileID: 21300000, guid: ab87dc70489bc41f79ed3a57e363d792, type: 3}
+  - {fileID: 21300000, guid: 6eb2ae85241354d549872e6588c350d7, type: 3}
 --- !u!224 &1732082874 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224042381217506968, guid: ce75e7f6ab3a84195b5b65a47bae9dcd,
@@ -6864,6 +6903,8 @@ MonoBehaviour:
   ClassicSecondsPerTick: 4.5
   RealtimeMinutesPerTick: 20
   ClockSteps: 9
+  GameTickEvent: {fileID: 11400000, guid: 431622ad2d21640deb054b4a96e031d5, type: 2}
+  GameDayEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7, type: 2}
 --- !u!4 &2081988909
 Transform:
   m_ObjectHideFlags: 0
@@ -7041,6 +7082,8 @@ MonoBehaviour:
     type: 3}
   EmployeeForHireContent: {fileID: 1688115420}
   EmployeeHiredContent: {fileID: 1959018098}
+  GameTimeDayTickEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7,
+    type: 2}
 --- !u!4 &2117680109
 Transform:
   m_ObjectHideFlags: 0

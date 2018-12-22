@@ -72,5 +72,14 @@ namespace GameSystem
         public void SetGameTime(int dropdownValue) {
             PlayerPrefs.SetInt(GameTimeKey, dropdownValue);
         }
+
+        /// <summary>
+        /// Get the current game time mode.
+        /// </summary>
+        /// <returns>Current game time mode</returns>
+        public static GameTimeMode GetGameTime()
+        {
+            return (GameTimeMode) PlayerPrefs.GetInt(GameTimeKey);
+        }
     }
 }
