@@ -28,7 +28,7 @@ namespace UI.EmployeeWindow
         public override void FillSpecificGUIElements()
         {
             empImage.sprite = sprite;
-            prize.text = $"{empData.Prize} $";
+            prize.text = $"{employeeData.Prize} $";
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace UI.EmployeeWindow
         public override void SetEmp(EmployeeData _empData, UnityAction buttonAction)
         {
             base.SetEmp(_empData, buttonAction);
-            sprite = (empData.generatedData.gender == "male")
-                ? sprites[empData.generatedData.idleClipIndex]
-                : sprites[4 + empData.generatedData.idleClipIndex];
+            sprite = (employeeData.generatedData.gender == "male")
+                ? sprites[employeeData.generatedData.idleClipIndex]
+                : sprites[4 + employeeData.generatedData.idleClipIndex];
         }
     }
 }

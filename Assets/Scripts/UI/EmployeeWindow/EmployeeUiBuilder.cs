@@ -43,7 +43,7 @@ namespace UI.EmployeeWindow
         /// <summary>
         /// Data of the employee the UI is build for.
         /// </summary>
-        internal EmployeeData empData;
+        public EmployeeData employeeData;
 
         private List<GameObject> skillUI;
         private readonly List<string> specialNames = new List<string>();
@@ -65,10 +65,10 @@ namespace UI.EmployeeWindow
         /// </summary>
         protected virtual void Update()
         {
-            if (empData != null)
+            if (employeeData != null)
             {
-                empName.text = empData.generatedData.name;
-                salary.text = $"{empData.Salary}$";
+                empName.text = employeeData.generatedData.name;
+                salary.text = $"{employeeData.Salary}$";
                 salaryTime.text = "a week";
                 specialList.text = string.Join(",", specialNames);
                 FillSpecificGUIElements();
@@ -82,10 +82,10 @@ namespace UI.EmployeeWindow
         /// <param name="buttonAction">The Action to be performed when the Button is clicked</param>
         public virtual void SetEmp(EmployeeData _empData, UnityAction buttonAction)
         {
-            this.empData = _empData;
+            this.employeeData = _empData;
             GenerateSkillGui();
-            empImage.material = factory.GetComponent<EmployeeFactory>().GenerateMaterialForEmployee(empData.generatedData);
-            empData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
+            empImage.material = factory.GetComponent<EmployeeFactory>().GenerateMaterialForEmployee(employeeData.generatedData);
+            employeeData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
             button.onClick.AddListener(buttonAction);
         }
 
@@ -95,13 +95,13 @@ namespace UI.EmployeeWindow
         private void GenerateSkillGui()
         {
             skillUI = new List<GameObject>();
-            var skills = empData.Skills;
+            var skills = employeeData.Skills;
             if (skills == null) return;
             foreach (var s in skills)
             {
                 GameObject skill = Object.Instantiate(skillPrefab);
-                skill.transform.parent = skillPanel.gameObject.transform;
-                skill.transform.localScale = new Vector3(1f, 1f, 1f);
+                skill.transform.SetParent(skillPanel.gameObject.transform);
+                skill.transform.localScale = Vector3.one;
                 skill.GetComponent<SkillUIBuilder>().skill = s;
                 skillUI.Add(skill);
             }

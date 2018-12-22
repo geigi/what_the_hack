@@ -2,6 +2,7 @@
 using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Employees;
 using GameSystem;
 using GameTime;
@@ -57,6 +58,11 @@ namespace Employees
         /// </summary>
         private EmployeeList specialEmployees;
 
+        /// <summary>
+        /// This dictionary maps an employeeData object to its GUI GameObject.
+        /// </summary>
+        private Dictionary<EmployeeData, GameObject> EmployeeToGuiMap;
+
         private ContentHub contentHub;
 
         private UnityAction<Object> dayChangedAction;
@@ -78,10 +84,7 @@ namespace Employees
             for (int i = 0; i < 4; i++)
             {
                 EmployeeData empData = GenerateEmployeeForHire();
-                GameObject empGUI = Instantiate(EmployeeForHirePrefab);
-                empGUI.transform.parent = EmployeeForHireContent.transform;
-                empGUI.transform.localScale = Vector3.one;
-                empGUI.GetComponent<HireableEmployeeUiBuilder>().SetEmp(empData, () => HireEmployee(empData, empGUI));
+                AddEmployeeForHire(empData);
             }
         }
 
@@ -99,6 +102,7 @@ namespace Employees
             data.employeesForHire = new List<EmployeeData>();
             data.hiredEmployees = new List<EmployeeData>();
             data.exEmplyoees = new List<EmployeeData>();
+            EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject>();
         }
 
         /// <summary>
@@ -107,10 +111,13 @@ namespace Employees
         private void LoadState()
         {
             var mainSaveGame = gameObject.GetComponent<SaveGameSystem>().GetCurrentSaveGame();
-
             this.specialEmployees = contentHub.GetEmployeeLists();
-
             data = mainSaveGame.employeeManagerData;
+
+            foreach (var employeeData in data.employeesForHire)
+            {
+                AddEmployeeForHireToGui(employeeData);
+            }
         }
 
         /// <summary>
@@ -119,25 +126,41 @@ namespace Employees
         public EmployeeData GenerateEmployeeForHire()
         {
             EmployeeData newEmployee = new EmployeeData();
-            /*if (this.daysPassed >= dayThreshold && !usedSpecialEmployee)
-            {
-                newEmployee.EmployeeDefinition = specialEmployees.employeeList[0];
-                this.employeesForHire.Add(newEmployee);
-            }*/
             newEmployee = factoryObject.GetComponent<EmployeeFactory>().GenerateEmployee();
-            data.employeesForHire.Add(newEmployee);
 
             return newEmployee;
         }
 
         public void AddEmployeeForHire(EmployeeData employeeData)
         {
+            data.employeesForHire.Add(employeeData);
+            AddEmployeeForHireToGui(employeeData);
+        }
+
+        public void AddHiredEmployee(EmployeeData employeeData)
+        {
+            data.hiredEmployees.Add(employeeData);
             
+            var employeeGameObject = new GameObject("Employee");
+            var emp = employeeGameObject.AddComponent<Employee>();
+            
+            emp.init(employeeData);
+            var employeeGUI = Instantiate(EmployeeHiredPrefab);
+            employeeGUI.transform.parent = EmployeeHiredContent.transform;
+            //For whatever Reason the scale is set to 0.6. So we change it back to 1
+            employeeGUI.transform.localScale = Vector3.one;
+            employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, () =>
+            {
+                FireEmployee(emp.EmployeeData);
+                Destroy(emp.gameObject);
+                Destroy(employeeGUI);
+            });
         }
         
         public void RemoveEmployeeForHire(EmployeeData employeeData)
         {
-            
+            data.employeesForHire.Remove(employeeData);
+            Destroy(EmployeeToGuiMap[employeeData]);
         }
         
         public void Cleanup()
@@ -153,24 +176,9 @@ namespace Employees
         public void HireEmployee(EmployeeData empData, GameObject employeeForHireGui)
         {
             if (!data.employeesForHire.Contains(empData)) return;
-            var employeeGameObject = new GameObject("Employee");
-            var emp = employeeGameObject.AddComponent<Employee>();
             
-            data.hiredEmployees.Add(empData);
-            data.employeesForHire.Remove(empData);
-            emp.init(empData);
-            
-            var employeeGUI = Instantiate(EmployeeHiredPrefab);
-            employeeGUI.transform.parent = EmployeeHiredContent.transform;
-            //For whatever Reason the scale is set to 0.6. So we change it back to 1
-            employeeGUI.transform.localScale = Vector3.one;
-            employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, () =>
-            {
-                FireEmployee(emp.EmployeeData);
-                Destroy(emp.gameObject);
-                Destroy(employeeGUI);
-            });
-            Destroy(employeeForHireGui);
+            RemoveEmployeeForHire(empData);
+            AddHiredEmployee(empData);
         }
 
         /// <summary>
@@ -192,7 +200,7 @@ namespace Employees
         {
             var gameDate = (GameDate) date;
             
-            data.employeesForHire.RemoveAt(0);
+            RemoveEmployeeForHire(data.employeesForHire[0]);
             var employeeData = GenerateEmployeeForHire();
             AddEmployeeForHire(employeeData);
         }
@@ -200,6 +208,16 @@ namespace Employees
         public EmployeeManagerData GetData()
         {
             return data;
+        }
+
+        private void AddEmployeeForHireToGui(EmployeeData employeeData)
+        {
+            GameObject empGUI = Instantiate(EmployeeForHirePrefab);
+            empGUI.transform.SetParent(EmployeeForHireContent.transform);
+            empGUI.transform.localScale = Vector3.one;
+            empGUI.GetComponent<HireableEmployeeUiBuilder>().SetEmp(employeeData, () => HireEmployee(employeeData, empGUI));
+            
+            EmployeeToGuiMap.Add(employeeData, empGUI);
         }
     }
 }
