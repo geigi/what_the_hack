@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Employees;
 using GameTime;
 using Wth.ModApi.Employees;
 
@@ -37,20 +38,10 @@ namespace SaveGame
 		/// The game time.
 		/// </summary>
 		public GameTimeData gameTime { get; set; }
-	
+
 		/// <summary>
-		/// Employees that are available for hire.
+		/// All persistent data from employee manager.
 		/// </summary>
-		public List<EmployeeData> employeesForHire { get; set; }
-		
-		/// <summary>
-		/// Employees that are hired.
-		/// </summary>
-		public List<EmployeeData> employeesHired { get; set; }
-		
-		/// <summary>
-		/// Employees that were previously hired.
-		/// </summary>
-		public List<EmployeeData> exEmployees { get; set; }
+		public EmployeeManagerData employeeManagerData;
 	}
 }

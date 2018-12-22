@@ -2,7 +2,10 @@
 using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Employees;
 using GameSystem;
+using Interfaces;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
@@ -13,27 +16,21 @@ namespace Employees
     /// This class manages all Employees for the game and keeps track, of employees that can be hired,
     /// employees which are hired and ex-employees.
     /// </summary>
-    public class EmployeeManager: MonoBehaviour {
-        
-        /// <summary>
-        /// List to store all employees that can be hired.
-        /// </summary>
-        public List<EmployeeData> employeesForHire { get; private set; }
-
-        /// <summary>
-        /// List to store all hired Employees.
-        /// </summary>
-        public List<EmployeeData> hiredEmplyoees { get; private set; }
-
-        /// <summary>
-        /// List to store all ex-employees.
-        /// </summary>
-        public List<EmployeeData> exEmplyoees { get; private set; }
-
+    public class EmployeeManager: MonoBehaviour, Saveable<EmployeeManagerData> {
         /// <summary>
         /// EmployeeFactory to generate the employees. 
         /// </summary>
         public EmployeeFactory factoryObject;
+
+        public GameObject EmployeeForHirePrefab;
+
+        public GameObject EmployeeHiredPrefab;
+
+        public GameObject EmployeeForHireContent;
+
+        public GameObject EmployeeHiredContent;
+
+        private EmployeeManagerData data;
         
         /// <summary>
         /// List of all special employees.
@@ -49,6 +46,19 @@ namespace Employees
             else
                 LoadState();
         }
+        
+        void Start()
+        {
+            gameObject.transform.parent = this.gameObject.transform;
+            for (int i = 0; i < 4; i++)
+            {
+                EmployeeData empData = GenerateEmployeeForHire();
+                GameObject empGUI = Instantiate(EmployeeForHirePrefab);
+                empGUI.transform.parent = EmployeeForHireContent.transform;
+                empGUI.transform.localScale = Vector3.one;
+                empGUI.GetComponent<HireableEmployeeUiBuilder>().SetEmp(empData, () => HireEmployee(empData, empGUI));
+            }
+        }
 
         /// <summary>
         /// Initializes the EmployeeManager. This Method should be called before using the Manager.
@@ -60,24 +70,22 @@ namespace Employees
 
             this.specialEmployees = contentHub.GetEmployeeLists();
 
-            this.employeesForHire = new List<EmployeeData>();
-            this.hiredEmplyoees = new List<EmployeeData>();
-            this.exEmplyoees = new List<EmployeeData>();
+            data = new EmployeeManagerData();
+            data.employeesForHire = new List<EmployeeData>();
+            data.hiredEmployees = new List<EmployeeData>();
+            data.exEmplyoees = new List<EmployeeData>();
         }
 
         /// <summary>
         /// Load state from a given savegame.
         /// </summary>
-        /// <param name="mainSaveGame"></param>
         private void LoadState()
         {
             var mainSaveGame = gameObject.GetComponent<SaveGameSystem>().GetCurrentSaveGame();
 
             this.specialEmployees = contentHub.GetEmployeeLists();
 
-            this.employeesForHire = mainSaveGame.employeesForHire;
-            this.hiredEmplyoees = mainSaveGame.employeesHired;
-            this.exEmplyoees = mainSaveGame.exEmployees;
+            data = mainSaveGame.employeeManagerData;
         }
 
         /// <summary>
@@ -92,7 +100,7 @@ namespace Employees
                 this.employeesForHire.Add(newEmployee);
             }*/
             newEmployee = factoryObject.GetComponent<EmployeeFactory>().GenerateEmployee();
-            this.employeesForHire.Add(newEmployee);
+            data.employeesForHire.Add(newEmployee);
 
             return newEmployee;
         }
@@ -103,34 +111,31 @@ namespace Employees
         }
 
         /// <summary>
-        /// Hires the first employee in the employeesForHire List.
-        /// </summary>
-        /// <returns>EmployeeData of the hired Employee.</returns>
-        public Employee HireEmployee()
-        {
-            var gameObject = new GameObject("Employee");
-            var emp = gameObject.AddComponent<Employee>();
-            EmployeeData empData = employeesForHire[0];
-            hiredEmplyoees.Add(empData);
-            employeesForHire.Remove(empData);
-            emp.init(empData);
-            return emp;
-        }
-
-        /// <summary>
         /// Hires the specified employee.
         /// If the employee does not exist in the employeesForHire List this method will do nothing;
         /// </summary>
         /// <param name="empData">The employee to hire.</param>
-        public Employee HireEmployee(EmployeeData empData)
+        public void HireEmployee(EmployeeData empData, GameObject employeeForHireGui)
         {
-            if (!this.employeesForHire.Contains(empData)) return null;
-            var gameObject = new GameObject("Employee");
-            var emp = gameObject.AddComponent<Employee>();
-            hiredEmplyoees.Add(empData);
-            employeesForHire.Remove(empData);
+            if (!data.employeesForHire.Contains(empData)) return;
+            var employeeGameObject = new GameObject("Employee");
+            var emp = employeeGameObject.AddComponent<Employee>();
+            
+            data.hiredEmployees.Add(empData);
+            data.employeesForHire.Remove(empData);
             emp.init(empData);
-            return emp;
+            
+            var employeeGUI = Instantiate(EmployeeHiredPrefab);
+            employeeGUI.transform.parent = EmployeeHiredContent.transform;
+            //For whatever Reason the scale is set to 0.6. So we change it back to 1
+            employeeGUI.transform.localScale = Vector3.one;
+            employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, () =>
+            {
+                FireEmployee(emp.EmployeeData);
+                Destroy(emp.gameObject);
+                Destroy(employeeGUI);
+            });
+            Destroy(employeeForHireGui);
         }
 
         /// <summary>
@@ -139,9 +144,9 @@ namespace Employees
         /// <param name="emp"></param>
         public void FireEmployee(EmployeeData emp)
         {
-            if (!hiredEmplyoees.Contains(emp)) return;
-            exEmplyoees.Add(emp);
-            hiredEmplyoees.Remove(emp);
+            if (!data.hiredEmployees.Contains(emp)) return;
+            data.exEmplyoees.Add(emp);
+            data.hiredEmployees.Remove(emp);
         }
 
         /// <summary>
@@ -150,8 +155,13 @@ namespace Employees
         /// </summary>
         public void newDay()
         {
-            this.employeesForHire.RemoveAt(0);
+            data.employeesForHire.RemoveAt(0);
             GenerateEmployeeForHire();
+        }
+        
+        public EmployeeManagerData GetData()
+        {
+            return data;
         }
     }
 }

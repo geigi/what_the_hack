@@ -50,6 +50,8 @@ public class Employee : MonoBehaviour {
         var tile = grid.getRandomFreeNode();
 
         gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(tile.gridX, tile.gridY, 0));
+        
+        IdleWalking(true);
     }
 
     /// <summary>
