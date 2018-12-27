@@ -200,7 +200,7 @@ namespace Employees
         {
             var gameDate = (GameDate) date;
             
-            RemoveEmployeeForHire(data.employeesForHire[0]);
+            RemoveEmployeeForHire(data?.employeesForHire[0]);
             var employeeData = GenerateEmployeeForHire();
             AddEmployeeForHire(employeeData);
         }

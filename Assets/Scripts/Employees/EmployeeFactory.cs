@@ -59,18 +59,22 @@ public class EmployeeFactory : MonoBehaviour {
 
     #endregion
 
-    private ContentHub contentHub;
     private static int numberOfBeginningSkills = 3;
 
     private static Random rnd = new Random();
 
+    private ContentHub contentHub;
     private NameLists names;
+    private List<SkillDefinition> skills;
+    private SkillDefinition allPurpSkillDef;
     private Material empMaterial;
 
     public void Awake()
     {
         contentHub = ContentHub.Instance;
         names = contentHub.GetNameLists();
+        skills = contentHub.GetSkillSet().keys;
+        allPurpSkillDef = skills.Find(x => x.skillName.Equals("All Purpose"));
         empMaterial = contentHub.DefaultEmpMaterial;
     }
 
@@ -182,24 +186,10 @@ public class EmployeeFactory : MonoBehaviour {
     /// <returns>The generated EmployeeData.</returns>
     public EmployeeData GenerateEmployee()
     {
-        SkillSet skillSet = contentHub.GetSkillSet();
         EmployeeData employee = new EmployeeData();
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();
         //Skills
-        List<SkillDefinition> skills = skillSet.keys;
-        List<Skill> skillList = new List<Skill>();
-        for (int i = 0; i < numberOfBeginningSkills; i++)
-        {
-            Skill s;
-            do
-            {
-                int index = rnd.Next(maxValue: skills.Count);
-                s = new Skill(skills[index]);
-                s.AddSkillPoints(rnd.Next(100, 1000));
-            } while (skillList.Contains(s));
-            skillList.Add(s);
-        }
-        employee.Skills = skillList;
+        employee.Skills = GenerateSkills();
         //Color
         var employeeParts = Enum.GetValues(typeof(EmployeePart));
         foreach (EmployeePart part in employeeParts)
@@ -223,4 +213,25 @@ public class EmployeeFactory : MonoBehaviour {
         employee.generatedData = generatedData;
         return employee;
     }
+
+    private List<Skill> GenerateSkills()
+    {
+        Skill newSkill = new Skill(allPurpSkillDef);
+        newSkill.AddSkillPoints(rnd.Next(100, 1000));
+        List<Skill> skillList = new List<Skill> {newSkill};
+
+        for (int i = 1; i < numberOfBeginningSkills; i++)
+        {
+            Skill s;
+            do
+            {
+                int index = rnd.Next(maxValue: skills.Count);
+                s = new Skill(skills[index]);
+                s.AddSkillPoints(rnd.Next(100, 1000));
+            } while (skillList.Exists(x => x.skillData.skillName.Equals(s.skillData.skillName)));
+            skillList.Add(s);
+        }
+
+        return skillList;
+    } 
 }
