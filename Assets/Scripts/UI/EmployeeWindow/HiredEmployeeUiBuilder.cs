@@ -18,10 +18,13 @@ namespace UI.EmployeeWindow
         /// </summary>
         public Text employeeState;
 
-        public override void FillSpecificGUIElements()
+        public UnityEvent stateEvent;
+
+        private void UpdateEmployeeState() => employeeState.text = emp.Walking ? "idle" : "Working";
+
+        public void Update()
         {
             empImage.sprite = emp.GetComponent<SpriteRenderer>().sprite;
-            employeeState.text = emp.walking ? "idle" : "Working";
         }
     
         /// <summary>
@@ -29,10 +32,12 @@ namespace UI.EmployeeWindow
         /// </summary>
         /// <param name="_emp">Object of the employee</param>
         /// <param name="buttonAction">Action the button should perform, when pressed</param>
-        public void SetEmp(Employee _emp, UnityAction buttonAction)
+        public void SetEmp(Employee _emp, UnityEvent _stateEvent, UnityAction buttonAction)
         {
             this.emp = _emp;
             base.SetEmp(emp.EmployeeData, buttonAction);
+            this.stateEvent = _stateEvent;
+            this.stateEvent.AddListener(UpdateEmployeeState);
         }
     }
 }

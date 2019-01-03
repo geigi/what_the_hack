@@ -146,10 +146,8 @@ namespace Employees
             
             emp.init(employeeData);
             var employeeGUI = Instantiate(EmployeeHiredPrefab);
-            employeeGUI.transform.parent = EmployeeHiredContent.transform;
-            //For whatever Reason the scale is set to 0.6. So we change it back to 1
-            employeeGUI.transform.localScale = Vector3.one;
-            employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, () =>
+            employeeGUI.transform.SetParent(EmployeeHiredContent.transform, false); 
+            employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, emp.stateEvent, () =>
             {
                 FireEmployee(emp.EmployeeData);
                 Destroy(emp.gameObject);
@@ -199,8 +197,8 @@ namespace Employees
         public void DayChanged(Object date)
         {
             var gameDate = (GameDate) date;
-            
-            RemoveEmployeeForHire(data?.employeesForHire[0]);
+            if(data.employeesForHire.Count > 0)
+                RemoveEmployeeForHire(data.employeesForHire[0]);
             var employeeData = GenerateEmployeeForHire();
             AddEmployeeForHire(employeeData);
         }

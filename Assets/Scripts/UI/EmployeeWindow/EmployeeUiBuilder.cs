@@ -50,30 +50,9 @@ namespace UI.EmployeeWindow
         private EmployeeFactory factory;
 
         /// <summary>
-        /// Needs to be overridden by the subClass.
-        /// To build the UI Elements specific to the child.
-        /// </summary>
-        public abstract void FillSpecificGUIElements();
-
-        /// <summary>
         /// Called at the very beginning
         /// </summary>
         public void Awake() => factory = GameObject.FindWithTag("EmpFactory").GetComponent<EmployeeFactory>();
-    
-        /// <summary>
-        /// Called Once Per Frame
-        /// </summary>
-        protected virtual void Update()
-        {
-            if (employeeData != null)
-            {
-                empName.text = employeeData.generatedData.name;
-                salary.text = $"{employeeData.Salary}$";
-                salaryTime.text = "a week";
-                specialList.text = string.Join(",", specialNames);
-                FillSpecificGUIElements();
-            }
-        }
     
         /// <summary>
         /// Sets the Employee for the UI
@@ -87,6 +66,11 @@ namespace UI.EmployeeWindow
             empImage.material = factory.GetComponent<EmployeeFactory>().GenerateMaterialForEmployee(employeeData.generatedData);
             employeeData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
             button.onClick.AddListener(buttonAction);
+            //EmployeeName, specials and Salary are not going to change, so they can be set once.
+            empName.text = employeeData.generatedData.name;
+            salaryTime.text = "a Week";
+            specialList.text = string.Join(",", specialNames);
+            salary.text = $"{employeeData.Salary}$";
         }
 
         /// <summary>
@@ -102,7 +86,8 @@ namespace UI.EmployeeWindow
                 GameObject skill = Object.Instantiate(skillPrefab);
                 skill.transform.SetParent(skillPanel.gameObject.transform);
                 skill.transform.localScale = Vector3.one;
-                skill.GetComponent<SkillUIBuilder>().skill = s;
+                skill.GetComponent<SkillUIBuilder>().skillEvent = s.skillEvent;
+                skill.GetComponent<SkillUIBuilder>().SetSkill(s);
                 skillUI.Add(skill);
             }
         }

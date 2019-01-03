@@ -14,22 +14,11 @@ namespace UI.EmployeeWindow
         /// Contains every sprite, the employee could have. 
         /// </summary>
         public Sprite[] sprites;
-
-        /// <summary>
-        /// Sprite of the employee specific to this moment.
-        /// </summary>
-        public Sprite sprite;
     
         /// <summary>
         /// Text to display the prize of the employee.
         /// </summary>
         public Text prize;
-
-        public override void FillSpecificGUIElements()
-        {
-            empImage.sprite = sprite;
-            prize.text = $"{employeeData.Prize} $";
-        }
 
         /// <summary>
         /// Set the employee which is hireable.
@@ -39,9 +28,11 @@ namespace UI.EmployeeWindow
         public override void SetEmp(EmployeeData _empData, UnityAction buttonAction)
         {
             base.SetEmp(_empData, buttonAction);
-            sprite = (employeeData.generatedData.gender == "male")
+            empImage.sprite = (employeeData.generatedData.gender == "male")
                 ? sprites[employeeData.generatedData.idleClipIndex]
                 : sprites[4 + employeeData.generatedData.idleClipIndex];
+            //Prize does not change, can be set once.
+            prize.text = $"{employeeData.Prize} $";
         }
     }
 }

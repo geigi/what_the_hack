@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 using Utils;
 using Wth.ModApi.Employees;
@@ -17,6 +18,8 @@ public class Employee : MonoBehaviour {
     public const float regularAnimationSpeed = 1.0f;
     public const float idleAnimationSpeed = 0.75f;
 
+    public UnityEvent stateEvent = new UnityEvent();
+
     public EmployeeData EmployeeData;
     private EmployeeFactory factory;
     private ContentHub contentHub;
@@ -28,8 +31,19 @@ public class Employee : MonoBehaviour {
 
     private Tilemap tilemap;
 
-    public bool walking { get; private set; } = false;
-    public bool idle { get; private set; } = true;
+    //Properties for the current employeeState
+    private bool walking = false;
+    private bool idle = true;
+    public bool Walking
+    {
+        get => walking;
+        private set { walking = value; stateEvent.Invoke(); }
+    }
+    public bool Idle
+    {
+        get => idle;
+        private set { idle = value; stateEvent.Invoke(); }
+    }
 
     private List<Node> path;
     private static readonly int walkingProperty = Animator.StringToHash("walking");
@@ -96,10 +110,10 @@ public class Employee : MonoBehaviour {
     /// <param name="start"></param>
     public void IdleWalking(bool start)
     {
-        idle = start;
-        if (!start & walking)
+        Idle = start;
+        if (!start & Walking)
         {
-            walking = false;
+            Walking = false;
         }
     }
 
@@ -121,11 +135,11 @@ public class Employee : MonoBehaviour {
     IEnumerator FollowPath() {
         bool followingPath = true;
         int pathIndex = 0;
-        this.walking = true;
+        this.Walking = true;
         this.animator.SetTrigger(walkingProperty);
         this.animator.speed = regularAnimationSpeed;
 
-        while (followingPath & walking)
+        while (followingPath & Walking)
         {
             var stepLength = walkingSpeed * Time.deltaTime;
             var step = (path[pathIndex].worldPosition - transform.position).normalized * stepLength;
@@ -166,7 +180,7 @@ public class Employee : MonoBehaviour {
         this.animator.SetTrigger(idleProperty);
         this.animator.speed = idleAnimationSpeed;
         yield return new WaitForSeconds(4);
-        walking = false;
+        Walking = false;
     }
 	
     /// <summary>
@@ -193,7 +207,7 @@ public class Employee : MonoBehaviour {
 	
     // Update is called once per frame
     void Update () {
-        if (idle & !walking)
+        if (Idle & !Walking)
         {
             RequestNewIdleWalk();
         }

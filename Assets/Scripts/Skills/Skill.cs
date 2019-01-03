@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Linq;
+using UE.Events;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// A class for skill objects.
 /// Skills are used to define the specialization of an Employee.
 /// </summary>
-public class Skill {
+public class Skill
+{
+
+    public UnityEvent skillEvent { get; } = new UnityEvent();
 
     /// <summary>
     /// enum that represents employees aptitude to do a certain thing well.
@@ -81,6 +87,7 @@ public class Skill {
             nextLevelPoints = 100 * level * levelFactor;
             skillLevelName = UpdateLevelAptitudeName();
         }
+        skillEvent.Invoke();
     }
 
     /// <summary>

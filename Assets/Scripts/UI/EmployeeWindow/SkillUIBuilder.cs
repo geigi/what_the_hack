@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UE.Events;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
@@ -25,17 +27,16 @@ public class SkillUIBuilder : MonoBehaviour
     /// </summary>
     public Skill skill;
 
-    /// <summary>
-    /// Called once per frame.
-    /// Builds and draws the UI.
-    /// </summary>
-    public void Update()
+    public UnityEvent skillEvent;
+
+    public void SetSkill(Skill _skill)
     {
-        if (skill != null)
-        {
-            skillImage.sprite = skill.GetSprite();
-            skillName.text = skill.GetName();
-            skillLevel.text = $"{skill.skillLevelName} {skill.level}";
-        }
+        this.skill = _skill;
+        skillImage.sprite = skill.GetSprite();
+        skillName.text = skill.GetName();
+        UpdateSkillUi();
+        skillEvent.AddListener(UpdateSkillUi);
     }
+
+    private void UpdateSkillUi() => skillLevel.text = $"{skill.skillLevelName} {skill.level}";
 }
