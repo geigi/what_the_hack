@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using GameSystem;
 using SaveGame;
 using UnityEngine;
@@ -7,6 +8,7 @@ using Wth.ModApi.Employees;
 using Wth.ModApi.Names;
 using Random = System.Random;
 
+[assembly: InternalsVisibleTo("Tests")]
 /// <summary>
 /// Class for generating random EmployeeData and setting the Material for an Employee.
 /// </summary>
@@ -83,7 +85,7 @@ public class EmployeeFactory : MonoBehaviour {
     /// </summary>
     /// <param name="parts">The part a Color should be generated for</param>
     /// <returns>The generated Color</returns>
-    private Color32 GenerateColor(EmployeePart parts)
+    internal Color32 GenerateColor(EmployeePart parts)
     {
         Dictionary<Color32, float> current = GetCurrentDictionary(parts);
         // Generate a Random weighted Color
@@ -144,7 +146,6 @@ public class EmployeeFactory : MonoBehaviour {
     /// <returns></returns>
     public Material GenerateMaterialForEmployee( EmployeeGeneratedData empData)
     {
-        
         Material newMat = new Material(empMaterial);
         SetDefaultMaterialColors(newMat);
         newMat.SetColor("_HairColor", empData.hairColor);
@@ -161,7 +162,7 @@ public class EmployeeFactory : MonoBehaviour {
     /// </summary>
     /// <param name="part">The part of the Employee.</param>
     /// <returns>The Color Dictionary</returns>
-    private Dictionary<Color32, float> GetCurrentDictionary(EmployeePart part)
+    internal Dictionary<Color32, float> GetCurrentDictionary(EmployeePart part)
     {
         switch (part)
         {
@@ -198,10 +199,7 @@ public class EmployeeFactory : MonoBehaviour {
         }
         //Name
         generatedData.AssignRandomGender();
-        NameLists employeeNames = names;
-        generatedData.name = (generatedData.gender == "female") ? employeeNames.RandomName(Lists.surNamesFemale) :
-            employeeNames.RandomName(Lists.surNamesMale);
-        generatedData.name += " " + employeeNames.RandomName(Lists.lastNames);
+        GenerateName(ref generatedData);
 
         //AnimationClips
         int numDiffClips = contentHub.maleAnimationClips.Length / 3;
@@ -214,7 +212,15 @@ public class EmployeeFactory : MonoBehaviour {
         return employee;
     }
 
-    private List<Skill> GenerateSkills()
+    internal void GenerateName(ref EmployeeGeneratedData generatedData)
+    {
+        NameLists employeeNames = names;
+        generatedData.name = (generatedData.gender == "female") ? employeeNames.RandomName(Lists.surNamesFemale) :
+            employeeNames.RandomName(Lists.surNamesMale);
+        generatedData.name += " " + employeeNames.RandomName(Lists.lastNames);
+    }
+
+    internal List<Skill> GenerateSkills()
     {
         Skill newSkill = new Skill(allPurpSkillDef);
         newSkill.AddSkillPoints(rnd.Next(100, 1000));
