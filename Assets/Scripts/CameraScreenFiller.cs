@@ -9,7 +9,12 @@ public class CameraScreenFiller : MonoBehaviour {
 	public PixelPerfectCamera pixelPerfectCamera;
 	public SpriteRenderer background;
 
+	private const bool usePixelCameraSetting = false;
+
 	void Start () {
+		if (usePixelCameraSetting == false)
+			return;
+		
 		if (pixelPerfectCamera != null) {
 			var pixelCameraSetting = PlayerPrefs.GetInt(SettingsManager.PixelPerfectCameraKey);
 			if (pixelCameraSetting == (int)SettingsManager.PixelPerfectCameraValue.Off) {
