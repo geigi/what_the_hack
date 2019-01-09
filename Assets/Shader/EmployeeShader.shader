@@ -1,4 +1,6 @@
-﻿Shader "Sprites/character/EmployeeShader"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Sprites/character/EmployeeShader"
 {
 	Properties
 	{
@@ -40,33 +42,22 @@
             WriteMask[_StencilWriteMask]
         }
         ColorMask[_ColorMask]
-
-		Pass
-		{
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
+        
+		    CGPROGRAM
+		    #pragma surface surf Lambert alpha:fade
 			#include "UnityCG.cginc"
+			#include "UnityLightingCommon.cginc" // for _LightColor0
                 float4 _ClipRect;
-			
 
 			struct v2f
 			{
 				float4 pos : SV_POSITION;
 				half2 uv : TEXCOORD0;
                 float4 worldPosition : TEXCOORD1; //we need to pass world pos to the fragment shader for clipping
+                fixed4 diff : COLOR0; // diffuse lighting color
 			};
 
             sampler2D _MainTex;
-
-			v2f vert (appdata_base v)
-			{
-				v2f o;
-                o.worldPosition = v.vertex;
-				o.pos = UnityObjectToClipPos(o.worldPosition);
-				o.uv = v.texcoord;
-				return o;
-			}
 
 			//Get the Global Variables from above into SubShader
 			fixed4 _HairGreyColor;
@@ -82,11 +73,10 @@
 			fixed4 _EyeGreyColor;
 			fixed4 _EyeColor;
 			float4 _MainTex_TexelSize;
-			
-
-			fixed4 frag (v2f i) : COLOR
+            
+            fixed4 SampleSpriteTexture (float2 uv)
 			{
-				fixed4 col = tex2D(_MainTex, i.uv);
+				fixed4 col = tex2D(_MainTex, uv);
 				col.rgb *= col.a;
 				half4 oldHairColor = _HairGreyColor;
 				half4 newHairColor = _HairColor;
@@ -121,10 +111,19 @@
 				else if (col.r == oldEyeColor.r && col.b == oldEyeColor.b && col.g == oldEyeColor.g && col.a == oldEyeColor.a) {
 					col.rgba = newEyeColor;
 				}
-				//return the new Color
+				
 				return col;
 			}
-			ENDCG
-		}
-	}
+              
+            struct Input {
+                float2 uv_MainTex;
+            };
+              
+            void surf (Input IN, inout SurfaceOutput o) {      
+                fixed4 c = SampleSpriteTexture (IN.uv_MainTex);
+                o.Albedo = c.rgb * c.a; // vertex RGB
+                o.Alpha = c.a;
+            }
+        ENDCG
+    }
 }
