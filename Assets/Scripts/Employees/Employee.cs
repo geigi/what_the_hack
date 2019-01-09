@@ -161,6 +161,8 @@ public class Employee : MonoBehaviour {
                     distance = Vector3.Distance(transform.position, path[pathIndex].worldPosition);
                     step = (path[pathIndex].worldPosition - transform.position).normalized * stepLength;
                 }
+
+                spriteRenderer.sortingOrder = grid.MaxSize - path[pathIndex].gridY;
             }
 
             if (followingPath)

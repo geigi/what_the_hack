@@ -47,7 +47,7 @@ Shader "Sprites/character/EmployeeShader"
 		    #pragma surface surf Lambert alpha:fade
 			#include "UnityCG.cginc"
 			#include "UnityLightingCommon.cginc" // for _LightColor0
-                float4 _ClipRect;
+            float4 _ClipRect;
 
 			struct v2f
 			{
