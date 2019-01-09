@@ -1019,7 +1019,7 @@ GameObject:
   - component: {fileID: 539710646}
   - component: {fileID: 539710647}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: World Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7224,6 +7224,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1856728280}
+  - component: {fileID: 1856728281}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -7251,6 +7252,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1856728281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856728279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 952536d237fc4411a8206fc9d5eaf30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnvironmentLight: {fileID: 539710647}
+  RoomLights:
+  - {fileID: 654206593}
+  - {fileID: 38148904}
+  - {fileID: 197333917}
+  - {fileID: 2023299370}
+  - {fileID: 2010683695}
+  - {fileID: 1767675957}
+  - {fileID: 831376632}
+  - {fileID: 504920052}
+  - {fileID: 1513888366}
+  - {fileID: 988941673}
+  lightMode: 0
+  WorldMin: 0
+  WorldMax: 0.6
+  RoomMin: 0.15
+  RoomMax: 0.6
 --- !u!1 &1867581694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1536429215832930, guid: 72a41ed579c814c2eb8f4f009a7719d4,
