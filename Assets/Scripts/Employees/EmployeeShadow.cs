@@ -36,7 +36,7 @@ public class EmployeeShadow : MonoBehaviour
     public void Awake()
     {
         this.spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-        this.spriteRenderer.sortingOrder = -1;
+        this.spriteRenderer.sortingOrder = 0;
         this.transform.parent = GameObject.FindWithTag("EmployeeShadows").transform;
     }
 

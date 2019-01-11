@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42231ad2e61e7a349b1e99e811c6985c, type: 3}
+  m_Name: TeamWindow
+  m_EditorClassIdentifier: 
+  instanced: 0
+  fileLogging:
+    logToFile: 0
+    FileName: Logs/main.log
+  logToConsole: 0
+  DeveloperDescription: 
+  InitialState: {fileID: 11400000, guid: 3a2ef87384b1f490686d270440841485, type: 2}
