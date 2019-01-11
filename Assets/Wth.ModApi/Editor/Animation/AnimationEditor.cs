@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ namespace Wth.ModApi.Editor
     /// </summary>
     class AnimationEditor : BaseEditor<AnimationClip>
     {
+
         /// <summary>
         /// The default amount of time, a sprite should be displayed in seconds.
         /// </summary>
@@ -48,12 +52,7 @@ namespace Wth.ModApi.Editor
         /// <summary>
         /// List of all keyframes of this animation.
         /// </summary>
-        List<ObjectReferenceKeyframe> spriteKeyFrames;
-
-        /// <summary>
-        /// List how long each sprite should be displayed.
-        /// </summary>
-        List<float> spriteShowingTime;
+        List<KeyFrame> spriteKeyFrames;
 
         /// <summary>
         /// The animation settings.
@@ -113,7 +112,7 @@ namespace Wth.ModApi.Editor
                 GUILayout.Space(20);
                 base.CreateAssetNavigation(spriteKeyFrames.Count);
                 CreateFrameEditing();
-
+                GUILayout.Space(10);
                 if (GUILayout.Button("Save Animation"))
                 {
                     SaveAnimation();
@@ -158,7 +157,7 @@ namespace Wth.ModApi.Editor
         }
 
         /// <summary>
-        /// Drwas the GUI to modify the different keyFrames.
+        /// Draws the GUI to modify the different keyFrames.
         /// </summary>
         void CreateFrameEditing()
         {
@@ -185,12 +184,12 @@ namespace Wth.ModApi.Editor
             {
                 SetSprite();
                 //How long to show the Sprite
-                if (viewIndex < spriteShowingTime.Count)
+                if (viewIndex < spriteKeyFrames.Count)
                 {
                     EditorGUILayout.BeginHorizontal();
                     GUILayout.FlexibleSpace();
-                    spriteShowingTime[viewIndex - 1] = EditorGUILayout.FloatField("Show Sprite for: ",
-                        spriteShowingTime[viewIndex - 1], GUILayout.ExpandWidth(false));
+                    spriteKeyFrames[viewIndex - 1].showingTime = EditorGUILayout.FloatField("Show Sprite for: ",
+                        spriteKeyFrames[viewIndex - 1].showingTime, GUILayout.ExpandWidth(false));
                     EditorGUILayout.LabelField("seconds", GUILayout.ExpandWidth(false));
 
                     if (GUILayout.Button("Adjust Showing time", GUILayout.ExpandWidth(false)))
@@ -201,6 +200,28 @@ namespace Wth.ModApi.Editor
 
                     GUILayout.FlexibleSpace();
                     EditorGUILayout.EndHorizontal();
+                }
+
+                EditorGUI.BeginDisabledGroup(spriteKeyFrames[viewIndex - 1].evt != null);
+                if (GUILayout.Button("Set Shadow Event"))
+                {
+                    spriteKeyFrames[viewIndex - 1].getEventOrNew();
+                }
+                EditorGUI.EndDisabledGroup();
+                if (spriteKeyFrames[viewIndex - 1].evt != null)
+                {
+                    AnimationEvent _evt = spriteKeyFrames[viewIndex - 1].getEventOrNew();
+                    _evt.objectReferenceParameter = EditorGUILayout.ObjectField("Shadow Sprite", _evt.objectReferenceParameter, typeof(Sprite), false) as
+                        Sprite;
+                    _evt.time = spriteKeyFrames[viewIndex - 1].frame.time;
+                    spriteKeyFrames[viewIndex - 1].evt = _evt;
+                    GUILayout.BeginHorizontal();
+                    GUILayout.FlexibleSpace();
+                    if (GUILayout.Button("Delete Event", GUILayout.ExpandWidth(false)))
+                    {
+                        spriteKeyFrames[viewIndex - 1].evt = null;
+                    }
+                    GUILayout.EndHorizontal();
                 }
             }
         }
@@ -221,8 +242,7 @@ namespace Wth.ModApi.Editor
             emp = null;
             asset = new AnimationClip();
             asset.frameRate = 12;
-            spriteKeyFrames = new List<ObjectReferenceKeyframe>();
-            spriteShowingTime = new List<float>();
+            spriteKeyFrames = new List<KeyFrame>();
             spriteBinding = new EditorCurveBinding();
             spriteBinding.type = typeof(SpriteRenderer);
             spriteBinding.propertyName = "m_Sprite";
@@ -254,12 +274,11 @@ namespace Wth.ModApi.Editor
         #region UtilFunctions
 
         /// <summary>
-        /// Gets thje binding keyframes and displying times into their variables.
+        /// Gets the binding keyframes and displaying times into their variables.
         /// </summary>
         void GetSubAssets()
         {
-            Debug.Log(asset);
-            spriteShowingTime = new List<float>();
+            List<AnimationEvent> events = new List<AnimationEvent>(asset.events);
             animClipSettings = AnimationUtility.GetAnimationClipSettings(asset);
             if (animClipSettings == null)
                 animClipSettings = new AnimationClipSettings();
@@ -271,24 +290,26 @@ namespace Wth.ModApi.Editor
                 ObjectReferenceKeyframe[] frames = AnimationUtility.GetObjectReferenceCurve(asset, spriteBinding);
                 if (frames == null)
                     frames = new ObjectReferenceKeyframe[0];
-                spriteKeyFrames = new List<ObjectReferenceKeyframe>(frames);
-
-                // Get the Sprite Time Showings
-                for (int i = 1; i < spriteKeyFrames.Count; i++)
+                spriteKeyFrames = new List<KeyFrame>();
+                for (var i = 0; i < frames.Length; i++)
                 {
-                    spriteShowingTime.Add((spriteKeyFrames[i].time - spriteKeyFrames[i - 1].time) * asset.frameRate /
-                                          100);
+                    var keyFrame = frames[i];
+                    // Does this keyFrame have a corresponding event?
+                    AnimationEvent currEvent = events.Find((evt) => keyFrame.time == evt.time);
+                    float spriteTime = defaultSpriteTime;
+                    if (i < frames.Length - 1)
+                    {
+                        spriteTime = (frames[i + 1].time) - frames[i].time *
+                                     asset.frameRate / 100;
+                    }
+                    spriteKeyFrames.Add(new KeyFrame(keyFrame, spriteTime, currEvent));
                 }
-
-                //For Convenience add a Time to the last Frame, even though it can not be changed, except if I
-                // find a workaround.
-                spriteShowingTime.Add(defaultSpriteTime);
             }
             else
             {
                 spriteBinding = new EditorCurveBinding();
                 spriteBinding.propertyName = "m_Sprite";
-                spriteKeyFrames = new List<ObjectReferenceKeyframe>();
+                spriteKeyFrames = new List<KeyFrame>();
             }
         }
 
@@ -297,8 +318,10 @@ namespace Wth.ModApi.Editor
         /// </summary>
         void SaveAnimation()
         {
-            AnimationUtility.SetObjectReferenceCurve(asset, spriteBinding, spriteKeyFrames.ToArray());
+            AnimationUtility.SetObjectReferenceCurve(asset, spriteBinding, KeyFrame.KeyFramesToArray(spriteKeyFrames));
             AnimationUtility.SetAnimationClipSettings(asset, animClipSettings);
+            var events = KeyFrame.EventsToArray(spriteKeyFrames);
+            AnimationUtility.SetAnimationEvents(asset, events);
             EditorUtility.SetDirty(asset);
             AssetDatabase.SaveAssets();
             if (emp != null)
@@ -369,11 +392,11 @@ namespace Wth.ModApi.Editor
         /// </summary>
         void SetSprite()
         {
-            ObjectReferenceKeyframe frame = spriteKeyFrames[viewIndex - 1];
+            ObjectReferenceKeyframe frame = spriteKeyFrames[viewIndex - 1].frame;
             frame.value =
-                EditorGUILayout.ObjectField("Sprite", spriteKeyFrames[viewIndex - 1].value, typeof(Sprite), false) as
+                EditorGUILayout.ObjectField("Sprite", frame.value, typeof(Sprite), false) as
                     Sprite;
-            spriteKeyFrames[viewIndex - 1] = frame;
+            spriteKeyFrames[viewIndex - 1].frame = frame;
         }
 
         /// <summary>
@@ -383,18 +406,18 @@ namespace Wth.ModApi.Editor
         string SetSpriteDisplayTime()
         {
             string notification;
-            if (spriteShowingTime[viewIndex - 1] >= 0.01f)
+            if (spriteKeyFrames[viewIndex - 1].showingTime >= 0.01f)
             {
-                float oldTime = (spriteKeyFrames[viewIndex].time - spriteKeyFrames[viewIndex - 1].time) *
+                float oldTime = (spriteKeyFrames[viewIndex].frame.time - spriteKeyFrames[viewIndex - 1].frame.time) *
                                 asset.frameRate;
                 oldTime /= 100;
-                float diff = spriteShowingTime[viewIndex - 1] - oldTime;
-                for (int i = viewIndex; i < spriteShowingTime.Count; i++)
+                float diff = spriteKeyFrames[viewIndex - 1].showingTime - oldTime;
+                for (int i = viewIndex; i < spriteKeyFrames.Count; i++)
                 {
-                    ObjectReferenceKeyframe currentFrame = spriteKeyFrames[i];
+                    ObjectReferenceKeyframe currentFrame = spriteKeyFrames[i].frame;
                     currentFrame.time = (currentFrame.time * asset.frameRate) + (diff * 100);
                     currentFrame.time /= asset.frameRate;
-                    spriteKeyFrames[i] = currentFrame;
+                    spriteKeyFrames[i].frame = currentFrame;
                 }
 
                 notification = "Adjustet Times succesfuly, dont forget to save your Animation!";
@@ -414,8 +437,7 @@ namespace Wth.ModApi.Editor
         {
             ObjectReferenceKeyframe keyFrame = new ObjectReferenceKeyframe();
             keyFrame.time = spriteKeyFrames.Count / asset.frameRate;
-            spriteKeyFrames.Add(keyFrame);
-            spriteShowingTime.Add(defaultSpriteTime);
+            spriteKeyFrames.Add(new KeyFrame(keyFrame, defaultSpriteTime));
             viewIndex = spriteKeyFrames.Count;
         }
 
@@ -424,17 +446,16 @@ namespace Wth.ModApi.Editor
         /// </summary>
         void DeleteFrame()
         {
-            float moveby = spriteShowingTime[viewIndex - 1];
-            spriteShowingTime.RemoveAt(viewIndex - 1);
+            float moveby = spriteKeyFrames[viewIndex - 1].showingTime;
             spriteKeyFrames.RemoveAt(viewIndex - 1);
             //Move all Frames after that
             if (viewIndex <= spriteKeyFrames.Count)
             {
                 for (int i = viewIndex - 1; i < spriteKeyFrames.Count; i++)
                 {
-                    ObjectReferenceKeyframe current = spriteKeyFrames[i];
+                    ObjectReferenceKeyframe current = spriteKeyFrames[i].frame;
                     current.time -= moveby / asset.frameRate;
-                    spriteKeyFrames[i] = current;
+                    spriteKeyFrames[i].frame = current;
                 }
             }
 

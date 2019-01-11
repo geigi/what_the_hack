@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
@@ -34,6 +35,10 @@ public class Employee : MonoBehaviour {
     //Properties for the current employeeState
     private bool walking = false;
     private bool idle = true;
+
+    private GameObject EmployeeShadow;
+    private EmployeeShadow shadow;
+    
     public bool Walking
     {
         get => walking;
@@ -79,6 +84,9 @@ public class Employee : MonoBehaviour {
         this.EmployeeData = employeeData;
         spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 
+        EmployeeShadow = new GameObject("EmployeeShadow");
+        shadow = EmployeeShadow.AddComponent<EmployeeShadow>();
+
         // place the right animations.
         this.animator = gameObject.AddComponent<Animator>();
         RuntimeAnimatorController run = ContentHub.Instance.EmployeeAnimations;
@@ -95,14 +103,33 @@ public class Employee : MonoBehaviour {
         {
             //generated Employee. Animation needs to be set.
             var anims = (employeeData.generatedData.gender == "female") ? clipsFemale : clipsMale;
-            animatorOverrideController["dummy_idle"] = anims[employeeData.generatedData.idleClipIndex];  
-            animatorOverrideController["dummy_walking"] = anims[employeeData.generatedData.walkingClipIndex];
-            animatorOverrideController["dummy_working"] = anims[employeeData.generatedData.workingClipIndex];
+            var idle_anim = anims[employeeData.generatedData.idleClipIndex];
+            SetAnimationEventFunction(ref idle_anim);
+            var walking_anim = anims[employeeData.generatedData.walkingClipIndex];
+            SetAnimationEventFunction(ref walking_anim);
+            var working_anim = anims[employeeData.generatedData.workingClipIndex];
+            SetAnimationEventFunction(ref working_anim);
+            animatorOverrideController["dummy_idle"] = idle_anim;
+            animatorOverrideController["dummy_walking"] = walking_anim;
+            animatorOverrideController["dummy_working"] = working_anim;
             // Add the Material.
             spriteRenderer.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
         }
         this.animator.runtimeAnimatorController = animatorOverrideController;
+
     }
+
+    public void SetAnimationEventFunction(ref AnimationClip clip)
+    {
+        AnimationEvent[] events = clip.events;
+        for (int i = 0; i < events.Length; i++)
+        {
+            events[i].functionName = "SetSpriteThroughScript";
+        }
+        AnimationUtility.SetAnimationEvents(clip, events);
+    }
+
+    private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);
 
     /// <summary>
     /// Start/Stop idle walking.
@@ -161,6 +188,7 @@ public class Employee : MonoBehaviour {
                     distance = Vector3.Distance(transform.position, path[pathIndex].worldPosition);
                     step = (path[pathIndex].worldPosition - transform.position).normalized * stepLength;
                 }
+                // Set shadow
             }
 
             if (followingPath)
@@ -175,8 +203,9 @@ public class Employee : MonoBehaviour {
                 transform.Translate(step);
                 yield return null;
             }
+            shadow.Position = transform.position;
         }
-
+        
         this.animator.SetTrigger(idleProperty);
         this.animator.speed = idleAnimationSpeed;
         yield return new WaitForSeconds(4);
@@ -211,5 +240,10 @@ public class Employee : MonoBehaviour {
         {
             RequestNewIdleWalk();
         }
+    }
+
+    void OnDestroy()
+    {
+        Destroy(EmployeeShadow);
     }
 }
