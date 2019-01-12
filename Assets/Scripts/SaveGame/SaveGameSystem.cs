@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Employees;
+using Missions;
 using Pathfinding;
 using UnityEngine;
 
@@ -14,6 +16,9 @@ namespace SaveGame
     public class SaveGameSystem : MonoBehaviour
     {
         public const string DEFAULT_SAVE_GAME_NAME = "savegame";
+
+        public EmployeeManager EmployeeManager;
+        public MissionManager MissionManager;
 
         private MainSaveGame currentSaveGame;
         
@@ -29,16 +34,18 @@ namespace SaveGame
         
         /// <summary>
         /// Create a new savegame object.
-        /// This mehtod gathers all data and prepares the object
+        /// This method gathers all data and prepares the object
         /// for storage.
         /// </summary>
         /// <param name="saveGameName"></param>
         /// <returns></returns>
-        public static MainSaveGame CreateNewSaveGame(string saveGameName)
+        private MainSaveGame CreateNewSaveGame(string saveGameName)
         {
             MainSaveGame saveGame = new MainSaveGame();
             saveGame.name = saveGameName;
             saveGame.saveDate = DateTime.Now;
+            saveGame.employeeManagerData = EmployeeManager.GetData();
+            saveGame.missionManagerData = MissionManager.GetData();
             FillTileMapData(saveGame);
 
             return saveGame;
@@ -49,7 +56,7 @@ namespace SaveGame
         /// </summary>
         /// <param name="saveGameName"></param>
         /// <returns></returns>
-        public static bool SaveGame(string saveGameName)
+        public bool SaveGame(string saveGameName)
         {
             var saveGame = CreateNewSaveGame(saveGameName);
             return SaveGameToFile(saveGame);

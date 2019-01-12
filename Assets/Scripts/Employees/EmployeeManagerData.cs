@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Wth.ModApi.Employees;
 
-namespace Assets.Scripts.Employees
+namespace Employees
 {
     [Serializable]
     public class EmployeeManagerData

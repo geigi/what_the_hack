@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Employees;
+using Employees;
 using GameTime;
+using Missions;
 using Wth.ModApi.Employees;
 
 namespace SaveGame
@@ -43,5 +44,10 @@ namespace SaveGame
 		/// All persistent data from employee manager.
 		/// </summary>
 		public EmployeeManagerData employeeManagerData;
+		
+		/// <summary>
+		/// All persistent data from employee manager.
+		/// </summary>
+		public MissionManagerData missionManagerData;
 	}
 }

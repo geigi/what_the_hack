@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using SaveGame;
 using UnityEngine;
 
 /// <summary>
@@ -55,6 +56,11 @@ public sealed class ContentHub: MonoBehaviour
     /// Animator controller for employee animations.
     /// </summary>
     public RuntimeAnimatorController EmployeeAnimations;
+
+    /// <summary>
+    /// The game wide saveGameSystem instance.
+    /// </summary>
+    public SaveGameSystem SaveGameSystem;
 
     /// <summary>
     /// Get the current <see cref="SkillSet"/>. 

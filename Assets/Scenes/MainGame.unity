@@ -2845,6 +2845,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1750285355412430, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224707745214837442, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3313,10 +3317,6 @@ PrefabInstance:
     - target: {fileID: 1834233867097826, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1750285355412430, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224593702529461488, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -6502,26 +6502,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 223052424371392150, guid: 72a41ed579c814c2eb8f4f009a7719d4,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 223052424371392150, guid: 72a41ed579c814c2eb8f4f009a7719d4,
-        type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 223052424371392150, guid: 72a41ed579c814c2eb8f4f009a7719d4,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 880719678}
-    - target: {fileID: 223052424371392150, guid: 72a41ed579c814c2eb8f4f009a7719d4,
-        type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1002669989
-      objectReference: {fileID: 0}
     - target: {fileID: 224593702529461488, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -6586,16 +6566,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114596075209876444, guid: 72a41ed579c814c2eb8f4f009a7719d4,
-        type: 3}
-      propertyPath: m_Value
-      value: 0.29411766
-      objectReference: {fileID: 0}
-    - target: {fileID: 114737725557421048, guid: 72a41ed579c814c2eb8f4f009a7719d4,
-        type: 3}
-      propertyPath: m_Value
-      value: 0.25531915
       objectReference: {fileID: 0}
     - target: {fileID: 224997689932129862, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -6706,6 +6676,36 @@ PrefabInstance:
     - target: {fileID: 1332255386290718, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
       propertyPath: m_Name
       value: TeamTabSwitcher
+      objectReference: {fileID: 0}
+    - target: {fileID: 223052424371392150, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223052424371392150, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223052424371392150, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 880719678}
+    - target: {fileID: 223052424371392150, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1002669989
+      objectReference: {fileID: 0}
+    - target: {fileID: 114596075209876444, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 114737725557421048, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.25531915
       objectReference: {fileID: 0}
     - target: {fileID: 114466533332880262, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -7231,16 +7231,6 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: -454.78265
       objectReference: {fileID: 0}
-    - target: {fileID: 114596075209876444, guid: 72a41ed579c814c2eb8f4f009a7719d4,
-        type: 3}
-      propertyPath: m_Value
-      value: 0.29411766
-      objectReference: {fileID: 0}
-    - target: {fileID: 114737725557421048, guid: 72a41ed579c814c2eb8f4f009a7719d4,
-        type: 3}
-      propertyPath: m_Value
-      value: 0.25531915
-      objectReference: {fileID: 0}
     - target: {fileID: 224997689932129862, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -7350,6 +7340,16 @@ PrefabInstance:
     - target: {fileID: 1332255386290718, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
       propertyPath: m_Name
       value: ShopTabSwitcher
+      objectReference: {fileID: 0}
+    - target: {fileID: 114596075209876444, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.29411766
+      objectReference: {fileID: 0}
+    - target: {fileID: 114737725557421048, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.25531915
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
@@ -10553,6 +10553,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: a79da60bfb0610c45b838f1e42cfcd60, type: 2}
   - {fileID: 7400000, guid: a40d3f40acdf6f94198add60fa8ae360, type: 2}
   EmployeeAnimations: {fileID: 9100000, guid: 20d931de2cf4e42f685bf7d43c7b1bbe, type: 2}
+  SaveGameSystem: {fileID: 2117680113}
 --- !u!114 &2117680111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10590,3 +10591,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31017082ed5564070a222d8d5c661597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EmployeeManager: {fileID: 0}
+  MissionManager: {fileID: 0}

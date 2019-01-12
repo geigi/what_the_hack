@@ -23,7 +23,7 @@ namespace GameSystem
 		void OnApplicationPause(bool isPaused)
 		{
 			if (isPaused)
-				SaveGameSystem.SaveGame(SaveGameSystem.DEFAULT_SAVE_GAME_NAME);
+				ContentHub.Instance.SaveGameSystem.SaveGame(SaveGameSystem.DEFAULT_SAVE_GAME_NAME);
 		}
 	}
 }
