@@ -3,4 +3,4 @@
 	url = https://github.com/Unity-Technologies/2d-extras.git
 [submodule "Assets/UnityEnhanced"]
 	path = Assets/UnityEnhanced
-	url = ../../wth/unityenhanced.git
+	url = https://github.com/geigi/UnityEnhanced.git
