@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -74,6 +75,6 @@ MonoBehaviour:
   - Wth.ModApi.Editor
   - Newtonsoft.Json
   _assemblyGUIDs:
-  - 
-  - 
-  - 
+  - 527d9c67063b4456db7b6d4a288137ae
+  - 22920b482191a4783a51bc61e7d45580
+  - a9c5b7bf3b8fd4957afd7d91e73eb7c7

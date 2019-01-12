@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ModToolSettings
   m_EditorClassIdentifier: 
   _productName: What_the_Hack
-  _unityVersion: 2018.3.0b11
+  _unityVersion: 2018.3.1f1
   _supportedPlatforms: 15
   _supportedContent: 7
   _logLevel: 3
