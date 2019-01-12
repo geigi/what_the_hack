@@ -1499,6 +1499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 423788364}
   - component: {fileID: 423788363}
+  - component: {fileID: 423788365}
   m_Layer: 0
   m_Name: SettingsManager
   m_TagString: Untagged
@@ -1539,6 +1540,18 @@ RectTransform:
   m_AnchoredPosition: {x: 382.5, y: 229}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &423788365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423788362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccdcbc7e79624688855bd84b970ff2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &429276810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,7 +2624,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 321.52628, y: 0}
+  m_AnchoredPosition: {x: 322.02545, y: 0}
   m_SizeDelta: {x: 200, y: 40}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &817569026
@@ -2666,7 +2679,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 423788363}
+      - m_Target: {fileID: 423788365}
         m_MethodName: SetGameTime
         m_Mode: 0
         m_Arguments:
@@ -3171,7 +3184,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 423788363}
+      - m_Target: {fileID: 423788365}
         m_MethodName: SetPixelPerfectCamera
         m_Mode: 0
         m_Arguments:
@@ -5082,8 +5095,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 268.36862, y: -60.61051}
-  m_SizeDelta: {x: 421.52625, y: 40}
+  m_AnchoredPosition: {x: 241.10187, y: -58.409588}
+  m_SizeDelta: {x: 422.02545, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1499234288
 MonoBehaviour:
@@ -5387,7 +5400,7 @@ PrefabInstance:
     - target: {fileID: 224585422429223084, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -29.999939
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 224585422429223084, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -7884,7 +7897,7 @@ PrefabInstance:
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 404.48007
+      value: 380.09662
       objectReference: {fileID: 0}
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
@@ -7894,12 +7907,12 @@ PrefabInstance:
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 149.30336
+      value: 144.03595
       objectReference: {fileID: 0}
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40.61051
+      value: 38.409588
       objectReference: {fileID: 0}
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
@@ -8433,7 +8446,7 @@ PrefabInstance:
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 70.76314
+      value: 71.01273
       objectReference: {fileID: 0}
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
@@ -8443,12 +8456,12 @@ PrefabInstance:
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 101.52628
+      value: 102.02547
       objectReference: {fileID: 0}
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 26.277391
+      value: 26.406591
       objectReference: {fileID: 0}
     - target: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
         type: 3}

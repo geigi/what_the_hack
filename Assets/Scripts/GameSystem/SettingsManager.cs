@@ -1,29 +1,21 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine;
 
 namespace GameSystem
 {
-    /// <summary>
-    /// This class handles all global application settings.
-    /// </summary>
-    public class SettingsManager : MonoBehaviour {
+    public class SettingsManager: MonoBehaviour
+    {
         /// <summary>
-        /// Dropdown object for the pixel perfect camera setting.
-        /// </summary>
-        public Dropdown pixelPerfectDropdown;
-        /// <summary>
-        /// Dropdown object for the game time mode setting.
-        /// </summary>
-        public Dropdown gameTimeDropdown;
-
-        /// <summary>
-        /// Enum for pixel perfect camera setting representation.
+        /// String for pixel perfect camera setting representation.
         /// </summary>
         public const string PixelPerfectCameraKey = "Pixel_Perfect";
         /// <summary>
-        /// Enum for game time mode setting representation.
+        /// String for game time mode setting representation.
         /// </summary>
         public const string GameTimeKey = "Game_Time";
+        /// <summary>
+        /// String for daytime setting representation.
+        /// </summary>
+        public const string DayTimeKey = "Day_Time";
         
         public enum PixelPerfectCameraValue {
             Off=0,
@@ -35,27 +27,6 @@ namespace GameSystem
         /// This enum represents the two different game modes.
         /// </summary>
         public enum GameTimeMode { Classic, Realtime }
-
-        /// <summary>
-        /// Start is called on the frame when a script is enabled just before
-        /// any of the Update methods is called the first time.
-        /// </summary>
-        public	void Start()
-        {
-            if (PlayerPrefs.HasKey(PixelPerfectCameraKey)) {
-                pixelPerfectDropdown.value = PlayerPrefs.GetInt(PixelPerfectCameraKey);
-            }
-            else {
-                PlayerPrefs.SetInt(PixelPerfectCameraKey, 1);
-            }
-		    
-            if (PlayerPrefs.HasKey(GameTimeKey)) {
-                gameTimeDropdown.value = PlayerPrefs.GetInt(GameTimeKey);
-            }
-            else {
-                PlayerPrefs.SetInt(GameTimeKey, 0);
-            }
-        }
 
         /// <summary>
         /// Save pixel perfect camera dropdown value to PlayerPrefs.
@@ -72,6 +43,14 @@ namespace GameSystem
         public void SetGameTime(int dropdownValue) {
             PlayerPrefs.SetInt(GameTimeKey, dropdownValue);
         }
+        
+        /// <summary>
+        /// Save daytime slider value to PlayerPrefs.
+        /// </summary>
+        /// <param name="sliderValue">0.0f-1.0f</param>
+        public static void SetDayTime(float sliderValue) {
+            PlayerPrefs.SetFloat(DayTimeKey, sliderValue);
+        }
 
         /// <summary>
         /// Get the current game time mode.
@@ -80,6 +59,13 @@ namespace GameSystem
         public static GameTimeMode GetGameTime()
         {
             return (GameTimeMode) PlayerPrefs.GetInt(GameTimeKey);
+        }
+        
+        /// <summary>
+        /// Get the daytime slider value from PlayerPrefs.
+        /// </summary>
+        public static float GetDayTime() {
+            return PlayerPrefs.GetFloat(DayTimeKey);
         }
     }
 }

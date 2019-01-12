@@ -1,4 +1,6 @@
+using GameSystem;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace World
 {
@@ -6,43 +8,32 @@ namespace World
     {
         public Light EnvironmentLight;
         public Light[] RoomLights;
-
-        [SerializeField]
-        private LightModes lightMode;
-        public LightModes LightMode
-        {
-            get { return lightMode; }
-            set
-            {
-                lightMode = value;
-                if (value == LightModes.Day)
-                {
-                    EnvironmentLight.intensity = WorldMax;
-                    foreach (var l in RoomLights)
-                    {
-                        l.intensity = RoomMin;
-                    }
-                }
-                else if (value == LightModes.Night)
-                {
-                    EnvironmentLight.intensity = WorldMin;
-                    foreach (var l in RoomLights)
-                    {
-                        l.intensity = RoomMax;
-                    }
-                }
-            }
-        }
+        public Slider DaytimeSlider;
 
         public float WorldMin = 0f;
         public float WorldMax = 0.6f;
         public float RoomMin = 0.15f;
         public float RoomMax = 0.6f;
 
-        public enum LightModes
+        private void Start()
         {
-            Day,
-            Night,
+            DaytimeSlider.value = SettingsManager.GetDayTime();
+            UpdateDayTime();
+            DaytimeSlider.onValueChanged.AddListener(delegate {UpdateDayTime();});
+        }
+
+        private void UpdateDayTime()
+        {
+            SettingsManager.SetDayTime(DaytimeSlider.value);
+            
+            var worldRange = WorldMax - WorldMin;
+            EnvironmentLight.intensity = worldRange * DaytimeSlider.value + WorldMin;
+
+            var roomRange = RoomMax - RoomMin;
+            foreach (var roomLight in RoomLights)
+            {
+                roomLight.intensity = RoomMax - roomRange * DaytimeSlider.value;
+            }
         }
     }
 }
