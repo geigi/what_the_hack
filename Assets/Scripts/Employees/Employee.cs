@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
@@ -126,7 +125,7 @@ public class Employee : MonoBehaviour {
         {
             events[i].functionName = "SetSpriteThroughScript";
         }
-        AnimationUtility.SetAnimationEvents(clip, events);
+        //AnimationUtility.SetAnimationEvents(clip, events);
     }
 
     private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);
