@@ -14,9 +14,9 @@ namespace Wth.ModApi.Editor
     /// <typeparam name="T">The Type of ScriptableObject that is to be edited.</typeparam>
     public abstract class BaseEditor<T> : EditorWindow where T : UnityEngine.Object
     {
-	    /// <summary>
-	    /// This method constructs the editor GUI.
-	    /// </summary>
+        /// <summary>
+        /// This method constructs the editor GUI.
+        /// </summary>
         public abstract void OnGUI();
 
         /// <summary>
@@ -36,20 +36,20 @@ namespace Wth.ModApi.Editor
         /// </summary>
         public bool NeedsDictionary = false;
 
-								/// <summary>
-								/// If this Editor referes to a Scriptable Object, which should be able create new assets and save these assets
-								/// via Json, this variable should be set to true.
-								/// </summary>
-								public bool JsonSerializable = false;
+        /// <summary>
+        /// If this Editor referes to a Scriptable Object, which should be able create new assets and save these assets
+        /// via Json, this variable should be set to true.
+        /// </summary>
+        public bool JsonSerializable = false;
 
         /// <summary>
         /// The current Item of the SkillSet.
         /// </summary>
         protected int viewIndex = 1;
-        
-	    /// <summary>
-	    /// This method gets called when the GUI is enabled.
-	    /// </summary>
+
+        /// <summary>
+        /// This method gets called when the GUI is enabled.
+        /// </summary>
         protected virtual void OnEnable()
         {
             if (EditorPrefs.HasKey("AssetPath" + assetName))
@@ -59,11 +59,11 @@ namespace Wth.ModApi.Editor
             }
         }
 
-	    /// <summary>
-	    /// Creates a new asset at the given path.
-	    /// </summary>
-	    /// <param name="assetPath">Path where asset will be saved</param>
-		public abstract void CreateNewAsset(string assetPath);
+        /// <summary>
+        /// Creates a new asset at the given path.
+        /// </summary>
+        /// <param name="assetPath">Path where asset will be saved</param>
+        public abstract void CreateNewAsset(string assetPath);
 
         /// <summary>
         /// Creates a new Asset of type T.
@@ -73,7 +73,7 @@ namespace Wth.ModApi.Editor
         {
             // There is no overwrite protection here!
             viewIndex = 1;
-            
+
             // Create directories if necessary
             var dir = Path.GetDirectoryName(assetPath);
             if (dir != null)
@@ -104,9 +104,11 @@ namespace Wth.ModApi.Editor
                     this.asset = asset;
                     EditorPrefs.SetString("AssetPath" + assetName, relPath);
                 }
-																return relPath;
+
+                return relPath;
             }
-												return absPath;
+
+            return absPath;
         }
 
         /// <summary>
@@ -126,32 +128,37 @@ namespace Wth.ModApi.Editor
                     Selection.activeObject = this.asset;
                 }
             }
+
             if (GUILayout.Button("Open " + objectName))
             {
                 this.OpenAsset(objectName);
             }
+
             if (GUILayout.Button("New " + objectName))
             {
                 this.CreateNewAsset(assetPath);
                 EditorUtility.FocusProjectWindow();
                 Selection.activeObject = this.asset;
             }
-												if(JsonSerializable && GUILayout.Button("New " + objectName + " from JSON"))
-												{
-																string path = EditorUtility.OpenFilePanel("Choose JSON file", "", "json");
-																if (File.Exists(path))
-																{
-																				try
-																				{
-																								string json = File.ReadAllText(path);
-																								JsonUtility.FromJsonOverwrite(json, asset);
-																				} catch (Exception e)
-																				{
-																					Debug.Log(e);
-																					ShowNotification(new GUIContent("Could not parse JSON correctly"));
-																				}
-																}
-												}
+
+            if (JsonSerializable && GUILayout.Button("New " + objectName + " from JSON"))
+            {
+                string path = EditorUtility.OpenFilePanel("Choose JSON file", "", "json");
+                if (File.Exists(path))
+                {
+                    try
+                    {
+                        string json = File.ReadAllText(path);
+                        JsonUtility.FromJsonOverwrite(json, asset);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Log(e);
+                        ShowNotification(new GUIContent("Could not parse JSON correctly"));
+                    }
+                }
+            }
+
             GUILayout.EndHorizontal();
         }
 
@@ -173,9 +180,11 @@ namespace Wth.ModApi.Editor
 
             GUILayout.Space(20);
 
-            viewIndex = Mathf.Clamp(EditorGUILayout.IntField("Current " + assetName, viewIndex, GUILayout.ExpandWidth(false)), 1, numItems);
+            viewIndex = Mathf.Clamp(
+                EditorGUILayout.IntField("Current " + assetName, viewIndex, GUILayout.ExpandWidth(false)), 1, numItems);
             GUILayout.Space(5);
-            EditorGUILayout.LabelField("of   " + numItems.ToString() + "   " + assetName + "s", "", GUILayout.ExpandWidth(false));
+            EditorGUILayout.LabelField("of   " + numItems.ToString() + "   " + assetName + "s", "",
+                GUILayout.ExpandWidth(false));
 
             GUILayout.Space(20);
 
@@ -186,36 +195,39 @@ namespace Wth.ModApi.Editor
                     viewIndex++;
                 }
             }
+
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
         }
 
-								/// <summary>
-								/// If JsonSerializable is set to true, this method will display a button to save the Scriptable Object to a JSON file.
-								/// If JsonSerializable is set to false, this method will do nothing.
-								/// </summary>
-								protected void SaveToJSON()
-								{
-												GUILayout.BeginHorizontal();
-												GUILayout.FlexibleSpace();
-												if (JsonSerializable && GUILayout.Button("Save To JSON", GUILayout.ExpandWidth(false)))
-												{
-																string path = EditorUtility.SaveFilePanel("Save Names as JSON", "", assetName + ".json", "json");
-																if (path.Length != 0)
-																{
-																				try
-																				{
-																								string json = JsonUtility.ToJson(asset);
-																								File.WriteAllText(path, json);
-																				} catch (Exception e)
-																				{
-																					Debug.Log(e);
-																					ShowNotification(new GUIContent("Could not Save Object to JSON"));
-																				}
-																}
-												}
-												GUILayout.EndHorizontal();
-								}
+        /// <summary>
+        /// If JsonSerializable is set to true, this method will display a button to save the Scriptable Object to a JSON file.
+        /// If JsonSerializable is set to false, this method will do nothing.
+        /// </summary>
+        protected void SaveToJSON()
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (JsonSerializable && GUILayout.Button("Save To JSON", GUILayout.ExpandWidth(false)))
+            {
+                string path = EditorUtility.SaveFilePanel("Save Names as JSON", "", assetName + ".json", "json");
+                if (path.Length != 0)
+                {
+                    try
+                    {
+                        string json = JsonUtility.ToJson(asset);
+                        File.WriteAllText(path, json);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.Log(e);
+                        ShowNotification(new GUIContent("Could not Save Object to JSON"));
+                    }
+                }
+            }
+
+            GUILayout.EndHorizontal();
+        }
 
         /// <summary>
         /// Save all dirty assets to disk and update the scriptable object dictionary.
@@ -236,12 +248,12 @@ namespace Wth.ModApi.Editor
                 return;
 
             var dictionary = EditorTools.GetScriptableObjectDictionary();
-            
+
             foreach (var item in GetList())
             {
                 dictionary.AddUpdate(AssetDatabase.GetAssetPath(item), item);
             }
-            
+
             EditorUtility.SetDirty(dictionary);
             AssetDatabase.SaveAssets();
         }

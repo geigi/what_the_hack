@@ -215,9 +215,9 @@ public class EmployeeFactory : MonoBehaviour {
     internal void GenerateName(ref EmployeeGeneratedData generatedData)
     {
         NameLists employeeNames = names;
-        generatedData.name = (generatedData.gender == "female") ? employeeNames.RandomName(Lists.surNamesFemale) :
-            employeeNames.RandomName(Lists.surNamesMale);
-        generatedData.name += " " + employeeNames.RandomName(Lists.lastNames);
+        generatedData.name = (generatedData.gender == "female") ? employeeNames.PersonName(PersonNames.FemaleFirstName) :
+            employeeNames.PersonName(PersonNames.MaleFirstName);
+        generatedData.name += " " + employeeNames.PersonName(PersonNames.LastName);
     }
 
     internal List<Skill> GenerateSkills()

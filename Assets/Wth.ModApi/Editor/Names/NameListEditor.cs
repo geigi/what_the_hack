@@ -1,133 +1,164 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-using Wth.ModApi.Names;
 using Wth.ModApi.Editor.Tools;
+using Wth.ModApi.Names;
 
 namespace Wth.ModApi.Editor.Names
 {
-				/// <summary>
-				/// Editor Window for editing names.
-				/// </summary>
-				class NameEditor : BaseEditor<NameLists>
-				{
+    /// <summary>
+    /// Editor Window for editing names.
+    /// </summary>
+    class NameEditor : BaseEditor<NameLists>
+    {
+        /// <summary>
+        /// The current list, which is being modified.
+        /// </summary>
+        List<string> currentList;
 
-								/// <summary>
-								/// The current list, which is being modified.
-								/// </summary>
-								List<string> currentList;
+        /// <summary>
+        /// The name of the current list.
+        /// </summary>
+        PersonNames currentPersonNamePersonName = PersonNames.MaleFirstName;
 
-								/// <summary>
-								/// The name of the current list.
-								/// </summary>
-								Lists currentListName = Lists.surNamesMale;
+        private int dropdownSelected = 0;
 
-								/// <summary>
-								/// Default constructor.
-								/// </summary>
-								public NameEditor()
-								{
-												assetName = "Name";
-												NeedsDictionary = false;
-												JsonSerializable = true;
-								}
+        private static readonly string[] dropdownList = new string[] 
+        {
+            "Male First Names",
+            "Female First Names",
+            "Last Names",
+            "Companies",
+            "Password Applications",
+            "Universities",
+            "Web Services",
+            "Software",
+            "Towns",
+            "Countries",
+            "Institutions"
+        };
 
-								/// <summary>
-								/// Initializes the window.
-								/// </summary>
-								[MenuItem("Tools/What_The_Hack ModApi/Name Editor", priority = 60)]
-								static void Init()
-								{
-												EditorWindow.GetWindow(typeof(NameEditor), false, "Name Editor");
-								}
+        private List<string>[] dropdownStorage;
 
-								/// <summary>
-								/// Draws the GUI.
-								/// </summary>
-								public override void OnGUI()
-								{
-												base.CreateListButtons("Assets/Data/Names/Names.asset", "Name List");
-												GUILayout.Space(20);
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public NameEditor()
+        {
+            assetName = "Name";
+            NeedsDictionary = false;
+            JsonSerializable = true;
+        }
 
-												if(asset)
-												{
-																// Make dropdown menu.
-																currentListName = (Lists)EditorGUILayout.EnumPopup("Current List:", currentListName);
-																currentList = (currentListName == Lists.surNamesMale) ? asset.surNamesMale :
-																				(currentListName == Lists.surNamesFemale) ? asset.surNamesFemale : asset.lastNames;
+        /// <summary>
+        /// Initializes the window.
+        /// </summary>
+        [MenuItem("Tools/What_The_Hack ModApi/Name Editor", priority = 60)]
+        static void Init()
+        {
+            GetWindow(typeof(NameEditor), false, "Name Editor");
+        }
 
-																base.CreateAssetNavigation(currentList.Count);
-																GUILayout.Space(5);
+        /// <summary>
+        /// Draws the GUI.
+        /// </summary>
+        public override void OnGUI()
+        {
+            base.CreateListButtons("Assets/Data/Names/Names.asset", "Name List");
+            GUILayout.Space(20);
 
-																GUILayout.BeginHorizontal();
-																GUILayout.FlexibleSpace();
-																if (GUILayout.Button("Add Name", GUILayout.ExpandWidth(false)))
-																				AddItem();
-																if (GUILayout.Button("Delete Name", GUILayout.ExpandWidth(false)))
-																				DeleteItem();
-																GUILayout.FlexibleSpace();
-																GUILayout.EndHorizontal();
+            if (asset)
+            {
+                dropdownStorage = new []
+                {
+                    asset.firstNamesMale,
+                    asset.firstNamesFemale,
+                    asset.lastNames,
+                    asset.companyNames,
+                    asset.passwordApplications,
+                    asset.universities,
+                    asset.webServices,
+                    asset.software,
+                    asset.towns,
+                    asset.countries,
+                    asset.institutions
+                };
+                
+                // Make dropdown menu.
+                dropdownSelected = EditorGUILayout.Popup("Current List:", dropdownSelected, dropdownList);
+                currentList = dropdownStorage[dropdownSelected];
 
-																if (currentList.Count > 0)
-																{
-																				GUILayout.Space(5);
-																				currentList[viewIndex - 1] = EditorGUILayout.TextField("Name: ", currentList[viewIndex - 1]);
+                base.CreateAssetNavigation(currentList.Count);
+                GUILayout.Space(5);
 
-																				GUILayout.Space(5);
-																				if (GUILayout.Button("Save Names"))
-																								AssetDatabase.SaveAssets();
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                if (GUILayout.Button("Add Name", GUILayout.ExpandWidth(false)))
+                    AddItem();
+                if (GUILayout.Button("Delete Name", GUILayout.ExpandWidth(false)))
+                    DeleteItem();
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
 
-																				GUILayout.Space(10);
-																				SaveToJSON();
-																} else
-																{
-																				viewIndex = 0;
-																}
-												}
+                if (currentList.Count > 0)
+                {
+                    GUILayout.Space(5);
+                    currentList[viewIndex - 1] = EditorGUILayout.TextField("Name: ", currentList[viewIndex - 1]);
 
-												if(GUI.changed)
-												{
-																EditorUtility.SetDirty(asset);
-												}
-								}
+                    GUILayout.Space(5);
+                    if (GUILayout.Button("Save Names"))
+                        AssetDatabase.SaveAssets();
 
-								/// <summary>
-								/// Creates a new asset at the specified path.
-								/// </summary>
-								/// <param name="assetPath">Path the asset should be created.</param>
-								public override void CreateNewAsset(string assetPath)
-								{
-												base.CreateDirectories(assetPath);
-												asset = EditorTools.Create<NameLists>(assetPath);
+                    GUILayout.Space(10);
+                    SaveToJSON();
+                }
+                else
+                {
+                    viewIndex = 0;
+                }
+            }
 
-												if(asset)
-												{
-																string relPath = AssetDatabase.GetAssetPath(asset);
-																EditorPrefs.SetString("AssetPath" + assetName, relPath);
-												}
-								}
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(asset);
+            }
+        }
 
-								/// <summary>
-								/// Adds a new name to the current list.
-								/// </summary>
-								void AddItem()
-								{
-												currentList.Add("new name");
-												viewIndex = this.currentList.Count();
-								}
+        /// <summary>
+        /// Creates a new asset at the specified path.
+        /// </summary>
+        /// <param name="assetPath">Path the asset should be created.</param>
+        public override void CreateNewAsset(string assetPath)
+        {
+            base.CreateDirectories(assetPath);
+            asset = EditorTools.Create<NameLists>(assetPath);
 
-								/// <summary>
-								/// Deletes the name from the list.
-								/// </summary>
-								void DeleteItem()
-								{
-												viewIndex -= 1;
-												currentList.RemoveAt(viewIndex);
-												viewIndex = currentList.Count;
-								}
-				}
+            if (asset)
+            {
+                string relPath = AssetDatabase.GetAssetPath(asset);
+                EditorPrefs.SetString("AssetPath" + assetName, relPath);
+            }
+        }
+
+        /// <summary>
+        /// Adds a new name to the current list.
+        /// </summary>
+        void AddItem()
+        {
+            currentList.Add("new name");
+            viewIndex = currentList.Count();
+        }
+
+        /// <summary>
+        /// Deletes the name from the list.
+        /// </summary>
+        void DeleteItem()
+        {
+            viewIndex -= 1;
+            currentList.RemoveAt(viewIndex);
+            viewIndex = currentList.Count;
+        }
+    }
 }
