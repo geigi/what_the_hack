@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Employees
 {
+    /// <summary>
+    /// This class manages team specific stuff like calculating the game progress.
+    /// </summary>
     public class TeamManager: MonoBehaviour
     {
         #region Singleton
@@ -18,6 +21,10 @@ namespace Employees
         #endregion
 
 
+        /// <summary>
+        /// Calculate the current game progress.
+        /// </summary>
+        /// <returns></returns>
         public int calcGameProgress()
         {
             return 0;

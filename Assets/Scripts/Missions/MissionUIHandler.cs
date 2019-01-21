@@ -8,6 +8,9 @@ using UnityEngine.Events;
 
 namespace Missions
 {
+    /// <summary>
+    /// This selector is only used to select between the three different mission lists of the mission manager.
+    /// </summary>
     public enum MissionHandlerSelector
     {
         Available,
@@ -15,6 +18,10 @@ namespace Missions
         Completed
     }
     
+    /// <summary>
+    /// This component attaches to a mission event by the <see cref="MissionManager"/>.
+    /// It updates the UI with new missions and removes old ones.
+    /// </summary>
     public class MissionUIHandler: MonoBehaviour
     {
         public GameEvent Event;
@@ -29,6 +36,10 @@ namespace Missions
             Event.AddListener(listener);
         }
 
+        /// <summary>
+        /// Handle the event.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private void handle()
         {
             List<Mission> missions;
@@ -52,6 +63,10 @@ namespace Missions
             addNew(missions);
         }
 
+        /// <summary>
+        /// Remove old missions from the UI.
+        /// </summary>
+        /// <param name="missions">Missions that are active.</param>
         private void removeOld(List<Mission> missions)
         {
             foreach (Transform child in transform)
@@ -65,6 +80,10 @@ namespace Missions
             }
         }
 
+        /// <summary>
+        /// Add new missions to the UI.
+        /// </summary>
+        /// <param name="missions">Missions that are active.</param>
         private void addNew(List<Mission> missions)
         {
             foreach (var mission in missions)

@@ -67,15 +67,28 @@ namespace Missions
             return mission;
         }
         
+        /// <summary>
+        /// Calculate the duration for this mission.
+        /// </summary>
+        /// <param name="mission"></param>
         private void calcDurationVariance(Mission mission) {
             mission.Duration = Math.Max(MissionDurationMinimum, mission.Duration + RandomUtils.var(MissionDurationVariance));
             mission.RemainingDays = mission.Duration;
         }
         
+        /// <summary>
+        /// Generate outcome for a mission.
+        /// </summary>
+        /// <param name="mission"></param>
         private void generateOutcome(Mission mission) {
             mission.RewardMoney = calcRewardMoney(mission);
         }
         
+        /// <summary>
+        /// Generate skill difficulties for a given mission.
+        /// </summary>
+        /// <param name="mission"></param>
+        /// <param name="baseDifficulty">Base difficulty that will be added to the calculated difficulty.</param>
         private void RandomSkillValues(Mission mission, int baseDifficulty)
         {
 
@@ -91,10 +104,23 @@ namespace Missions
             }
         }
         
+        /// <summary>
+        /// Calculate the difficulty for a single skill.
+        /// </summary>
+        /// <param name="difficulty"></param>
+        /// <param name="numSkills">Number of total skills required for the mission.</param>
+        /// <returns></returns>
         private float calcSkillDifficulty(int difficulty, int numSkills) {
             return Math.Min(1, (difficulty * 2) / (float) (numSkills + 0.9)) * SkillPowerPerDifficulty;
         }
         
+        /// <summary>
+        /// Calculate the mission level.
+        /// </summary>
+        /// <param name="baseDifficulty">Base difficulty gets multiplied with calculated difficulty.</param>
+        /// <param name="hardness"></param>
+        /// <param name="duration"></param>
+        /// <returns></returns>
         private int calcMissionLevel(int baseDifficulty, float hardness, int duration) {
             return Math.Max(1, (int) (
                 baseDifficulty
@@ -103,6 +129,11 @@ namespace Missions
                 * RandomUtils.mult_var(MissionDifficultyVariance)));
         }
         
+        /// <summary>
+        /// Calculate the reward money for a given mission.
+        /// </summary>
+        /// <param name="mission"></param>
+        /// <returns></returns>
         public int calcRewardMoney(Mission mission) {
             return (int) (Math.Sqrt(mission.Difficulty) * /*(1 + mission.getRisk()) * */ RandomUtils.mult_var(MissionRewardmoneyVariance) * MissionRewardmoneyFactor) * 10;
         }
@@ -112,6 +143,10 @@ namespace Missions
             return Math.Min(2, 1f + 2f / duration);
         }
         
+        /// <summary>
+        /// Generate random placeholder replacements for a given mission.
+        /// </summary>
+        /// <param name="mission"></param>
         private void SetPlaceholders(Mission mission)
         {
             var nameList = ContentHub.Instance.GetNameLists();

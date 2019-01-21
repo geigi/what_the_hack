@@ -11,6 +11,10 @@ using Object = UnityEngine.Object;
 
 namespace Missions
 {
+    /// <summary>
+    /// This class is responsible for the management of missions.
+    /// This includes shuffling the currently available missions.
+    /// </summary>
     public class MissionManager : MonoBehaviour, Saveable<MissionManagerData>
     {
         #region Singleton
@@ -96,11 +100,18 @@ namespace Missions
             refreshOpenMissions();
         }
 
+        /// <summary>
+        /// Get the data object that needs to be serialized.
+        /// </summary>
+        /// <returns></returns>
         public MissionManagerData GetData()
         {
             return data;
         }
 
+        /// <summary>
+        /// Refresh the missions currently available.
+        /// </summary>
         private void refreshOpenMissions()
         {
             removeMissions(RefreshRate);
@@ -108,6 +119,10 @@ namespace Missions
             AvailableMissionsChanged.Raise();
         }
 
+        /// <summary>
+        /// Remove missions from the open list.
+        /// </summary>
+        /// <param name="fraction">Fraction to be removed.</param>
         private void removeMissions(float fraction)
         {
             int removeAmount = MathUtils.Clamp((int) (fraction * MaxOpenMission), 0, data.Available.Count);
@@ -117,6 +132,9 @@ namespace Missions
             }
         }
 
+        /// <summary>
+        /// Fill the open missions list until the maximum is reached.
+        /// </summary>
         private void fillOpenMissions()
         {
             int gameProgress = TeamManager.Instance.calcGameProgress();

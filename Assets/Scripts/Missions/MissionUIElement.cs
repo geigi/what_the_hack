@@ -3,6 +3,10 @@ using UnityEngine.UI;
 
 namespace Missions
 {
+    /// <summary>
+    /// This component should be attached to the MissionUIElement prefab.
+    /// It contains methods to set the mission data to the ui components.
+    /// </summary>
     public class MissionUIElement: MonoBehaviour
     {
         public Text Name;
@@ -17,6 +21,10 @@ namespace Missions
         
         private Mission mission;
         
+        /// <summary>
+        /// Set the data of the given mission to the UI elements.
+        /// </summary>
+        /// <param name="mission"></param>
         public void SetMission(Mission mission)
         {
             this.mission = mission;
@@ -43,6 +51,10 @@ namespace Missions
             }
         }
 
+        /// <summary>
+        /// Return the mission displayed in this UI element.
+        /// </summary>
+        /// <returns></returns>
         public Mission GetMission()
         {
             return mission;
