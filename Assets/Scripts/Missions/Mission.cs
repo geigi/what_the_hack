@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Missions
 {
@@ -21,6 +22,18 @@ namespace Missions
             SkillDifficulty = new Dictionary<SkillDefinition, int>();
             Progress = new Dictionary<SkillDefinition, float>();
             Replacements = new Dictionary<string, string>();
+        }
+
+        public string GetName()
+        {
+            return Replacements.Aggregate(Definition.Title,
+                (current, value) => current.Replace(value.Key, value.Value));
+        }
+
+        public string GetDescription()
+        {
+            return Replacements.Aggregate(Definition.Description,
+                (current, value) => current.Replace(value.Key, value.Value));
         }
     }
 }

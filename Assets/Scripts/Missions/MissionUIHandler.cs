@@ -60,7 +60,7 @@ namespace Missions
                 if (!missions.Contains(uiElement.GetMission()))
                 {
                     child.parent = null;
-                    Destroy(child);
+                    Destroy(child.gameObject);
                 }
             }
         }
