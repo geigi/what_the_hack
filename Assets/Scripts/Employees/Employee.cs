@@ -25,7 +25,7 @@ public class Employee : MonoBehaviour {
     private ContentHub contentHub;
     private GameObject employeeLayer;
     private SpriteRenderer spriteRenderer;
-    private Animator animator;
+    protected internal Animator animator;
     private AnimationClip[] clipsMale, clipsFemale;
     private AGrid grid;
 
@@ -79,7 +79,7 @@ public class Employee : MonoBehaviour {
     /// <param name="employeeData">Data for this employee.</param>
     public void init(EmployeeData employeeData)
     {
-        this.factory = GameObject.FindWithTag("EmpFactory").GetComponent<EmployeeFactory>();
+        this.factory = new EmployeeFactory();
         this.EmployeeData = employeeData;
         spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
 
@@ -90,42 +90,47 @@ public class Employee : MonoBehaviour {
         this.animator = gameObject.AddComponent<Animator>();
         RuntimeAnimatorController run = ContentHub.Instance.EmployeeAnimations;
         var animatorOverrideController = new AnimatorOverrideController(run);
-        
+
+        AnimationClip idle_anim;
+        AnimationClip walking_anim;
+        AnimationClip working_anim;
+
         if(employeeData.EmployeeDefinition != null)
         {
             Debug.Log("This is a special Employee");
             //special employee
-            animatorOverrideController["dummy_idle"] = employeeData.EmployeeDefinition.IdleAnimation;
-            animatorOverrideController["dummy_walking"] = employeeData.EmployeeDefinition.WalkingAnimation;
-            animatorOverrideController["dummy_working"] = employeeData.EmployeeDefinition.WorkingAnimation;
+            idle_anim = employeeData.EmployeeDefinition.IdleAnimation;
+            walking_anim = employeeData.EmployeeDefinition.WalkingAnimation;
+            working_anim = employeeData.EmployeeDefinition.WorkingAnimation;
         } else
         {
             //generated Employee. Animation needs to be set.
             var anims = (employeeData.generatedData.gender == "female") ? clipsFemale : clipsMale;
-            var idle_anim = anims[employeeData.generatedData.idleClipIndex];
-            SetAnimationEventFunction(ref idle_anim);
-            var walking_anim = anims[employeeData.generatedData.walkingClipIndex];
-            SetAnimationEventFunction(ref walking_anim);
-            var working_anim = anims[employeeData.generatedData.workingClipIndex];
-            SetAnimationEventFunction(ref working_anim);
-            animatorOverrideController["dummy_idle"] = idle_anim;
-            animatorOverrideController["dummy_walking"] = walking_anim;
-            animatorOverrideController["dummy_working"] = working_anim;
+            idle_anim = anims[employeeData.generatedData.idleClipIndex];
+            walking_anim = anims[employeeData.generatedData.walkingClipIndex];
+            working_anim = anims[employeeData.generatedData.workingClipIndex];
             // Add the Material.
             spriteRenderer.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
         }
+        idle_anim = SetAnimationEventFunction(ref idle_anim);
+        walking_anim = SetAnimationEventFunction(ref walking_anim);
+        working_anim = SetAnimationEventFunction(ref working_anim);
+        animatorOverrideController["dummy_idle"] = idle_anim;
+        animatorOverrideController["dummy_walking"] = walking_anim;
+        animatorOverrideController["dummy_working"] = working_anim;
         this.animator.runtimeAnimatorController = animatorOverrideController;
 
     }
 
-    public void SetAnimationEventFunction(ref AnimationClip clip)
+    public AnimationClip SetAnimationEventFunction(ref AnimationClip clip)
     {
-        AnimationEvent[] events = clip.events;
-        for (int i = 0; i < events.Length; i++)
+        AnimationClip anim = clip;
+        for (var index = 0; index < anim.events.Length; index++)
         {
-            events[i].functionName = "SetSpriteThroughScript";
+            anim.events[index].functionName = "SetSpriteThroughScript";
         }
-        //AnimationUtility.SetAnimationEvents(clip, events);
+
+        return anim;
     }
 
     private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);

@@ -13,6 +13,9 @@ using Random = System.Random;
 
 namespace Assets.Tests
 {
+    /// <summary>
+    /// Tests for EmployeeFactory.
+    /// </summary>
     public class EmployeeFactoryTests
     {
 
@@ -22,22 +25,29 @@ namespace Assets.Tests
         [SetUp]
         public void SetUp()
         {
-            factory = (EmployeeFactory) FormatterServices.GetUninitializedObject(typeof(EmployeeFactory));
-            factory.Awake();
+            factory = new EmployeeFactory();
         }
 
+        /// <summary>
+        /// Test the Generate Material Method.
+        /// Asserts that each Material Color is Set to a Color from the specific Dictionary.s 
+        /// </summary>
         [Test]
         public void GenerateMaterialTest()
         {
             Material material = factory.GenerateMaterial();
-            Assert.AreNotEqual(EmployeeFactory.defaultHair, material.GetColor("_HairColor"));
-            Assert.AreNotEqual(EmployeeFactory.defaultSkin, material.GetColor("_SkinColor"));
-            Assert.AreNotEqual(EmployeeFactory.defaultEyes, material.GetColor("_EyeColor"));
-            Assert.AreNotEqual(EmployeeFactory.defaultShirt, material.GetColor("_ShirtColor"));
-            Assert.AreNotEqual(EmployeeFactory.defaultShoes, material.GetColor("_ShoeColor"));
-            Assert.AreNotEqual(EmployeeFactory.defaultShorts, material.GetColor("_ShortsColor"));
+            Assert.IsTrue(EmployeeFactory.hairColors.Keys.Contains<Color32>(material.GetColor("_HairColor")));
+            Assert.IsTrue(EmployeeFactory.skinColors.Keys.Contains<Color32>(material.GetColor("_SkinColor")));
+            Assert.IsTrue(EmployeeFactory.eyesColors.Keys.Contains<Color32>(material.GetColor("_EyeColor")));
+            Assert.IsTrue(EmployeeFactory.shirtColors.Keys.Contains<Color32>(material.GetColor("_ShirtColor")));
+            Assert.IsTrue(EmployeeFactory.shoesColors.Keys.Contains<Color32>(material.GetColor("_ShoeColor")));
+            Assert.IsTrue(EmployeeFactory.shortsColors.Keys.Contains<Color32>(material.GetColor("_ShortsColor")));
         }
 
+        /// <summary>
+        /// Tests the GenerateColorForEmployeeMethod.
+        /// Asserts that all Colors are correctly set.
+        /// </summary>
         [Test]
         public void GenerateColorForEmployeeTest()
         {
@@ -51,6 +61,10 @@ namespace Assets.Tests
             Assert.AreEqual((Color) emp.skinColor, mat.GetColor("_SkinColor"));
         }
 
+        /// <summary>
+        /// Tests the GenerateSkill Method.
+        /// Asserts that the "All Purpose" Skill is generated and that there are no duplicate skills.
+        /// </summary>
         [Test]
         public void GenerateSkillsTest()
         {
@@ -62,16 +76,25 @@ namespace Assets.Tests
             Assert.IsFalse(skills.Any(skill => !hash.Add(skill.GetName())));
         }
 
+        /// <summary>
+        /// Tests the GenerateColor Method.
+        /// Assert that the Color Generated for an EmployeePart corresponds to a color in the specific Dictionary.
+        /// </summary>
         [Test]
         public void GenerateColorTest()
         {
             var enumValues = Enum.GetValues(typeof(EmployeePart));
-            System.Random rnd = new System.Random();
-            var part = (EmployeePart) enumValues.GetValue(rnd.Next(enumValues.Length));
-            Color32 col = factory.GenerateColor(part);
-            Assert.IsTrue(factory.GetCurrentDictionary(part).ContainsKey(col));
+            foreach (EmployeePart empPart in enumValues)
+            {
+                Color32 col = factory.GenerateColor(empPart);
+                Assert.IsTrue(factory.GetCurrentDictionary(empPart).ContainsKey(col));
+            }
         }
 
+        /// <summary>
+        /// Generates a Mocked Employee.
+        /// </summary>
+        /// <returns>The Mocked Employee</returns>
         private EmployeeGeneratedData GenerateMockedEmployee()
         {
             EmployeeGeneratedData genData = new EmployeeGeneratedData();

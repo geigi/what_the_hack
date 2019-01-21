@@ -12,7 +12,7 @@ using Random = System.Random;
 /// <summary>
 /// Class for generating random EmployeeData and setting the Material for an Employee.
 /// </summary>
-public class EmployeeFactory : MonoBehaviour {
+public class EmployeeFactory {
 
     #region Colors
 
@@ -71,7 +71,7 @@ public class EmployeeFactory : MonoBehaviour {
     private SkillDefinition allPurpSkillDef;
     private Material empMaterial;
 
-    public void Awake()
+    public EmployeeFactory()
     {
         contentHub = ContentHub.Instance;
         names = contentHub.GetNameLists();
@@ -119,10 +119,8 @@ public class EmployeeFactory : MonoBehaviour {
     }
 
     /// <summary>
-    /// Generates a new Material, with random Colors, based on the Material provided as a Parameter.
-    /// The Material provided as a parameter is not changed during the process.
+    /// Generates a new Material, with random Colors.
     /// </summary>
-    /// <param name="standardMaterial">The standard Material, from which a new Material should be generated.</param>
     /// <returns>A new Material with random colors.</returns>
     public Material GenerateMaterial()
     {
@@ -185,7 +183,7 @@ public class EmployeeFactory : MonoBehaviour {
     /// Generates new and random EmployeeData.
     /// </summary>
     /// <returns>The generated EmployeeData.</returns>
-    public EmployeeData GenerateEmployee()
+    public virtual EmployeeData GenerateEmployee()
     {
         EmployeeData employee = new EmployeeData();
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();

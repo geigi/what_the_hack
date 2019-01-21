@@ -3,11 +3,11 @@ using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.UI.EmployeeWindow;
 using GameSystem;
 using GameTime;
 using Interfaces;
 using UE.Events;
-using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
@@ -60,7 +60,7 @@ namespace Employees
         /// <summary>
         /// This dictionary maps an employeeData object to its GUI GameObject.
         /// </summary>
-        private Dictionary<EmployeeData, GameObject> EmployeeToGuiMap;
+        protected internal Dictionary<EmployeeData, GameObject> EmployeeToGuiMap;
 
         private ContentHub contentHub;
 
@@ -72,7 +72,7 @@ namespace Employees
                 InitDefaultState();
             else
                 LoadState();
-
+            factoryObject = new EmployeeFactory();
             dayChangedAction += DayChanged;
             GameTimeDayTickEvent.AddListener(dayChangedAction);
         }
@@ -91,7 +91,7 @@ namespace Employees
         /// Initializes the EmployeeManager. This Method should be called before using the Manager.
         /// Generates 4 employees for hire.
         /// </summary>
-        private void InitDefaultState()
+        protected internal void InitDefaultState()
         {
             contentHub = ContentHub.Instance;
 
@@ -125,7 +125,7 @@ namespace Employees
         public EmployeeData GenerateEmployeeForHire()
         {
             EmployeeData newEmployee = new EmployeeData();
-            newEmployee = factoryObject.GetComponent<EmployeeFactory>().GenerateEmployee();
+            newEmployee = factoryObject.GenerateEmployee();
 
             return newEmployee;
         }
@@ -154,7 +154,7 @@ namespace Employees
             });
         }
         
-        public void RemoveEmployeeForHire(EmployeeData employeeData)
+        public virtual void RemoveEmployeeForHire(EmployeeData employeeData)
         {
             data.employeesForHire.Remove(employeeData);
             Destroy(EmployeeToGuiMap[employeeData]);
@@ -207,7 +207,7 @@ namespace Employees
             return data;
         }
 
-        private void AddEmployeeForHireToGui(EmployeeData employeeData)
+        protected internal virtual void AddEmployeeForHireToGui(EmployeeData employeeData)
         {
             GameObject empGUI = Instantiate(EmployeeForHirePrefab);
             empGUI.transform.SetParent(EmployeeForHireContent.transform);

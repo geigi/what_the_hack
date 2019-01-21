@@ -135,7 +135,7 @@ public class ScriptableObjectDictionary: ScriptableObject
     /// <returns></returns>
     public ScriptableObject GetObject(string key)
     {
-        var entry = Dictionary.First(x => x.Key == key);
+        var entry = Dictionary.FirstOrDefault(x => x.Key == key);
         if (entry != null)
             return entry.ScriptableObject;
         else return null;

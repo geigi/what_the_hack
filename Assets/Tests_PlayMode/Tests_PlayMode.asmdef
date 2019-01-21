@@ -1,0 +1,12 @@
+﻿{
+    "name": "Tests_PlayMode",
+    "references": [
+        "MainAssembly",
+        "Wth.ModApi"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace UI.EmployeeWindow
+namespace Assets.Scripts.UI.EmployeeWindow
 {
     /// <summary>
     /// UiBuilder for hired employees.

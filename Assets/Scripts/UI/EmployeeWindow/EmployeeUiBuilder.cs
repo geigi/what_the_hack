@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Wth.ModApi.Employees;
 using Object = UnityEngine.Object;
 
-namespace UI.EmployeeWindow
+[assembly: InternalsVisibleTo("Tests_PlayMode")]
+namespace Assets.Scripts.UI.EmployeeWindow
 {
     /// <summary>
     /// Parent Class for the EmployeeUI
@@ -48,11 +50,6 @@ namespace UI.EmployeeWindow
         private List<GameObject> skillUI;
         private readonly List<string> specialNames = new List<string>();
         private EmployeeFactory factory;
-
-        /// <summary>
-        /// Called at the very beginning
-        /// </summary>
-        public void Awake() => factory = GameObject.FindWithTag("EmpFactory").GetComponent<EmployeeFactory>();
     
         /// <summary>
         /// Sets the Employee for the UI
@@ -62,21 +59,22 @@ namespace UI.EmployeeWindow
         public virtual void SetEmp(EmployeeData _empData, UnityAction buttonAction)
         {
             this.employeeData = _empData;
+            factory = new EmployeeFactory();
             GenerateSkillGui();
-            empImage.material = factory.GetComponent<EmployeeFactory>().GenerateMaterialForEmployee(employeeData.generatedData);
+            empImage.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
             employeeData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
             button.onClick.AddListener(buttonAction);
             //EmployeeName, specials and Salary are not going to change, so they can be set once.
             empName.text = employeeData.generatedData.name;
             salaryTime.text = "a Week";
             specialList.text = string.Join(",", specialNames);
-            salary.text = $"{employeeData.Salary}$";
+            salary.text = $"{employeeData.Salary} $";
         }
 
         /// <summary>
         /// Builds the UI to display all skills of this employee. 
         /// </summary>
-        private void GenerateSkillGui()
+        internal virtual void GenerateSkillGui()
         {
             skillUI = new List<GameObject>();
             var skills = employeeData.Skills;

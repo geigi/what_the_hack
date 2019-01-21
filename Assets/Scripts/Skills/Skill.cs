@@ -35,7 +35,7 @@ public class Skill
     /// <summary>
     /// A factor by which nextLevelPoints is multiplied each time, this skill levels up.
     /// </summary>
-    private static float levelFactor = 1.9f;
+    protected internal static float levelFactor = 1.9f;
 
     /// <summary>
     /// Instance to store the skillData.
@@ -60,7 +60,7 @@ public class Skill
     /// <summary>
     /// The number of points needed to advance a Level.
     /// </summary>
-    private float nextLevelPoints;
+    protected internal float nextLevelPoints;
 
     ///<summary>
     ///Constructor for this skill.

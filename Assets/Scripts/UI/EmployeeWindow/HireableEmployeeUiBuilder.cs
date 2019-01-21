@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using Wth.ModApi.Employees;
 
-namespace UI.EmployeeWindow
+namespace Assets.Scripts.UI.EmployeeWindow
 {
     /// <summary>
     /// UiBuilder for hireable employees. 
