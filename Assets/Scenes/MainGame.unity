@@ -1687,6 +1687,58 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &553733953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 553733954}
+  - component: {fileID: 553733955}
+  m_Layer: 0
+  m_Name: Employees
+  m_TagString: EmployeeManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &553733954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553733953}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2117680109}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &553733955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553733953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6343164789c960d4fa9eaec024335c2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  factoryObject: {fileID: 204955279}
+  EmployeeForHirePrefab: {fileID: 1123180270652526, guid: 19b9308372b8895439c6dff2cfc44e41,
+    type: 3}
+  EmployeeHiredPrefab: {fileID: 1123180270652526, guid: 3603f05b597105142ba259d59b4ace4b,
+    type: 3}
+  EmployeeForHireContent: {fileID: 1688115420}
+  EmployeeHiredContent: {fileID: 1959018098}
+  GameTimeDayTickEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7,
+    type: 2}
 --- !u!1 &570398032
 GameObject:
   m_ObjectHideFlags: 0
@@ -3665,6 +3717,28 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 707499237}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &707499239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1095238066654326, guid: 72a41ed579c814c2eb8f4f009a7719d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 707499237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &707499240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707499239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5f594aee114d198a01c6b651901134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 0b732ce3b8049432bb7820470b7c915d, type: 2}
+  Selector: 0
+  MissionPrefab: {fileID: 199104747231006967, guid: 663f10318d28149f78c44d41d7b06845,
+    type: 3}
 --- !u!1 &720796761
 GameObject:
   m_ObjectHideFlags: 0
@@ -5069,6 +5143,22 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 707499237}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1204247375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204247374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5f594aee114d198a01c6b651901134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 185ae06ca5650444dbcb8965b72c97e5, type: 2}
+  Selector: 1
+  MissionPrefab: {fileID: 199104747231006967, guid: 663f10318d28149f78c44d41d7b06845,
+    type: 3}
 --- !u!114 &1204247377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7860,6 +7950,7 @@ GameObject:
   - component: {fileID: 1765235017}
   - component: {fileID: 1765235018}
   - component: {fileID: 1765235019}
+  - component: {fileID: 1765235020}
   m_Layer: 5
   m_Name: Content
   m_TagString: EmployeeGUI
@@ -7923,6 +8014,22 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!114 &1765235020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765235016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5f594aee114d198a01c6b651901134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 73033b5eed3e74a22b15adca53d9b4f6, type: 2}
+  Selector: 2
+  MissionPrefab: {fileID: 199104747231006967, guid: 663f10318d28149f78c44d41d7b06845,
+    type: 3}
 --- !u!1 &1767675955
 GameObject:
   m_ObjectHideFlags: 0
@@ -10461,11 +10568,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2117680109}
-  - component: {fileID: 2117680108}
   - component: {fileID: 2117680112}
   - component: {fileID: 2117680111}
   - component: {fileID: 2117680110}
   - component: {fileID: 2117680113}
+  - component: {fileID: 2117680108}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Managers
@@ -10482,18 +10589,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2117680107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6343164789c960d4fa9eaec024335c2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d19e52f3d3c4ca5bab1a6d0b062f5e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factoryObject: {fileID: 204955279}
-  EmployeeForHirePrefab: {fileID: 1123180270652526, guid: 19b9308372b8895439c6dff2cfc44e41,
-    type: 3}
-  EmployeeHiredPrefab: {fileID: 1123180270652526, guid: 3603f05b597105142ba259d59b4ace4b,
-    type: 3}
-  EmployeeForHireContent: {fileID: 1688115420}
-  EmployeeHiredContent: {fileID: 1959018098}
-  GameTimeDayTickEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7,
-    type: 2}
 --- !u!4 &2117680109
 Transform:
   m_ObjectHideFlags: 0
@@ -10504,7 +10602,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.46035, y: 0.027965534, z: -0.2421875}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 553733954}
+  - {fileID: 2120288065}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10593,3 +10693,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EmployeeManager: {fileID: 0}
   MissionManager: {fileID: 0}
+--- !u!1 &2120288064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2120288065}
+  - component: {fileID: 2120288067}
+  - component: {fileID: 2120288066}
+  m_Layer: 0
+  m_Name: Missions
+  m_TagString: MissionManager
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2120288065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120288064}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2117680109}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120288066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120288064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf0b1dc7a3874729b0cf8e583576d0ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MissionDifficultyVariance: 0.15
+  MissionDurationMinimum: 2
+  MissionDurationVariance: 1
+  MissionRewardmoneyVariance: 0.1
+  MissionRewardmoneyFactor: 20
+  MissionBasePower: 18
+  SkillPowerPerDifficulty: 3.5
+  SkillDifficultyVariance: 0.3
+--- !u!114 &2120288067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120288064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b4a2b23607e5425c84caf1871b2ad28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxActiveMissions: 4
+  MaxOpenMission: 6
+  RefreshRate: 0.3
+  GameTimeDayTickEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7,
+    type: 2}
+  AvailableMissionsChanged: {fileID: 11400000, guid: 0b732ce3b8049432bb7820470b7c915d,
+    type: 2}
+  CompletedMissionsChanged: {fileID: 11400000, guid: 73033b5eed3e74a22b15adca53d9b4f6,
+    type: 2}
+  InProgressMissionsChanged: {fileID: 11400000, guid: 185ae06ca5650444dbcb8965b72c97e5,
+    type: 2}
