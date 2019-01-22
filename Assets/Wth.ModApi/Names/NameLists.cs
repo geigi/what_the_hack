@@ -82,12 +82,53 @@ public class NameLists : ScriptableObject
         switch (personName)
         {
             case PersonNames.LastName:
-                return lastNames[rng.Next(this.lastNames.Count())];
+                return LastName();
             case PersonNames.FemaleFirstName:
-                return firstNamesFemale[rng.Next(this.firstNamesFemale.Count())];
+                return FemaleFirstName();
+            case PersonNames.MaleFirstName:
+                return MaleFirstName();
+            case PersonNames.UndecidedFullName:
+                var gender = UnityEngine.Random.Range(0, 1);
+                string firstName;
+                if (gender < 1)
+                    firstName = FemaleFirstName();
+                else
+                    firstName = MaleFirstName();
+                return firstName + " " + LastName();
+            case PersonNames.MaleFullName:
+                return MaleFirstName() + " " + LastName();
+            case PersonNames.FemaleFullName:
+                return FemaleFirstName() + " " + LastName();
             default:
-                return firstNamesMale[rng.Next(this.firstNamesMale.Count())];
+                return "Unexpected behaviour";
         }
+    }
+
+    /// <summary>
+    /// Return a random male first name.
+    /// </summary>
+    /// <returns></returns>
+    public string MaleFirstName()
+    {
+        return firstNamesMale[rng.Next(this.firstNamesMale.Count())];
+    }
+
+    /// <summary>
+    /// Return a random female first name.
+    /// </summary>
+    /// <returns></returns>
+    public string FemaleFirstName()
+    {
+        return firstNamesFemale[rng.Next(this.firstNamesFemale.Count())];
+    }
+
+    /// <summary>
+    /// Return a random last name.
+    /// </summary>
+    /// <returns></returns>
+    public string LastName()
+    {
+        return lastNames[rng.Next(this.lastNames.Count())];
     }
 
     /// <summary>

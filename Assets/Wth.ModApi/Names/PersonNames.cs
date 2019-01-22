@@ -13,6 +13,9 @@ namespace Wth.ModApi.Names
     {
         MaleFirstName,
         FemaleFirstName,
-        LastName
+        LastName,
+        UndecidedFullName,
+        MaleFullName,
+        FemaleFullName
     }
 }

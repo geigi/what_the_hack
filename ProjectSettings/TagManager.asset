@@ -12,6 +12,8 @@ TagManager:
   - EmployeeGUI
   - EmpFactory
   - EmployeeShadows
+  - MissionManager
+  - EmployeeManager
   layers:
   - Default
   - TransparentFX
