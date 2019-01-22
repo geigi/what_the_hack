@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -909,49 +909,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &204955278
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 204955280}
-  - component: {fileID: 204955279}
-  m_Layer: 0
-  m_Name: EmployeeFactory
-  m_TagString: EmpFactory
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &204955279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204955278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef801a2eaef29844bf5e69a0c2dcd3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &204955280
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 204955278}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 165.284, y: 52.46321, z: -13.223267}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &243576405 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
@@ -1832,7 +1789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6343164789c960d4fa9eaec024335c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factoryObject: {fileID: 204955279}
   EmployeeForHirePrefab: {fileID: 1123180270652526, guid: 19b9308372b8895439c6dff2cfc44e41,
     type: 3}
   EmployeeHiredPrefab: {fileID: 1123180270652526, guid: 3603f05b597105142ba259d59b4ace4b,
@@ -1994,7 +1950,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1372586686}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 0.9999998
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3289,12 +3245,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000015096391
+      value: 0.0000021005962
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000030517578
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -3578,12 +3534,12 @@ PrefabInstance:
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000015258789
+      value: 0.000045776367
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000018410496
+      value: 0.0000050794333
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -6919,7 +6875,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1690.0001
+      value: 1720.0001
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -6929,7 +6885,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1690.0004
+      value: 1720.0004
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -7296,6 +7252,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamTabSwitcher
       objectReference: {fileID: 0}
+    - target: {fileID: 1765882390658956, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803388010378638, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8782952236701380533, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -7346,14 +7310,6 @@ PrefabInstance:
       propertyPath: tabs.Array.data[1]
       value: 
       objectReference: {fileID: 678324906}
-    - target: {fileID: 1765882390658956, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1803388010378638, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114924393668636060, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
     - {fileID: 114450025764827438, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
@@ -7731,12 +7687,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1660
+      value: 1690
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1660
+      value: 1690
       objectReference: {fileID: 0}
     - target: {fileID: 224734928484174302, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -8083,6 +8039,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopTabSwitcher
       objectReference: {fileID: 0}
+    - target: {fileID: 1765882390658956, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803388010378638, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 114596075209876444, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_Value
@@ -8092,14 +8056,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Value
       value: 0.25531915
-      objectReference: {fileID: 0}
-    - target: {fileID: 1765882390658956, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1803388010378638, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72a41ed579c814c2eb8f4f009a7719d4, type: 3}
@@ -8646,7 +8602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000016545638}
+  m_AnchoredPosition: {x: 0, y: 0.000017833152}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1765235018
@@ -11309,14 +11265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d19e52f3d3c4ca5bab1a6d0b062f5e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmployeeForHirePrefab: {fileID: 1123180270652526, guid: 19b9308372b8895439c6dff2cfc44e41,
-    type: 3}
-  EmployeeHiredPrefab: {fileID: 1123180270652526, guid: 3603f05b597105142ba259d59b4ace4b,
-    type: 3}
-  EmployeeForHireContent: {fileID: 1688115420}
-  EmployeeHiredContent: {fileID: 1959018098}
-  GameTimeDayTickEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7,
-    type: 2}
 --- !u!4 &2117680109
 Transform:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ namespace Assets.Tests_PlayMode
             mockedEmployeeData.Salary = 100;
             mockedEmployeeData.Level = 2;
             mockedEmployeeData.Prize = 10;
-            mockedEmployeeData.Skills = new List<Skill>() { new Skill(new SkillDefinition { skillName = "All Purpose" }) };
+            mockedEmployeeData.Skills = new List<Skill>() { new Skill(ScriptableObject.CreateInstance<SkillDefinition>()) };
             mockedEmployeeData.generatedData = new EmployeeGeneratedData
             {
                 name = "surname lastname",
@@ -50,7 +50,7 @@ namespace Assets.Tests_PlayMode
         public IEnumerator HireableEmployeeUiBuilder_SetEmpTest()
         {
             //Arrange
-            var obj = GameObject.FindWithTag("Managers").GetComponent<EmployeeManager>();
+            var obj = GameObject.FindWithTag("EmployeeManager").GetComponent<EmployeeManager>();
             hireableBuilder = Instantiate(obj.EmployeeForHirePrefab).GetComponent<HireableEmployeeUiBuilder>();
             var func = Substitute.For<UnityAction>();
             //Act
@@ -70,7 +70,7 @@ namespace Assets.Tests_PlayMode
         public IEnumerator HiredEmployeeUiBuilder_SetEmpTest()
         {
             //Arrange
-            var obj = GameObject.FindWithTag("Managers").GetComponent<EmployeeManager>();
+            var obj = GameObject.FindWithTag("EmployeeManager").GetComponent<EmployeeManager>();
             var hiredBuilder = Instantiate(obj.EmployeeHiredPrefab).GetComponent<HiredEmployeeUiBuilder>();
             hiredBuilder.enabled = false;
             var emp = Substitute.For<Employee>();
@@ -98,7 +98,7 @@ namespace Assets.Tests_PlayMode
         public IEnumerator GenerateSkillGuiTest()
         {
             //Arrange
-            var obj = GameObject.FindWithTag("Managers").GetComponent<EmployeeManager>().EmployeeForHirePrefab;
+            var obj = GameObject.FindWithTag("EmployeeManager").GetComponent<EmployeeManager>().EmployeeForHirePrefab;
             var builder = Instantiate(obj).GetComponent<HireableEmployeeUiBuilder>();
             builder.employeeData = mockedEmployeeData;
             //Act
@@ -117,17 +117,16 @@ namespace Assets.Tests_PlayMode
         public IEnumerator SetSkillTest()
         {
             //Arrange
-            var obj = GameObject.FindWithTag("Managers").GetComponent<EmployeeManager>().EmployeeForHirePrefab;
+            var obj = GameObject.FindWithTag("EmployeeManager").GetComponent<EmployeeManager>().EmployeeForHirePrefab;
             var builder = Instantiate(obj).GetComponent<HireableEmployeeUiBuilder>();
             var skillbuilder = Instantiate(builder.skillPrefab).GetComponent<SkillUIBuilder>();
 
             Sprite sprite = Sprite.Create(new Texture2D(100, 100), new Rect(1, 1, 2, 3), new Vector2());
 
-            var skill = new Skill(new SkillDefinition
-            {
-                skillName = "A Skill",
-                skillSprite = sprite
-            });
+            var definition = ScriptableObject.CreateInstance<SkillDefinition>();
+            definition.skillName = "A Skill";
+            definition.skillSprite = sprite;
+            var skill = new Skill(definition);
 
             skillbuilder.skillEvent = skill.skillEvent;
 
