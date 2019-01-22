@@ -124,8 +124,8 @@ public class Employee : MonoBehaviour {
         for (int i = 0; i < events.Length; i++)
         {
             events[i].functionName = "SetSpriteThroughScript";
+            clip.AddEvent(events[i]);
         }
-        //AnimationUtility.SetAnimationEvents(clip, events);
     }
 
     private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);
