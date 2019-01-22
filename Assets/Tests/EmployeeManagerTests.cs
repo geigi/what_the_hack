@@ -12,6 +12,7 @@ using NUnit;
 using UnityEngine;
 using Employees;
 using GameTime;
+using UnityEditor.SceneManagement;
 using UnityEngine.TestTools;
 using Wth.ModApi.Employees;
 
@@ -30,6 +31,7 @@ namespace Assets.Tests
         [SetUp]
         public void SetUp()
         {
+            EditorSceneManager.OpenScene("Assets/Scenes/MainGame.unity");
             emp = (EmployeeManager) FormatterServices.GetUninitializedObject(typeof(EmployeeManager));
             EmployeeList list = ScriptableObject.CreateInstance<EmployeeList>();
             factory = Substitute.For<EmployeeFactory>();

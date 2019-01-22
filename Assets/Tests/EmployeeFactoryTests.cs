@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEditor.SceneManagement;
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
@@ -25,6 +26,7 @@ namespace Assets.Tests
         [SetUp]
         public void SetUp()
         {
+            EditorSceneManager.OpenScene("Assets/Scenes/MainGame.unity");
             factory = new EmployeeFactory();
         }
 
