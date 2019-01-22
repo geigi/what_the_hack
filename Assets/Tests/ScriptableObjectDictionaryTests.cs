@@ -21,7 +21,7 @@ namespace Assets.Tests
         [SetUp]
         public void SetUp()
         {
-            objDictionary = new ScriptableObjectDictionary();
+            objDictionary = ScriptableObject.CreateInstance<ScriptableObjectDictionary>();
             objDictionary.Dictionary = new List<ScriptableObjectDictionary.ScriptableObjectEntry>();
             scriptObj1 = ScriptableObject.CreateInstance<ScriptableObject>();
             scriptObj2 = ScriptableObject.CreateInstance<ScriptableObject>();

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace Assets.Tests
@@ -19,7 +20,7 @@ namespace Assets.Tests
         [SetUp]
         public void SetUp()
         {
-            s = new Skill(new SkillDefinition());
+            s = new Skill(ScriptableObject.CreateInstance<SkillDefinition>());
         }
 
         /// <summary>
