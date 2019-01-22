@@ -1,4 +1,4 @@
-image: "gableroux/unity3d:2018.3.1f1"
+image: "gableroux/unity3d:2018.3.2f1"
 
 stages:
 - build-dependencies
