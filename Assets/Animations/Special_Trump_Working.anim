@@ -109,7 +109,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: 
+    functionName: ShadowEvent
     data: 
     objectReferenceParameter: {fileID: 21300000, guid: 4246ebc65a59947e4bab5e4ce9a9793c,
       type: 3}

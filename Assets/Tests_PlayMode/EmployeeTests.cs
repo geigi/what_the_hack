@@ -31,11 +31,11 @@ namespace Assets.Tests_PlayMode
         public void SetUp()
         {
             idle = new AnimationClip();
-            idle.AddEvent(new AnimationEvent());
+            idle.AddEvent(new AnimationEvent {functionName = "ShadowEvent"});
             walking = new AnimationClip();
-            walking.AddEvent(new AnimationEvent());
+            walking.AddEvent(new AnimationEvent { functionName = "ShadowEvent" });
             working = new AnimationClip();
-            working.AddEvent(new AnimationEvent());
+            working.AddEvent(new AnimationEvent { functionName = "ShadowEvent" });
 
             generatedEmpData = Substitute.For<EmployeeData>();
             generatedEmpData.generatedData = new EmployeeGeneratedData
@@ -48,12 +48,10 @@ namespace Assets.Tests_PlayMode
             };
 
             specialEmpData = Substitute.For<EmployeeData>();
-            specialEmpData.EmployeeDefinition = new EmployeeDefinition
-            {
-                IdleAnimation = idle,
-                WalkingAnimation = walking,
-                WorkingAnimation = working
-            };
+            specialEmpData.EmployeeDefinition = ScriptableObject.CreateInstance<EmployeeDefinition>();
+            specialEmpData.EmployeeDefinition.IdleAnimation = idle;
+            specialEmpData.EmployeeDefinition.WalkingAnimation = walking;
+            specialEmpData.EmployeeDefinition.WorkingAnimation = working;
 
             SceneManager.LoadScene("MainGame");
         }
@@ -82,7 +80,6 @@ namespace Assets.Tests_PlayMode
             yield return null;
         }
 
-        /*
         [UnityTest]
         public IEnumerator InitAndSetAnimationEventFunctionTest_SpecialEmployee()
         {
@@ -95,13 +92,9 @@ namespace Assets.Tests_PlayMode
             Assert.AreSame(walking, emp.animator.runtimeAnimatorController.animationClips[0]);
             Assert.AreSame(working, emp.animator.runtimeAnimatorController.animationClips[2]);
             Assert.AreEqual("SetSpriteThroughScript", emp.animator.runtimeAnimatorController.animationClips[0].events[0].functionName);
-            Assert.IsTrue(emp.animator.runtimeAnimatorController.animationClips[0].events.All(x => x.functionName.Equals("SetSpriteThroughScript")));
             Assert.AreEqual("SetSpriteThroughScript", emp.animator.runtimeAnimatorController.animationClips[1].events[0].functionName);
-            Assert.IsTrue(emp.animator.runtimeAnimatorController.animationClips[0].events.All(x => x.functionName.Equals("SetSpriteThroughScript")));
             Assert.AreEqual("SetSpriteThroughScript", emp.animator.runtimeAnimatorController.animationClips[2].events[0].functionName);
-            Assert.IsTrue(emp.animator.runtimeAnimatorController.animationClips[0].events.All(x => x.functionName.Equals("SetSpriteThroughScript")));
             yield return null;
         }
-        */
     }
 }

@@ -112,9 +112,10 @@ public class Employee : MonoBehaviour {
             // Add the Material.
             spriteRenderer.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
         }
-        idle_anim = SetAnimationEventFunction(ref idle_anim);
-        walking_anim = SetAnimationEventFunction(ref walking_anim);
-        working_anim = SetAnimationEventFunction(ref working_anim);
+
+        idle_anim.events = SetAnimationEventFunction(idle_anim.events);
+        walking_anim.events = SetAnimationEventFunction(walking_anim.events);
+        working_anim.events = SetAnimationEventFunction(working_anim.events);
         animatorOverrideController["dummy_idle"] = idle_anim;
         animatorOverrideController["dummy_walking"] = walking_anim;
         animatorOverrideController["dummy_working"] = working_anim;
@@ -122,15 +123,19 @@ public class Employee : MonoBehaviour {
 
     }
 
-    public AnimationClip SetAnimationEventFunction(ref AnimationClip clip)
+    public AnimationEvent[] SetAnimationEventFunction(AnimationEvent[] events)
     {
-        AnimationClip anim = clip;
-        for (var index = 0; index < anim.events.Length; index++)
+        for (var index = 0; index < events.Length; index++)
         {
-            anim.events[index].functionName = "SetSpriteThroughScript";
+            if (events[index].functionName == "ShadowEvent")
+            {
+                events[index].functionName = "SetSpriteThroughScript";
+            }
         }
 
-        return anim;
+        var ret = events;
+        return ret;
+
     }
 
     private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);

@@ -214,6 +214,7 @@ namespace Wth.ModApi.Editor
                     _evt.objectReferenceParameter = EditorGUILayout.ObjectField("Shadow Sprite", _evt.objectReferenceParameter, typeof(Sprite), false) as
                         Sprite;
                     _evt.time = spriteKeyFrames[viewIndex - 1].frame.time;
+                    _evt.functionName = "ShadowEvent";
                     spriteKeyFrames[viewIndex - 1].evt = _evt;
                     GUILayout.BeginHorizontal();
                     GUILayout.FlexibleSpace();
