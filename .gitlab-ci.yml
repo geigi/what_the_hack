@@ -8,6 +8,10 @@ stages:
 - documentation
 - deploy
 
+cache:
+  key: "$CI_PIPELINE_ID"
+  untracked: true
+
 variables:
   BUILD_NAME: What_The_Hack
   GIT_SUBMODULE_STRATEGY: recursive
