@@ -1203,6 +1203,7 @@ GameObject:
   - component: {fileID: 489578067}
   - component: {fileID: 489578069}
   - component: {fileID: 489578068}
+  - component: {fileID: 489578070}
   m_Layer: 5
   m_Name: MoneyText
   m_TagString: Untagged
@@ -1262,7 +1263,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 88888
+  m_Text: 8000
 --- !u!222 &489578069
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1271,6 +1272,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489578066}
   m_CullTransparentMesh: 0
+--- !u!114 &489578070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489578066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c47cdc365449234ca51b9484913e61f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyEvent: {fileID: 11400000, guid: e6cdca9bfd256714cb05eef00c26473c, type: 2}
 --- !u!1 &504920050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,6 +1811,7 @@ MonoBehaviour:
   EmployeeHiredContent: {fileID: 1959018098}
   GameTimeDayTickEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7,
     type: 2}
+  bank: {fileID: 0}
 --- !u!1 &570398032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,7 +1965,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1372586686}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3245,12 +3260,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000068763156
+      value: 0.005980415
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000030517578
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -3534,12 +3549,12 @@ PrefabInstance:
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000045776367
+      value: -0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000008540475
+      value: -0.000015799527
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -6875,7 +6890,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1780.0001
+      value: 2180
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -6885,7 +6900,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1780.0004
+      value: 2180.0005
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -7687,12 +7702,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1750
+      value: 2150
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1750
+      value: 2150
       objectReference: {fileID: 0}
     - target: {fileID: 224734928484174302, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -8602,7 +8617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000062729487}
+  m_AnchoredPosition: {x: 0, y: 0.0000019348959}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1765235018
@@ -11246,6 +11261,7 @@ GameObject:
   - component: {fileID: 2117680110}
   - component: {fileID: 2117680113}
   - component: {fileID: 2117680108}
+  - component: {fileID: 2117680114}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Managers
@@ -11327,6 +11343,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: a40d3f40acdf6f94198add60fa8ae360, type: 2}
   EmployeeAnimations: {fileID: 9100000, guid: 20d931de2cf4e42f685bf7d43c7b1bbe, type: 2}
   SaveGameSystem: {fileID: 2117680113}
+  bank: {fileID: 2117680114}
 --- !u!114 &2117680111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11364,8 +11381,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31017082ed5564070a222d8d5c661597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmployeeManager: {fileID: 0}
-  MissionManager: {fileID: 0}
+  EmployeeManager: {fileID: 553733955}
+  MissionManager: {fileID: 2120288067}
+  bank: {fileID: 2117680114}
+--- !u!114 &2117680114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117680107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b299b4cd7143f941b06b147df03644b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartFund: 8000
+  balanceChanged: {fileID: 11400000, guid: e6cdca9bfd256714cb05eef00c26473c, type: 2}
 --- !u!1 &2120288064
 GameObject:
   m_ObjectHideFlags: 0

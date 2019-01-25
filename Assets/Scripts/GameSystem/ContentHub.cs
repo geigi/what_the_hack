@@ -63,6 +63,11 @@ public sealed class ContentHub: MonoBehaviour
     public SaveGameSystem SaveGameSystem;
 
     /// <summary>
+    /// The game wide bank instance.
+    /// </summary>
+    public Bank bank;
+    
+    /// <summary>
     /// Get the current <see cref="SkillSet"/>. 
     /// </summary>
     /// <returns>The base <see cref="SkillSet"/> if no mod is present, otherwise the one from the mod.</returns>

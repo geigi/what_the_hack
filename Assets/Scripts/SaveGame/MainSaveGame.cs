@@ -49,5 +49,10 @@ namespace SaveGame
 		/// All persistent data from employee manager.
 		/// </summary>
 		public MissionManagerData missionManagerData;
-	}
+
+        /// <summary>
+        /// The current balance on this savegame.
+        /// </summary>
+        public int balance;
+    }
 }

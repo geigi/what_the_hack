@@ -20,12 +20,12 @@ namespace Wth.ModApi.Employees
         /// <summary>
         /// Salary of the employee.
         /// </summary>
-        public int Salary;
+        public int Salary = 100;
 
         /// <summary>
         /// Prize for buying the employee.
         /// </summary>
-        public int Prize;
+        public int Prize = 100;
         
         /// <summary>
         /// List of learned skills.

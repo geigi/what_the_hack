@@ -19,6 +19,7 @@ namespace SaveGame
 
         public EmployeeManager EmployeeManager;
         public MissionManager MissionManager;
+        public Bank bank;
 
         private MainSaveGame currentSaveGame;
         
@@ -47,7 +48,7 @@ namespace SaveGame
             saveGame.employeeManagerData = EmployeeManager.GetData();
             saveGame.missionManagerData = MissionManager.GetData();
             FillTileMapData(saveGame);
-
+            saveGame.balance = bank.Balance;
             return saveGame;
         }
 

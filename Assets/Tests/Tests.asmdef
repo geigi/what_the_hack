@@ -2,7 +2,8 @@
     "name": "Tests",
     "references": [
         "MainAssembly",
-        "Wth.ModApi"
+        "Wth.ModApi",
+        "UnityEnhancedAssembly"
     ],
     "optionalUnityReferences": [
         "TestAssemblies"
@@ -11,5 +12,9 @@
         "Editor"
     ],
     "excludePlatforms": [],
-    "allowUnsafeCode": false
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }

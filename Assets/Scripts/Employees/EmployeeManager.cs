@@ -11,6 +11,7 @@ using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
+using DayOfWeek = GameTime.DayOfWeek;
 using Object = UnityEngine.Object;
 
 namespace Employees
@@ -50,6 +51,11 @@ namespace Employees
         /// </summary>
         public ObjectEvent GameTimeDayTickEvent;
 
+        /// <summary>
+        /// The bank object.
+        /// </summary>
+        public Bank bank;
+
         private EmployeeManagerData data;
         
         /// <summary>
@@ -73,6 +79,7 @@ namespace Employees
             else
                 LoadState();
             factoryObject = new EmployeeFactory();
+            bank = contentHub.bank;
             dayChangedAction += DayChanged;
             GameTimeDayTickEvent.AddListener(dayChangedAction);
         }
@@ -191,7 +198,6 @@ namespace Employees
 
         /// <summary>
         /// Removes the first Employee from the EmployeeForHire List and creates a new one.
-        /// TODO: Pay Employees
         /// </summary>
         public void DayChanged(Object date)
         {
@@ -200,6 +206,10 @@ namespace Employees
                 RemoveEmployeeForHire(data.employeesForHire[0]);
             var employeeData = GenerateEmployeeForHire();
             AddEmployeeForHire(employeeData);
+
+            //Pay Employees, at the start of each week.
+            if (gameDate.DayOfWeek == DayOfWeek.Monday)
+                data.hiredEmployees.ForEach(emp => bank.Pay(emp.Salary));
         }
         
         public EmployeeManagerData GetData()
@@ -212,7 +222,11 @@ namespace Employees
             GameObject empGUI = Instantiate(EmployeeForHirePrefab);
             empGUI.transform.SetParent(EmployeeForHireContent.transform);
             empGUI.transform.localScale = Vector3.one;
-            empGUI.GetComponent<HireableEmployeeUiBuilder>().SetEmp(employeeData, () => HireEmployee(employeeData, empGUI));
+            empGUI.GetComponent<HireableEmployeeUiBuilder>().SetEmp(employeeData, () =>
+            {
+                HireEmployee(employeeData, empGUI);
+                bank.Pay(employeeData.Prize);
+            });
             
             EmployeeToGuiMap.Add(employeeData, empGUI);
         }

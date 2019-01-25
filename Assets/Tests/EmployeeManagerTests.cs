@@ -15,6 +15,7 @@ using GameTime;
 using UnityEditor.SceneManagement;
 using UnityEngine.TestTools;
 using Wth.ModApi.Employees;
+using DayOfWeek = GameTime.DayOfWeek;
 
 namespace Assets.Tests
 {
@@ -84,40 +85,50 @@ namespace Assets.Tests
 
         /// <summary>
         /// Tests the DayChangedMethod.
-        /// Asserts that a new Employee is put in the EmployeeForHire list and that
-        /// AddEmployeeForHireToGui is called.
+        /// Asserts that a new Employee is put in the EmployeeForHire list, that
+        /// AddEmployeeForHireToGui is called and the hired employees are payed.
         /// </summary>
         [Test]
         public void DayChangedTest()
         {
             var manager = Substitute.ForPartsOf<EmployeeManager>();
+            var bank = Substitute.For<Bank>();
+            bank.Pay(Arg.Any<int>()).ReturnsForAnyArgs(true);
             manager.InitDefaultState();
             manager.factoryObject = factory;
+            manager.bank = bank;
+            manager.GetData().hiredEmployees.Add(testEmployee);
             manager.WhenForAnyArgs(x => x.AddEmployeeForHireToGui(testEmployee)).DoNotCallBase();
             manager.DayChanged(new GameDate());
             Assert.IsNotEmpty(manager.GetData().employeesForHire);
             manager.Received().AddEmployeeForHireToGui(testEmployee);
+            bank.Received(1).Pay(Arg.Any<int>());
         }
         
         /// <summary>
         /// Tests the DayChangedMethod.
         /// Asserts that a new Employee is put in the employeeForHire List and the old one is removed.
-        /// Also checks that AddEmployeeForHireToGui and Remove EmployeeForHire are called.
+        /// Also checks that AddEmployeeForHireToGui, Remove EmployeeForHire are called and the hired employees are not payed on a tuesday.
         /// </summary>
         [Test]
         public void DayChangedTest_ListNotEmpty()
         {
             var manager = Substitute.ForPartsOf<EmployeeManager>();
+            var bank = Substitute.For<Bank>();
+            bank.Pay(Arg.Any<int>()).ReturnsForAnyArgs(true);
             manager.InitDefaultState();
             manager.factoryObject = factory;
+            manager.bank = bank;
             manager.GetData().employeesForHire.Add(testEmployee);
+            manager.GetData().hiredEmployees.Add(testEmployee);
             manager.EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject> {{testEmployee, new GameObject()}};
             manager.WhenForAnyArgs(x => x.AddEmployeeForHireToGui(Arg.Any<EmployeeData>())).DoNotCallBase();
             manager.WhenForAnyArgs(x => x.RemoveEmployeeForHire(Arg.Any<EmployeeData>())).DoNotCallBase();
-            manager.DayChanged(new GameDate());
+            manager.DayChanged(new GameDate {DayOfWeek = DayOfWeek.Friday});
             Assert.IsNotEmpty(manager.GetData().employeesForHire);
             manager.Received().AddEmployeeForHireToGui(testEmployee);
             manager.Received().RemoveEmployeeForHire(testEmployee);
+            bank.Received(0).Pay(Arg.Any<int>());
         }
     }
 }
