@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using Employees;
 using Missions;
 using Pathfinding;
+using Team;
 using UnityEngine;
 using Wth.ModApi.Items;
 
@@ -48,6 +49,7 @@ namespace SaveGame
             saveGame.saveDate = DateTime.Now;
             saveGame.employeeManagerData = EmployeeManager.GetData();
             saveGame.missionManagerData = MissionManager.GetData();
+            saveGame.teamManagerData = TeamManager.Instance.GetData();
             FillTileMapData(saveGame);
             saveGame.balance = bank.Balance;
             return saveGame;

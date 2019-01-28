@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Employees;
 using GameTime;
 using Missions;
+using Team;
 using Wth.ModApi.Employees;
 
 namespace SaveGame
@@ -50,6 +51,11 @@ namespace SaveGame
 		/// </summary>
 		public MissionManagerData missionManagerData;
 
+		/// <summary>
+		/// All persistent data from team manager.
+		/// </summary>
+		public TeamManagerData teamManagerData;
+		
         /// <summary>
         /// The current balance on this savegame.
         /// </summary>
