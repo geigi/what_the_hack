@@ -6,11 +6,11 @@ namespace Wth.ModApi.Items
     /// This class is an abstract representation of an item.
     /// Create a child class to define a new kind of item.
     /// </summary>
-    public abstract class ItemDefinition: ScriptableObject
+    public class ItemDefinition: ScriptableObject
     {
         public string Name = "";
+        public string Description = "";
         public Sprite PreviewSprite;
-
-        public abstract int GetPrice();
+        public bool Upgradable = true;
     }
 }
