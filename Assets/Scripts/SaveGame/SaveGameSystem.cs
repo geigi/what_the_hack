@@ -7,6 +7,7 @@ using Employees;
 using Missions;
 using Pathfinding;
 using UnityEngine;
+using Wth.ModApi.Items;
 
 namespace SaveGame
 {
@@ -162,7 +163,8 @@ namespace SaveGame
                 typeof(EmployeeDefinition),
                 typeof(SkillDefinition),
                 typeof(ScriptableObject),
-                typeof(NameLists)
+                typeof(NameLists),
+                typeof(ItemDefinition)
             };
         
             // Create a SurrogateSelector
