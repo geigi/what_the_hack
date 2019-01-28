@@ -4367,7 +4367,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000015996271
+      value: -0.000013343499
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -8714,7 +8714,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2500
+      value: 2530
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -8724,7 +8724,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2500.0005
+      value: 2530.0005
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -12516,7 +12516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b299b4cd7143f941b06b147df03644b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartFund: 800000
+  StartFund: 8000
   balanceChanged: {fileID: 11400000, guid: e6cdca9bfd256714cb05eef00c26473c, type: 2}
 --- !u!1 &2120288064
 GameObject:

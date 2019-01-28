@@ -45,6 +45,12 @@ public class Bank : MonoBehaviour, Saveable<int>
         Balance = StartFund;
     }
 
+    private void Start()
+    {
+        // Fire the event to update gui etc with starting balance
+        balanceChanged.Raise(balance);
+    }
+
     /// <summary>
     /// Subtracts the prize from the current balance iff the player has enough money.
     /// </summary>
