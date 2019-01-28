@@ -157,3 +157,4 @@ project.lock.json
 project.assets.json
 .gradle
 MainAssembly.csproj.DotSettings
+Documentation/html
