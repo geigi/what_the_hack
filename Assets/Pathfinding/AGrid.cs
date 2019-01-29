@@ -18,6 +18,7 @@ namespace Pathfinding
     Node[,] grid;
 
     public const int GridSizeX = 13, GridSizeY = 13;
+    public const int SORTING_ORDER_GRANULARITY = 20;
 
     private IReadOnlyList<Vector2Int> disabledTiles;
 
@@ -48,7 +49,10 @@ namespace Pathfinding
         new Vector2Int(10, 12),
         new Vector2Int(11, 11),
         new Vector2Int(12, 10),
-        new Vector2Int(12, 11)
+        new Vector2Int(12, 11),
+        // Lamps
+        new Vector2Int(9, 12),
+        new Vector2Int(12, 9)
       };
 
       this.disabledTiles = disabled.AsReadOnly();
@@ -121,7 +125,50 @@ namespace Pathfinding
       public int terrainPenalty;
     }
 
+    /// <summary>
+    /// Calculate the correct sorting order for a given position.
+    /// </summary>
+    /// <param name="position">Position that needs a sorting order value.</param>
+    /// <param name="fine">Use fine calculation for within a grid tile.</param>
+    /// <returns></returns>
+    public int CalculateSortingLayer(Vector3 position, bool fine = false)
+    {
+      var cell = go_grid.WorldToCell(position);
+      var transformedCell = new Vector2Int(13 - cell.x, 13 - cell.y);
+      var baseLayer = (transformedCell.x * 12 + transformedCell.y) * SORTING_ORDER_GRANULARITY;
 
+      if (fine)
+      {
+        var cellPos = getNode(new Vector2Int(cell.x, cell.y)).worldPosition;
+        var posDiff = cellPos - position;
+        var fineLayer = (int)((posDiff.y / (SORTING_ORDER_GRANULARITY / 2)) * 100);
+        return baseLayer + fineLayer;
+      }
+      else
+      {
+        return baseLayer;
+      }
+    }
+
+    /// <summary>
+    /// Set the state af a tile.
+    /// </summary>
+    /// <param name="tile">Tile</param>
+    /// <param name="state">State</param>
+    public void SetNodeState(Vector2Int tile, Enums.TileState state)
+    {
+      grid[tile.x, tile.y].SetState(state);
+    }
+    
+    /// <summary>
+    /// Get the state of a given tile.
+    /// </summary>
+    /// <param name="tile"></param>
+    /// <returns></returns>
+    public Enums.TileState GetNodeState(Vector2Int tile)
+    {
+      return grid[tile.x, tile.y].GetState();
+    }
   }
 }
 
