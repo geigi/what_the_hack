@@ -31,6 +31,7 @@ public class Employee : MonoBehaviour {
     private AGrid grid;
     private Vector2Event tileBlockedEvent;
     private UnityAction<Vector2> tileBlockedAction;
+    private BoxCollider2D collider;
 
     private Tilemap tilemap;
 
@@ -127,7 +128,14 @@ public class Employee : MonoBehaviour {
         animatorOverrideController["dummy_walking"] = walking_anim;
         animatorOverrideController["dummy_working"] = working_anim;
         this.animator.runtimeAnimatorController = animatorOverrideController;
+        SetBoxCollider();
+    }
 
+    private void SetBoxCollider()
+    {
+        collider = gameObject.AddComponent<BoxCollider2D>();
+        collider.offset = new Vector2(-0.001f, 0.571f);
+        collider.size = new Vector2(0.638f, 1.381f);
     }
 
     public AnimationEvent[] SetAnimationEventFunction(AnimationEvent[] events)
