@@ -11,5 +11,13 @@ namespace Utils
             BLOCKED,
             DISABLED
         }
+
+        public enum EmployeeState
+        {
+            PAUSED,
+            IDLE,
+            WALKING,
+            WORKING
+        }
     }
 }

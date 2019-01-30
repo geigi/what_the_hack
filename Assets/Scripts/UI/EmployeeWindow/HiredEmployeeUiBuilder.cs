@@ -20,7 +20,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
 
         public UnityEvent stateEvent;
 
-        private void UpdateEmployeeState() => employeeState.text = emp.Walking ? "idle" : "Working";
+        private void UpdateEmployeeState() => employeeState.text = emp.State.ToString();
 
         public void Update()
         {

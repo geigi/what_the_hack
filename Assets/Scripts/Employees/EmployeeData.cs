@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utils;
 
 namespace Wth.ModApi.Employees
 {
@@ -53,9 +54,17 @@ namespace Wth.ModApi.Employees
         /// Only Populated for genderated employees.
         /// </summary>
         public EmployeeGeneratedData generatedData;
+
+        /// <summary>
+        /// This enum represents the current state of the employee.
+        /// </summary>
+        public Enums.EmployeeState State;
+
         /// <summary>
         /// Empty Constructor.
         /// </summary>
-        public EmployeeData() {}
+        public EmployeeData()
+        {
+        }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Interfaces;
 using Pathfinding;
 using UnityEngine;
 using Utils;
@@ -10,7 +11,7 @@ namespace Team
     /// It is responsible for blocking the grid and displaying the sprites.
     /// It is also responsible for managing the progress of a mission.
     /// </summary>
-    public class Workplace : MonoBehaviour
+    public class Workplace : MonoBehaviour, Touchable
     {
         public AGrid Grid;
         public bool EnableOnStart = false;
@@ -99,6 +100,11 @@ namespace Team
                 Grid.SetNodeState(Position, Enums.TileState.FREE);
                 Grid.SetNodeState(position2, Enums.TileState.FREE);
             }
+        }
+
+        public void Touched()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

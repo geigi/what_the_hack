@@ -1,3 +1,5 @@
+using Interfaces;
+using Team;
 using UnityEngine;
 
 namespace World
@@ -8,6 +10,17 @@ namespace World
         TouchPhase touchPhase = TouchPhase.Ended;
         public Camera Camera;
 
+        /// <summary>
+        /// Contains the currently selected employee.
+        /// Null, if no employee is selected.
+        /// </summary>
+        public GameObject SelectedEmployee;
+        /// <summary>
+        /// Contains the currently selected workplace.
+        /// Null, if no workplace is selected.
+        /// </summary>
+        public GameObject SelectedWorkspace;
+        
         void Update() {
             //We check if we have more than one touch happening.
             //We also check if the first touches phase is Ended (that the finger was lifted)
@@ -35,6 +48,33 @@ namespace World
                     GameObject touchedObject = hitInformation.transform.gameObject;
                     //touchedObject should be the object someone touched.
                     Debug.Log("Touched " + touchedObject.transform.name);
+
+                    if (touchedObject.GetComponent<Employee>() != null)
+                    {
+                        SelectedWorkspace = null;
+                        SelectedEmployee = touchedObject;
+                    }
+                    else if (touchedObject.GetComponent<Workplace>() != null)
+                    {
+                        if (SelectedEmployee != null)
+                        {
+                            // Todo: Make state dependent
+                            SelectedEmployee.GetComponent<Employee>().GoToWorkplace(touchedObject);
+                            SelectedEmployee = null;
+                        }
+                        else
+                        {
+                            SelectedWorkspace = touchedObject;
+                        }
+                    }
+
+                    var touchable = touchedObject.GetComponent(typeof(Touchable)) as Touchable;
+                    touchable?.Touched();
+                }
+                else
+                {
+                    SelectedEmployee = null;
+                    SelectedWorkspace = null;
                 }
             }
         }

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Interfaces;
 using Pathfinding;
+using Team;
 using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,7 +14,7 @@ using Wth.ModApi.Employees;
 /// This class represents an employee in the Game. All data is saved in the EmployeeData Scriptable Object.
 /// All employee related logic is implemented here.
 /// </summary>
-public class Employee : MonoBehaviour {
+public class Employee : MonoBehaviour, Touchable {
 
     public const float minPathUpdateTime = .2f;
     public const float walkingSpeed = 1.0f;
@@ -35,27 +37,40 @@ public class Employee : MonoBehaviour {
 
     private Tilemap tilemap;
 
-    //Properties for the current employeeState
-    private bool walking = false;
-    private bool idle = true;
-
     private GameObject EmployeeShadow;
     private EmployeeShadow shadow;
-    
-    public bool Walking
+
+    public Enums.EmployeeState State
     {
-        get => walking;
-        private set { walking = value; stateEvent.Invoke(); }
-    }
-    public bool Idle
-    {
-        get => idle;
-        private set { idle = value; stateEvent.Invoke(); }
+        get => EmployeeData.State;
+        private set
+        {
+            EmployeeData.State = value;
+            stateEvent.Invoke();
+
+            switch (value)
+            {
+                case Enums.EmployeeState.IDLE:
+                case Enums.EmployeeState.PAUSED:
+                    this.animator.SetTrigger(idleProperty);
+                    this.animator.speed = idleAnimationSpeed;
+                    break;
+                case Enums.EmployeeState.WALKING:
+                    this.animator.SetTrigger(walkingProperty);
+                    this.animator.speed = regularAnimationSpeed;
+                    break;
+                case Enums.EmployeeState.WORKING:
+                    this.animator.SetTrigger(workingProperty);
+                    this.animator.speed = regularAnimationSpeed;
+                    break;
+            }
+        }
     }
 
     private List<Node> path;
     private static readonly int walkingProperty = Animator.StringToHash("walking");
     private static readonly int idleProperty = Animator.StringToHash("idle");
+    private static readonly int workingProperty = Animator.StringToHash("working");
 
     public void Awake()
     {
@@ -128,6 +143,9 @@ public class Employee : MonoBehaviour {
         animatorOverrideController["dummy_walking"] = walking_anim;
         animatorOverrideController["dummy_working"] = working_anim;
         this.animator.runtimeAnimatorController = animatorOverrideController;
+
+        State = Enums.EmployeeState.PAUSED;
+        
         SetBoxCollider();
     }
 
@@ -153,6 +171,13 @@ public class Employee : MonoBehaviour {
 
     }
 
+    public void GoToWorkplace(GameObject workplace)
+    {
+        var workplaceComponent = workplace.GetComponent<Workplace>();
+
+        StopCoroutine(nameof(FollowPath));
+    }
+
     private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);
 
     /// <summary>
@@ -161,10 +186,13 @@ public class Employee : MonoBehaviour {
     /// <param name="start"></param>
     public void IdleWalking(bool start)
     {
-        Idle = start;
-        if (!start & Walking)
+        if (start)
         {
-            Walking = false;
+            State = Enums.EmployeeState.IDLE;
+        }
+        else
+        {
+            State = Enums.EmployeeState.PAUSED;
         }
     }
 
@@ -186,11 +214,11 @@ public class Employee : MonoBehaviour {
     IEnumerator FollowPath() {
         bool followingPath = true;
         int pathIndex = 0;
-        this.Walking = true;
+        State = Enums.EmployeeState.WALKING;
         this.animator.SetTrigger(walkingProperty);
         this.animator.speed = regularAnimationSpeed;
 
-        while (followingPath & Walking)
+        while (followingPath & State == Enums.EmployeeState.WALKING)
         {
             var stepLength = walkingSpeed * Time.deltaTime;
             var step = (path[pathIndex].worldPosition - transform.position).normalized * stepLength;
@@ -232,10 +260,9 @@ public class Employee : MonoBehaviour {
             shadow.Position = transform.position;
         }
         
-        this.animator.SetTrigger(idleProperty);
-        this.animator.speed = idleAnimationSpeed;
+        State = Enums.EmployeeState.PAUSED;
         yield return new WaitForSeconds(4);
-        Walking = false;
+        State = Enums.EmployeeState.IDLE;
     }
 	
     /// <summary>
@@ -271,7 +298,7 @@ public class Employee : MonoBehaviour {
             ResetWalkingPath();
         }
         // Test if tile is in path
-        else if (Walking)
+        else if (State == Enums.EmployeeState.WALKING)
         {
             bool tileInPath = false;
             foreach (var node in path)
@@ -291,14 +318,14 @@ public class Employee : MonoBehaviour {
 
     private void ResetWalkingPath()
     {
-        Walking = false;
+        State = Enums.EmployeeState.PAUSED;
         StopCoroutine(nameof(FollowPath));
         RequestNewIdleWalk();
     }
 
     // Update is called once per frame
     void Update () {
-        if (Idle & !Walking)
+        if (State == Enums.EmployeeState.IDLE)
         {
             RequestNewIdleWalk();
         }
@@ -307,5 +334,10 @@ public class Employee : MonoBehaviour {
     void OnDestroy()
     {
         Destroy(EmployeeShadow);
+    }
+
+    public void Touched()
+    {
+        throw new System.NotImplementedException();
     }
 }
