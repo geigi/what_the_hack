@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using GameSystem;
 using Interfaces;
+using Items;
 using SaveGame;
 using UE.Events;
 using UnityEngine;
@@ -26,6 +28,7 @@ namespace Team
 
         public int MaxFloors = 3;
         public IntEvent FloorsChangedEvent;
+        public List<Workplace> Workplaces;
         
         private TeamManagerData data;
 
@@ -79,6 +82,7 @@ namespace Team
             if (data.Workplaces < data.Floors * 4)
             {
                 data.Workplaces += 1;
+                Workplaces[data.Workplaces - 1].Enable(true);
                 return true;
             }
             else return false;
