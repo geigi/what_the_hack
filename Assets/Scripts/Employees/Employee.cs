@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Pathfinding;
+using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
@@ -28,6 +29,8 @@ public class Employee : MonoBehaviour {
     protected internal Animator animator;
     private AnimationClip[] clipsMale, clipsFemale;
     private AGrid grid;
+    private Vector2Event tileBlockedEvent;
+    private UnityAction<Vector2> tileBlockedAction;
 
     private Tilemap tilemap;
 
@@ -58,6 +61,10 @@ public class Employee : MonoBehaviour {
         contentHub = ContentHub.Instance;
         clipsMale = contentHub.maleAnimationClips;
         clipsFemale = contentHub.femaleAnimationClips;
+
+        tileBlockedAction = OnTileBlocked;
+        tileBlockedEvent = ContentHub.Instance.TileBlockedEvent;
+        tileBlockedEvent.AddListener(tileBlockedAction);
     }
 
     void Start () {
@@ -244,7 +251,43 @@ public class Employee : MonoBehaviour {
             StartCoroutine(nameof(FollowPath));
         }
     }
-	
+
+    private void OnTileBlocked(Vector2 tile)
+    {
+        Vector3Int tileInt = new Vector3Int((int) tile.x, (int) tile.y, 0);
+        Vector2Int tileInt2 = new Vector2Int((int) tile.x, (int) tile.y);
+        // Test if employee is on tile
+        if (grid.go_grid.WorldToCell(transform.position).Equals(tileInt))
+        {
+            // TODO: Test for state
+            ResetWalkingPath();
+        }
+        // Test if tile is in path
+        else if (Walking)
+        {
+            bool tileInPath = false;
+            foreach (var node in path)
+            {
+                if (node.gridPosition.Equals(tileInt2))
+                {
+                    tileInPath = true;
+                }
+            }
+
+            if (tileInPath)
+            {
+                ResetWalkingPath();
+            }
+        }
+    }
+
+    private void ResetWalkingPath()
+    {
+        Walking = false;
+        StopCoroutine(nameof(FollowPath));
+        RequestNewIdleWalk();
+    }
+
     // Update is called once per frame
     void Update () {
         if (Idle & !Walking)

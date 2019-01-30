@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Pathfinding;
+using UE.Events;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Utils;
@@ -14,6 +15,7 @@ namespace Pathfinding
   {
     public Tilemap tilemap;
     public Grid go_grid;
+    public Vector2Event TileBlockedEvent;
     
     Node[,] grid;
 
@@ -158,6 +160,11 @@ namespace Pathfinding
     public void SetNodeState(Vector2Int tile, Enums.TileState state)
     {
       grid[tile.x, tile.y].SetState(state);
+
+      if (state == Enums.TileState.BLOCKED || state == Enums.TileState.DISABLED)
+      {
+        TileBlockedEvent.Raise(tile);
+      }
     }
     
     /// <summary>

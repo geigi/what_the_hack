@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using SaveGame;
+using UE.Events;
 using UnityEngine;
 
 /// <summary>
@@ -66,6 +67,11 @@ public sealed class ContentHub: MonoBehaviour
     /// The game wide bank instance.
     /// </summary>
     public Bank bank;
+
+    /// <summary>
+    /// This event will be raised when a tile gets blocked by furniture.
+    /// </summary>
+    public Vector2Event TileBlockedEvent;
     
     /// <summary>
     /// Get the current <see cref="SkillSet"/>. 

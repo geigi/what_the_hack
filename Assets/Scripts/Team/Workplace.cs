@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Pathfinding;
 using UnityEngine;
 using Utils;
@@ -18,6 +19,8 @@ namespace Team
         public SpriteRenderer Chair;
 
         private Vector2Int Position;
+        private bool testTiles = false;
+        private Vector2Int position2;
 
         private void Start()
         {
@@ -32,6 +35,19 @@ namespace Team
             Enable(EnableOnStart);
         }
 
+        private void Update()
+        {
+            if (testTiles)
+            {
+                if (Grid.GetNodeState(Position) == Enums.TileState.FREE &&
+                    Grid.GetNodeState(position2) == Enums.TileState.FREE)
+                {
+                    testTiles = false;
+                    SetActive(true);
+                }
+            }
+        }
+
         /// <summary>
         /// Enable this workplace.
         /// </summary>
@@ -40,14 +56,48 @@ namespace Team
         {
             if (enable)
             {
+                // A Workplace blocks 2 tiles
+                position2 = new Vector2Int(Position.x, Position.y - 1);
+                
+                // Test if tiles are blocked/occupied
+                var node1State = Grid.GetNodeState(Position);
+                var node2State = Grid.GetNodeState(position2);
+                if (node1State != Enums.TileState.FREE || node2State != Enums.TileState.FREE)
+                {
+                    // If they are occupied we test each frame if the tile is now free
+                    gameObject.SetActive(true);
+                    testTiles = true;
+                }
+                else
+                {
+                    SetActive(true);
+                }
+            }
+            else
+            {
+                SetActive(false);
+            }
+        }
+
+        private void SetActive(bool active)
+        {
+            if (active)
+            {
                 gameObject.SetActive(true);
+                Desk.enabled = true;
+                Chair.enabled = true;
+                Pc.enabled = true;
                 Grid.SetNodeState(Position, Enums.TileState.BLOCKED);
-                Grid.SetNodeState(new Vector2Int(Position.x, Position.y - 1), Enums.TileState.BLOCKED);
+                Grid.SetNodeState(position2, Enums.TileState.BLOCKED);
             }
             else
             {
                 gameObject.SetActive(false);
+                Desk.enabled = false;
+                Chair.enabled = false;
+                Pc.enabled = false;
                 Grid.SetNodeState(Position, Enums.TileState.FREE);
+                Grid.SetNodeState(position2, Enums.TileState.FREE);
             }
         }
     }
