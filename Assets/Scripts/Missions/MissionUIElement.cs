@@ -7,20 +7,22 @@ namespace Missions
     /// This component should be attached to the MissionUIElement prefab.
     /// It contains methods to set the mission data to the ui components.
     /// </summary>
-    public class MissionUIElement: MonoBehaviour
+    public class MissionUIElement : MonoBehaviour
     {
         public Text Name;
         public Text Description;
         public GameObject MissionRequirementContainer;
         public GameObject SkillRequirementContent;
         public Text Duration;
+        public Text RemainingDays;
         public Text Reward;
+        public Button AcceptMissionButton;
 
         public GameObject SkillRequirementPrefab;
         public GameObject MissionRequirementPrefab;
-        
+
         private Mission mission;
-        
+
         /// <summary>
         /// Set the data of the given mission to the UI elements.
         /// </summary>
@@ -30,25 +32,40 @@ namespace Missions
             this.mission = mission;
 
             // General Info
-            Name.text = mission.GetName();
-            Description.text = mission.GetDescription();
-            Duration.text = mission.Duration.ToString();
-            Reward.text = mission.RewardMoney.ToString();
-            
-            // Skills
-            foreach (var skillDefinition in mission.SkillDifficulty)
+            if (Name != null)
+                Name.text = mission.GetName();
+            if (Description != null)
+                Description.text = mission.GetDescription();
+            if (Duration != null)
+                Duration.text = mission.Duration.ToString();
+            if (RemainingDays != null)
+                RemainingDays.text = mission.RemainingDays.ToString();
+            if (Reward != null)
+                Reward.text = mission.RewardMoney.ToString();
+
+            if (SkillRequirementContent != null && SkillRequirementPrefab != null)
             {
-                var skill = Instantiate(SkillRequirementPrefab, SkillRequirementContent.transform, false);
-                skill.transform.GetChild(0).GetComponent<Image>().sprite = skillDefinition.Key.skillSprite;
-                skill.transform.GetChild(1).GetComponent<Text>().text = skillDefinition.Value.ToString();
+                // Skills
+                foreach (var skillDefinition in mission.SkillDifficulty)
+                {
+                    var skill = Instantiate(SkillRequirementPrefab, SkillRequirementContent.transform, false);
+                    skill.transform.GetChild(0).GetComponent<Image>().sprite = skillDefinition.Key.skillSprite;
+                    skill.transform.GetChild(1).GetComponent<Text>().text = skillDefinition.Value.ToString();
+                }
             }
-            
-            // Mission Requirements
-            foreach (var missionRequirement in mission.Definition.RequiredMissions.RequiredMissions)
+
+            if (MissionRequirementContainer != null && SkillRequirementPrefab != null)
             {
-                var missionR = Instantiate(MissionRequirementPrefab, MissionRequirementContainer.transform, false);
-                missionR.transform.GetChild(1).GetComponent<Text>().text = missionRequirement.Title;
+                // Mission Requirements
+                foreach (var missionRequirement in mission.Definition.RequiredMissions.RequiredMissions)
+                {
+                    var missionR = Instantiate(MissionRequirementPrefab, MissionRequirementContainer.transform, false);
+                    missionR.transform.GetChild(1).GetComponent<Text>().text = missionRequirement.Title;
+                }
             }
+
+            if (AcceptMissionButton != null)
+                AcceptMissionButton.onClick.AddListener(OnAcceptMission);
         }
 
         /// <summary>
@@ -58,6 +75,11 @@ namespace Missions
         public Mission GetMission()
         {
             return mission;
+        }
+
+        private void OnAcceptMission()
+        {
+            MissionManager.Instance.AcceptMission(mission);
         }
     }
 }
