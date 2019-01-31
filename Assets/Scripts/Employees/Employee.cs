@@ -184,6 +184,12 @@ public class Employee : MonoBehaviour, Touchable
         RequestNewWalkToWorkplace(workplaceComponent);
     }
 
+    public void StopWorking()
+    {
+        State = Enums.EmployeeState.IDLE;
+        IdleWalking(true);
+    }
+
     private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);
 
     /// <summary>
@@ -291,6 +297,7 @@ public class Employee : MonoBehaviour, Touchable
             spriteRenderer.sortingOrder = workplace.GetEmployeeSortingOrder();
             spriteRenderer.flipX = false;
             transform.Translate(-0.07f, 0, 0);
+            workplace.StartWorking(this, null);
             yield return null;
         }
     }
@@ -331,7 +338,7 @@ public class Employee : MonoBehaviour, Touchable
             if (this.path != null && this.path[this.path.Count - 1].GetState() == Enums.TileState.OCCUPIED)
                 this.path[this.path.Count - 1].SetState(Enums.TileState.FREE);
             this.path = path;
-
+            path[path.Count - 1].SetState(Enums.TileState.OCCUPIED);
             StopFollowPath();
             followPathCoroutine = StartCoroutine(FollowPath((Workplace) workplace));
         }

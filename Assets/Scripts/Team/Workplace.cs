@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
+using GameSystem;
 using Interfaces;
+using Missions;
 using Pathfinding;
 using UnityEngine;
 using Utils;
+using Wth.ModApi.Employees;
 
 namespace Team
 {
@@ -11,7 +15,7 @@ namespace Team
     /// It is responsible for blocking the grid and displaying the sprites.
     /// It is also responsible for managing the progress of a mission.
     /// </summary>
-    public class Workplace : MonoBehaviour, Touchable
+    public class Workplace : MonoBehaviour, Touchable, Saveable<WorkplaceData>
     {
         public AGrid Grid;
         public bool EnableOnStart = false;
@@ -24,6 +28,30 @@ namespace Team
         private Vector2Int position2;
         private Vector2Int position3;
 
+        private WorkplaceData data;
+
+        private Employee employee;
+
+        private void Awake()
+        {
+            if  (GameSettings.NewGame)
+                InitDefaultState();
+            else
+                LoadState();
+        }
+        
+        private void LoadState()
+        {
+            var mainSaveGame = ContentHub.Instance.SaveGameSystem.GetCurrentSaveGame();
+            data = mainSaveGame.WorkplaceDatas.First(d => d.Position.Equals(Position));
+        }
+
+        private void InitDefaultState()
+        {
+            data = new WorkplaceData();
+            data.Position = Position;
+        }
+        
         private void Start()
         {
             var BottomTilePosition = Grid.go_grid.CellToWorld(new Vector3Int(Position.x, Position.y + 1, 0));
@@ -81,11 +109,20 @@ namespace Team
             }
         }
 
+        /// <summary>
+        /// Get the correct sorting order for an occupying employee.
+        /// </summary>
+        /// <returns></returns>
         public int GetEmployeeSortingOrder()
         {
             return Chair.sortingOrder + 1;
         }
 
+        /// <summary>
+        /// Set this workplace active/inactive.
+        /// Enables rendering and blocks tiles.
+        /// </summary>
+        /// <param name="active"></param>
         private void SetActive(bool active)
         {
             if (active)
@@ -110,9 +147,67 @@ namespace Team
             }
         }
 
+        /// <summary>
+        /// Start working on this workplace.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <param name="mission"></param>
+        public void StartWorking(Employee employee, Mission mission)
+        {
+            this.employee = employee;
+            data.Mission = mission;
+        }
+
+        /// <summary>
+        /// Stop any work on this workplace.
+        /// </summary>
+        public void StopWorking()
+        {
+            employee.StopWorking();
+            employee = null;
+            data.Mission = null;
+        } 
+
+        /// <summary>
+        /// Is this workplace currently occupied?
+        /// </summary>
+        /// <returns></returns>
+        public bool IsOccupied()
+        {
+            if (employee == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Gets called when the gameobject is touched or clicked.
+        /// </summary>
         public void Touched()
         {
             
+        }
+
+        public WorkplaceData GetData()
+        {
+            if (employee != null)
+            {
+                data.OccupyingEmployee = employee.EmployeeData;
+            }
+            return data;
+        }
+
+        /// <summary>
+        /// Get the employee that currently occupies this workplace.
+        /// </summary>
+        /// <returns></returns>
+        public Employee GetOccupyingEmployee()
+        {
+            return employee;
         }
     }
 }

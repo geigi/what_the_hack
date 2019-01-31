@@ -55,6 +55,8 @@ namespace SaveGame
 		/// All persistent data from team manager.
 		/// </summary>
 		public TeamManagerData teamManagerData;
+
+		public List<WorkplaceData> WorkplaceDatas;
 		
         /// <summary>
         /// The current balance on this savegame.

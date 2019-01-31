@@ -36,7 +36,7 @@ namespace Pathfinding
 			startNode.parent = startNode;
 
 
-			if (targetNode.GetState() == Enums.TileState.FREE || targetNode.GetState() == Enums.TileState.BLOCKED)
+			if (targetNode.GetState() == Enums.TileState.FREE)
 			{
 				Heap<Node> openSet = new Heap<Node>(_aGrid.MaxSize);
 				HashSet<Node> closedSet = new HashSet<Node>();
@@ -57,7 +57,7 @@ namespace Pathfinding
 
 					foreach (Node neighbour in _aGrid.GetNeighbours(currentNode))
 					{
-						if ((neighbour.GetState() != Enums.TileState.FREE || closedSet.Contains(neighbour)) && neighbour != targetNode)
+						if (neighbour.GetState() != Enums.TileState.FREE || closedSet.Contains(neighbour))
 						{
 							continue;
 						}
