@@ -23,6 +23,10 @@ namespace Team
         public SpriteRenderer Pc;
         public SpriteRenderer Chair;
         public Vector2Int Position;
+        public Animator Animator;
+        
+        private static readonly int idleProperty = Animator.StringToHash("idle");
+        private static readonly int workingProperty = Animator.StringToHash("working");
         
         private bool testTiles = false;
         private Vector2Int position2;
@@ -156,6 +160,7 @@ namespace Team
         {
             this.employee = employee;
             data.Mission = mission;
+            Animator.SetTrigger(workingProperty);
         }
 
         /// <summary>
@@ -163,6 +168,7 @@ namespace Team
         /// </summary>
         public void StopWorking()
         {
+            Animator.SetTrigger(idleProperty);
             employee.StopWorking();
             employee = null;
             data.Mission = null;

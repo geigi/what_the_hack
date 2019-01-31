@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 299604603085829162}
   - component: {fileID: 8427067479652368204}
+  - component: {fileID: 2537824350989066373}
   m_Layer: 0
   m_Name: ComputerSprite
   m_TagString: Untagged
@@ -79,6 +80,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2537824350989066373
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476486361718395107}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f4b185b2723e44106a4cba39bd1f23cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2433515368937280675
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +309,11 @@ MonoBehaviour:
   Desk: {fileID: 1912495895444216839}
   Pc: {fileID: 8427067479652368204}
   Chair: {fileID: 6861373808812943528}
+  Position: {x: 0, y: 0}
+  Animator: {fileID: 2537824350989066373}
+  controller: {fileID: 9100000, guid: f4b185b2723e44106a4cba39bd1f23cb, type: 2}
+  IdleAnimation: {fileID: 7400000, guid: 4ba26cb086c3244278e00263372bb9f8, type: 2}
+  WorkingAnimation: {fileID: 7400000, guid: 486d59f8585364c21ae1c25e9accc743, type: 2}
 --- !u!60 &7997155179932897452
 PolygonCollider2D:
   m_ObjectHideFlags: 0
