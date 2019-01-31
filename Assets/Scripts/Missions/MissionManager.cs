@@ -110,6 +110,15 @@ namespace Missions
             return data;
         }
 
+        public void AcceptMission(Mission mission)
+        {
+            data.Available.Remove(mission);
+            AvailableMissionsChanged.Raise();
+            data.InProgress.Add(mission);
+            InProgressMissionsChanged.Raise();
+            //TODO: Start mission and countdown time
+        }
+
         /// <summary>
         /// Refresh the missions currently available.
         /// </summary>
