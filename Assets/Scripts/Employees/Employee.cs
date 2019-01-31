@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
+using Items;
 using Pathfinding;
 using Team;
 using UE.Events;
@@ -14,8 +15,8 @@ using Wth.ModApi.Employees;
 /// This class represents an employee in the Game. All data is saved in the EmployeeData Scriptable Object.
 /// All employee related logic is implemented here.
 /// </summary>
-public class Employee : MonoBehaviour, Touchable {
-
+public class Employee : MonoBehaviour, Touchable
+{
     public const float minPathUpdateTime = .2f;
     public const float walkingSpeed = 1.0f;
     public const float regularAnimationSpeed = 1.0f;
@@ -34,6 +35,7 @@ public class Employee : MonoBehaviour, Touchable {
     private Vector2Event tileBlockedEvent;
     private UnityAction<Vector2> tileBlockedAction;
     private BoxCollider2D collider;
+    private Coroutine followPathCoroutine;
 
     private Tilemap tilemap;
 
@@ -83,7 +85,8 @@ public class Employee : MonoBehaviour, Touchable {
         tileBlockedEvent.AddListener(tileBlockedAction);
     }
 
-    void Start () {
+    void Start()
+    {
         employeeLayer = GameObject.FindWithTag("EmployeeLayer");
         this.grid = GameObject.FindWithTag("Pathfinding").GetComponent<AGrid>();
         tilemap = GameObject.FindWithTag("Tilemap").GetComponent<Tilemap>();
@@ -91,7 +94,7 @@ public class Employee : MonoBehaviour, Touchable {
         var tile = grid.getRandomFreeNode();
 
         gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(tile.gridX, tile.gridY, 0));
-        
+
         IdleWalking(true);
     }
 
@@ -118,14 +121,15 @@ public class Employee : MonoBehaviour, Touchable {
         AnimationClip walking_anim;
         AnimationClip working_anim;
 
-        if(employeeData.EmployeeDefinition != null)
+        if (employeeData.EmployeeDefinition != null)
         {
             Debug.Log("This is a special Employee");
             //special employee
             idle_anim = employeeData.EmployeeDefinition.IdleAnimation;
             walking_anim = employeeData.EmployeeDefinition.WalkingAnimation;
             working_anim = employeeData.EmployeeDefinition.WorkingAnimation;
-        } else
+        }
+        else
         {
             //generated Employee. Animation needs to be set.
             var anims = (employeeData.generatedData.gender == "female") ? clipsFemale : clipsMale;
@@ -145,7 +149,7 @@ public class Employee : MonoBehaviour, Touchable {
         this.animator.runtimeAnimatorController = animatorOverrideController;
 
         State = Enums.EmployeeState.PAUSED;
-        
+
         SetBoxCollider();
     }
 
@@ -168,14 +172,16 @@ public class Employee : MonoBehaviour, Touchable {
 
         var ret = events;
         return ret;
-
     }
 
     public void GoToWorkplace(GameObject workplace)
     {
         var workplaceComponent = workplace.GetComponent<Workplace>();
+        State = Enums.EmployeeState.PAUSED;
 
-        StopCoroutine(nameof(FollowPath));
+        StopFollowPath();
+
+        RequestNewWalkToWorkplace(workplaceComponent);
     }
 
     private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);
@@ -198,20 +204,30 @@ public class Employee : MonoBehaviour, Touchable {
 
     private void RequestNewIdleWalk()
     {
-        var callback = new System.Action<List<Node>, bool>(PathFound);
+        var callback = new System.Action<List<Node>, bool, object>(PathFound);
         var position = gameObject.transform.position;
         var go = this.grid.getNode(position).gridPosition;
         var end = this.grid.getRandomFreeNode().gridPosition;
-        Pathfinding.PathRequestManager.RequestPath(new Pathfinding.PathRequest(go, end, callback));
+        Pathfinding.PathRequestManager.RequestPath(new Pathfinding.PathRequest(go, end, null, callback));
         Debug.unityLogger.Log(LogType.Log, "Start: " + go.x.ToString() + ":" + go.y.ToString());
         Debug.unityLogger.Log(LogType.Log, "End: " + end.x.ToString() + ":" + end.y.ToString());
+    }
+
+    private void RequestNewWalkToWorkplace(Workplace workplace)
+    {
+        var callback = new System.Action<List<Node>, bool, object>(WorkplacePathFound);
+        var position = gameObject.transform.position;
+        var go = this.grid.getNode(position).gridPosition;
+        Pathfinding.PathRequestManager.RequestPath(new Pathfinding.PathRequest(go,
+            new Vector2Int(workplace.Position.x + 1, workplace.Position.y), workplace, callback));
     }
 
     /// <summary>
     /// Follow the calculated path.
     /// </summary>
     /// <returns></returns>
-    IEnumerator FollowPath() {
+    IEnumerator FollowPath(Workplace workplace)
+    {
         bool followingPath = true;
         int pathIndex = 0;
         State = Enums.EmployeeState.WALKING;
@@ -244,10 +260,12 @@ public class Employee : MonoBehaviour, Touchable {
 
             if (followingPath)
             {
-                if (step.x < 0) {
+                if (step.x < 0)
+                {
                     spriteRenderer.flipX = false;
                 }
-                else if (step.x > 0) {
+                else if (step.x > 0)
+                {
                     spriteRenderer.flipX = true;
                 }
 
@@ -257,24 +275,36 @@ public class Employee : MonoBehaviour, Touchable {
                 spriteRenderer.sortingOrder = grid.CalculateSortingLayer(oldPos + step, true);
                 yield return null;
             }
+
             shadow.Position = transform.position;
         }
-        
-        State = Enums.EmployeeState.PAUSED;
-        yield return new WaitForSeconds(4);
-        State = Enums.EmployeeState.IDLE;
+
+        if (workplace == null)
+        {
+            State = Enums.EmployeeState.PAUSED;
+            yield return new WaitForSeconds(4);
+            State = Enums.EmployeeState.IDLE;
+        }
+        else
+        {
+            State = Enums.EmployeeState.WORKING;
+            spriteRenderer.sortingOrder = workplace.GetEmployeeSortingOrder();
+            spriteRenderer.flipX = false;
+            transform.Translate(-0.07f, 0, 0);
+            yield return null;
+        }
     }
-	
+
     /// <summary>
     /// Get's called when the PathRequester found a path for this employee.
     /// </summary>
     /// <param name="path"></param>
     /// <param name="success"></param>
-    private void PathFound(List<Node> path, bool success)
+    private void PathFound(List<Node> path, bool success, object none)
     {
         if (success)
         {
-            if (this.path != null)
+            if (this.path != null && this.path[this.path.Count - 1].GetState() == Enums.TileState.OCCUPIED)
                 this.path[this.path.Count - 1].SetState(Enums.TileState.FREE);
             this.path = path;
             path[path.Count - 1].SetState(Enums.TileState.OCCUPIED);
@@ -282,8 +312,28 @@ public class Employee : MonoBehaviour, Touchable {
             {
                 Debug.unityLogger.Log(LogType.Log, "Node: " + node.gridX.ToString() + ":" + node.gridY.ToString());
             }
-            StopCoroutine(nameof(FollowPath));
-            StartCoroutine(nameof(FollowPath));
+
+            StopFollowPath();
+            followPathCoroutine = StartCoroutine(FollowPath(null));
+        }
+    }
+
+    /// <summary>
+    /// Get's called when the PathRequester found a path for this employee.
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="success"></param>
+    /// <param name="workplace"></param>
+    private void WorkplacePathFound(List<Node> path, bool success, object workplace)
+    {
+        if (success)
+        {
+            if (this.path != null && this.path[this.path.Count - 1].GetState() == Enums.TileState.OCCUPIED)
+                this.path[this.path.Count - 1].SetState(Enums.TileState.FREE);
+            this.path = path;
+
+            StopFollowPath();
+            followPathCoroutine = StartCoroutine(FollowPath((Workplace) workplace));
         }
     }
 
@@ -319,19 +369,29 @@ public class Employee : MonoBehaviour, Touchable {
     private void ResetWalkingPath()
     {
         State = Enums.EmployeeState.PAUSED;
-        StopCoroutine(nameof(FollowPath));
+        StopFollowPath();
         RequestNewIdleWalk();
         State = Enums.EmployeeState.IDLE;
     }
 
+    private void StopFollowPath()
+    {
+        if (followPathCoroutine != null)
+        {
+            StopCoroutine(followPathCoroutine);
+            followPathCoroutine = null;
+        }
+    }
+
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (State == Enums.EmployeeState.IDLE)
         {
             RequestNewIdleWalk();
         }
     }
-    
+
     void OnDestroy()
     {
         Destroy(EmployeeShadow);
@@ -339,6 +399,5 @@ public class Employee : MonoBehaviour, Touchable {
 
     public void Touched()
     {
-        throw new System.NotImplementedException();
     }
 }

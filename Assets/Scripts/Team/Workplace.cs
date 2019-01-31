@@ -30,7 +30,7 @@ namespace Team
             var layer = Grid.CalculateSortingLayer(BottomTilePosition);
             Desk.sortingOrder = layer;
             Pc.sortingOrder = layer + 1;
-            Chair.sortingOrder = layer - 1;
+            Chair.sortingOrder = layer - 2;
             Enable(EnableOnStart);
         }
 
@@ -81,6 +81,11 @@ namespace Team
             }
         }
 
+        public int GetEmployeeSortingOrder()
+        {
+            return Chair.sortingOrder + 1;
+        }
+
         private void SetActive(bool active)
         {
             if (active)
@@ -107,7 +112,7 @@ namespace Team
 
         public void Touched()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

@@ -58,8 +58,8 @@ namespace World
                     {
                         if (SelectedEmployee != null)
                         {
-                            // Todo: Make state dependent
-                            SelectedEmployee.GetComponent<Employee>().GoToWorkplace(touchedObject);
+                            var employeeComponent = SelectedEmployee.GetComponent<Employee>();
+                            employeeComponent.GoToWorkplace(touchedObject);
                             SelectedEmployee = null;
                         }
                         else

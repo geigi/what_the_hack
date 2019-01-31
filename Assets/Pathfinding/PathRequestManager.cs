@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Threading;
+using Object = System.Object;
 
 namespace Pathfinding
 {
@@ -33,7 +34,7 @@ namespace Pathfinding
 					for (int i = 0; i < itemsInQueue; i++)
 					{
 						PathResult result = results.Dequeue();
-						result.callback(result.path, result.success);
+						result.callback(result.path, result.success, result.parameter);
 					}
 				}
 			}
@@ -68,7 +69,8 @@ namespace Pathfinding
 	{
 		public List<Node> path;
 		public bool success;
-		public Action<List<Node>, bool> callback;
+		public object parameter;
+		public Action<List<Node>, bool, object> callback;
 
 		/// <summary>
 		/// Initialize a PathResult.
@@ -76,11 +78,12 @@ namespace Pathfinding
 		/// <param name="path">List of Nodes which are the calculated path.</param>
 		/// <param name="success">Was a path found?</param>
 		/// <param name="callback">Callback object.</param>
-		public PathResult(List<Node> path, bool success, Action<List<Node>, bool> callback)
+		public PathResult(List<Node> path, bool success, object parameter, Action<List<Node>, bool, object> callback)
 		{
 			this.path = path;
 			this.success = success;
 			this.callback = callback;
+			this.parameter = parameter;
 		}
 	}
 
@@ -91,7 +94,8 @@ namespace Pathfinding
 	{
 		public Vector2Int pathStart;
 		public Vector2Int pathEnd;
-		public Action<List<Node>, bool> callback;
+		public object parameter;
+		public Action<List<Node>, bool, object> callback;
 
 		/// <summary>
 		/// Initialize a PathRequest.
@@ -99,10 +103,11 @@ namespace Pathfinding
 		/// <param name="_start">Start coordinates.</param>
 		/// <param name="_end">End coordinates.</param>
 		/// <param name="_callback">Callback object. Get's called when the pathfinding is done.</param>
-		public PathRequest(Vector2Int _start, Vector2Int _end, Action<List<Node>, bool> _callback)
+		public PathRequest(Vector2Int _start, Vector2Int _end, object parameter, Action<List<Node>, bool, object> _callback)
 		{
 			pathStart = _start;
 			pathEnd = _end;
+			this.parameter = parameter;
 			callback = _callback;
 		}
 	}
