@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using UnityEditor.SceneManagement;
+using UnityEngine.Rendering;
 using Wth.ModApi.Employees;
 using Wth.ModApi.Names;
 using Random = System.Random;
@@ -38,12 +39,13 @@ namespace Assets.Tests
         public void GenerateMaterialTest()
         {
             Material material = factory.GenerateMaterial();
-            Assert.IsTrue(EmployeeFactory.hairColors.Keys.Contains<Color32>(material.GetColor("_HairColor")));
-            Assert.IsTrue(EmployeeFactory.skinColors.Keys.Contains<Color32>(material.GetColor("_SkinColor")));
-            Assert.IsTrue(EmployeeFactory.eyesColors.Keys.Contains<Color32>(material.GetColor("_EyeColor")));
-            Assert.IsTrue(EmployeeFactory.shirtColors.Keys.Contains<Color32>(material.GetColor("_ShirtColor")));
-            Assert.IsTrue(EmployeeFactory.shoesColors.Keys.Contains<Color32>(material.GetColor("_ShoeColor")));
-            Assert.IsTrue(EmployeeFactory.shortsColors.Keys.Contains<Color32>(material.GetColor("_ShortsColor")));
+            Texture2D tex = material.GetTexture("_SwapTex") as Texture2D;
+            Assert.IsTrue(EmployeeFactory.hairColors.Keys.Contains<Color32>(tex.GetPixel((int)EmployeeFactory.SwapIndex.hair, 0)));
+            Assert.IsTrue(EmployeeFactory.skinColors.Keys.Contains<Color32>(tex.GetPixel((int)EmployeeFactory.SwapIndex.skin, 0)));
+            Assert.IsTrue(EmployeeFactory.eyesColors.Keys.Contains<Color32>(tex.GetPixel((int)EmployeeFactory.SwapIndex.eyes, 0)));
+            Assert.IsTrue(EmployeeFactory.shirtColors.Keys.Contains<Color32>(tex.GetPixel((int)EmployeeFactory.SwapIndex.shirt, 0)));
+            Assert.IsTrue(EmployeeFactory.shoesColors.Keys.Contains<Color32>(tex.GetPixel((int)EmployeeFactory.SwapIndex.shoes, 0)));
+            Assert.IsTrue(EmployeeFactory.shortsColors.Keys.Contains<Color32>(tex.GetPixel((int)EmployeeFactory.SwapIndex.shorts, 0)));
         }
 
         /// <summary>
@@ -55,12 +57,13 @@ namespace Assets.Tests
         {
             var emp = GenerateMockedEmployee();
             Material mat = factory.GenerateMaterialForEmployee(emp);
-            Assert.AreEqual((Color) emp.eyeColor, mat.GetColor("_EyeColor"));
-            Assert.AreEqual((Color) emp.hairColor, mat.GetColor("_HairColor"));
-            Assert.AreEqual((Color) emp.shirtColor, mat.GetColor("_ShirtColor"));
-            Assert.AreEqual((Color) emp.shoeColor, mat.GetColor("_ShoeColor"));
-            Assert.AreEqual((Color) emp.shortsColor, mat.GetColor("_ShortsColor"));
-            Assert.AreEqual((Color) emp.skinColor, mat.GetColor("_SkinColor"));
+            var tex = mat.GetTexture("_SwapTex") as Texture2D;
+            Assert.AreEqual((Color) emp.eyeColor, tex.GetPixel((int)EmployeeFactory.SwapIndex.eyes, 0));
+            Assert.AreEqual((Color) emp.hairColor, tex.GetPixel((int)EmployeeFactory.SwapIndex.hair, 0));
+            Assert.AreEqual((Color) emp.shirtColor, tex.GetPixel((int)EmployeeFactory.SwapIndex.shirt, 0));
+            Assert.AreEqual((Color) emp.shoeColor, tex.GetPixel((int)EmployeeFactory.SwapIndex.shoes, 0));
+            Assert.AreEqual((Color) emp.shortsColor, tex.GetPixel((int)EmployeeFactory.SwapIndex.shorts, 0));
+            Assert.AreEqual((Color) emp.skinColor, tex.GetPixel((int)EmployeeFactory.SwapIndex.skin, 0));
         }
 
         /// <summary>
