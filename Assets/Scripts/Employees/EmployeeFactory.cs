@@ -17,12 +17,16 @@ public class EmployeeFactory {
     #region Colors
 
     //Default Colors
-    public static Color32 defaultShorts = new Color32(64, 64, 64, 255);
-    public static Color32 defaultShoes = new Color32(45, 45, 45, 255);
-    public static Color32 defaultShirt = new Color32(113, 113, 113, 255);
-    public static Color32 defaultSkin = new Color32(210, 210, 210, 255);
-    public static Color32 defaultEyes = new Color32(124, 124, 124, 255);
-    public static Color32 defaultHair = new Color32(150, 150, 150, 255);
+    
+    public enum SwapIndex
+    {
+        shorts = 64,
+        shoes = 45,
+        shirt = 113,
+        skin = 210,
+        eyes = 124,
+        hair = 150,
+    }
 
     //List of possible Colors
     public static Dictionary<Color32, float> shortsColors = new Dictionary<Color32, float> {
@@ -71,6 +75,9 @@ public class EmployeeFactory {
     private SkillDefinition allPurpSkillDef;
     private Material empMaterial;
 
+    private Texture2D colorSwapTex;
+    private Color[] spriteColors;
+
     public EmployeeFactory()
     {
         contentHub = ContentHub.Instance;
@@ -78,6 +85,27 @@ public class EmployeeFactory {
         skills = contentHub.GetSkillSet().keys;
         allPurpSkillDef = skills.Find(x => x.skillName.Equals("All Purpose"));
         empMaterial = contentHub.DefaultEmpMaterial;
+        InitColorSwapTex();
+        spriteColors = new Color[colorSwapTex.width];
+    }
+
+    private void InitColorSwapTex()
+    {
+        colorSwapTex = new Texture2D(256, 1, TextureFormat.RGBA32, false, false)
+        {
+            filterMode = FilterMode.Point
+        };
+        for (int i = 0; i < colorSwapTex.width; ++i)
+            colorSwapTex.SetPixel(i, 0, new Color(0.0f, 0.0f, 0.0f, 0.0f));
+
+        colorSwapTex.Apply();
+        empMaterial.SetTexture("_SwapTex", colorSwapTex);
+    }
+
+    private void SwapColor(SwapIndex index, Color color)
+    {
+        spriteColors[(int)index] = color;
+        colorSwapTex.SetPixel((int)index, 0, color);
     }
 
     /// <summary>
@@ -105,33 +133,19 @@ public class EmployeeFactory {
     }
 
     /// <summary>
-    /// Sets each grey_color of the material, to the default color, for that part.
-    /// </summary>
-    /// <param name="mat">The material, where the default colors should be set.</param>
-    public void SetDefaultMaterialColors(Material newMat)
-    {
-        newMat.SetColor("_HairGreyColor", defaultHair);
-        newMat.SetColor("_SkinGreyColor", defaultSkin);
-        newMat.SetColor("_ShirtGreyColor", defaultShirt);
-        newMat.SetColor("_ShortsGreyColor", defaultShorts);
-        newMat.SetColor("_ShoeGreyColor", defaultShoes);
-        newMat.SetColor("_EyeGreyColor", defaultEyes);
-    }
-
-    /// <summary>
     /// Generates a new Material, with random Colors.
     /// </summary>
     /// <returns>A new Material with random colors.</returns>
     public Material GenerateMaterial()
     {
         var newMat = new Material(empMaterial);
-        SetDefaultMaterialColors(newMat);
-        newMat.SetColor("_HairColor", GenerateColor(EmployeePart.HAIR));
-        newMat.SetColor("_SkinColor", GenerateColor(EmployeePart.SKIN));
-        newMat.SetColor("_ShirtColor", GenerateColor(EmployeePart.SHIRT));
-        newMat.SetColor("_ShortsColor", GenerateColor(EmployeePart.SHORTS));
-        newMat.SetColor("_ShoeColor", GenerateColor(EmployeePart.SHOES));
-        newMat.SetColor("_EyeColor", GenerateColor(EmployeePart.EYES));
+        SwapColor(SwapIndex.hair, GenerateColor(EmployeePart.HAIR));
+        SwapColor(SwapIndex.skin, GenerateColor(EmployeePart.SKIN));
+        SwapColor(SwapIndex.shirt, GenerateColor(EmployeePart.SHIRT));
+        SwapColor(SwapIndex.shorts, GenerateColor(EmployeePart.SHORTS));
+        SwapColor(SwapIndex.shoes, GenerateColor(EmployeePart.SHOES));
+        SwapColor(SwapIndex.eyes, GenerateColor(EmployeePart.EYES));
+        colorSwapTex.Apply();
         return newMat;
     }
 
@@ -145,13 +159,13 @@ public class EmployeeFactory {
     public Material GenerateMaterialForEmployee( EmployeeGeneratedData empData)
     {
         Material newMat = new Material(empMaterial);
-        SetDefaultMaterialColors(newMat);
-        newMat.SetColor("_HairColor", empData.hairColor);
-        newMat.SetColor("_SkinColor", empData.skinColor);
-        newMat.SetColor("_ShirtColor", empData.shirtColor);
-        newMat.SetColor("_ShortsColor", empData.shortsColor);
-        newMat.SetColor("_ShoeColor", empData.shoeColor);
-        newMat.SetColor("_EyeColor", empData.eyeColor);
+        SwapColor(SwapIndex.skin, empData.skinColor);
+        SwapColor(SwapIndex.hair, empData.hairColor);
+        SwapColor(SwapIndex.shirt, empData.shirtColor);
+        SwapColor(SwapIndex.eyes, empData.eyeColor);
+        SwapColor(SwapIndex.shoes, empData.shoeColor);
+        SwapColor(SwapIndex.shorts, empData.shortsColor);
+        colorSwapTex.Apply();
         return newMat;
     }
 

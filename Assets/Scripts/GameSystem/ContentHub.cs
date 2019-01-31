@@ -40,6 +40,7 @@ public sealed class ContentHub: MonoBehaviour
     /// The default Material for all Employees.
     /// </summary>
     public Material DefaultEmpMaterial;
+
     /// <summary>
     /// All Animation Clips that a male generated Employee can use.
     /// It is Required, that there are the same number of idle, walking and working animations.

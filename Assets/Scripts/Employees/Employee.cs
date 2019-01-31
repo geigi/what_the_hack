@@ -294,8 +294,8 @@ public class Employee : MonoBehaviour, Touchable {
         // Test if employee is on tile
         if (grid.go_grid.WorldToCell(transform.position).Equals(tileInt))
         {
-            // TODO: Test for state
-            ResetWalkingPath();
+            if (State == Enums.EmployeeState.IDLE)
+                ResetWalkingPath();
         }
         // Test if tile is in path
         else if (State == Enums.EmployeeState.WALKING)
@@ -321,6 +321,7 @@ public class Employee : MonoBehaviour, Touchable {
         State = Enums.EmployeeState.PAUSED;
         StopCoroutine(nameof(FollowPath));
         RequestNewIdleWalk();
+        State = Enums.EmployeeState.IDLE;
     }
 
     // Update is called once per frame
@@ -330,7 +331,7 @@ public class Employee : MonoBehaviour, Touchable {
             RequestNewIdleWalk();
         }
     }
-
+    
     void OnDestroy()
     {
         Destroy(EmployeeShadow);
