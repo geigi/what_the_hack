@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Employees;
 using GameSystem;
 using Interfaces;
 using Missions;
 using Pathfinding;
+using SaveGame;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -38,20 +40,16 @@ namespace Team
         private WorkplaceData data;
         private Employee employee;
         private GameSelectionManager gameSelectionManager;
-
-        private void Awake()
-        {
-            gameSelectionManager = GameSelectionManager.Instance;
-            if  (GameSettings.NewGame)
-                InitDefaultState();
-            else
-                LoadState();
-        }
         
         private void LoadState()
         {
-            var mainSaveGame = ContentHub.Instance.SaveGameSystem.GetCurrentSaveGame();
-            data = mainSaveGame.WorkplaceDatas.First(d => d.Position.Equals(Position));
+            var mainSaveGame = SaveGameSystem.Instance.GetCurrentSaveGame();
+            data = mainSaveGame.teamManagerData.WorkplaceDatas.First(d => d.Position.Equals(Position));
+            if (data.OccupyingEmployee != null)
+            {
+                employee = EmployeeManager.Instance.GetEmployee(data.OccupyingEmployee);
+                employee.GoToWorkplace(this, data.Mission);
+            }
         }
 
         private void InitDefaultState()
@@ -62,11 +60,19 @@ namespace Team
         
         private void Start()
         {
+            gameSelectionManager = GameSelectionManager.Instance;
+            
             var BottomTilePosition = Grid.go_grid.CellToWorld(new Vector3Int(Position.x, Position.y + 1, 0));
             var layer = Grid.CalculateSortingLayer(BottomTilePosition);
             Desk.sortingOrder = layer;
             Pc.sortingOrder = layer + 1;
             Chair.sortingOrder = layer - 2;
+            
+            if  (GameSettings.NewGame)
+                InitDefaultState();
+            else
+                LoadState();
+            
             Enable(EnableOnStart);
         }
 

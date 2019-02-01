@@ -134,7 +134,7 @@ namespace SaveGame
                 }
             }
         
-            RestoreTileMapData(saveGame);
+            //RestoreTileMapData(saveGame);
             return saveGame;
         }
 

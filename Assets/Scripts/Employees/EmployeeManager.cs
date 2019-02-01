@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.UI.EmployeeWindow;
+using Base;
 using GameSystem;
 using GameTime;
 using Interfaces;
@@ -20,7 +21,7 @@ namespace Employees
     /// This class manages all Employees for the game and keeps track, of employees that can be hired,
     /// employees which are hired and ex-employees.
     /// </summary>
-    public class EmployeeManager: MonoBehaviour, ISaveable<EmployeeManagerData> {
+    public class EmployeeManager: Singleton<EmployeeManager>, ISaveable<EmployeeManagerData> {
         /// <summary>
         /// EmployeeFactory to generate the employees. 
         /// </summary>
@@ -220,6 +221,19 @@ namespace Employees
             //Pay Employees, at the start of each week.
             if (gameDate.DayOfWeek == DayOfWeek.Monday)
                 data.hiredEmployees.ForEach(emp => bank.Pay(emp.Salary));
+        }
+
+        public Employee GetEmployee(EmployeeData data)
+        {
+            Employee employee = null;
+            foreach (Transform c in GameObject.FindWithTag("EmployeeLayer").transform)
+            {
+                var employeeComponent = c.gameObject.GetComponent<Employee>();
+                if (employeeComponent != null && employeeComponent.EmployeeData == data)
+                    employee = employeeComponent;
+            }
+
+            return employee;
         }
         
         public EmployeeManagerData GetData()

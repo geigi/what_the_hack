@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Base;
 using GameSystem;
 using Interfaces;
@@ -90,6 +91,11 @@ namespace Team
         {
             var mainSaveGame = gameObject.GetComponent<SaveGameSystem>().GetCurrentSaveGame();
             data = mainSaveGame.teamManagerData;
+
+            for (int i = 0; i < data.Workplaces - 1; i++)
+            {
+                AddWorkplace();
+            }
         }
 
         private void InitDefaultState()
@@ -108,6 +114,8 @@ namespace Team
 
         public TeamManagerData GetData()
         {
+            data.WorkplaceDatas = new List<WorkplaceData>();
+            data.WorkplaceDatas.AddRange(Workplaces.Select(w => w.GetData()));
             return data;
         }
     }

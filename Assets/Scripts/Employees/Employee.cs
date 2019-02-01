@@ -167,7 +167,8 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         else
         {
             gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(EmployeeData.Position.x, EmployeeData.Position.y, 0));
-            if (EmployeeData.State == Enums.EmployeeState.WALKING)
+            grid.getNode(employeeData.Position).SetState(Enums.TileState.OCCUPIED);
+            if (EmployeeData.State != Enums.EmployeeState.WORKING)
                 EmployeeData.State = Enums.EmployeeState.IDLE;
         }
             
@@ -178,6 +179,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         var tile = grid.getRandomFreeNode();
 
         gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(tile.gridX, tile.gridY, 0));
+        tile.SetState(Enums.TileState.OCCUPIED);
 
         IdleWalking(true);
     }
@@ -215,6 +217,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
 
     public void StopWorking()
     {
+        grid.getNode(EmployeeData.Position).SetState(Enums.TileState.FREE);
         State = Enums.EmployeeState.IDLE;
         IdleWalking(true);
     }

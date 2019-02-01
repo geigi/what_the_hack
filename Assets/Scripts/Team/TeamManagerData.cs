@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Team
 {
@@ -7,5 +8,6 @@ namespace Team
     {
         public int Floors = 1;
         public int Workplaces = 1;
+        public List<WorkplaceData> WorkplaceDatas;
     }
 }
