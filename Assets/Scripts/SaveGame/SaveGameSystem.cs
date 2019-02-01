@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Base;
 using Employees;
+using GameSystem;
 using Missions;
 using Pathfinding;
 using Team;
@@ -15,7 +17,7 @@ namespace SaveGame
     /// <summary>
     /// This class is responsible for loading and saving a game.
     /// </summary>
-    public class SaveGameSystem : MonoBehaviour
+    public class SaveGameSystem : Singleton<SaveGameSystem>
     {
         public const string DEFAULT_SAVE_GAME_NAME = "savegame";
 
@@ -24,7 +26,20 @@ namespace SaveGame
         public Bank bank;
 
         private MainSaveGame currentSaveGame;
-        
+
+        private void Awake()
+        {
+            if (!GameSettings.NewGame && DoesSaveGameExist(DEFAULT_SAVE_GAME_NAME))
+            {
+                currentSaveGame = LoadGame(DEFAULT_SAVE_GAME_NAME);
+
+                if (currentSaveGame == null)
+                {
+                    GameSettings.NewGame = true;
+                }
+            }
+        }
+
         /// <summary>
         /// Returns the savegame object that was loaded from disk.
         /// May be null.
@@ -50,6 +65,7 @@ namespace SaveGame
             saveGame.employeeManagerData = EmployeeManager.GetData();
             saveGame.missionManagerData = MissionManager.GetData();
             saveGame.teamManagerData = TeamManager.Instance.GetData();
+            saveGame.gameTime = GameTime.GameTime.Instance.GetData();
             FillTileMapData(saveGame);
             saveGame.balance = bank.Balance;
             return saveGame;

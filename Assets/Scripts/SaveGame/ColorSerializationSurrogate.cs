@@ -38,7 +38,7 @@ namespace SaveGame
             color.g = (byte)info.GetValue("g", typeof(byte));
             color.b = (byte)info.GetValue("b", typeof(byte));
             color.a = (byte)info.GetValue("a", typeof(byte));
-            return null;
+            return color;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace GameTime
     /// This class represents a specific date in the game.
     /// </summary>
     [Serializable]
-    public class GameDate: UnityEngine.Object
+    public class GameDate
     {
         /// <summary>
         /// Date. Only Day, Month and Year are used in the game.

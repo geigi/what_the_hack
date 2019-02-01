@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Base;
 using GameSystem;
 using Interfaces;
 using SaveGame;
@@ -14,7 +15,7 @@ namespace GameTime
     /// <summary>
     /// This class manages the GameTime.
     /// </summary>
-    public class GameTime : MonoBehaviour, ISaveable<GameTimeData>
+    public class GameTime : Singleton<GameTime>, ISaveable<GameTimeData>
     {
         /// <summary>
         /// Number of real time seconds that elapse per in-game time tick.
@@ -34,7 +35,7 @@ namespace GameTime
         public int ClockSteps = 9;
 
         public IntEvent GameTickEvent;
-        public ObjectEvent GameDayEvent;
+        public NetObjectEvent GameDayEvent;
         
         private GameTimeData data;
         private Coroutine tickRoutine;
@@ -78,7 +79,7 @@ namespace GameTime
         /// </summary>
         private void LoadState()
         {
-            var saveGame = gameObject.GetComponent<SaveGameSystem>().GetCurrentSaveGame();
+            var saveGame = SaveGameSystem.Instance.GetCurrentSaveGame();
             data = saveGame.gameTime;
         }
 

@@ -8,10 +8,12 @@ using UnityEngine.Events;
 /// A class for skill objects.
 /// Skills are used to define the specialization of an Employee.
 /// </summary>
+[Serializable]
 public class Skill
 {
 
-    public UnityEvent skillEvent { get; } = new UnityEvent();
+    [NonSerialized]
+    public readonly UnityEvent skillEvent = new UnityEvent();
 
     /// <summary>
     /// enum that represents employees aptitude to do a certain thing well.
@@ -62,6 +64,11 @@ public class Skill
     /// </summary>
     protected internal float nextLevelPoints;
 
+    public Skill()
+    {
+        skillEvent = new UnityEvent();
+    }
+    
     ///<summary>
     ///Constructor for this skill.
     ///</summary>

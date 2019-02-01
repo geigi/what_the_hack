@@ -35,6 +35,7 @@ public class SkillUIBuilder : MonoBehaviour
         skillImage.sprite = skill.GetSprite();
         skillName.text = skill.GetName();
         UpdateSkillUi();
+        if (skillEvent == null) skillEvent = new UnityEvent();
         skillEvent.AddListener(UpdateSkillUi);
     }
 

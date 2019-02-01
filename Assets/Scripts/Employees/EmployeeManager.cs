@@ -49,7 +49,7 @@ namespace Employees
         /// <summary>
         /// Event that will be fired when a day changes.
         /// </summary>
-        public ObjectEvent GameTimeDayTickEvent;
+        public NetObjectEvent GameTimeDayTickEvent;
 
         /// <summary>
         /// The bank object.
@@ -70,15 +70,20 @@ namespace Employees
 
         private ContentHub contentHub;
 
-        private UnityAction<Object> dayChangedAction;
+        private UnityAction<object> dayChangedAction;
 
         private void Awake()
         {
+            contentHub = ContentHub.Instance;
+            EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject>();
+            this.specialEmployees = contentHub.GetEmployeeLists();
+            factoryObject = new EmployeeFactory();
+            
             if  (GameSettings.NewGame)
                 InitDefaultState();
             else
                 LoadState();
-            factoryObject = new EmployeeFactory();
+            
             bank = contentHub.bank;
             dayChangedAction += DayChanged;
             GameTimeDayTickEvent.AddListener(dayChangedAction);
@@ -87,11 +92,6 @@ namespace Employees
         void Start()
         {
             gameObject.transform.parent = this.gameObject.transform;
-            for (int i = 0; i < 4; i++)
-            {
-                EmployeeData empData = GenerateEmployeeForHire();
-                AddEmployeeForHire(empData);
-            }
         }
 
         /// <summary>
@@ -100,15 +100,16 @@ namespace Employees
         /// </summary>
         protected internal void InitDefaultState()
         {
-            contentHub = ContentHub.Instance;
-
-            this.specialEmployees = contentHub.GetEmployeeLists();
-
             data = new EmployeeManagerData();
             data.employeesForHire = new List<EmployeeData>();
             data.hiredEmployees = new List<EmployeeData>();
             data.exEmplyoees = new List<EmployeeData>();
-            EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject>();
+            
+            for (int i = 0; i < 4; i++)
+            {
+                EmployeeData empData = GenerateEmployeeForHire();
+                AddEmployeeForHire(empData);
+            }
         }
 
         /// <summary>
@@ -116,13 +117,17 @@ namespace Employees
         /// </summary>
         private void LoadState()
         {
-            var mainSaveGame = gameObject.GetComponent<SaveGameSystem>().GetCurrentSaveGame();
-            this.specialEmployees = contentHub.GetEmployeeLists();
+            var mainSaveGame = SaveGameSystem.Instance.GetCurrentSaveGame();
             data = mainSaveGame.employeeManagerData;
 
             foreach (var employeeData in data.employeesForHire)
             {
                 AddEmployeeForHireToGui(employeeData);
+            }
+
+            foreach (var employeeData in data.hiredEmployees)
+            {
+                SpawnEmployee(employeeData);
             }
         }
 
@@ -146,13 +151,18 @@ namespace Employees
         public void AddHiredEmployee(EmployeeData employeeData)
         {
             data.hiredEmployees.Add(employeeData);
-            
+
+            SpawnEmployee(employeeData);
+        }
+
+        private void SpawnEmployee(EmployeeData employeeData)
+        {
             var employeeGameObject = new GameObject("Employee");
             var emp = employeeGameObject.AddComponent<Employee>();
-            
+
             emp.init(employeeData);
             var employeeGUI = Instantiate(EmployeeHiredPrefab);
-            employeeGUI.transform.SetParent(EmployeeHiredContent.transform, false); 
+            employeeGUI.transform.SetParent(EmployeeHiredContent.transform, false);
             employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, emp.stateEvent, () =>
             {
                 FireEmployee(emp.EmployeeData);
@@ -160,7 +170,7 @@ namespace Employees
                 Destroy(employeeGUI);
             });
         }
-        
+
         public virtual void RemoveEmployeeForHire(EmployeeData employeeData)
         {
             data.employeesForHire.Remove(employeeData);
@@ -199,7 +209,7 @@ namespace Employees
         /// <summary>
         /// Removes the first Employee from the EmployeeForHire List and creates a new one.
         /// </summary>
-        public void DayChanged(Object date)
+        public void DayChanged(object date)
         {
             var gameDate = (GameDate) date;
             if(data.employeesForHire.Count > 0)

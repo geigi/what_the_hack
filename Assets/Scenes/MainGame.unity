@@ -507,7 +507,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 671.0033
+      value: 869.0033
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -527,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 793.0001
+      value: 1027.0001
       objectReference: {fileID: 0}
     - target: {fileID: 224585422429223084, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -3266,9 +3266,9 @@ MonoBehaviour:
     type: 3}
   EmployeeForHireContent: {fileID: 1688115420}
   EmployeeHiredContent: {fileID: 1959018098}
-  GameTimeDayTickEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7,
+  GameTimeDayTickEvent: {fileID: 11400000, guid: a083acff69cc644fea241cbbcdc642b3,
     type: 2}
-  bank: {fileID: 0}
+  bank: {fileID: 2117680114}
 --- !u!224 &569903423 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3549788978582921467, guid: db377262e05494dd5a2c5cb7e82523bf,
@@ -4747,12 +4747,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1950
+      value: 2130
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1950
+      value: 2130
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -5036,12 +5036,12 @@ PrefabInstance:
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1950
+      value: 2130
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1950
+      value: 2130
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -8629,7 +8629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9e560f49eff48ad8d181ac4f1c95ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameTimeDayEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7, type: 2}
+  GameTimeDayEvent: {fileID: 11400000, guid: a083acff69cc644fea241cbbcdc642b3, type: 2}
   DayDateSeparator: '   '
 --- !u!1 &1372586685
 GameObject:
@@ -8891,12 +8891,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 792
+      value: 1008
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 792
+      value: 1008
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -9980,7 +9980,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4490
+      value: 4670
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -9990,7 +9990,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4490.0005
+      value: 4670.0005
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -11188,7 +11188,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1950, y: 1950}
+  m_AnchoredPosition: {x: 2130, y: 2130}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1765235018
@@ -14000,11 +14000,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc931588914394111ac8019213fe5541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _persistent: 0
   ClassicSecondsPerTick: 4.5
   RealtimeMinutesPerTick: 20
   ClockSteps: 9
   GameTickEvent: {fileID: 11400000, guid: 431622ad2d21640deb054b4a96e031d5, type: 2}
-  GameDayEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7, type: 2}
+  GameDayEvent: {fileID: 11400000, guid: a083acff69cc644fea241cbbcdc642b3, type: 2}
 --- !u!4 &2081988909
 Transform:
   m_ObjectHideFlags: 0
@@ -14288,6 +14289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31017082ed5564070a222d8d5c661597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _persistent: 0
   EmployeeManager: {fileID: 553733955}
   MissionManager: {fileID: 2120288067}
   bank: {fileID: 2117680114}
@@ -14388,7 +14390,7 @@ MonoBehaviour:
   MaxActiveMissions: 4
   MaxOpenMission: 6
   RefreshRate: 0.3
-  GameTimeDayTickEvent: {fileID: 11400000, guid: 6b5b96bb613584e99ac0ce5f7a4193d7,
+  GameTimeDayTickEvent: {fileID: 11400000, guid: a083acff69cc644fea241cbbcdc642b3,
     type: 2}
   AvailableMissionsChanged: {fileID: 11400000, guid: 0b732ce3b8049432bb7820470b7c915d,
     type: 2}

@@ -26,7 +26,7 @@ namespace Missions
         /// <summary>
         /// Event that will be fired when a day changes.
         /// </summary>
-        public ObjectEvent GameTimeDayTickEvent;
+        public NetObjectEvent GameTimeDayTickEvent;
 
         public GameEvent AvailableMissionsChanged;
         public GameEvent CompletedMissionsChanged;
@@ -34,7 +34,7 @@ namespace Missions
         
         private MissionManagerData data;
         private ContentHub contentHub;
-        private UnityAction<Object> dayChangedAction;
+        private UnityAction<object> dayChangedAction;
         private MissionList missionList;
         
         private void Awake()
@@ -70,7 +70,7 @@ namespace Missions
         /// </summary>
         private void LoadState()
         {
-            var mainSaveGame = gameObject.GetComponent<SaveGameSystem>().GetCurrentSaveGame();
+            var mainSaveGame = SaveGameSystem.Instance.GetCurrentSaveGame();
             data = mainSaveGame.missionManagerData;
             AvailableMissionsChanged.Raise();
             CompletedMissionsChanged.Raise();
@@ -85,7 +85,7 @@ namespace Missions
         /// <summary>
         /// Adds new missions to the available list.
         /// </summary>
-        public void DayChanged(Object date)
+        public void DayChanged(object date)
         {
             refreshOpenMissions();
         }
