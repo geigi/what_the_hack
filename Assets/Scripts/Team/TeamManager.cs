@@ -91,11 +91,6 @@ namespace Team
         {
             var mainSaveGame = gameObject.GetComponent<SaveGameSystem>().GetCurrentSaveGame();
             data = mainSaveGame.teamManagerData;
-
-            for (int i = 0; i < data.Workplaces - 1; i++)
-            {
-                AddWorkplace();
-            }
         }
 
         private void InitDefaultState()

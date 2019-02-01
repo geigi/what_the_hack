@@ -50,12 +50,15 @@ namespace Team
                 employee = EmployeeManager.Instance.GetEmployee(data.OccupyingEmployee);
                 employee.GoToWorkplace(this, data.Mission);
             }
+            
+            Enable(data.Enabled);
         }
 
         private void InitDefaultState()
         {
             data = new WorkplaceData();
             data.Position = Position;
+            Enable(EnableOnStart);
         }
         
         private void Start()
@@ -72,8 +75,6 @@ namespace Team
                 InitDefaultState();
             else
                 LoadState();
-            
-            Enable(EnableOnStart);
         }
 
         private void Update()
@@ -96,6 +97,7 @@ namespace Team
         /// <param name="enable">Enable?</param>
         public void Enable(bool enable)
         {
+            data.Enabled = enable;
             if (enable)
             {
                 // A Workplace blocks 2 tiles
