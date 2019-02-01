@@ -8,7 +8,7 @@ namespace Interfaces
     /// The classes must handle deserialization on their own in the Start method.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface Saveable<T>
+    public interface ISaveable<T>
     {
         /// <summary>
         /// Return the serializable object that will be saved in a savegame.

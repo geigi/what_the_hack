@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
 
-public class Bank : MonoBehaviour, Saveable<int>
+public class Bank : MonoBehaviour, ISaveable<int>
 {
 
     /// <summary>

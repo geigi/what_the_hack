@@ -15,7 +15,7 @@ namespace Team
     /// It is responsible for blocking the grid and displaying the sprites.
     /// It is also responsible for managing the progress of a mission.
     /// </summary>
-    public class Workplace : MonoBehaviour, Touchable, Saveable<WorkplaceData>
+    public class Workplace : MonoBehaviour, ITouchable, ISaveable<WorkplaceData>, ISelectable
     {
         public AGrid Grid;
         public bool EnableOnStart = false;
@@ -24,6 +24,7 @@ namespace Team
         public SpriteRenderer Chair;
         public Vector2Int Position;
         public Animator Animator;
+        public SpriteOutline SpriteOutline;
         
         private static readonly int idleProperty = Animator.StringToHash("idle");
         private static readonly int workingProperty = Animator.StringToHash("working");
@@ -31,9 +32,9 @@ namespace Team
         private bool testTiles = false;
         private Vector2Int position2;
         private Vector2Int position3;
+        private bool selected = false;
 
         private WorkplaceData data;
-
         private Employee employee;
 
         private void Awake()
@@ -197,14 +198,6 @@ namespace Team
             }
         }
 
-        /// <summary>
-        /// Gets called when the gameobject is touched or clicked.
-        /// </summary>
-        public void Touched()
-        {
-            
-        }
-
         public WorkplaceData GetData()
         {
             if (employee != null)
@@ -221,6 +214,31 @@ namespace Team
         public Employee GetOccupyingEmployee()
         {
             return employee;
+        }
+
+        public void TouchStarted()
+        {
+            SpriteOutline.enabled = true;
+        }
+
+        public void TouchEnded()
+        {
+            if (!selected)
+                SpriteOutline.enabled = false;
+        }
+
+        public void OnSelect(bool select)
+        {
+            selected = select;
+
+            if (selected)
+            {
+                SpriteOutline.enabled = true;
+            }
+            else
+            {
+                SpriteOutline.enabled = false;
+            }
         }
     }
 }

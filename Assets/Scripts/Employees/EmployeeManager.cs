@@ -20,7 +20,7 @@ namespace Employees
     /// This class manages all Employees for the game and keeps track, of employees that can be hired,
     /// employees which are hired and ex-employees.
     /// </summary>
-    public class EmployeeManager: MonoBehaviour, Saveable<EmployeeManagerData> {
+    public class EmployeeManager: MonoBehaviour, ISaveable<EmployeeManagerData> {
         /// <summary>
         /// EmployeeFactory to generate the employees. 
         /// </summary>

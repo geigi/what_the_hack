@@ -12,7 +12,7 @@ namespace Team
     /// <summary>
     /// This class manages team specific stuff like calculating the game progress.
     /// </summary>
-    public class TeamManager: MonoBehaviour, Saveable<TeamManagerData>
+    public class TeamManager: MonoBehaviour, ISaveable<TeamManagerData>
     {
         #region Singleton
         private static readonly Lazy<TeamManager> lazy = 

@@ -14,7 +14,7 @@ namespace GameTime
     /// <summary>
     /// This class manages the GameTime.
     /// </summary>
-    public class GameTime : MonoBehaviour, Saveable<GameTimeData>
+    public class GameTime : MonoBehaviour, ISaveable<GameTimeData>
     {
         /// <summary>
         /// Number of real time seconds that elapse per in-game time tick.

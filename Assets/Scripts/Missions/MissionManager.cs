@@ -16,7 +16,7 @@ namespace Missions
     /// This class is responsible for the management of missions.
     /// This includes shuffling the currently available missions.
     /// </summary>
-    public class MissionManager : MonoBehaviour, Saveable<MissionManagerData>
+    public class MissionManager : MonoBehaviour, ISaveable<MissionManagerData>
     {
         #region Singleton
         private static readonly Lazy<MissionManager> lazy = 

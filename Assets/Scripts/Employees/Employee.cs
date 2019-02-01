@@ -17,7 +17,7 @@ using Wth.ModApi.Employees;
 /// This class represents an employee in the Game. All data is saved in the EmployeeData Scriptable Object.
 /// All employee related logic is implemented here.
 /// </summary>
-public class Employee : MonoBehaviour, Touchable
+public class Employee : MonoBehaviour, ITouchable
 {
     public const float minPathUpdateTime = .2f;
     public const float walkingSpeed = 1.0f;
@@ -426,7 +426,11 @@ public class Employee : MonoBehaviour, Touchable
         Destroy(EmployeeShadow);
     }
 
-    public void Touched()
+    public void TouchStarted()
+    {
+    }
+
+    public void TouchEnded()
     {
     }
 }
