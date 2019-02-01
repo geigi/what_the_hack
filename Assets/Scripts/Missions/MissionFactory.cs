@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Base;
 using UnityEngine;
 using Wth.ModApi.Names;
 using Wth.ModApi.Tools;
@@ -10,19 +11,8 @@ namespace Missions
     /// <summary>
     /// This class contains methods to generate various mission objects.
     /// </summary>
-    public class MissionFactory: MonoBehaviour
+    public class MissionFactory: Singleton<MissionFactory>
     {
-        #region Singleton
-        private static readonly Lazy<MissionFactory> lazy = 
-            new Lazy<MissionFactory>(() => GameObject.FindWithTag("MissionManager").GetComponent<MissionFactory>());
-
-        /// <summary>
-        /// The single Instance of this class
-        /// </summary>
-        public static MissionFactory Instance => lazy.Value;
-
-        private MissionFactory() { }
-        #endregion
         public float MissionDifficultyVariance = 0.15f;
         public int MissionDurationMinimum = 2;
         public int MissionDurationVariance = 1;

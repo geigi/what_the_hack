@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Base;
 using ModTool;
 using UnityEngine;
 
@@ -10,21 +11,12 @@ namespace Wth.ModApi.Tools
     /// This class contains methods needed to serialize and deserialize scriptable object references.
     /// Note: This is a singleton.
     /// </summary>
-    public sealed class ScriptableObjectManager
+    public sealed class ScriptableObjectManager: Singleton<ScriptableObjectManager>
     {
-        #region Singleton
-        private static readonly Lazy<ScriptableObjectManager> lazy = new Lazy<ScriptableObjectManager>(() => new ScriptableObjectManager());
-    
-        /// <summary>
-        /// Global and only instance of this class.
-        /// </summary>
-        public static ScriptableObjectManager Instance { get { return lazy.Value; } }
-        #endregion
-
         private ScriptableObjectDictionary MainDictionary;
         private ScriptableObjectDictionary ModDictionary;
         
-        private ScriptableObjectManager()
+        void Awake()
         {
             MainDictionary = Resources.LoadAll<ScriptableObjectDictionary>("").First();
             RefreshModDictionary();

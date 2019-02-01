@@ -1,4 +1,5 @@
 ﻿using System;
+using Base;
 using Employees;
 using GameSystem;
 using Interfaces;
@@ -16,20 +17,8 @@ namespace Missions
     /// This class is responsible for the management of missions.
     /// This includes shuffling the currently available missions.
     /// </summary>
-    public class MissionManager : MonoBehaviour, ISaveable<MissionManagerData>
+    public class MissionManager : Singleton<MissionManager>, ISaveable<MissionManagerData>
     {
-        #region Singleton
-        private static readonly Lazy<MissionManager> lazy = 
-            new Lazy<MissionManager>(() => GameObject.FindWithTag("MissionManager").GetComponent<MissionManager>());
-
-        /// <summary>
-        /// The single Instance of this class
-        /// </summary>
-        public static MissionManager Instance => lazy.Value;
-
-        private MissionManager() { }
-        #endregion
-        
         public int MaxActiveMissions = 4;
         public int MaxOpenMission = 6;
         public float RefreshRate = 0.3f;

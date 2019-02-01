@@ -1,36 +1,26 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Base;
 using ModTool;
 using UnityEngine;
 
 /// <summary>
 /// Class for holding the loaded mod.
 /// </summary>
-public sealed class ModHolder
+public sealed class ModHolder: Singleton<ModHolder>
 {
     /// <summary>
     /// The loaded Mod.
     /// </summary>
     private ModInfo mod;
-    private ModManager modManager = ModManager.instance;
-
-    private static readonly Lazy<ModHolder> lazy =
-    new Lazy<ModHolder>(() => new ModHolder());
-
-    /// <summary>
-    /// The single instance of this class.
-    /// </summary>
-    public static ModHolder Instance => lazy.Value;
-
-    private ModHolder() { }
 
     /// <summary>
     /// Get and Save the loaded mod in the modInfo instance.
     /// </summary>
     public void GetLoadedMod()
     {
-        foreach (Mod m in modManager.mods)
+        foreach (Mod m in ModManager.instance.mods)
         {
             if (m.loadState == ResourceLoadState.Loaded)
             {

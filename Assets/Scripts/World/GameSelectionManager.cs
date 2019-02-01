@@ -1,4 +1,5 @@
 using System;
+using Base;
 using Interfaces;
 using Items;
 using Missions;
@@ -10,20 +11,8 @@ using Utils;
 
 namespace World
 {
-    public class GameSelectionManager : MonoBehaviour
+    public class GameSelectionManager : Singleton<GameSelectionManager>
     {
-        #region Singleton
-        private static readonly Lazy<GameSelectionManager> lazy = 
-            new Lazy<GameSelectionManager>(() => GameObject.FindWithTag("Managers").GetComponent<GameSelectionManager>());
-
-        /// <summary>
-        /// The single Instance of this class
-        /// </summary>
-        public static GameSelectionManager Instance => lazy.Value;
-
-        private GameSelectionManager() { }
-        #endregion
-
         public State SelectMissionState;
 
         private Workplace workplace;

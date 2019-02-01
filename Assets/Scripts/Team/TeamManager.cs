@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Base;
 using GameSystem;
 using Interfaces;
 using Items;
@@ -12,20 +13,8 @@ namespace Team
     /// <summary>
     /// This class manages team specific stuff like calculating the game progress.
     /// </summary>
-    public class TeamManager: MonoBehaviour, ISaveable<TeamManagerData>
+    public class TeamManager: Singleton<TeamManager>, ISaveable<TeamManagerData>
     {
-        #region Singleton
-        private static readonly Lazy<TeamManager> lazy = 
-            new Lazy<TeamManager>(() => GameObject.FindWithTag("Managers").GetComponent<TeamManager>());
-
-        /// <summary>
-        /// The single Instance of this class
-        /// </summary>
-        public static TeamManager Instance => lazy.Value;
-
-        private TeamManager() { }
-        #endregion
-
         public int MaxFloors = 3;
         public IntEvent FloorsChangedEvent;
         public List<Workplace> Workplaces;

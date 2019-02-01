@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Base;
 using SaveGame;
 using UE.Events;
 using UnityEngine;
@@ -9,17 +10,8 @@ using UnityEngine;
 /// This class is the hub where other classes can get the game content.
 /// If a mod is loaded it returns the mods content, otherwise the default content.
 /// </summary>
-public sealed class ContentHub: MonoBehaviour
+public sealed class ContentHub: Singleton<ContentHub>
 {
-    private static readonly Lazy<ContentHub> lazy = 
-        new Lazy<ContentHub>(() => GameObject.FindWithTag("Managers").GetComponent<ContentHub>());
-
-    /// <summary>
-    /// The single Instance of this class
-    /// </summary>
-    public static ContentHub Instance => lazy.Value;
-
-    private ContentHub() { }
     /// <summary>
     /// The <see cref="SkillSet"/> of the base game.
     /// </summary>
