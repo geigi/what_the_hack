@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Extensions;
 using Interfaces;
 using Items;
 using Missions;
@@ -228,7 +229,7 @@ public class Employee : MonoBehaviour, Touchable
         var go = this.grid.getNode(position).gridPosition;
         
         var employeeCell = grid.go_grid.WorldToCell(position);
-        if (new Vector2Int(employeeCell.x, employeeCell.y).Equals(workplace.GetChairTile()))
+        if (employeeCell.ToVector2Int().Equals(workplace.GetChairTile()))
         {
             StartWorking(workplace);
         }
