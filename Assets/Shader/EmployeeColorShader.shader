@@ -7,6 +7,11 @@
         _SwapTex("Color Data", 2D) = "transparent" {}
         _Color("Tint", Color) = (1,1,1,1)
         [MaterialToggle] PixelSnap("Pixel snap", Float) = 0
+        
+        // Outline
+        _OutLineSpreadX ("Outline Spread", Range(0,0.03)) = 0.007
+        _OutLineSpreadY ("Outline Spread", Range(0,0.03)) = 0.007
+        [Toggle] _OutLineEnable("Enable Outline", Float) = 0
 
             // required for UI.Mask
             _StencilComp("Stencil Comparison", Float) = 8
@@ -78,6 +83,9 @@
                 sampler2D _MainTex;
                 sampler2D _BumpMap;
                 sampler2D _SwapTex;
+                float _OutLineSpreadX;
+                float _OutLineSpreadY;
+                float _OutLineEnable;
 
                 fixed4 SampleSpriteTexture(float2 uv)
                 {
@@ -87,9 +95,29 @@
 
                 void surf (Input IN, inout SurfaceOutput o)
                 {
-                    fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
-                    fixed4 swapCol = tex2D(_SwapTex, float2(c.r, 0));
-                    fixed4 final = lerp(c, swapCol, swapCol.a) * IN.color;
+                    fixed4 mainColor;
+                    
+                    if (_OutLineEnable > 0) {
+                        fixed4 TempColor = tex2D(_MainTex, IN.texcoord+float2(_OutLineSpreadX,0.0)) + tex2D(_MainTex, IN.texcoord-float2(_OutLineSpreadX,0.0));
+                        TempColor = TempColor + tex2D(_MainTex, IN.texcoord+float2(0.0,_OutLineSpreadY)) + tex2D(_MainTex, IN.texcoord-float2(0.0,_OutLineSpreadY));
+                        if(TempColor.a == 1){
+                            TempColor.a = 1;
+                        }
+                        fixed4 AlphaColor = (0,0,0,TempColor.a);
+                        mainColor = AlphaColor * _Color.rgba;
+                        fixed4 addcolor = tex2D(_MainTex, IN.uv_MainTex) * IN.color;
+               
+                        if(addcolor.a > 0.99){
+                            mainColor = addcolor;
+                        }
+                    }
+                    else {
+                        mainColor = SampleSpriteTexture(IN.texcoord) * IN.color;
+                    }
+                    
+                    fixed4 swapCol = tex2D(_SwapTex, float2(mainColor.r, 0));
+                    fixed4 final = lerp(mainColor, swapCol, swapCol.a) * IN.color;
+                    
                     o.Alpha = final.a;
                     o.Albedo = final.rgb * final.a;
                 }

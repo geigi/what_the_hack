@@ -7,7 +7,7 @@ Shader "Custom/Outline_2DSprite"
            _OutLineSpreadX ("Outline Spread", Range(0,0.03)) = 0.007
            _OutLineSpreadY ("Outline Spread", Range(0,0.03)) = 0.007
            _Color("Outline Color", Color) = (1.0,1.0,1.0,1.0)
-           [Toggle] _Enable("Enable Outline", Float) = 0
+           [Toggle] _OutLineEnable("Enable Outline", Float) = 0
        }
     
        SubShader
@@ -33,11 +33,11 @@ Shader "Custom/Outline_2DSprite"
            float _OutLineSpreadX;
            float _OutLineSpreadY;
            float4 _Color;
-           float _Enable;
+           float _OutLineEnable;
     
            void surf(Input IN, inout SurfaceOutput o)
            {
-               if (_Enable > 0) {
+               if (_OutLineEnable > 0) {
                     fixed4 TempColor = tex2D(_MainTex, IN.uv_MainTex+float2(_OutLineSpreadX,0.0)) + tex2D(_MainTex, IN.uv_MainTex-float2(_OutLineSpreadX,0.0));
                     TempColor = TempColor + tex2D(_MainTex, IN.uv_MainTex+float2(0.0,_OutLineSpreadY)) + tex2D(_MainTex, IN.uv_MainTex-float2(0.0,_OutLineSpreadY));
                     if(TempColor.a == 1){
