@@ -12,7 +12,7 @@ namespace Missions
     {
         public GameEvent Event;
         public GameObject MissionPrefab;
-        public TouchClickController TouchClickController;
+        public GameSelectionManager GameSelectionManager;
         public GameObject NoMissionsHelp;
 
         private UnityAction listener;
@@ -75,7 +75,6 @@ namespace Missions
                     var element = Instantiate(MissionPrefab, gameObject.transform, false);
                     var component = element.GetComponent<MissionUIElement>();
                     component.SetMission(mission);
-                    component.TouchClickController = TouchClickController;
                 }
             }
 

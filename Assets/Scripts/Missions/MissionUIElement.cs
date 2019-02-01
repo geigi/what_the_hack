@@ -22,8 +22,6 @@ namespace Missions
 
         public GameObject SkillRequirementPrefab;
         public GameObject MissionRequirementPrefab;
-
-        public TouchClickController TouchClickController;
         
         private Mission mission;
 
@@ -91,7 +89,7 @@ namespace Missions
 
         private void OnSelectMission()
         {
-            TouchClickController.MissionSelected(mission);
+            GameSelectionManager.Instance.MissionSelected(mission);
         }
     }
 }

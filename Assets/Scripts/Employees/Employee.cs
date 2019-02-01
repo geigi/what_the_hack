@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Extensions;
+using GameTime;
 using Interfaces;
 using Items;
 using Missions;
@@ -9,15 +10,17 @@ using Team;
 using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 using Utils;
+using World;
 using Wth.ModApi.Employees;
 
 /// <summary>
 /// This class represents an employee in the Game. All data is saved in the EmployeeData Scriptable Object.
 /// All employee related logic is implemented here.
 /// </summary>
-public class Employee : MonoBehaviour, ITouchable
+public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerDownHandler
 {
     public const float minPathUpdateTime = .2f;
     public const float walkingSpeed = 1.0f;
@@ -43,6 +46,7 @@ public class Employee : MonoBehaviour, ITouchable
 
     private GameObject EmployeeShadow;
     private EmployeeShadow shadow;
+    private SpriteOutline spriteOutline;
 
     public Enums.EmployeeState State
     {
@@ -159,6 +163,9 @@ public class Employee : MonoBehaviour, ITouchable
         State = Enums.EmployeeState.PAUSED;
 
         SetBoxCollider();
+
+        spriteOutline = gameObject.AddComponent<SpriteOutline>();
+        spriteOutline.enabled = false;
     }
 
     private void SetBoxCollider()
@@ -182,15 +189,14 @@ public class Employee : MonoBehaviour, ITouchable
         return ret;
     }
 
-    public void GoToWorkplace(GameObject workplace, Mission mission)
+    public void GoToWorkplace(Workplace workplace, Mission mission)
     {
-        var workplaceComponent = workplace.GetComponent<Workplace>();
-        workplaceComponent.Occupy(this, mission);
+        workplace.Occupy(this, mission);
         State = Enums.EmployeeState.PAUSED;
 
         StopFollowPath();
 
-        RequestNewWalkToWorkplace(workplaceComponent);
+        RequestNewWalkToWorkplace(workplace);
     }
 
     public void StopWorking()
@@ -426,11 +432,20 @@ public class Employee : MonoBehaviour, ITouchable
         Destroy(EmployeeShadow);
     }
 
-    public void TouchStarted()
+    public void OnDeselect()
     {
+        spriteOutline.enabled = false;
     }
 
-    public void TouchEnded()
+    public void OnPointerUp(PointerEventData eventData)
     {
+        GameSelectionManager.Instance.ClearWorkplace();
+        GameSelectionManager.Instance.Employee = this;
+        spriteOutline.enabled = true;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        spriteOutline.enabled = true;
     }
 }

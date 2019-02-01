@@ -5,7 +5,9 @@ using Interfaces;
 using Missions;
 using Pathfinding;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utils;
+using World;
 using Wth.ModApi.Employees;
 
 namespace Team
@@ -15,7 +17,7 @@ namespace Team
     /// It is responsible for blocking the grid and displaying the sprites.
     /// It is also responsible for managing the progress of a mission.
     /// </summary>
-    public class Workplace : MonoBehaviour, ITouchable, ISaveable<WorkplaceData>, ISelectable
+    public class Workplace : MonoBehaviour, ISaveable<WorkplaceData>, ISelectable, IPointerUpHandler, IPointerDownHandler
     {
         public AGrid Grid;
         public bool EnableOnStart = false;
@@ -32,13 +34,14 @@ namespace Team
         private bool testTiles = false;
         private Vector2Int position2;
         private Vector2Int position3;
-        private bool selected = false;
 
         private WorkplaceData data;
         private Employee employee;
+        private GameSelectionManager gameSelectionManager;
 
         private void Awake()
         {
+            gameSelectionManager = GameSelectionManager.Instance;
             if  (GameSettings.NewGame)
                 InitDefaultState();
             else
@@ -216,29 +219,42 @@ namespace Team
             return employee;
         }
 
-        public void TouchStarted()
+        public void OnDeselect()
         {
-            SpriteOutline.enabled = true;
+            SpriteOutline.enabled = false;
         }
 
-        public void TouchEnded()
+        public void OnPointerUp(PointerEventData eventData)
         {
-            if (!selected)
-                SpriteOutline.enabled = false;
-        }
-
-        public void OnSelect(bool select)
-        {
-            selected = select;
-
-            if (selected)
+            gameSelectionManager.Workplace = this;
+            
+            if (gameSelectionManager.EmployeeSelected)
             {
-                SpriteOutline.enabled = true;
+                if (employee == gameSelectionManager.Employee)
+                {
+                    StopWorking();
+                    gameSelectionManager.ClearEmployee();
+                    gameSelectionManager.ClearWorkplace();
+                }
+                else if (gameSelectionManager.Employee.State != Enums.EmployeeState.WORKING)
+                {
+                    gameSelectionManager.Workplace = this;
+                    gameSelectionManager.SelectMissionState.Enter();
+                }
+                else
+                {
+                    gameSelectionManager.ClearEmployee();
+                }
             }
             else
             {
-                SpriteOutline.enabled = false;
+                SpriteOutline.enabled = true;
             }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            SpriteOutline.enabled = true;
         }
     }
 }

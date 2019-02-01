@@ -76,6 +76,7 @@ Shader "Sprites/character/EmployeeLightingShader"
                 fixed4 c = SampleSpriteTexture (IN.uv_MainTex);
                 o.Albedo = c.rgb * c.a; // vertex RGB
                 o.Alpha = c.a;
+                o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));
             }
         ENDCG
     }

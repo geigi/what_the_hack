@@ -2,6 +2,6 @@ namespace Interfaces
 {
     public interface ISelectable
     {
-        void OnSelect(bool select);
+        void OnDeselect();
     }
 }
