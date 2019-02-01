@@ -93,6 +93,15 @@ namespace Employees
         void Start()
         {
             gameObject.transform.parent = this.gameObject.transform;
+
+            if (GameSettings.NewGame)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    EmployeeData empData = GenerateEmployeeForHire();
+                    AddEmployeeForHire(empData);
+                }
+            }
         }
 
         /// <summary>
@@ -105,12 +114,6 @@ namespace Employees
             data.employeesForHire = new List<EmployeeData>();
             data.hiredEmployees = new List<EmployeeData>();
             data.exEmplyoees = new List<EmployeeData>();
-            
-            for (int i = 0; i < 4; i++)
-            {
-                EmployeeData empData = GenerateEmployeeForHire();
-                AddEmployeeForHire(empData);
-            }
         }
 
         /// <summary>

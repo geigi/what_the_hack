@@ -42,8 +42,8 @@ namespace Assets.Tests
             };
             factory.GenerateEmployee().Returns(testEmployee);
 
-            emp.InitDefaultState();
             emp.factoryObject = factory;
+            emp.InitDefaultState();
             emp.EmployeeForHirePrefab = GameObject.CreatePrimitive(PrimitiveType.Capsule);
         }
 

@@ -74,7 +74,7 @@ public abstract class Singleton : MonoBehaviour
     #region  Methods
     private void OnApplicationQuit()
     {
-        Quitting = true;
+        //Quitting = true;
     }
     #endregion
 }
