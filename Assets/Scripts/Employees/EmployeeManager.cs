@@ -127,7 +127,7 @@ namespace Employees
 
             foreach (var employeeData in data.hiredEmployees)
             {
-                SpawnEmployee(employeeData);
+                SpawnEmployee(employeeData, false);
             }
         }
 
@@ -152,15 +152,15 @@ namespace Employees
         {
             data.hiredEmployees.Add(employeeData);
 
-            SpawnEmployee(employeeData);
+            SpawnEmployee(employeeData, true);
         }
 
-        private void SpawnEmployee(EmployeeData employeeData)
+        private void SpawnEmployee(EmployeeData employeeData, bool isFreshman)
         {
             var employeeGameObject = new GameObject("Employee");
             var emp = employeeGameObject.AddComponent<Employee>();
 
-            emp.init(employeeData);
+            emp.init(employeeData, isFreshman);
             var employeeGUI = Instantiate(EmployeeHiredPrefab);
             employeeGUI.transform.SetParent(EmployeeHiredContent.transform, false);
             employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, emp.stateEvent, () =>

@@ -188,7 +188,7 @@ namespace SaveGame
         
             // Create a SurrogateSelector
             SurrogateSelector ss = new SurrogateSelector();
-            ss.AddSurrogate(typeof(Vector2), new StreamingContext(StreamingContextStates.All), new Vector2SerializationSurrogate());
+            ss.AddSurrogate(typeof(Vector2Int), new StreamingContext(StreamingContextStates.All), new Vector2IntSerializationSurrogate());
             ss.AddSurrogate(typeof(Color32), new StreamingContext(StreamingContextStates.All), new ColorSerializationSurrogate());
             foreach (var type in types)
             {

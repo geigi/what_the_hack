@@ -95,19 +95,16 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         tileBlockedAction = OnTileBlocked;
         tileBlockedEvent = ContentHub.Instance.TileBlockedEvent;
         tileBlockedEvent.AddListener(tileBlockedAction);
-    }
-
-    void Start()
-    {
+        
         employeeLayer = GameObject.FindWithTag("EmployeeLayer");
         this.grid = GameObject.FindWithTag("Pathfinding").GetComponent<AGrid>();
         tilemap = GameObject.FindWithTag("Tilemap").GetComponent<Tilemap>();
         gameObject.transform.parent = employeeLayer.transform;
-        var tile = grid.getRandomFreeNode();
+    }
 
-        gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(tile.gridX, tile.gridY, 0));
-
-        IdleWalking(true);
+    void Start()
+    {
+        
     }
 
     /// <summary>
@@ -115,7 +112,8 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     /// Fills the object with specific data.
     /// </summary>
     /// <param name="employeeData">Data for this employee.</param>
-    public void init(EmployeeData employeeData)
+    /// <param name="newEmployee">Is this a freshman?</param>
+    public void init(EmployeeData employeeData, bool isFreshman)
     {
         this.factory = new EmployeeFactory();
         this.EmployeeData = employeeData;
@@ -160,12 +158,28 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         animatorOverrideController["dummy_working"] = working_anim;
         this.animator.runtimeAnimatorController = animatorOverrideController;
 
-        State = Enums.EmployeeState.PAUSED;
-
         SetBoxCollider();
 
         spriteOutline = gameObject.AddComponent<SpriteOutline>();
         spriteOutline.enabled = false;
+        
+        if (isFreshman) PlaceOnRandomTile();
+        else
+        {
+            gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(EmployeeData.Position.x, EmployeeData.Position.y, 0));
+            if (EmployeeData.State == Enums.EmployeeState.WALKING)
+                EmployeeData.State = Enums.EmployeeState.IDLE;
+        }
+            
+    }
+
+    private void PlaceOnRandomTile()
+    {
+        var tile = grid.getRandomFreeNode();
+
+        gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(tile.gridX, tile.gridY, 0));
+
+        IdleWalking(true);
     }
 
     private void SetBoxCollider()
@@ -282,6 +296,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                     transform.Translate(step);
                     stepLength -= distance;
                     pathIndex++;
+                    EmployeeData.Position = path[pathIndex].gridPosition;
                     distance = Vector3.Distance(transform.position, path[pathIndex].worldPosition);
                     step = (path[pathIndex].worldPosition - transform.position).normalized * stepLength;
                 }

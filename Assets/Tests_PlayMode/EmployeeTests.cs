@@ -67,7 +67,7 @@ namespace Assets.Tests_PlayMode
             var obj = new GameObject();
             var emp = obj.AddComponent<Employee>();
             emp.enabled = false;
-            emp.init(generatedEmpData);
+            emp.init(generatedEmpData, true);
             /*Asserts*/
             Assert.IsNotNull(obj.GetComponent<SpriteRenderer>());
             Assert.AreSame(ContentHub.Instance.femaleAnimationClips[1] , emp.animator.runtimeAnimatorController.animationClips[1]);
@@ -86,7 +86,7 @@ namespace Assets.Tests_PlayMode
             var obj = new GameObject();
             var emp = obj.AddComponent<Employee>();
             emp.enabled = false;
-            emp.init(specialEmpData);
+            emp.init(specialEmpData, true);
             Assert.IsNotNull(obj.GetComponent<SpriteRenderer>());
             Assert.AreSame(idle, emp.animator.runtimeAnimatorController.animationClips[1]);
             Assert.AreSame(walking, emp.animator.runtimeAnimatorController.animationClips[0]);

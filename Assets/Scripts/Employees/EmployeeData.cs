@@ -41,7 +41,7 @@ namespace Wth.ModApi.Employees
         /// <summary>
         /// World position of the employee.
         /// </summary>
-        public Vector2 Position;
+        public Vector2Int Position;
         
         /// <summary>
         /// This is null when the employee is a normal generated employee.

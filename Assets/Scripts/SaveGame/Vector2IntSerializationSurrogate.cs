@@ -6,7 +6,7 @@ namespace SaveGame
     /// <summary>
     /// This surrogate handles <see cref="Vector2"/> serialization.
     /// </summary>
-    sealed class Vector2SerializationSurrogate: ISerializationSurrogate 
+    sealed class Vector2IntSerializationSurrogate: ISerializationSurrogate 
     {
         /// <summary>
         /// Handle serialization.
@@ -16,7 +16,7 @@ namespace SaveGame
         /// <param name="context"></param>
         public void GetObjectData(object obj, SerializationInfo info, StreamingContext context)
         {
-            var vector2 = (Vector2) obj;
+            var vector2 = (Vector2Int) obj;
             info.AddValue("x", vector2.x);
             info.AddValue("y", vector2.y);
         }
@@ -31,10 +31,10 @@ namespace SaveGame
         /// <returns></returns>
         public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
         {
-            var vector2 = (Vector2) obj;
-            vector2.x = (float)info.GetValue("x", typeof(float));
-            vector2.y = (float)info.GetValue("y", typeof(float));
-            return null;
+            var vector2 = (Vector2Int) obj;
+            vector2.x = (int)info.GetValue("x", typeof(int));
+            vector2.y = (int)info.GetValue("y", typeof(int));
+            return vector2;
         }
     }
 }

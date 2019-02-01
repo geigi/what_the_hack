@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using GameSystem;
 using SaveGame;
 using UnityEngine;
+using Utils;
 using Wth.ModApi.Employees;
 using Wth.ModApi.Names;
 using Random = System.Random;
@@ -221,6 +222,7 @@ public class EmployeeFactory {
         generatedData.workingClipIndex = clipIndex + 2 * numDiffClips;
 
         employee.generatedData = generatedData;
+        employee.State = Enums.EmployeeState.PAUSED;
         return employee;
     }
 
