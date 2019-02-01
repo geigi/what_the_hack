@@ -151,15 +151,17 @@ namespace Team
             }
         }
 
+        public void Occupy(Employee employee, Mission mission)
+        {
+            data.Mission = mission;
+            this.employee = employee;
+        }
+
         /// <summary>
         /// Start working on this workplace.
         /// </summary>
-        /// <param name="employee"></param>
-        /// <param name="mission"></param>
-        public void StartWorking(Employee employee, Mission mission)
+        public void StartWorking()
         {
-            this.employee = employee;
-            data.Mission = mission;
             Animator.SetTrigger(workingProperty);
         }
 

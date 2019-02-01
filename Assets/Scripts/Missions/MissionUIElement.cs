@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using World;
 
 namespace Missions
 {
@@ -17,10 +18,13 @@ namespace Missions
         public Text RemainingDays;
         public Text Reward;
         public Button AcceptMissionButton;
+        public Button SelectMissionButton;
 
         public GameObject SkillRequirementPrefab;
         public GameObject MissionRequirementPrefab;
 
+        public TouchClickController TouchClickController;
+        
         private Mission mission;
 
         /// <summary>
@@ -66,6 +70,9 @@ namespace Missions
 
             if (AcceptMissionButton != null)
                 AcceptMissionButton.onClick.AddListener(OnAcceptMission);
+            
+            if (SelectMissionButton != null)
+                SelectMissionButton.onClick.AddListener(OnSelectMission);
         }
 
         /// <summary>
@@ -80,6 +87,11 @@ namespace Missions
         private void OnAcceptMission()
         {
             MissionManager.Instance.AcceptMission(mission);
+        }
+
+        private void OnSelectMission()
+        {
+            TouchClickController.MissionSelected(mission);
         }
     }
 }

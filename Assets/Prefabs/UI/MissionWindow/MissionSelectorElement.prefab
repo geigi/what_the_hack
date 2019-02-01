@@ -546,10 +546,12 @@ MonoBehaviour:
   RemainingDays: {fileID: 3711035304788611011}
   Reward: {fileID: 0}
   AcceptMissionButton: {fileID: 0}
+  SelectMissionButton: {fileID: 5403200144984353817}
   SkillRequirementPrefab: {fileID: 884181141245233918, guid: 583cd450bc4dc488eb3daee144c078e1,
     type: 3}
   MissionRequirementPrefab: {fileID: 5902272369764601504, guid: 026cb81d58b184ddbbe72d1869b257ca,
     type: 3}
+  TouchClickController: {fileID: 0}
 --- !u!114 &3766419734950307903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,7 +584,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}

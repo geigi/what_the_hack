@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Interfaces;
 using Items;
+using Missions;
 using Pathfinding;
 using Team;
 using UE.Events;
@@ -174,9 +175,10 @@ public class Employee : MonoBehaviour, Touchable
         return ret;
     }
 
-    public void GoToWorkplace(GameObject workplace)
+    public void GoToWorkplace(GameObject workplace, Mission mission)
     {
         var workplaceComponent = workplace.GetComponent<Workplace>();
+        workplaceComponent.Occupy(this, mission);
         State = Enums.EmployeeState.PAUSED;
 
         StopFollowPath();
@@ -297,7 +299,7 @@ public class Employee : MonoBehaviour, Touchable
             spriteRenderer.sortingOrder = workplace.GetEmployeeSortingOrder();
             spriteRenderer.flipX = false;
             transform.Translate(-0.07f, 0, 0);
-            workplace.StartWorking(this, null);
+            workplace.StartWorking();
             yield return null;
         }
     }

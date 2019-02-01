@@ -4,6 +4,7 @@ using System.Linq;
 using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
+using World;
 
 namespace Missions
 {
@@ -11,6 +12,7 @@ namespace Missions
     {
         public GameEvent Event;
         public GameObject MissionPrefab;
+        public TouchClickController TouchClickController;
 
         private UnityAction listener;
 
@@ -65,7 +67,9 @@ namespace Missions
                 if (childs.All(p => p.GetComponent<MissionUIElement>().GetMission() != mission))
                 {
                     var element = Instantiate(MissionPrefab, gameObject.transform, false);
-                    element.GetComponent<MissionUIElement>().SetMission(mission);
+                    var component = element.GetComponent<MissionUIElement>();
+                    component.SetMission(mission);
+                    component.TouchClickController = TouchClickController;
                 }
             }
         }

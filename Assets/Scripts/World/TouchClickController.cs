@@ -1,5 +1,7 @@
 using Interfaces;
+using Missions;
 using Team;
+using UE.StateMachine;
 using UnityEngine;
 
 namespace World
@@ -9,6 +11,8 @@ namespace World
         //Change me to change the touch phase used.
         TouchPhase touchPhase = TouchPhase.Ended;
         public Camera Camera;
+
+        public State SelectMissionState;
 
         /// <summary>
         /// Contains the currently selected employee.
@@ -63,9 +67,8 @@ namespace World
                         // Send employee to workplace
                         if (SelectedEmployee != null && !touchedObject.GetComponent<Workplace>().IsOccupied())
                         {
-                            var employeeComponent = SelectedEmployee.GetComponent<Employee>();
-                            employeeComponent.GoToWorkplace(touchedObject);
-                            SelectedEmployee = null;
+                            SelectedWorkspace = touchedObject;
+                            SelectMissionState.Enter();
                         }
                         // Stop working if employee is already working at this workplace
                         else if (SelectedEmployee != null &&
@@ -84,11 +87,23 @@ namespace World
                     var touchable = touchedObject.GetComponent(typeof(Touchable)) as Touchable;
                     touchable?.Touched();
                 }
-                else
+                else if (!SelectMissionState.IsActive())
                 {
                     SelectedEmployee = null;
                     SelectedWorkspace = null;
                 }
+            }
+        }
+
+        public void MissionSelected(Mission mission)
+        {
+            if (SelectedEmployee != null && SelectedWorkspace != null)
+            {
+                var employeeComponent = SelectedEmployee.GetComponent<Employee>();
+                employeeComponent.GoToWorkplace(SelectedWorkspace, mission);
+                SelectedEmployee = null;
+                SelectedWorkspace = null;
+                SelectMissionState.stateManager.InitialState.Enter();
             }
         }
     }
