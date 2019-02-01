@@ -226,8 +226,16 @@ public class Employee : MonoBehaviour, Touchable
         var callback = new System.Action<List<Node>, bool, object>(WorkplacePathFound);
         var position = gameObject.transform.position;
         var go = this.grid.getNode(position).gridPosition;
-        Pathfinding.PathRequestManager.RequestPath(new Pathfinding.PathRequest(go,
-            new Vector2Int(workplace.Position.x + 1, workplace.Position.y), workplace, callback));
+        
+        var employeeCell = grid.go_grid.WorldToCell(position);
+        if (new Vector2Int(employeeCell.x, employeeCell.y).Equals(workplace.GetChairTile()))
+        {
+            StartWorking(workplace);
+        }
+        else
+        {
+            PathRequestManager.RequestPath(new PathRequest(go, workplace.GetChairTile(), workplace, callback));
+        }
     }
 
     /// <summary>
@@ -295,13 +303,18 @@ public class Employee : MonoBehaviour, Touchable
         }
         else
         {
-            State = Enums.EmployeeState.WORKING;
-            spriteRenderer.sortingOrder = workplace.GetEmployeeSortingOrder();
-            spriteRenderer.flipX = false;
-            transform.Translate(-0.07f, 0, 0);
-            workplace.StartWorking();
+            StartWorking(workplace);
             yield return null;
         }
+    }
+
+    private void StartWorking(Workplace workplace)
+    {
+        State = Enums.EmployeeState.WORKING;
+        spriteRenderer.sortingOrder = workplace.GetEmployeeSortingOrder();
+        spriteRenderer.flipX = false;
+        transform.Translate(-0.07f, 0, 0);
+        workplace.StartWorking();
     }
 
     /// <summary>

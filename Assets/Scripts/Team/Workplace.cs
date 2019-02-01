@@ -122,6 +122,11 @@ namespace Team
             return Chair.sortingOrder + 1;
         }
 
+        public Vector2Int GetChairTile()
+        {
+            return new Vector2Int(Position.x + 1, Position.y);
+        }
+
         /// <summary>
         /// Set this workplace active/inactive.
         /// Enables rendering and blocks tiles.
