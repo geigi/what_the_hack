@@ -166,12 +166,14 @@ namespace SaveGame
                 typeof(SkillDefinition),
                 typeof(ScriptableObject),
                 typeof(NameLists),
-                typeof(ItemDefinition)
+                typeof(ItemDefinition),
+                typeof(MissionDefinition)
             };
         
             // Create a SurrogateSelector
             SurrogateSelector ss = new SurrogateSelector();
             ss.AddSurrogate(typeof(Vector2), new StreamingContext(StreamingContextStates.All), new Vector2SerializationSurrogate());
+            ss.AddSurrogate(typeof(Color32), new StreamingContext(StreamingContextStates.All), new ColorSerializationSurrogate());
             foreach (var type in types)
             {
                 ss.AddSurrogate(type, new StreamingContext(StreamingContextStates.All), new ScriptableObjectSerializationSurrogate());
