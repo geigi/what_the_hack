@@ -3,6 +3,7 @@
     Properties
     {
         [PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
+        _BumpMap ("Bumpmap", 2D) = "bump" {}
         _SwapTex("Color Data", 2D) = "transparent" {}
         _Color("Tint", Color) = (1,1,1,1)
         [MaterialToggle] PixelSnap("Pixel snap", Float) = 0
@@ -38,11 +39,8 @@
             }
             ColorMask[_ColorMask]
 
-            Pass
-            {
             CGPROGRAM
-                #pragma vertex vert
-                #pragma fragment frag
+                #pragma surface surf Lambert alpha:fade vertex:vert
                 #pragma multi_compile _ PIXELSNAP_ON
                 #include "UnityCG.cginc"
                 #include "UnityLightingCommon.cginc"
@@ -55,28 +53,30 @@
                     float3 normal   : NORMAL;
                 };
 
-                struct v2f
+                struct Input 
                 {
-                    float4 vertex   : SV_POSITION;
+                    float2 uv_MainTex;
+                    float2 uv_BumpMap;
                     fixed4 color : COLOR;
+                    float4 vertex   : SV_POSITION;
                     float2 texcoord  : TEXCOORD0;
                 };
 
                 fixed4 _Color;
 
-                v2f vert(appdata_t IN)
+                void vert(inout appdata_t IN, out Input OUT)
                 {
-                    v2f OUT;
+                    UNITY_INITIALIZE_OUTPUT(Input, OUT);
                     OUT.vertex = UnityObjectToClipPos(IN.vertex);
                     OUT.texcoord = IN.texcoord;
                     OUT.color = IN.color * _Color;
     #ifdef PIXELSNAP_ON
                     OUT.vertex = UnityPixelSnap(OUT.vertex);
     #endif
-                    return OUT;
                 }
 
                 sampler2D _MainTex;
+                sampler2D _BumpMap;
                 sampler2D _SwapTex;
 
                 fixed4 SampleSpriteTexture(float2 uv)
@@ -85,16 +85,14 @@
                     return color;
                 }
 
-                fixed4 frag(v2f IN) : SV_Target
+                void surf (Input IN, inout SurfaceOutput o)
                 {
                     fixed4 c = SampleSpriteTexture(IN.texcoord) * IN.color;
                     fixed4 swapCol = tex2D(_SwapTex, float2(c.r, 0));
                     fixed4 final = lerp(c, swapCol, swapCol.a) * IN.color;
-                    final.a = c.a;
-                    final.rgb *= c.a;
-                    return final;
+                    o.Alpha = final.a;
+                    o.Albedo = final.rgb * final.a;
                 }
             ENDCG
-            }
         }
 }
