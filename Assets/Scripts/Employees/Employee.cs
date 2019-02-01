@@ -56,14 +56,20 @@ public class Employee : MonoBehaviour, Touchable
             {
                 case Enums.EmployeeState.IDLE:
                 case Enums.EmployeeState.PAUSED:
+                    this.animator.ResetTrigger(walkingProperty);
+                    this.animator.ResetTrigger(workingProperty);
                     this.animator.SetTrigger(idleProperty);
                     this.animator.speed = idleAnimationSpeed;
                     break;
                 case Enums.EmployeeState.WALKING:
+                    this.animator.ResetTrigger(idleProperty);
+                    this.animator.ResetTrigger(workingProperty);
                     this.animator.SetTrigger(walkingProperty);
                     this.animator.speed = regularAnimationSpeed;
                     break;
                 case Enums.EmployeeState.WORKING:
+                    this.animator.ResetTrigger(walkingProperty);
+                    this.animator.ResetTrigger(idleProperty);
                     this.animator.SetTrigger(workingProperty);
                     this.animator.speed = regularAnimationSpeed;
                     break;
