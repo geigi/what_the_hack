@@ -76,6 +76,7 @@ namespace World
                                  SelectedEmployee.GetComponent<Employee>())
                         {
                             touchedObject.GetComponent<Workplace>().StopWorking();
+                            SelectedEmployee = null;
                         }
                         else
                         {
