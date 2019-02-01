@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UE.Events;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Events;
 using World;
@@ -13,6 +14,7 @@ namespace Missions
         public GameEvent Event;
         public GameObject MissionPrefab;
         public TouchClickController TouchClickController;
+        public GameObject NoMissionsHelp;
 
         private UnityAction listener;
 
@@ -53,6 +55,11 @@ namespace Missions
                     Destroy(child.gameObject);
                 }
             }
+            
+            if (transform.childCount < 1)
+            {
+                NoMissionsHelp.SetActive(true);
+            }
         }
 
         /// <summary>
@@ -71,6 +78,11 @@ namespace Missions
                     component.SetMission(mission);
                     component.TouchClickController = TouchClickController;
                 }
+            }
+
+            if (transform.childCount > 0)
+            {
+                NoMissionsHelp.SetActive(false);
             }
         }
     }
