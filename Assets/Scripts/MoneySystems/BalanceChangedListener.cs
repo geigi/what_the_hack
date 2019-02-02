@@ -9,15 +9,18 @@ public class BalanceChangedListener : MonoBehaviour
 {
     public IntEvent moneyEvent;
     internal UnityAction<int> evtAction;
+    private Text text;
 
     internal void Awake()
     {
         evtAction += ChangeBalance;
         moneyEvent.AddListener(evtAction);
+        text = gameObject.GetComponent<Text>();
+        text.text = ContentHub.Instance.bank.GetData().ToString();
     }
 
     private void ChangeBalance(int newBalance)
     {
-        GetComponent<Text>().text = $"{newBalance}";
+        text.text = $"{newBalance}";
     }
 }

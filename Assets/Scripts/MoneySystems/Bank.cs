@@ -42,7 +42,7 @@ public class Bank : MonoBehaviour, ISaveable<int>
     {
         if (! GameSettings.NewGame)
             LoadState();
-        Balance = StartFund;
+        else Balance = StartFund;
     }
 
     private void Start()
