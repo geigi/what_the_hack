@@ -616,15 +616,13 @@
                 <false/>
             </struct>
             <key type="filename">Sprites/ui/gray_box_border.png</key>
-            <key type="filename">Sprites/ui/tab_view_border.png</key>
-            <key type="filename">Sprites/ui/up_arrow_inverted.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
-                <false/>
+                <true/>
                 <key>scale9Borders</key>
-                <rect>3,3,5,5</rect>
+                <rect>1,1,8,8</rect>
                 <key>scale9Paddings</key>
                 <rect>3,3,5,5</rect>
                 <key>scale9FromFile</key>
@@ -635,9 +633,9 @@
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
-                <false/>
+                <true/>
                 <key>scale9Borders</key>
-                <rect>12,4,24,9</rect>
+                <rect>2,10,44,5</rect>
                 <key>scale9Paddings</key>
                 <rect>12,4,24,9</rect>
                 <key>scale9FromFile</key>
@@ -668,18 +666,56 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Sprites/ui/tab_view_border.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <true/>
+                <key>scale9Borders</key>
+                <rect>2,2,6,6</rect>
+                <key>scale9Paddings</key>
+                <rect>3,3,5,5</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Sprites/ui/terminal_9_patch.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <true/>
+                <key>scale9Borders</key>
+                <rect>1,1,17,11</rect>
+                <key>scale9Paddings</key>
+                <rect>5,3,9,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Sprites/ui/terminal_button1.png</key>
             <key type="filename">Sprites/ui/terminal_button2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
-                <false/>
+                <true/>
                 <key>scale9Borders</key>
-                <rect>5,3,9,7</rect>
+                <rect>2,2,15,9</rect>
                 <key>scale9Paddings</key>
                 <rect>5,3,9,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Sprites/ui/up_arrow_inverted.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>3,3,5,5</rect>
+                <key>scale9Paddings</key>
+                <rect>3,3,5,5</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
@@ -689,9 +725,9 @@
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
-                <false/>
+                <true/>
                 <key>scale9Borders</key>
-                <rect>4,2,8,3</rect>
+                <rect>2,2,12,3</rect>
                 <key>scale9Paddings</key>
                 <rect>4,2,8,3</rect>
                 <key>scale9FromFile</key>
@@ -733,23 +769,35 @@
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
-                <false/>
+                <true/>
                 <key>scale9Borders</key>
-                <rect>4,4,8,8</rect>
+                <rect>0,0,16,16</rect>
                 <key>scale9Paddings</key>
                 <rect>4,4,8,8</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
             <key type="filename">Sprites/ui/win32_tabs1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <true/>
+                <key>scale9Borders</key>
+                <rect>2,7,16,6</rect>
+                <key>scale9Paddings</key>
+                <rect>5,3,10,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Sprites/ui/win32_tabs2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
-                <false/>
+                <true/>
                 <key>scale9Borders</key>
-                <rect>5,3,10,7</rect>
+                <rect>2,2,16,11</rect>
                 <key>scale9Paddings</key>
                 <rect>5,3,10,7</rect>
                 <key>scale9FromFile</key>
