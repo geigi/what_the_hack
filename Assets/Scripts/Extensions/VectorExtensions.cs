@@ -1,4 +1,5 @@
 using UnityEngine;
+using UE.Common;
 
 namespace Extensions
 {
@@ -42,6 +43,15 @@ namespace Extensions
         public static Vector3 ToVector3(this Vector2 value)
         {
             return new Vector3(value.x, value.y, 0f);
+        }
+
+        public static RectTransform ResetPosition(this RectTransform rect)
+        {
+            rect.SetLeft(0.0f);
+            rect.SetRight(0.0f);
+            rect.localPosition = Vector3.zero;
+            rect.SetLeft(0.0f);
+            return rect;
         }
     }
 }

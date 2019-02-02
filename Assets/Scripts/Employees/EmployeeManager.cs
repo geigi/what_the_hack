@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.UI.EmployeeWindow;
 using Base;
+using Extensions;
 using GameSystem;
 using GameTime;
 using Interfaces;
+using UE.Common;
 using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
@@ -93,6 +95,11 @@ namespace Employees
         void Start()
         {
             gameObject.transform.parent = this.gameObject.transform;
+            
+            var rect = EmployeeForHireContent.GetComponent<RectTransform>();
+            rect.ResetPosition();
+            rect = EmployeeHiredContent.GetComponent<RectTransform>();
+            rect.ResetPosition();
 
             if (GameSettings.NewGame)
             {

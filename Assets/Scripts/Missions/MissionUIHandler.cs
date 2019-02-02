@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Extensions;
 using GameTime;
 using UE.Common;
 using UE.Events;
@@ -40,10 +41,7 @@ namespace Missions
         private void Start()
         {
             var rect = GetComponent<RectTransform>();
-            rect.SetLeft(0.0f);
-            rect.SetRight(0.0f);
-            rect.localPosition = Vector3.zero;
-            rect.SetLeft(0.0f);
+            rect.ResetPosition();
         }
 
         /// <summary>
