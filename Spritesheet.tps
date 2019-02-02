@@ -132,7 +132,7 @@
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>Assets/sheet.tpsheet</filename>
+                <filename>Assets/Sprites/sheet.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>
