@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 9cea31b078493432280becbb17b9359e, type: 3}
+        m_Texture: {fileID: 2800000, guid: b4d7101fc919942df9af145070a17b90, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -74,8 +74,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OutLineEnable: 0
-    - _OutLineSpreadX: 0.0184
-    - _OutLineSpreadY: 0.0154
+    - _OutLineSpreadX: 0.00049
+    - _OutLineSpreadY: 0.00053
     - _OutlineOffSet: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
