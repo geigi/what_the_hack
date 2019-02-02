@@ -47,6 +47,8 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private GameObject EmployeeShadow;
     private EmployeeShadow shadow;
     private SpriteOutline spriteOutline;
+    private Vector3 defaultScale = new Vector3(1f, 1f, 1f);
+    private Vector3 flippedScale = new Vector3(-1f, 1f, 1f);
 
     public Enums.EmployeeState State
     {
@@ -309,11 +311,11 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
             {
                 if (step.x < 0)
                 {
-                    spriteRenderer.flipX = false;
+                    transform.localScale = defaultScale;
                 }
                 else if (step.x > 0)
                 {
-                    spriteRenderer.flipX = true;
+                    transform.localScale = flippedScale;
                 }
 
                 var oldPos = transform.position;
@@ -343,7 +345,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     {
         State = Enums.EmployeeState.WORKING;
         spriteRenderer.sortingOrder = workplace.GetEmployeeSortingOrder();
-        spriteRenderer.flipX = false;
+        transform.localScale = defaultScale;
         transform.Translate(-0.07f, 0, 0);
         workplace.StartWorking();
     }
