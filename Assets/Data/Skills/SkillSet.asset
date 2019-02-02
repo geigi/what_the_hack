@@ -4,13 +4,14 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5d32166d6f464684a2ea332ca00bc1c, type: 3}
   m_Name: SkillSet
-  m_EditorClassIdentifier: Wth.ModApi:Wth.ModApi.Skills:SkillDefinition 
+  m_EditorClassIdentifier: Wth.ModApi:Wth.ModApi.Skills:SkillDefinition
   keys:
   - {fileID: 11400000, guid: 53850490f73b4824d839e523f2f371f6, type: 2}
   - {fileID: 11400000, guid: 98d1e46ef779b6442a2e4d334c8c2009, type: 2}

@@ -211,14 +211,14 @@ MonoBehaviour:
     EmployeeDefinition: {fileID: 0}
     State: 0
   sprites:
-  - {fileID: 21300000, guid: 11faddc9d011f4f9eb2c908c376bd667, type: 3}
-  - {fileID: 21300000, guid: cf389b25e130b4842bb755cc8216b26d, type: 3}
-  - {fileID: 21300000, guid: 4e0df74013fb44d4898d49a4f13ce2fe, type: 3}
-  - {fileID: 21300000, guid: f3efd5a34b0534e488c5b660bf1ecd25, type: 3}
-  - {fileID: 21300000, guid: e26d3fde7706d42a49a2fd64b3e2097c, type: 3}
-  - {fileID: 21300000, guid: 48b7abb50e3dd455c85eb424d60c7f2e, type: 3}
-  - {fileID: 21300000, guid: db9c79b2d8fee4d4d8ef8cdd34aa22a6, type: 3}
-  - {fileID: 21300000, guid: 3d70374db5af149e19deef76b9ea2f3b, type: 3}
+  - {fileID: 21300038, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  - {fileID: 21300070, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  - {fileID: 21300102, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  - {fileID: 21300134, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  - {fileID: 21300022, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  - {fileID: 21300054, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  - {fileID: 21300086, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  - {fileID: 21300118, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   prize: {fileID: 114994257170851040}
 --- !u!331 &331408370086009818
 SpriteMask:

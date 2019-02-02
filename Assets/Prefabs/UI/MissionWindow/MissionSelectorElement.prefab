@@ -310,7 +310,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e0462e2c87c684bf69777959d0996242, type: 3}
+  m_Sprite: {fileID: 21300300, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -517,7 +517,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a7899c2684d594356b731753ec0c9e31, type: 3}
+  m_Sprite: {fileID: 21300308, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -551,7 +551,6 @@ MonoBehaviour:
     type: 3}
   MissionRequirementPrefab: {fileID: 5902272369764601504, guid: 026cb81d58b184ddbbe72d1869b257ca,
     type: 3}
-  TouchClickController: {fileID: 0}
 --- !u!114 &3766419734950307903
 MonoBehaviour:
   m_ObjectHideFlags: 0
