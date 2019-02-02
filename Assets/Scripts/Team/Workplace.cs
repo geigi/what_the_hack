@@ -244,6 +244,10 @@ namespace Team
                     gameSelectionManager.ClearEmployee();
                     gameSelectionManager.ClearWorkplace();
                 }
+                else if (IsOccupied())
+                {
+                    gameSelectionManager.ClearWorkplace();
+                }
                 else if (gameSelectionManager.Employee.State != Enums.EmployeeState.WORKING)
                 {
                     gameSelectionManager.Workplace = this;

@@ -45,6 +45,7 @@
             ColorMask[_ColorMask]
 
             CGPROGRAM
+                #pragma target 3.0
                 #pragma surface surf Lambert alpha:fade vertex:vert
                 #pragma multi_compile _ PIXELSNAP_ON
                 #include "UnityCG.cginc"
@@ -56,6 +57,7 @@
                     float4 color    : COLOR;
                     float2 texcoord : TEXCOORD0;
                     float3 normal   : NORMAL;
+                    float4 tangent  : TANGENT;
                 };
 
                 struct Input 
@@ -120,6 +122,7 @@
                     
                     o.Alpha = final.a;
                     o.Albedo = final.rgb * final.a;
+                    o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));
                 }
             ENDCG
         }
