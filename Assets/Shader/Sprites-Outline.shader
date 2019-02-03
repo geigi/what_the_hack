@@ -44,7 +44,8 @@ Shader "Custom/Outline_2DSprite"
                         TempColor.a = 1;
                     }
                     fixed4 AlphaColor = (0,0,0,TempColor.a);
-                    fixed4 mainColor = AlphaColor * _Color.rgba;
+                    // This ensures that the outline is bright white
+                    fixed4 mainColor = AlphaColor * (3,3,3,3);
                     fixed4 addcolor = tex2D(_MainTex, IN.uv_MainTex) * IN.color;
            
                     if(addcolor.a > 0.99){
