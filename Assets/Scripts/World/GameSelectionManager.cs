@@ -5,6 +5,8 @@ using Items;
 using Missions;
 using Team;
 using UE.StateMachine;
+using UI;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -14,6 +16,7 @@ namespace World
     public class GameSelectionManager : Singleton<GameSelectionManager>
     {
         public State SelectMissionState;
+        public EmployeeInfoUi EmployeeInfo;
 
         private Workplace workplace;
         public Workplace Workplace
@@ -44,9 +47,15 @@ namespace World
             get => employee;
             set
             {
-                if (employeeSelected) employee.OnDeselect();
+                if (employeeSelected)
+                {
+                    employee.OnDeselect();
+                    EmployeeInfo.Deselect();
+                }
+                
                 employeeSelected = true;
                 employee = value;
+                EmployeeInfo.Select(employee);
             }
         }
         
@@ -55,7 +64,11 @@ namespace World
 
         public void ClearEmployee()
         {
-            if (employeeSelected) employee.OnDeselect();
+            if (employeeSelected)
+            {
+                employee.OnDeselect();
+                EmployeeInfo.Deselect();
+            }
             employee = null;
             employeeSelected = false;
         }

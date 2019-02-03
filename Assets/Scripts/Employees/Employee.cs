@@ -30,6 +30,22 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     public UnityEvent stateEvent = new UnityEvent();
 
     public EmployeeData EmployeeData;
+
+    public string Name
+    {
+        get
+        {
+            if (EmployeeData.generatedData != null)
+            {
+                return EmployeeData.generatedData.name;
+            }
+            else
+            {
+                return EmployeeData.EmployeeDefinition.EmployeeName;
+            }
+        }
+    }
+    
     private EmployeeFactory factory;
     private ContentHub contentHub;
     private GameObject employeeLayer;
