@@ -27,16 +27,15 @@ namespace UI
         /// <summary>
         /// This offset will be added to the calculated screen position.
         /// </summary>
-        public Vector2 Offset;
+        public Vector2 DefaultOffset;
 
         private bool selected = false;
         private GameObject anchor;
         private RectTransform rect;
-        private Vector2 defaultOffset;
+        private Vector2 offset;
 
         private void Awake()
         {
-            defaultOffset = new Vector2(Offset.x, Offset.y);
             rect = GetComponent<RectTransform>();
         }
 
@@ -47,7 +46,7 @@ namespace UI
                 // First calculate the screen position of the given anchor position
                 var position = Camera.main.WorldToScreenPoint(anchor.transform.position);
                 Vector3 positionFinal;
-                positionFinal = position + new Vector3(Offset.x, Offset.y, 0);
+                positionFinal = position + new Vector3(offset.x, offset.y, 0);
                 
                 // Now test if we are leaving the screen
                 var sizeDelta = rect.rect;
@@ -92,9 +91,10 @@ namespace UI
             anchor = gameobject;
             Canvas.enabled = true;
             Scaler.enabled = true;
-
-            Offset.x = defaultOffset.x;
-            Offset.y = defaultOffset.y;
+            
+            var scaleFactor = Canvas.scaleFactor;
+            offset.x = DefaultOffset.x * scaleFactor;
+            offset.y = DefaultOffset.y * scaleFactor;
             selected = true;
         }
 
@@ -119,9 +119,9 @@ namespace UI
         {
             var anchorPosition = Camera.main.WorldToScreenPoint(anchor.transform.position);
             var position = Window.transform.position;
-            Offset.x = position.x - anchorPosition.x;
-            Offset.y = position.y - anchorPosition.y;
-            Offset += eventData.delta;
+            offset.x = position.x - anchorPosition.x;
+            offset.y = position.y - anchorPosition.y;
+            offset += eventData.delta;
         }
     }
 }
