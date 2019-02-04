@@ -55,16 +55,49 @@ namespace Missions
         public Dictionary<SkillDefinition, float> Progress;
 
         /// <summary>
-        /// This event gets fired when the progress of the mission changed.
+        /// This property is necessary because no constructor is being called on deserialization.
         /// </summary>
         [NonSerialized]
-        public MissionProgressEvent ProgressChanged;
+        private MissionProgressEvent progressChanged;
+        
+        /// <summary>
+        /// This event gets fired when the progress of the mission changed.
+        /// </summary>
+        public MissionProgressEvent ProgressChanged
+        {
+            get
+            {
+                if (progressChanged == null)
+                {
+                    progressChanged = new MissionProgressEvent();
+                }
 
+                return progressChanged;
+            }
+            private set => progressChanged = value;
+        }
+
+        /// <summary>
+        /// This property is necessary because no constructor is being called on deserialization.
+        /// </summary>
+        [NonSerialized]
+        private MissionFinishedEvent finished;
         /// <summary>
         /// This event gets fired when the mission has finished (successful or not).
         /// </summary>
-        [NonSerialized]
-        public MissionFinishedEvent Finished;
+        public MissionFinishedEvent Finished
+        {
+            get
+            {
+                if (finished == null)
+                {
+                    finished = new MissionFinishedEvent();
+                }
+
+                return finished;
+            }
+            private set => finished = value;
+        }
 
         public Mission()
         {

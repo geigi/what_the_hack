@@ -11,9 +11,17 @@ using UnityEngine.Events;
 [Serializable]
 public class Skill
 {
-
+    /// <summary>
+    /// This property is necessary because no constructor is being called on deserialization.
+    /// </summary>
     [NonSerialized]
-    public readonly UnityEvent skillEvent = new UnityEvent();
+    private UnityEvent skillEvent;
+
+    public UnityEvent SkillEvent
+    {
+        get => skillEvent ?? (skillEvent = new UnityEvent());
+        private set => skillEvent = value;
+    }
 
     /// <summary>
     /// enum that represents employees aptitude to do a certain thing well.
@@ -61,12 +69,11 @@ public class Skill
 
     /// <summary>
     /// The number of points needed to advance a Level.
-    /// </summary>
+    /// </summary>    
     protected internal float nextLevelPoints;
 
     public Skill()
     {
-        skillEvent = new UnityEvent();
     }
     
     ///<summary>
@@ -94,7 +101,7 @@ public class Skill
             nextLevelPoints = 100 * level * levelFactor;
             skillLevelName = UpdateLevelAptitudeName();
         }
-        skillEvent.Invoke();
+        SkillEvent.Invoke();
     }
 
     /// <summary>

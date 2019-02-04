@@ -54,7 +54,7 @@ namespace UI.EmployeeWindow
                 go.GetComponentsInChildren<Image>().First().sprite = skill.GetSprite();
 
                 UnityAction skillChanged = () => go.GetComponent<Text>().text = skill.level.ToString();
-                skill.skillEvent.AddListener(skillChanged);
+                skill.SkillEvent.AddListener(skillChanged);
                 skillEvents.Add(skillChanged);
             }
             
@@ -70,7 +70,7 @@ namespace UI.EmployeeWindow
             
             for (int i = 0; i < employee.EmployeeData.Skills.Count; i++)
             {
-                employee.EmployeeData.Skills[i].skillEvent.RemoveListener(skillEvents[i]);
+                employee.EmployeeData.Skills[i].SkillEvent.RemoveListener(skillEvents[i]);
             }
             
             foreach (Transform go in SkillContainer.transform)

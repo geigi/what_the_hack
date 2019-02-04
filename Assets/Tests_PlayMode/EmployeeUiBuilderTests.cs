@@ -128,7 +128,7 @@ namespace Assets.Tests_PlayMode
             definition.skillSprite = sprite;
             var skill = new Skill(definition);
 
-            skillbuilder.skillEvent = skill.skillEvent;
+            skillbuilder.skillEvent = skill.SkillEvent;
 
             //Act
             skillbuilder.SetSkill(skill);

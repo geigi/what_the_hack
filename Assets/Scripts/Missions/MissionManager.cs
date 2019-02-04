@@ -46,6 +46,8 @@ namespace Missions
 
         private void Awake()
         {
+            missionWorkers = new Dictionary<Mission, MissionWorker>();
+            
             if (GameSettings.NewGame)
                 InitDefaultState();
             else
@@ -60,8 +62,6 @@ namespace Missions
             missionList = ModHolder.Instance.GetMissionList();
             if (missionList == null)
                 missionList = ContentHub.Instance.DefaultMissionList;
-
-            missionWorkers = new Dictionary<Mission, MissionWorker>();
         }
 
         /// <summary>

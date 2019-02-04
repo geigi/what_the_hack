@@ -84,7 +84,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
                 GameObject skill = Object.Instantiate(skillPrefab);
                 skill.transform.SetParent(skillPanel.gameObject.transform);
                 skill.transform.localScale = Vector3.one;
-                skill.GetComponent<SkillUIBuilder>().skillEvent = s.skillEvent;
+                skill.GetComponent<SkillUIBuilder>().skillEvent = s.SkillEvent;
                 skill.GetComponent<SkillUIBuilder>().SetSkill(s);
                 skillUI.Add(skill);
             }
