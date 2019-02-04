@@ -17,6 +17,10 @@ public sealed class ContentHub: Singleton<ContentHub>
     /// </summary>
     public SkillSet DefaultSkillSet;
     /// <summary>
+    /// The general purpose skill definition.
+    /// </summary>
+    public SkillDefinition GeneralPurposeSkill;
+    /// <summary>
     /// The <see cref="NameLists"/> of the base game.
     /// </summary>
     public NameLists DefaultNameLists;
@@ -60,11 +64,18 @@ public sealed class ContentHub: Singleton<ContentHub>
     /// The game wide bank instance.
     /// </summary>
     public Bank bank;
-
+    
+    #region Events
     /// <summary>
     /// This event will be raised when a tile gets blocked by furniture.
     /// </summary>
     public Vector2Event TileBlockedEvent;
+
+    /// <summary>
+    /// This is the global event when a game step is happening.
+    /// </summary>
+    public IntEvent GameStepEvent;
+    #endregion
     
     /// <summary>
     /// Get the current <see cref="SkillSet"/>. 

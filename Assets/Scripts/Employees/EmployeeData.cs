@@ -66,5 +66,30 @@ namespace Wth.ModApi.Employees
         public EmployeeData()
         {
         }
+        
+        /// <summary>
+        /// Tests whether an employee has a specific skill.
+        /// </summary>
+        /// <param name="skill"></param>
+        /// <returns></returns>
+        public bool HasSkill(SkillDefinition skill)
+        {
+            return Skills.Any(s => s.skillData == skill);
+        }
+
+        /// <summary>
+        /// Get a specific Skill object.
+        /// </summary>
+        /// <param name="skill">The skill definition</param>
+        /// <returns></returns>
+        public Skill GetSkill(SkillDefinition skill)
+        {
+            return Skills.First(s => s.skillData == skill);
+        }
+
+        public Skill GetGeneralPurpose()
+        {
+            return Skills.First(s => s.skillData == ContentHub.Instance.GeneralPurposeSkill);
+        }
     }
 }

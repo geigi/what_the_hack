@@ -126,6 +126,8 @@ namespace Team
             if (!workplace.IsTrueNull())
                 workplace.Mission?.ProgressChanged.RemoveListener(updateProgressAction);
 
+            workplace = null;
+            
             foreach (Transform go in SkillContainer.transform)
             {
                 Destroy(go.gameObject);

@@ -12,5 +12,6 @@ namespace Team
         public Vector2Int Position;
         public EmployeeData OccupyingEmployee;
         public Mission Mission;
+        public bool IsWorking;
     }
 }

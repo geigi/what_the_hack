@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using Employees;
 using GameSystem;
 using Interfaces;
@@ -7,6 +8,7 @@ using Missions;
 using Pathfinding;
 using SaveGame;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Utils;
 using World;
@@ -42,6 +44,7 @@ namespace Team
         private WorkplaceData data;
         private Employee employee;
         private GameSelectionManager gameSelectionManager;
+        private UnityAction<Mission> missionFinishedAction;
         
         private void LoadState()
         {
@@ -60,6 +63,7 @@ namespace Team
         {
             data = new WorkplaceData();
             data.Position = Position;
+            data.IsWorking = false;
             Enable(EnableOnStart);
         }
         
@@ -72,6 +76,8 @@ namespace Team
             Desk.sortingOrder = layer;
             Pc.sortingOrder = layer + 1;
             Chair.sortingOrder = layer - 2;
+
+            missionFinishedAction = onMissionFinished;
             
             if  (GameSettings.NewGame)
                 InitDefaultState();
@@ -173,6 +179,7 @@ namespace Team
         public void Occupy(Employee employee, Mission mission)
         {
             data.Mission = mission;
+            data.Mission.Finished.AddListener(missionFinishedAction);
             this.employee = employee;
         }
 
@@ -181,6 +188,8 @@ namespace Team
         /// </summary>
         public void StartWorking()
         {
+            MissionManager.Instance.StartWorking(data.Mission, employee.EmployeeData);
+            
             Animator.SetTrigger(workingProperty);
         }
 
@@ -192,6 +201,7 @@ namespace Team
             Animator.SetTrigger(idleProperty);
             employee.StopWorking();
             employee = null;
+            data.Mission.Finished.RemoveListener(missionFinishedAction);
             data.Mission = null;
         } 
 
@@ -269,6 +279,19 @@ namespace Team
         public void OnPointerDown(PointerEventData eventData)
         {
             SpriteOutline.enabled = true;
+        }
+
+        private void onMissionFinished(Mission mission)
+        {
+            if (mission == data.Mission)
+            {
+                StopWorking();
+
+                if (gameSelectionManager.Workplace == this)
+                {
+                    gameSelectionManager.ClearWorkplace();
+                }
+            }
         }
     }
 }
