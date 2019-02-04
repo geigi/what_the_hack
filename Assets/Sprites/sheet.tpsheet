@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # https://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:cbd7840f54ed95b37e2664d0a23bb8b2:8c55a89e955bf53a73b1d26a6b1e112b:29aa05aa20a099423cfc27178fbd19f7$
+# $TexturePacker:SmartUpdate:228dc85c0a3a5eb95285d1267c1bd184:9ab2cf4868b0ad12842b2666d080e8b6:29aa05aa20a099423cfc27178fbd19f7$
 #
 :format=40300
 :texture=sheet.png
@@ -176,10 +176,10 @@ ui-Icon_Team;515;921;32;32; 0.5;0.5; 0;0;0;0
 ui-info;2026;1675;15;15; 0.5;0.5; 0;0;0;0
 ui-Loading_Bar_Green_0;2007;1913;33;8; 0.5;0.5; 0;0;0;0
 ui-Loading_Bar_Green_1;2007;1903;33;8; 0.5;0.5; 0;0;0;0
-ui-Loading_Bar_Normal_0;2007;1968;33;13; 0.5;0.5; 0;0;0;0
-ui-Loading_Bar_Normal_1;2007;1953;33;13; 0.5;0.5; 0;0;0;0
-ui-Loading_Bar_Normal_2;2007;1938;33;13; 0.5;0.5; 0;0;0;0
-ui-Loading_Bar_Normal_3;2007;1923;33;13; 0.5;0.5; 0;0;0;0
+ui-Loading_Bar_Normal_0;2007;1968;33;13; 0.5;0.5; 1;1;4;3
+ui-Loading_Bar_Normal_1;2007;1953;33;13; 0.5;0.5; 1;1;4;3
+ui-Loading_Bar_Normal_2;2007;1938;33;13; 0.5;0.5; 1;1;3;3
+ui-Loading_Bar_Normal_3;2007;1923;33;13; 0.5;0.5; 1;1;3;3
 ui-MainMenuBackground_0;1;1151;512;400; 0.5;0.5; 0;0;0;0
 ui-MainMenuBackground_1;567;1245;512;400; 0.5;0.5; 0;0;0;0
 ui-MainMenuBackground_2;1081;1245;512;400; 0.5;0.5; 0;0;0;0
@@ -213,8 +213,10 @@ ui-terminal_button1;2027;1777;19;13; 0.5;0.5; 2;2;2;2
 ui-terminal_button2;2027;1762;19;13; 0.5;0.5; 2;2;2;2
 ui-up_arrow_inverted;1;1634;11;11; 0.5;0.5; 0;0;0;0
 ui-warning;2026;1658;15;15; 0.5;0.5; 0;0;0;0
+ui-white;2039;2046;1;1; 0.5;0.5; 0;0;0;0
 ui-win32_button1;2026;1735;16;7; 0.5;0.5; 2;2;2;2
 ui-win32_button2;2026;1726;16;7; 0.5;0.5; 2;2;2;2
+ui-win32_checkmark;38;1636;9;9; 0.5;0.5; 0;0;0;0
 ui-win32_cursor;2026;1553;11;19; 0.5;0.5; 0;0;0;0
 ui-win32_hourglass1;1997;1547;24;24; 0.5;0.5; 0;0;0;0
 ui-win32_hourglass2;2023;1527;24;24; 0.5;0.5; 0;0;0;0

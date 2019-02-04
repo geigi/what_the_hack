@@ -63,7 +63,7 @@ namespace Missions
         /// <param name="mission"></param>
         private void calcDurationVariance(Mission mission) {
             mission.Duration = Math.Max(MissionDurationMinimum, mission.Duration + RandomUtils.var(MissionDurationVariance));
-            mission.RemainingDays = mission.Duration;
+            mission.RemainingTicks = mission.Duration * GameTime.GameTime.Instance.ClockSteps;
         }
         
         /// <summary>

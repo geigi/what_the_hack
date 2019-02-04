@@ -522,15 +522,27 @@
             </struct>
             <key type="filename">Sprites/ui/Loading_Bar_Normal_0.png</key>
             <key type="filename">Sprites/ui/Loading_Bar_Normal_1.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <true/>
+                <key>scale9Borders</key>
+                <rect>1,4,31,6</rect>
+                <key>scale9Paddings</key>
+                <rect>8,3,17,7</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Sprites/ui/Loading_Bar_Normal_2.png</key>
             <key type="filename">Sprites/ui/Loading_Bar_Normal_3.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
                 <key>scale9Enabled</key>
-                <false/>
+                <true/>
                 <key>scale9Borders</key>
-                <rect>8,3,17,7</rect>
+                <rect>1,3,31,7</rect>
                 <key>scale9Paddings</key>
                 <rect>8,3,17,7</rect>
                 <key>scale9FromFile</key>
@@ -730,6 +742,19 @@
                 <rect>2,2,12,3</rect>
                 <key>scale9Paddings</key>
                 <rect>4,2,8,3</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Sprites/ui/win32_checkmark.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>2,2,3,3</rect>
+                <key>scale9Paddings</key>
+                <rect>2,2,3,3</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
