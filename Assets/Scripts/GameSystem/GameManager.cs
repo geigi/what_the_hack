@@ -8,12 +8,21 @@ namespace GameSystem
 	/// </summary>
 	public class GameManager : MonoBehaviour
 	{
+#if UNITY_EDITOR
+		public bool LoadGame = false;
+		
+		
+#endif
 		public GameObject managers;
 	
+#if UNITY_EDITOR
 		// Use this for initialization
-		public void Awake () {
-		
+		public void Awake ()
+		{
+			if (LoadGame)
+				GameSettings.NewGame = false;
 		}
+#endif
 
 		public void Start()
 		{
