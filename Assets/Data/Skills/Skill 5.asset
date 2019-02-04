@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,4 +13,4 @@ MonoBehaviour:
   m_Name: Skill 5
   m_EditorClassIdentifier: 
   skillName: Search
-  skillSprite: {fileID: 21300000, guid: d99a74b7addf9497eb2d9254c0f8bf0a, type: 3}
+  skillSprite: {fileID: 21300358, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}

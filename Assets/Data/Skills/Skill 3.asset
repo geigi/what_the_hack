@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,4 +13,4 @@ MonoBehaviour:
   m_Name: Skill 3
   m_EditorClassIdentifier: 
   skillName: Software
-  skillSprite: {fileID: 21300000, guid: e17543b6010794342a4e1fabe99257db, type: 3}
+  skillSprite: {fileID: 21300352, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}

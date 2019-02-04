@@ -18,7 +18,7 @@ namespace Missions
         public int MissionDurationVariance = 1;
         public float MissionRewardmoneyVariance = 0.1f;
         public int MissionRewardmoneyFactor = 20;
-        public int MissionBasePower = 18;
+        public int MissionBasePower = 1;
         public float SkillPowerPerDifficulty = 3.5f;
         public float SkillDifficultyVariance = 0.3f;
 
@@ -63,7 +63,7 @@ namespace Missions
         /// <param name="mission"></param>
         private void calcDurationVariance(Mission mission) {
             mission.Duration = Math.Max(MissionDurationMinimum, mission.Duration + RandomUtils.var(MissionDurationVariance));
-            mission.RemainingDays = mission.Duration;
+            mission.RemainingTicks = mission.Duration * GameTime.GameTime.Instance.ClockSteps;
         }
         
         /// <summary>

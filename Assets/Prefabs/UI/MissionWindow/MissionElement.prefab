@@ -374,7 +374,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: e0462e2c87c684bf69777959d0996242, type: 3}
+  m_Sprite: {fileID: 21300300, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -578,7 +578,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: a7899c2684d594356b731753ec0c9e31, type: 3}
+  m_Sprite: {fileID: 21300308, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -607,6 +607,7 @@ MonoBehaviour:
   RemainingDays: {fileID: 0}
   Reward: {fileID: 3711035304937330088}
   AcceptMissionButton: {fileID: 240516894305475292}
+  SelectMissionButton: {fileID: 0}
   SkillRequirementPrefab: {fileID: 884181141245233918, guid: 583cd450bc4dc488eb3daee144c078e1,
     type: 3}
   MissionRequirementPrefab: {fileID: 5902272369764601504, guid: 026cb81d58b184ddbbe72d1869b257ca,
@@ -749,14 +750,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 363a5357546e44c03b982f12553bb1b7, type: 3}
+  m_Sprite: {fileID: 21300388, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1782,6 +1783,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: ActionButton
       objectReference: {fileID: 0}
+    - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 224666160574966236, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1901,21 +1917,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114032967423208460, guid: 2496937800ee54ed08f572a47bcffc58,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114930113427253154, guid: 2496937800ee54ed08f572a47bcffc58,
         type: 3}

@@ -5,6 +5,8 @@ using Items;
 using Missions;
 using Team;
 using UE.StateMachine;
+using UI;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
@@ -14,6 +16,8 @@ namespace World
     public class GameSelectionManager : Singleton<GameSelectionManager>
     {
         public State SelectMissionState;
+        public EmployeeInfoUi EmployeeInfo;
+        public WorkplaceInfoUi WorkplaceInfo;
 
         private Workplace workplace;
         public Workplace Workplace
@@ -21,9 +25,15 @@ namespace World
             get => workplace;
             set
             {
-                if (workplaceSelected) workplace.OnDeselect();
+                if (workplaceSelected)
+                {
+                    WorkplaceInfo.Deselect();
+                    workplace.OnDeselect();
+                }
+                
                 workplaceSelected = true;
                 workplace = value;
+                WorkplaceInfo.Select(workplace);
             }
         }
         
@@ -33,7 +43,11 @@ namespace World
 
         public void ClearWorkplace()
         {
-            if (workplaceSelected) workplace.OnDeselect();
+            if (workplaceSelected)
+            {
+                WorkplaceInfo.Deselect();
+                workplace.OnDeselect();
+            }
             workplace = null;
             workplaceSelected = false;
         }
@@ -44,9 +58,15 @@ namespace World
             get => employee;
             set
             {
-                if (employeeSelected) employee.OnDeselect();
+                if (employeeSelected)
+                {
+                    employee.OnDeselect();
+                    EmployeeInfo.Deselect();
+                }
+                
                 employeeSelected = true;
                 employee = value;
+                EmployeeInfo.Select(employee);
             }
         }
         
@@ -55,7 +75,11 @@ namespace World
 
         public void ClearEmployee()
         {
-            if (employeeSelected) employee.OnDeselect();
+            if (employeeSelected)
+            {
+                employee.OnDeselect();
+                EmployeeInfo.Deselect();
+            }
             employee = null;
             employeeSelected = false;
         }
