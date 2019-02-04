@@ -308,7 +308,9 @@ MonoBehaviour:
   Window: {fileID: 1345619191823916020}
   Canvas: {fileID: 1274920397081154922}
   Scaler: {fileID: 1386001950476143890}
-  Offset: {x: 0, y: 0}
+  DefaultOffset: {x: 0, y: 0}
+  ScreenSpaceOverlayGameObject: {fileID: 11400000, guid: a3072e2549f054a259b2278848e48347,
+    type: 2}
 --- !u!1 &7399041190663099278
 GameObject:
   m_ObjectHideFlags: 0

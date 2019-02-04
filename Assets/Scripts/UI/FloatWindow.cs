@@ -1,4 +1,6 @@
+using UE.StateMachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -28,15 +30,28 @@ namespace UI
         /// This offset will be added to the calculated screen position.
         /// </summary>
         public Vector2 DefaultOffset;
+        /// <summary>
+        /// The employee window is drawed as a screen space overlay.
+        /// Therefore the popup needs to be hidden when such a ui object is currently drawn.
+        /// </summary>
+        /// <returns></returns>
+        public State ScreenSpaceOverlayGameObject;
 
         private bool selected = false;
         private GameObject anchor;
         private RectTransform rect;
         private Vector2 offset;
+        private UnityAction<State> overlayEnterAction;
+        private UnityAction<State, State> overlayLeaveAction;
+        private bool tempHidden = false;
 
         private void Awake()
         {
             rect = GetComponent<RectTransform>();
+            overlayEnterAction = OnStateEntered;
+            overlayLeaveAction = OnStateLeaved;
+            ScreenSpaceOverlayGameObject.stateManager.AddStateEnterListener(overlayEnterAction);
+            ScreenSpaceOverlayGameObject.stateManager.AddStateLeaveListener(overlayLeaveAction);
         }
 
         private void Update()
@@ -122,6 +137,27 @@ namespace UI
             offset.x = position.x - anchorPosition.x;
             offset.y = position.y - anchorPosition.y;
             offset += eventData.delta;
+        }
+
+        private void OnStateEntered(State state)
+        {
+            if (state == ScreenSpaceOverlayGameObject && Canvas.enabled)
+            {
+                tempHidden = true;
+                Canvas.enabled = false;
+                Scaler.enabled = false;
+            }
+        }
+
+        private void OnStateLeaved(State stateLeaved, State stateEntered)
+        {
+            if (stateLeaved == ScreenSpaceOverlayGameObject && tempHidden)
+            {
+                tempHidden = false;
+                Canvas.enabled = true;
+                Scaler.enabled = true;
+            }
+            
         }
     }
 }
