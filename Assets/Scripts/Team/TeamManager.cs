@@ -5,6 +5,7 @@ using Base;
 using GameSystem;
 using Interfaces;
 using Items;
+using Missions;
 using SaveGame;
 using UE.Events;
 using UnityEngine;
@@ -85,6 +86,11 @@ namespace Team
         public int GetAvailableWorkplaces()
         {
             return data.Floors * 4;
+        }
+
+        public List<Workplace> GetWorkplacesWorkingOnMission(Mission mission)
+        {
+            return Workplaces.Where(w => w.Mission == mission).ToList();
         }
 
         private void LoadState()

@@ -29,7 +29,9 @@ namespace Team
         public Vector2Int Position;
         public Animator Animator;
         public SpriteOutline SpriteOutline;
-        
+
+        public Mission Mission => data.Mission;
+
         private static readonly int idleProperty = Animator.StringToHash("idle");
         private static readonly int workingProperty = Animator.StringToHash("working");
         

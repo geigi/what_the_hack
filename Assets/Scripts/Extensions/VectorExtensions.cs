@@ -53,5 +53,11 @@ namespace Extensions
             rect.SetLeft(0.0f);
             return rect;
         }
+        
+        public static bool IsTrueNull(this UnityEngine.Object obj)
+        {
+            // ReSharper disable once RedundantCast.0
+            return (object)obj == null;
+        }
     }
 }

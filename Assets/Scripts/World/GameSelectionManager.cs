@@ -17,6 +17,7 @@ namespace World
     {
         public State SelectMissionState;
         public EmployeeInfoUi EmployeeInfo;
+        public WorkplaceInfoUi WorkplaceInfo;
 
         private Workplace workplace;
         public Workplace Workplace
@@ -24,9 +25,15 @@ namespace World
             get => workplace;
             set
             {
-                if (workplaceSelected) workplace.OnDeselect();
+                if (workplaceSelected)
+                {
+                    WorkplaceInfo.Deselect();
+                    workplace.OnDeselect();
+                }
+                
                 workplaceSelected = true;
                 workplace = value;
+                WorkplaceInfo.Select(workplace);
             }
         }
         
@@ -36,7 +43,11 @@ namespace World
 
         public void ClearWorkplace()
         {
-            if (workplaceSelected) workplace.OnDeselect();
+            if (workplaceSelected)
+            {
+                WorkplaceInfo.Deselect();
+                workplace.OnDeselect();
+            }
             workplace = null;
             workplaceSelected = false;
         }

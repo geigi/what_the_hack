@@ -2,6 +2,7 @@
 using Base;
 using Employees;
 using GameSystem;
+using GameTime;
 using Interfaces;
 using SaveGame;
 using Team;
@@ -28,6 +29,8 @@ namespace Missions
         /// </summary>
         public NetObjectEvent GameTimeDayTickEvent;
 
+        public IntEvent GameTimeTickEvent;
+
         public GameEvent AvailableMissionsChanged;
         public GameEvent CompletedMissionsChanged;
         public GameEvent InProgressMissionsChanged;
@@ -35,6 +38,7 @@ namespace Missions
         private MissionManagerData data;
         private ContentHub contentHub;
         private UnityAction<object> dayChangedAction;
+        private UnityAction<int> onTickAction;
         private MissionList missionList;
         
         private void Awake()
@@ -46,6 +50,9 @@ namespace Missions
 
             dayChangedAction += DayChanged;
             GameTimeDayTickEvent.AddListener(dayChangedAction);
+
+            onTickAction += onTick;
+            GameTimeTickEvent.AddListener(onTickAction);
             
             missionList = ModHolder.Instance.GetMissionList();
             if (missionList == null)
@@ -85,9 +92,21 @@ namespace Missions
         /// <summary>
         /// Adds new missions to the available list.
         /// </summary>
-        public void DayChanged(object date)
+        private void DayChanged(object date)
         {
             refreshOpenMissions();
+        }
+
+        private void onTick(int tick)
+        {
+            foreach (var mission in data.InProgress)
+            {
+                mission.RemainingTicks -= 1;
+                if (mission.RemainingTicks < 1)
+                {
+                    // Close mission
+                }
+            }
         }
 
         /// <summary>
@@ -104,6 +123,7 @@ namespace Missions
             data.Available.Remove(mission);
             AvailableMissionsChanged.Raise();
             data.InProgress.Add(mission);
+            mission.RemainingTicks = mission.Duration * GameTime.GameTime.Instance.ClockSteps;
             InProgressMissionsChanged.Raise();
             //TODO: Start mission and countdown time
         }

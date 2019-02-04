@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UE.Events;
+using UnityEngine.Events;
 
 namespace Missions
 {
+    [Serializable]
+    public class MissionProgressEvent: UnityEvent<KeyValuePair<SkillDefinition, float>> {}
+    
     /// <summary>
     /// This class represents a finalized mission object.
     /// It differs from the <see cref="MissionDefinition"/> by including calculated Duration, RewardMoney
@@ -21,7 +26,9 @@ namespace Missions
         /// Calculated duration for this mission.
         /// </summary>
         public int Duration;
-        public int RemainingDays;
+        public int RemainingDays => RemainingTicks / GameTime.GameTime.Instance.ClockSteps;
+        public int RemainingTicks;
+        public int TotalTicks => Duration * GameTime.GameTime.Instance.ClockSteps;
         /// <summary>
         /// Calculated reward money
         /// </summary>
@@ -40,13 +47,18 @@ namespace Missions
         public Dictionary<string, string> Replacements;
         
         public Dictionary<SkillDefinition, float> Progress;
+
+        [NonSerialized]
+        public MissionProgressEvent ProgressChanged;
         
         public Mission(MissionDefinition definition)
         {
             Definition = definition;
             SkillDifficulty = new Dictionary<SkillDefinition, int>();
             Progress = new Dictionary<SkillDefinition, float>();
+            definition.SkillsRequired.ForEach(s => Progress.Add(s, 0f));
             Replacements = new Dictionary<string, string>();
+            ProgressChanged = new MissionProgressEvent();
         }
 
         /// <summary>
