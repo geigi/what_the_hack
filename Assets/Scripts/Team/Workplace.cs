@@ -50,7 +50,7 @@ namespace Team
         {
             var mainSaveGame = SaveGameSystem.Instance.GetCurrentSaveGame();
             data = mainSaveGame.teamManagerData.WorkplaceDatas.First(d => d.Position.Equals(Position));
-            if (data.OccupyingEmployee != null)
+            if (data.OccupyingEmployee != null && data.Mission != null)
             {
                 employee = EmployeeManager.Instance.GetEmployee(data.OccupyingEmployee);
                 employee.GoToWorkplace(this, data.Mission);
