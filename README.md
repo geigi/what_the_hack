@@ -86,5 +86,5 @@ The following third party libraries are used by this game:
 [13]:	http://creativecommons.org/licenses/by/3.0/deed.en_GB
 [14]:	https://github.com/SebLague/Pathfinding
 
-[image-1]:	Assets/Sprites/ui/GameLogo.png
-[image-2]:	Assets/Sprites/ui/base_game_banner.png
+[image-1]:	Sprites/ui/GameLogo.png
+[image-2]:	Sprites/ui/base_game_banner.png
