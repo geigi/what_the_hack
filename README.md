@@ -19,7 +19,7 @@ Mods are served as a zip file and contain a folder which needs to be copied to s
 
 # Development
 ## Requirements
-Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity \>= 2018.2.6f**][3].
+Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity \>= 2018.3.2f1**][3].
 
 ## Components
 There are four main components:
