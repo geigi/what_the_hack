@@ -507,7 +507,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 77
+      value: 165
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -527,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 91
+      value: 195
       objectReference: {fileID: 0}
     - target: {fileID: 224585422429223084, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -4748,12 +4748,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3890
+      value: 3970
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3890
+      value: 3970
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -5037,12 +5037,12 @@ PrefabInstance:
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3890
+      value: 3970
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3890
+      value: 3970
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -7904,7 +7904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event: {fileID: 11400000, guid: 185ae06ca5650444dbcb8965b72c97e5, type: 2}
   Selector: 1
-  MissionPrefab: {fileID: 199104747231006967, guid: 663f10318d28149f78c44d41d7b06845,
+  MissionPrefab: {fileID: 199104747231006967, guid: 3cf80324a3d5e47a4b38597eaa03109a,
     type: 3}
 --- !u!114 &1204247377
 MonoBehaviour:
@@ -9069,12 +9069,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1500
+      value: 1596
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1500
+      value: 1596
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -10220,7 +10220,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 6430
+      value: 6510
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -10230,7 +10230,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 6430.0005
+      value: 6510.0005
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -11340,7 +11340,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3700, y: 3700}
+  m_AnchoredPosition: {x: 3780, y: 3780}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1765235018
@@ -11394,7 +11394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Event: {fileID: 11400000, guid: 73033b5eed3e74a22b15adca53d9b4f6, type: 2}
   Selector: 2
-  MissionPrefab: {fileID: 199104747231006967, guid: 663f10318d28149f78c44d41d7b06845,
+  MissionPrefab: {fileID: 199104747231006967, guid: 7b6cff7bf567f4aa59322fb56f479bc7,
     type: 3}
 --- !u!1 &1771849155
 GameObject:
@@ -14392,7 +14392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1139cdf313eba4dceb8be1e14e0e7131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadGame: 1
   managers: {fileID: 2117680107}
 --- !u!114 &2117680113
 MonoBehaviour:
@@ -14574,14 +14573,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: {fileID: 8981212732297402158}
-  SkillContainer: {fileID: 8981212731281983036}
-  SkillPrefab: {fileID: 8888449095335440618, guid: 83ca2f05ef75946c9b58541906e461cd,
-    type: 3}
+  SkillProgressUi: {fileID: 8981212731281983038}
   TimeProgressbar: {fileID: 4483553616630544542}
   RemainingDays: {fileID: 1689166358}
-  Checkmark: {fileID: 21300426, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
-  CheckmarkColor: {r: 0.32156864, g: 0.32156864, b: 0.32156864, a: 1}
-  AllPurpose: {fileID: 21300360, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   FloatWindow: {fileID: 621945492534627907}
   GameTickEvent: {fileID: 11400000, guid: 431622ad2d21640deb054b4a96e031d5, type: 2}
 --- !u!114 &621945492534627904
@@ -15488,6 +15482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8981212731281983039}
   - component: {fileID: 8981212731281983037}
+  - component: {fileID: 8981212731281983038}
   m_Layer: 5
   m_Name: SkillContainer
   m_TagString: Untagged
@@ -15518,6 +15513,24 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!114 &8981212731281983038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8981212731281983036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808fc5fee0aa4eef920ff4fe16b79350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillPrefab: {fileID: 8888449095335440618, guid: 83ca2f05ef75946c9b58541906e461cd,
+    type: 3}
+  SkillContainer: {fileID: 8981212731281983036}
+  Checkmark: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  CheckmarkColor: {r: 0.021757506, g: 0.4433962, b: 0, a: 1}
+  AllPurpose: {fileID: 21300360, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
 --- !u!224 &8981212731281983039
 RectTransform:
   m_ObjectHideFlags: 0

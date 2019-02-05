@@ -13,7 +13,7 @@ namespace Missions
     /// <summary>
     /// This selector is only used to select between the three different mission lists of the mission manager.
     /// </summary>
-    public enum MissionHandlerSelector
+    public enum MissionUiModeSelector
     {
         Available,
         InProgress,
@@ -27,7 +27,7 @@ namespace Missions
     public class MissionUIHandler: MonoBehaviour
     {
         public GameEvent Event;
-        public MissionHandlerSelector Selector;
+        public MissionUiModeSelector Selector;
         public GameObject MissionPrefab;
 
         private UnityAction listener;
@@ -42,6 +42,7 @@ namespace Missions
         {
             var rect = GetComponent<RectTransform>();
             rect.ResetPosition();
+            handle();
         }
 
         /// <summary>
@@ -54,13 +55,13 @@ namespace Missions
 
             switch (Selector)
             {
-                case MissionHandlerSelector.Available:
+                case MissionUiModeSelector.Available:
                     missions = MissionManager.Instance.GetData().Available;
                     break;
-                case MissionHandlerSelector.InProgress:
+                case MissionUiModeSelector.InProgress:
                     missions = MissionManager.Instance.GetData().InProgress;
                     break;
-                case MissionHandlerSelector.Completed:
+                case MissionUiModeSelector.Completed:
                     missions = MissionManager.Instance.GetData().Completed;
                     break;
                 default:

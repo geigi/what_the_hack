@@ -1,4 +1,8 @@
+using Team;
+using UE.Events;
+using UI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using World;
 
@@ -10,21 +14,33 @@ namespace Missions
     /// </summary>
     public class MissionUIElement : MonoBehaviour
     {
+        [Header("Display style")] public MissionUiModeSelector DisplayMode;
+        [Header("General UI Elements")]
         public Text Name;
         public Text Description;
+        public GameObject SkillRequirementPrefab;
+        public GameObject MissionRequirementPrefab;
         public GameObject MissionRequirementContainer;
         public GameObject SkillRequirementContent;
         public Text Duration;
         public Text RemainingDays;
         public Text Reward;
-        public Button AcceptMissionButton;
-        public Button SelectMissionButton;
 
-        public GameObject SkillRequirementPrefab;
-        public GameObject MissionRequirementPrefab;
+        [Header("Available Elements")] 
+        public Button AcceptMissionButton;
+        
+        [Header("In Progress Elements")]
+        public Button AbortMissionButton;
+        public ProgressBar RemainingTimeBar;
+        public SkillProgressUi SkillProgressUi;
+        public IntEvent TimeStepEvent;
+        
+        [Header("Selector Elements")]
+        public Button SelectMissionButton;
         
         private Mission mission;
-
+        private UnityAction<int> timeStepAction;
+        
         /// <summary>
         /// Set the data of the given mission to the UI elements.
         /// </summary>
@@ -66,11 +82,22 @@ namespace Missions
                 }
             }
 
+            if (DisplayMode == MissionUiModeSelector.InProgress)
+            {
+                timeStepAction = OnTimeStep;
+                TimeStepEvent.AddListener(timeStepAction);
+                OnTimeStep(0);
+                SkillProgressUi.SetMission(mission);
+            }
+
             if (AcceptMissionButton != null)
                 AcceptMissionButton.onClick.AddListener(OnAcceptMission);
             
             if (SelectMissionButton != null)
                 SelectMissionButton.onClick.AddListener(OnSelectMission);
+            
+            if (AbortMissionButton != null)
+                AbortMissionButton.onClick.AddListener(OnAbortMission);
         }
 
         /// <summary>
@@ -90,6 +117,30 @@ namespace Missions
         private void OnSelectMission()
         {
             GameSelectionManager.Instance.MissionSelected(mission);
+        }
+
+        private void OnAbortMission()
+        {
+            MissionManager.Instance.AbortMission(mission);
+        }
+        
+        private void OnTimeStep(int step)
+        {
+            RemainingDays.text = mission.RemainingDays.ToString();
+            if (mission.RemainingTicks > 0)
+                RemainingTimeBar.SetProgress(
+                    1f - mission.RemainingTicks / (float) mission.TotalTicks);
+            else
+                RemainingTimeBar.SetProgress(1f);
+        }
+
+        private void OnDestroy()
+        {
+            if (TimeStepEvent != null)
+                TimeStepEvent.RemoveListener(timeStepAction);
+
+            if (SkillProgressUi != null)
+                SkillProgressUi.Clear();
         }
     }
 }

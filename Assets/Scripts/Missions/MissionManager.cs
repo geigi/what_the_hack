@@ -138,6 +138,22 @@ namespace Missions
         }
 
         /// <summary>
+        /// Abort a mission.
+        /// TODO: Removes it from in progress and re-adds it to available if defined.
+        /// </summary>
+        /// <param name="mission"></param>
+        public void AbortMission(Mission mission)
+        {
+            foreach (var workplace in TeamManager.Instance.GetWorkplacesWorkingOnMission(mission))
+            {
+                workplace.StopWorking();
+            }
+            
+            mission.Finished.Invoke(mission);
+            missionFinished(mission);
+        }
+
+        /// <summary>
         /// Adds an employee to the mission worker of a mission.
         /// </summary>
         /// <param name="mission"></param>
