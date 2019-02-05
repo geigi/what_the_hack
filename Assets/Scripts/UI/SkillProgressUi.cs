@@ -45,6 +45,14 @@ namespace UI
 
             foreach (var skill in mission.Progress)
             {
+                // We have to do some initialization in this method, because the Awake method might not be called yet.
+                // This happens when the object is instantiated but not shown. The Awake method will then call only
+                // if the parent is also active.
+                if (progressBars == null)
+                    progressBars = new List<KeyValuePair<SkillDefinition, ProgressBar>>();
+                if (updateProgressAction == null)
+                    updateProgressAction = UpdateProgress;
+                    
                 var go = Instantiate(SkillPrefab, SkillContainer.transform, false);
                 go.GetComponentsInChildren<Image>().First(i => i.name == "SkillImage").sprite =
                     skill.Key.skillSprite;
