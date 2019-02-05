@@ -19,7 +19,7 @@ Mods are served as a zip file and contain a folder which needs to be copied to s
 
 # Development
 ## Requirements
-Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity \>= 2018.2.6f**][3].
+Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity \>= 2018.3.2f1**][3].
 
 ## Components
 There are four main components:
@@ -67,6 +67,7 @@ The following third party libraries are used by this game:
 - [ModTool][10] - MIT
 - [KinoGlitch][11] - No licence
 - [unityglitch][12] - [Creative Commons Attribution 3.0 Unported][13]
+- [NSubstitute][15] - BSD Licence
 
 ## WTH contains code based on projects
 - [Pathfinding][14] - MIT
@@ -85,6 +86,7 @@ The following third party libraries are used by this game:
 [12]:	https://github.com/staffantan/unityglitch
 [13]:	http://creativecommons.org/licenses/by/3.0/deed.en_GB
 [14]:	https://github.com/SebLague/Pathfinding
+[15]:   http://nsubstitute.github.io
 
-[image-1]:	Assets/Sprites/ui/GameLogo.png
-[image-2]:	Assets/Sprites/ui/base_game_banner.png
+[image-1]:	Sprites/ui/GameLogo.png
+[image-2]:	Sprites/ui/base_game_banner.png
