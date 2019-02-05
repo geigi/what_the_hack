@@ -54,46 +54,55 @@ namespace UI
             ScreenSpaceOverlayGameObject.stateManager.AddStateLeaveListener(overlayLeaveAction);
         }
 
+        private void Start()
+        {
+            Canvas.enabled = false;
+            Scaler.enabled = false;
+        }
+
         private void Update()
         {
             if (selected)
+                setPosition();
+        }
+
+        private void setPosition()
+        {
+            // First calculate the screen position of the given anchor position
+            var position = Camera.main.WorldToScreenPoint(anchor.transform.position);
+            Vector3 positionFinal;
+            positionFinal = position + new Vector3(offset.x, offset.y, 0);
+
+            // Now test if we are leaving the screen
+            var sizeDelta = rect.rect;
+            var left = positionFinal.x - sizeDelta.width * Canvas.scaleFactor / 2;
+            var right = positionFinal.x + sizeDelta.width * Canvas.scaleFactor / 2;
+            var top = positionFinal.y - sizeDelta.height * Canvas.scaleFactor / 2;
+            var bottom = positionFinal.y + sizeDelta.height * Canvas.scaleFactor / 2;
+
+            // If we leave the screen, correct our position accordingly
+            if (left < 0)
             {
-                // First calculate the screen position of the given anchor position
-                var position = Camera.main.WorldToScreenPoint(anchor.transform.position);
-                Vector3 positionFinal;
-                positionFinal = position + new Vector3(offset.x, offset.y, 0);
-                
-                // Now test if we are leaving the screen
-                var sizeDelta = rect.rect;
-                var left = positionFinal.x - sizeDelta.width * Canvas.scaleFactor / 2;
-                var right = positionFinal.x + sizeDelta.width * Canvas.scaleFactor / 2;
-                var top = positionFinal.y - sizeDelta.height * Canvas.scaleFactor / 2;
-                var bottom = positionFinal.y + sizeDelta.height * Canvas.scaleFactor / 2;
-
-                // If we leave the screen, correct our position accordingly
-                if (left < 0)
-                {
-                    positionFinal += new Vector3(-left, 0, 0);
-                }
-
-                if (right > Screen.width)
-                {
-                    positionFinal -= new Vector3(right - Screen.width, 0, 0);
-                }
-
-                if (top < 0)
-                {
-                    positionFinal += new Vector3(0, -top, 0);
-                }
-
-                if (bottom > Screen.height)
-                {
-                    positionFinal -= new Vector3(0, bottom - Screen.height, 0);
-                }
-                
-                // Apply final postion
-                Window.transform.position = positionFinal;
+                positionFinal += new Vector3(-left, 0, 0);
             }
+
+            if (right > Screen.width)
+            {
+                positionFinal -= new Vector3(right - Screen.width, 0, 0);
+            }
+
+            if (top < 0)
+            {
+                positionFinal += new Vector3(0, -top, 0);
+            }
+
+            if (bottom > Screen.height)
+            {
+                positionFinal -= new Vector3(0, bottom - Screen.height, 0);
+            }
+
+            // Apply final postion
+            Window.transform.position = positionFinal;
         }
 
         /// <summary>
@@ -104,12 +113,16 @@ namespace UI
         public void Select(GameObject gameobject)
         {
             anchor = gameobject;
-            Canvas.enabled = true;
+            
             Scaler.enabled = true;
             
             var scaleFactor = Canvas.scaleFactor;
             offset.x = DefaultOffset.x * scaleFactor;
             offset.y = DefaultOffset.y * scaleFactor;
+            
+            setPosition();
+            
+            Canvas.enabled = true;
             selected = true;
         }
 
