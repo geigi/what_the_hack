@@ -143,13 +143,21 @@ namespace Missions
         public void Finish()
         {
             Finished.Invoke(this);
-            Finished.RemoveAllListeners();
-            ProgressChanged.RemoveAllListeners();
         }
 
         public bool Completed()
         {
             return !Progress.Any(s => s.Value < 1f);
+        }
+
+        /// <summary>
+        /// Remove event listeners.
+        /// Call this, wenn a mission is not in progress anymore.
+        /// </summary>
+        public void Cleanup()
+        {
+            Finished.RemoveAllListeners();
+            ProgressChanged.RemoveAllListeners();
         }
     }
 }

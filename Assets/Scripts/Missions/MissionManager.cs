@@ -150,7 +150,6 @@ namespace Missions
             }
             
             mission.Finished.Invoke(mission);
-            missionFinished(mission);
         }
 
         /// <summary>
@@ -228,7 +227,8 @@ namespace Missions
             InProgressMissionsChanged.Raise();
             missionWorkers[mission].Cleanup();
             missionWorkers.Remove(mission);
-
+            mission.Cleanup();
+            
             if (mission.Completed())
             {
                 // Mission has completed successfully
