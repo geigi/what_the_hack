@@ -16,6 +16,7 @@ using UnityEngine.Events;
 using Wth.ModApi.Employees;
 using DayOfWeek = GameTime.DayOfWeek;
 using Object = UnityEngine.Object;
+using Random = System.Random;
 
 namespace Employees
 {
@@ -64,10 +65,30 @@ namespace Employees
         /// </summary>
         public int HiredEmployees => data.hiredEmployees.Count;
 
+        /// <summary>
+        /// The maximum number of hired Employees a player can have at the same time
+        /// </summary>
         public const int MaxNumberOfHiredEmployees = 4;
 
+        /// <summary>
+        /// The maximum number of hireable Employees, that are in the list at the same time.
+        /// </summary>
+        public const int MaxNumberOfHireableEmployees = 4;
+
+        /// <summary>
+        /// Chance that a new Hireable Employee appears per Day
+        /// </summary>
+        public const float chanceNewEmpForHirePerDay = 0.3f;
+
+        /// <summary>
+        /// Chance tha ta Hireable Employee is removed from the list of hireable employees.
+        /// </summary>
+        public const float chanceRemoveEmpForHirePerDay = 0.3f;
+
         private EmployeeManagerData data;
-        
+
+        private static System.Random rand = new Random();
+
         /// <summary>
         /// List of all special employees.
         /// </summary>
@@ -238,15 +259,24 @@ namespace Employees
         }
 
         /// <summary>
-        /// Removes the first Employee from the EmployeeForHire List and creates a new one.
+        /// Removes some Employees from the EmployeeForHire List and creates a new one.
         /// </summary>
         public void DayChanged(object date)
         {
             var gameDate = (GameDate) date;
-            if(data.employeesForHire.Count > 0)
-                RemoveEmployeeForHire(data.employeesForHire[0]);
-            var employeeData = GenerateEmployeeForHire();
-            AddEmployeeForHire(employeeData);
+            for (var index = data.employeesForHire.Count -1 ; index >= 0; index--)
+            {
+                var empData = data.employeesForHire[index];
+                if (rand.NextDouble() < chanceRemoveEmpForHirePerDay)
+                    RemoveEmployeeForHire(empData);
+            }
+            
+            if (data.employeesForHire.Count < MaxNumberOfHireableEmployees && 
+                rand.NextDouble() < chanceNewEmpForHirePerDay)
+            {
+                var employeeData = GenerateEmployeeForHire();
+                AddEmployeeForHire(employeeData);
+            }
 
             //Pay Employees, at the start of each week.
             if (gameDate.DayOfWeek == DayOfWeek.Monday)
