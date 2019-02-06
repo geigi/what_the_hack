@@ -59,6 +59,11 @@ namespace Employees
         /// </summary>
         public Bank bank;
 
+        /// <summary>
+        /// The number of currently employed employees.
+        /// </summary>
+        public int HiredEmployees => data.hiredEmployees.Count;
+
         private EmployeeManagerData data;
         
         /// <summary>
@@ -244,6 +249,23 @@ namespace Employees
             }
 
             return employee;
+        }
+
+        /// <summary>
+        /// Get the highest across all employees.
+        /// </summary>
+        /// <returns></returns>
+        public int GetCurrentMaxEmployeeLevel()
+        {
+            int highestLevel = 0;
+            
+            foreach (var employee in data.hiredEmployees)
+            {
+                if (employee.Level > highestLevel)
+                    highestLevel = employee.Level;
+            }
+
+            return highestLevel;
         }
         
         public EmployeeManagerData GetData()

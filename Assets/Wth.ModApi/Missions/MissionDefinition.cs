@@ -88,4 +88,9 @@ public sealed class MissionDefinition : ScriptableObject
     /// Default: False.
     /// </summary>
     public bool ForceAppear = false;
+
+    /// <summary>
+    /// If the mission could not complete successfully, should it reappear in the available mission section?
+    /// </summary>
+    public bool ReApper = false;
 }

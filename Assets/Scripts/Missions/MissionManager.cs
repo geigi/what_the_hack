@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Base;
 using Employees;
 using GameSystem;
@@ -195,7 +196,12 @@ namespace Missions
 
             for (int i = data.Available.Count; i < MaxOpenMission; i++)
             {
-                data.Available.Add(MissionFactory.Instance.CreateMission(gameProgress));
+                Mission mission = null;
+                
+                while (!requirementsFullfilled(mission))
+                    mission = MissionFactory.Instance.CreateMission(gameProgress);
+                
+                data.Available.Add(mission);
             }
         }
 
@@ -213,6 +219,35 @@ namespace Missions
         {
             var worker = new MissionWorker(mission);
             missionWorkers.Add(mission, worker);
+        }
+
+        /// <summary>
+        /// Tests whether a missions requirements are fulfilled or not.
+        /// </summary>
+        /// <returns></returns>
+        private bool requirementsFullfilled(Mission mission)
+        {
+            if (mission == null) return false;
+            
+            if (mission.Definition.RequiredLevel != 0 && 
+                EmployeeManager.Instance.GetCurrentMaxEmployeeLevel() < mission.Definition.RequiredLevel)
+            {
+                return false;
+            }
+
+            if (mission.Definition.RequiredEmployees != 0 &&
+                EmployeeManager.Instance.HiredEmployees < mission.Definition.RequiredEmployees)
+            {
+                return false;
+            }
+
+            foreach (var requirement in mission.Definition.RequiredMissions.RequiredMissions)
+            {
+                if (data.Completed.All(m => m.Definition != requirement))
+                    return false;
+            }
+            
+            return true;
         }
 
         /// <summary>
