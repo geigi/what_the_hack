@@ -46,15 +46,13 @@ public class EmployeeFactory {
         { new Color32(255, 0, 238, 255), 0.1f }
     };
     public static Dictionary<Color32, float> skinColors = new Dictionary<Color32, float> {
-        { new Color32(233, 195, 140, 255), 1/7f }, { new Color32(223, 202, 131, 255), 1/7f },
-        { new Color32(238, 195, 154, 255), 1/7f }, { new Color32(59, 29, 4, 255), 1/7f },
-        { new Color32(122, 60, 9, 255), 1/7f }, { new Color32(229, 216, 206, 255), 1/7f },
-        { new Color32(173, 141, 110, 255), 1/7f }
+        { new Color32(233, 195, 140, 255), 1/6f }, { new Color32(223, 202, 131, 255), 1/6f },
+        { new Color32(238, 195, 154, 255), 1/6f }, { new Color32(59, 29, 4, 255), 1/6f },
+        { new Color32(122, 60, 9, 255), 1/6f }, { new Color32(173, 141, 110, 255), 1/6f }
     };
     public static Dictionary<Color32, float> eyesColors = new Dictionary<Color32, float> {
-        { new Color32(22, 83, 148, 255), 0.2f }, { new Color32(20, 87, 71, 255), 0.2f },
-        { new Color32(43, 9, 0, 255), 0.2f }, { new Color32(36, 66, 17, 255), 0.2f },
-        { new Color32(255, 255, 255, 255), 0.1f }, {new Color32(212, 11, 11, 255), 0.1f }
+        { new Color32(22, 83, 148, 255), 0.3f }, { new Color32(20, 87, 71, 255), 0.3f },
+        { new Color32(43, 9, 0, 255), 0.2f }, { new Color32(36, 66, 17, 255), 0.2f }
     };
     public static Dictionary<Color32, float> hairColors = new Dictionary<Color32, float> {
         { new Color32(233, 223, 62, 255), 1/14f }, { new Color32(212, 11, 11, 255), 1/7f },
