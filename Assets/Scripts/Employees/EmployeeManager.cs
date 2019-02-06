@@ -55,6 +55,8 @@ namespace Employees
         /// </summary>
         public NetObjectEvent GameTimeDayTickEvent;
 
+        public IntEvent EmployeesNumChangedEvent;
+
         /// <summary>
         /// The bank object.
         /// </summary>
@@ -239,6 +241,7 @@ namespace Employees
                 data.employeesForHire.ForEach(emp =>
                     EmployeeToGuiMap[emp].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(true));
             }
+            EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
         }
 
         /// <summary>
@@ -256,6 +259,7 @@ namespace Employees
                 data.employeesForHire.ForEach(empGUI =>
                     EmployeeToGuiMap[empGUI].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(false));
             }
+            EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
         }
 
         /// <summary>
