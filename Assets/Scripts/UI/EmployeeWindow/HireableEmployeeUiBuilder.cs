@@ -34,5 +34,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
             //Prize does not change, can be set once.
             prize.text = $"{employeeData.Prize} $";
         }
+
+        public void DisableHireButton(bool toDisable) => button.enabled = !toDisable;
     }
 }

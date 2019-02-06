@@ -64,6 +64,8 @@ namespace Employees
         /// </summary>
         public int HiredEmployees => data.hiredEmployees.Count;
 
+        public const int MaxNumberOfHiredEmployees = 4;
+
         private EmployeeManagerData data;
         
         /// <summary>
@@ -162,6 +164,8 @@ namespace Employees
         {
             data.employeesForHire.Add(employeeData);
             AddEmployeeForHireToGui(employeeData);
+            if (HiredEmployees >= MaxNumberOfHiredEmployees)
+                EmployeeToGuiMap[employeeData].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(true);
         }
 
         public void AddHiredEmployee(EmployeeData employeeData)
@@ -209,6 +213,11 @@ namespace Employees
             
             RemoveEmployeeForHire(empData);
             AddHiredEmployee(empData);
+            if (HiredEmployees >= MaxNumberOfHiredEmployees)
+            {
+                data.employeesForHire.ForEach(emp =>
+                    EmployeeToGuiMap[emp].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(true));
+            }
         }
 
         /// <summary>
@@ -220,6 +229,12 @@ namespace Employees
             if (!data.hiredEmployees.Contains(emp)) return;
             data.exEmplyoees.Add(emp);
             data.hiredEmployees.Remove(emp);
+
+            if (HiredEmployees < MaxNumberOfHiredEmployees)
+            {
+                data.employeesForHire.ForEach(empGUI =>
+                    EmployeeToGuiMap[empGUI].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(false));
+            }
         }
 
         /// <summary>
