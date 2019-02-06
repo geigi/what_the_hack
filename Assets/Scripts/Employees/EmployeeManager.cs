@@ -89,7 +89,7 @@ namespace Employees
 
         private EmployeeManagerData data;
 
-        private static System.Random rand = new Random();
+        internal static System.Random rand = new Random();
 
         /// <summary>
         /// List of all special employees.
