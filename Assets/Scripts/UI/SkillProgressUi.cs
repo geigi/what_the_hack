@@ -34,8 +34,12 @@ namespace UI
 
         private void Awake()
         {
-            progressBars = new List<KeyValuePair<SkillDefinition, ProgressBar>>();
-            updateProgressAction = UpdateProgress;
+            // We need the null check here because the object might be instantiated after SetMission was called.
+            // The Awake method will be executed only if the parent is also active.
+            if (progressBars == null)
+                progressBars = new List<KeyValuePair<SkillDefinition, ProgressBar>>();
+            if (updateProgressAction == null)
+                updateProgressAction = UpdateProgress;
         }
 
         public void SetMission(Mission mission)
