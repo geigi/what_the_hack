@@ -1,3 +1,4 @@
+using SaveGame;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class DebugHub : EditorWindow
     
     private void OnGUI()
     {
+        // Header
         GUILayout.BeginHorizontal();
         GUILayout.Label("Debug Hub", EditorStyles.boldLabel);
         GUILayout.EndHorizontal();
@@ -24,9 +26,25 @@ public class DebugHub : EditorWindow
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         
-        // load the game on scene startup
+        EditorGUI.BeginDisabledGroup(!Application.isPlaying);
+        // Save Game
+        if(GUILayout.Button("Save Game"))
+        {
+            SaveGameSystem.Instance.SaveGame(SaveGameSystem.DEFAULT_SAVE_GAME_NAME);
+        }
+        EditorGUI.EndDisabledGroup();
+        
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+        
+        GUILayout.Space(10f);
+        
+        // Load Game at Startup
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+        
         var loadGame = EditorPrefs.GetBool(LOAD_GAME);
-        loadGame = EditorGUILayout.Toggle ("Load Game", loadGame);
+        loadGame = EditorGUILayout.Toggle ("Load game on startup", loadGame);
         EditorPrefs.SetBool(LOAD_GAME, loadGame);
         
         GUILayout.FlexibleSpace();
