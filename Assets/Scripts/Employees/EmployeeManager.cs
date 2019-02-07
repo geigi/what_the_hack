@@ -268,12 +268,8 @@ namespace Employees
         public void DayChanged(object date)
         {
             var gameDate = (GameDate) date;
-            for (var index = data.employeesForHire.Count -1 ; index >= 0; index--)
-            {
-                var empData = data.employeesForHire[index];
-                if (rand.NextDouble() < chanceRemoveEmpForHirePerDay)
-                    RemoveEmployeeForHire(empData);
-            }
+            data.employeesForHire.ForEach(data => data.hireableDays--);
+            data.employeesForHire.FindAll(data => data.hireableDays == 0).ForEach(data => RemoveEmployeeForHire(data));
             
             if (data.employeesForHire.Count < MaxNumberOfHireableEmployees && 
                 rand.NextDouble() < chanceNewEmpForHirePerDay)
