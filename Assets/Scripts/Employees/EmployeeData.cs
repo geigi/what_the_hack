@@ -61,6 +61,10 @@ namespace Wth.ModApi.Employees
         public Enums.EmployeeState State;
 
         /// <summary>
+        /// Represents how many days the Employee wil continue to stay in the "for hire" list until he is removed.
+        /// </summary>
+        public int hireableDays;
+        /// <summary>
         /// Empty Constructor.
         /// </summary>
         public EmployeeData()

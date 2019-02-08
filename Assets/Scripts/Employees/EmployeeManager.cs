@@ -16,6 +16,7 @@ using UnityEngine.Events;
 using Wth.ModApi.Employees;
 using DayOfWeek = GameTime.DayOfWeek;
 using Object = UnityEngine.Object;
+using Random = System.Random;
 
 namespace Employees
 {
@@ -54,6 +55,8 @@ namespace Employees
         /// </summary>
         public NetObjectEvent GameTimeDayTickEvent;
 
+        public IntEvent EmployeesNumChangedEvent;
+
         /// <summary>
         /// The bank object.
         /// </summary>
@@ -64,8 +67,30 @@ namespace Employees
         /// </summary>
         public int HiredEmployees => data.hiredEmployees.Count;
 
+        /// <summary>
+        /// The maximum number of hired Employees a player can have at the same time
+        /// </summary>
+        public const int MaxNumberOfHiredEmployees = 4;
+
+        /// <summary>
+        /// The maximum number of hireable Employees, that are in the list at the same time.
+        /// </summary>
+        public const int MaxNumberOfHireableEmployees = 4;
+
+        /// <summary>
+        /// Chance that a new Hireable Employee appears per Day
+        /// </summary>
+        public const float chanceNewEmpForHirePerDay = 0.3f;
+
+        /// <summary>
+        /// Chance tha ta Hireable Employee is removed from the list of hireable employees.
+        /// </summary>
+        public const float chanceRemoveEmpForHirePerDay = 0.3f;
+
         private EmployeeManagerData data;
-        
+
+        internal static System.Random rand = new Random();
+
         /// <summary>
         /// List of all special employees.
         /// </summary>
@@ -162,6 +187,8 @@ namespace Employees
         {
             data.employeesForHire.Add(employeeData);
             AddEmployeeForHireToGui(employeeData);
+            if (HiredEmployees >= MaxNumberOfHiredEmployees)
+                EmployeeToGuiMap[employeeData].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(true);
         }
 
         public void AddHiredEmployee(EmployeeData employeeData)
@@ -209,6 +236,12 @@ namespace Employees
             
             RemoveEmployeeForHire(empData);
             AddHiredEmployee(empData);
+            if (HiredEmployees >= MaxNumberOfHiredEmployees)
+            {
+                data.employeesForHire.ForEach(emp =>
+                    EmployeeToGuiMap[emp].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(true));
+            }
+            EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
         }
 
         /// <summary>
@@ -220,18 +253,30 @@ namespace Employees
             if (!data.hiredEmployees.Contains(emp)) return;
             data.exEmplyoees.Add(emp);
             data.hiredEmployees.Remove(emp);
+
+            if (HiredEmployees < MaxNumberOfHiredEmployees)
+            {
+                data.employeesForHire.ForEach(empGUI =>
+                    EmployeeToGuiMap[empGUI].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(false));
+            }
+            EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
         }
 
         /// <summary>
-        /// Removes the first Employee from the EmployeeForHire List and creates a new one.
+        /// Removes some Employees from the EmployeeForHire List and creates a new one.
         /// </summary>
         public void DayChanged(object date)
         {
             var gameDate = (GameDate) date;
-            if(data.employeesForHire.Count > 0)
-                RemoveEmployeeForHire(data.employeesForHire[0]);
-            var employeeData = GenerateEmployeeForHire();
-            AddEmployeeForHire(employeeData);
+            data.employeesForHire.ForEach(data => data.hireableDays--);
+            data.employeesForHire.FindAll(data => data.hireableDays == 0).ForEach(data => RemoveEmployeeForHire(data));
+            
+            if (data.employeesForHire.Count < MaxNumberOfHireableEmployees && 
+                rand.NextDouble() < chanceNewEmpForHirePerDay)
+            {
+                var employeeData = GenerateEmployeeForHire();
+                AddEmployeeForHire(employeeData);
+            }
 
             //Pay Employees, at the start of each week.
             if (gameDate.DayOfWeek == DayOfWeek.Monday)

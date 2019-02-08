@@ -12,10 +12,15 @@ using NUnit;
 using UnityEngine;
 using Employees;
 using GameTime;
+using UE.Events;
+using UnityEditor.ProjectWindowCallback;
 using UnityEditor.SceneManagement;
+using UnityEngine.Events;
 using UnityEngine.TestTools;
 using Wth.ModApi.Employees;
 using DayOfWeek = GameTime.DayOfWeek;
+using Object = System.Object;
+using Random = System.Random;
 
 namespace Assets.Tests
 {
@@ -28,6 +33,7 @@ namespace Assets.Tests
         private EmployeeManager emp;
         private ContentHub contentHub;
         private EmployeeData testEmployee;
+        private UnityAction<int> action;
 
         [SetUp]
         public void SetUp()
@@ -38,7 +44,8 @@ namespace Assets.Tests
             factory = Substitute.For<EmployeeFactory>();
             testEmployee = new EmployeeData
             {
-                generatedData = new EmployeeGeneratedData {name = "Test Employee"}
+                generatedData = new EmployeeGeneratedData {name = "Test Employee"},
+                hireableDays = 1
             };
             factory.GenerateEmployee().Returns(testEmployee);
 
@@ -76,11 +83,14 @@ namespace Assets.Tests
         [Test]
         public void FireEmployee_ExistingEmp_Test()
         {
+            var evt = Substitute.ForPartsOf<IntEvent>();
+            emp.EmployeesNumChangedEvent = evt;
             emp.GetData().hiredEmployees.Add(testEmployee);
             emp.FireEmployee(testEmployee);
             Assert.IsEmpty(emp.GetData().hiredEmployees);
             Assert.IsNotEmpty(emp.GetData().exEmplyoees);
             Assert.AreSame(testEmployee, emp.GetData().exEmplyoees[0]);
+            evt.Received(1);
         }
 
         /// <summary>
@@ -91,7 +101,10 @@ namespace Assets.Tests
         [Test]
         public void DayChangedTest()
         {
+            var rand = Substitute.ForPartsOf<Random>();
+            rand.NextDouble().Returns(0);
             var manager = Substitute.ForPartsOf<EmployeeManager>();
+            EmployeeManager.rand = rand;
             var bank = Substitute.For<Bank>();
             bank.Pay(Arg.Any<int>()).ReturnsForAnyArgs(true);
             manager.InitDefaultState();
@@ -103,6 +116,7 @@ namespace Assets.Tests
             Assert.IsNotEmpty(manager.GetData().employeesForHire);
             manager.Received().AddEmployeeForHireToGui(testEmployee);
             bank.Received(1).Pay(Arg.Any<int>());
+            rand.Received(2).NextDouble();
         }
         
         /// <summary>
@@ -113,7 +127,10 @@ namespace Assets.Tests
         [Test]
         public void DayChangedTest_ListNotEmpty()
         {
+            var rand = Substitute.ForPartsOf<Random>();
+            rand.NextDouble().Returns(0);
             var manager = Substitute.ForPartsOf<EmployeeManager>();
+            EmployeeManager.rand = rand;
             var bank = Substitute.For<Bank>();
             bank.Pay(Arg.Any<int>()).ReturnsForAnyArgs(true);
             manager.InitDefaultState();
@@ -129,6 +146,28 @@ namespace Assets.Tests
             manager.Received().AddEmployeeForHireToGui(testEmployee);
             manager.Received().RemoveEmployeeForHire(testEmployee);
             bank.Received(0).Pay(Arg.Any<int>());
+        }
+
+        [Test]
+        public void DayChangedTest_EmpRemoved()
+        {
+            var emp = new EmployeeData()
+            {
+                generatedData = new EmployeeGeneratedData {name = "Test Employee"},
+                hireableDays = 2
+            };
+            var rand = Substitute.ForPartsOf<Random>();
+            rand.NextDouble().Returns(1);
+            var manager = Substitute.ForPartsOf<EmployeeManager>();
+            EmployeeManager.rand = rand;
+            manager.InitDefaultState();
+            manager.EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject> { { testEmployee, new GameObject() } };
+            manager.WhenForAnyArgs(x => x.AddEmployeeForHireToGui(Arg.Any<EmployeeData>())).DoNotCallBase();
+            manager.WhenForAnyArgs(x => x.RemoveEmployeeForHire(Arg.Any<EmployeeData>())).DoNotCallBase();
+            manager.GetData().employeesForHire.Add(emp);
+            manager.DayChanged(new GameDate());
+            Assert.AreEqual(1, manager.GetData().employeesForHire.Count);
+            Assert.AreEqual(1, emp.hireableDays);
         }
     }
 }

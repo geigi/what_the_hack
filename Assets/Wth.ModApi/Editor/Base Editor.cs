@@ -268,5 +268,42 @@ namespace Wth.ModApi.Editor
         {
             throw new NotImplementedException("This method needs to be overwritten by its inheritor.");
         }
+
+        /// <summary>
+        /// Draws a field to he UI for editing Arrays.
+        /// Includes a field to specify the number of items, as well as the fields to modify each item.
+        /// Also includes an option to specify the maximum number of items to show at once.
+        /// When this number is exceeded a Scrollbar will appear.
+        /// </summary>
+        /// <typeparam name="T">The type of Object in the array</typeparam>
+        /// <param name="array">The array object to be edited</param>
+        /// <param name="objectLabel">The label each array-item should get</param>
+        /// <param name="scrollPos">Start position of the scrollbar</param>
+        /// <param name="allowSceneObjects">Options if scene objects are allowed to placed as items</param>
+        /// <param name="maxObj">The maximum number of items to display, until the scrollbar appears.
+        /// Set to a number &lt;1, if you don't want the scrollbar to appear at all.</param>
+        /// <param name="guiLayoutOptionsSizeField">Gui options for the int field used to specify the size of the array.</param>
+        /// <param name="guiLayoutOptionsObjectField">Gui options for all item fields</param>
+        /// <returns>The new position of the scrollbar</returns>
+        public static Vector2 ArrayField<T>(ref T[] array, string objectLabel,
+            Vector2 scrollPos,
+            bool allowSceneObjects, int maxObj, GUILayoutOption[] guiLayoutOptionsSizeField = null,
+            GUILayoutOption[] guiLayoutOptionsObjectField = null) where T : UnityEngine.Object
+        {
+            array = new T[EditorGUILayout.IntField("Size", array.Length, guiLayoutOptionsSizeField)];
+            if(array.Length > maxObj && maxObj > 0) 
+                scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(Mathf.Max(20 * maxObj)),
+                     GUILayout.ExpandWidth(true));
+
+            for (var index = 0; index < array.Length; index++)
+            {
+                array[index] = EditorGUILayout.ObjectField(label: objectLabel, array[index],
+                    typeof(T), allowSceneObjects, guiLayoutOptionsObjectField) as T;
+            }
+            if(array.Length > maxObj && maxObj > 0)
+                EditorGUILayout.EndScrollView();
+
+            return scrollPos;
+        }
     }
 }

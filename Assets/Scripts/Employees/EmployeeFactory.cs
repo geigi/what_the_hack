@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using GameSystem;
 using SaveGame;
+using Team;
 using UnityEngine;
 using Utils;
 using Wth.ModApi.Employees;
@@ -68,8 +70,12 @@ public class EmployeeFactory {
 
     private static Random rnd = new Random();
 
-    private ContentHub contentHub;
-    private NameLists names;
+    private const float SalaryInvariance = 1.1f;
+
+    private const float PrizeInvariance = 1.1f;
+
+    protected internal ContentHub contentHub;
+    protected internal NameLists names;
     private List<SkillDefinition> skills;
     private SkillDefinition allPurpSkillDef;
     private Material empMaterial;
@@ -202,6 +208,8 @@ public class EmployeeFactory {
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();
         //Skills
         employee.Skills = GenerateSkills();
+        //Specials
+        employee.Specials = new List<EmployeeSpecial>();
         //Color
         var employeeParts = Enum.GetValues(typeof(EmployeePart));
         foreach (EmployeePart part in employeeParts)
@@ -211,6 +219,13 @@ public class EmployeeFactory {
         //Name
         generatedData.AssignRandomGender();
         GenerateName(ref generatedData);
+
+        //Set Salary and Prize
+        employee.Salary = calcSalary(employee);
+        employee.Prize = calcPrize(employee);
+
+        //hireableDays
+        employee.hireableDays = rnd.Next(1, 4);
 
         //AnimationClips
         int numDiffClips = contentHub.maleAnimationClips.Length / 3;
@@ -224,7 +239,7 @@ public class EmployeeFactory {
         return employee;
     }
 
-    internal void GenerateName(ref EmployeeGeneratedData generatedData)
+    internal virtual void GenerateName(ref EmployeeGeneratedData generatedData)
     {
         NameLists employeeNames = names;
         generatedData.name = (generatedData.gender == "female") ? employeeNames.PersonName(PersonNames.FemaleFirstName) :
@@ -232,7 +247,7 @@ public class EmployeeFactory {
         generatedData.name += " " + employeeNames.PersonName(PersonNames.LastName);
     }
 
-    internal List<Skill> GenerateSkills()
+    internal virtual List<Skill> GenerateSkills()
     {
         Skill newSkill = new Skill(allPurpSkillDef);
         newSkill.AddSkillPoints(rnd.Next(100, 1000));
@@ -251,5 +266,50 @@ public class EmployeeFactory {
         }
 
         return skillList;
-    } 
+    }
+
+    private static int basicSalary = 100;
+    private static float MaxInvariance = 1.5f;
+    private static int SkillLevelValue = 10;
+    private static int SpecialValue = 50;
+
+    /// <summary>
+    /// Calculates the Salary of an Employee.
+    /// </summary>
+    /// <returns>The salary of an Employee</returns>
+    internal virtual int calcSalary(EmployeeData empData)
+    {
+        AdjustSalaryValues();
+        return (int) Mathf.Abs(((basicSalary + SkillLevelValue * CalculateSkillScore(empData) + SpecialValue * empData.Specials.Count) * 
+                                        Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.5f)));
+    }
+
+    /// <summary>
+    /// Calculates the current Game Score
+    /// </summary>
+    /// <returns>The Game Score</returns>
+    private void AdjustSalaryValues()
+    {
+       int progress =  Math.Max(TeamManager.Instance.calcGameProgress(), 1);
+       basicSalary *= progress;
+       if (rnd.NextDouble() < 0.5) SkillLevelValue++;
+       else SpecialValue++;
+    }
+
+    /// <summary>
+    /// Calculates the prize of the employee.
+    /// </summary>
+    /// <param name="empData">The employee for which the prize should be calculated</param>
+    /// <returns>Prize for the employee</returns>
+    internal virtual int calcPrize(EmployeeData empData)
+    {
+        return (int) Mathf.Abs(empData.Salary * Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.2f));
+    }
+
+    /// <summary>
+    /// The SkillScore is the Sum of the levels of all Skills of an Employee.
+    /// </summary>
+    /// <param name="empData">The Employee of which the SkillScore should be calculated</param>
+    /// <returns>The skill score</returns>
+    private int CalculateSkillScore(EmployeeData empData) => empData.Skills.Sum(skill => skill.level);
 }

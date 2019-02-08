@@ -77,7 +77,7 @@ public class NameLists : ScriptableObject
     /// </summary>
     /// <param name="personName">Type of name.</param>
     /// <returns></returns>
-    public string PersonName(PersonNames personName)
+    public virtual string PersonName(PersonNames personName)
     {
         switch (personName)
         {
