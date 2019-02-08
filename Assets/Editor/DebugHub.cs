@@ -24,6 +24,10 @@ public class DebugHub : EditorWindow
         GUILayout.EndHorizontal();
         
         GUILayout.BeginHorizontal();
+        GUILayout.Label("SaveGame", EditorStyles.miniBoldLabel);
+        GUILayout.EndHorizontal();
+        
+        GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
         
         EditorGUI.BeginDisabledGroup(!Application.isPlaying);
@@ -46,6 +50,25 @@ public class DebugHub : EditorWindow
         var loadGame = EditorPrefs.GetBool(LOAD_GAME);
         loadGame = EditorGUILayout.Toggle ("Load game on startup", loadGame);
         EditorPrefs.SetBool(LOAD_GAME, loadGame);
+        
+        GUILayout.FlexibleSpace();
+        GUILayout.EndHorizontal();
+        
+        GUILayout.Space(10f);
+        
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("In-Game Variables", EditorStyles.miniBoldLabel);
+        GUILayout.EndHorizontal();
+        
+        GUILayout.BeginHorizontal();
+        GUILayout.FlexibleSpace();
+
+        EditorGUI.BeginDisabledGroup(!Application.isPlaying);
+        var bank = ContentHub.Instance.bank;
+        var newBalance = EditorGUILayout.IntField("Balance:", bank.Balance);
+        if (newBalance != bank.Balance)
+            bank.Income(newBalance - bank.Balance);
+        EditorGUI.EndDisabledGroup();
         
         GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
