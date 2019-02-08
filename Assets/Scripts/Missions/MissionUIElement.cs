@@ -61,16 +61,7 @@ namespace Missions
             if (Reward != null)
                 Reward.text = mission.RewardMoney.ToString();
 
-            if (SkillRequirementContent != null && SkillRequirementPrefab != null)
-            {
-                // Skills
-                foreach (var skillDefinition in mission.SkillDifficulty)
-                {
-                    var skill = Instantiate(SkillRequirementPrefab, SkillRequirementContent.transform, false);
-                    skill.transform.GetChild(0).GetComponent<Image>().sprite = skillDefinition.Key.skillSprite;
-                    skill.transform.GetChild(1).GetComponent<Text>().text = skillDefinition.Value.ToString();
-                }
-            }
+            SetSkillRequirements();
 
             if (MissionRequirementContainer != null && SkillRequirementPrefab != null)
             {
@@ -100,6 +91,25 @@ namespace Missions
                 AbortMissionButton.onClick.AddListener(OnAbortMission);
         }
 
+        private void SetSkillRequirements()
+        {
+            if (SkillRequirementContent != null && SkillRequirementPrefab != null)
+            {
+                foreach (Transform t in SkillRequirementContent.transform)
+                {
+                    Destroy(t.gameObject);
+                }
+                
+                // Skills
+                foreach (var skillDefinition in mission.SkillDifficulty)
+                {
+                    var skill = Instantiate(SkillRequirementPrefab, SkillRequirementContent.transform, false);
+                    skill.transform.GetChild(0).GetComponent<Image>().sprite = skillDefinition.Key.skillSprite;
+                    skill.transform.GetChild(1).GetComponent<Text>().text = skillDefinition.Value.ToString();
+                }
+            }
+        }
+
         /// <summary>
         /// Return the mission displayed in this UI element.
         /// </summary>
@@ -107,6 +117,20 @@ namespace Missions
         public Mission GetMission()
         {
             return mission;
+        }
+
+        /// <summary>
+        /// Update values that are subject to changes.
+        /// This is used for story missions.
+        /// </summary>
+        public void UpdateValues()
+        {
+            SetSkillRequirements();
+            
+            if (Duration != null)
+                Duration.text = mission.Duration.ToString();
+            if (Reward != null)
+                Reward.text = mission.RewardMoney.ToString();
         }
 
         private void OnAcceptMission()

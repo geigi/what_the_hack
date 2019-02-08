@@ -72,6 +72,7 @@ namespace Missions
         {
             data = new MissionManagerData();
 
+            data.ForceAppearPool = MissionFactory.Instance.GetForceAppearMissions();
             fillOpenMissions();
             AvailableMissionsChanged.Raise();
         }
@@ -168,6 +169,7 @@ namespace Missions
         /// </summary>
         private void refreshOpenMissions()
         {
+            //removeForceAppearMissions();
             removeMissions(RefreshRate);
             fillOpenMissions();
             AvailableMissionsChanged.Raise();
@@ -188,19 +190,35 @@ namespace Missions
         }
 
         /// <summary>
+        /// Removes all force appear missions from the available list.
+        /// </summary>
+        private void removeForceAppearMissions()
+        {
+            data.Available.RemoveAll(m => m.Definition.ForceAppear);
+        }
+
+        /// <summary>
         /// Fill the open missions list until the maximum is reached.
         /// </summary>
         private void fillOpenMissions()
         {
             int gameProgress = TeamManager.Instance.calcGameProgress();
-
+            
+            foreach (var mission in data.ForceAppearPool)
+            {
+                if (MissionFactory.Instance.RequirementsFullfilled(mission.Definition) &&
+                    data.Completed.All(m => m.Definition != mission.Definition) &&
+                    data.InProgress.All(m => m.Definition != mission.Definition) && 
+                    data.Available.All(m => m.Definition != mission.Definition))
+                {
+                    MissionFactory.Instance.SetGameProgress(gameProgress, mission);
+                    data.Available.Add(mission);
+                }
+            }
+            
             for (int i = data.Available.Count; i < MaxOpenMission; i++)
             {
-                Mission mission = null;
-                
-                while (!requirementsFullfilled(mission))
-                    mission = MissionFactory.Instance.CreateMission(gameProgress);
-                
+                var mission = MissionFactory.Instance.CreateMission(gameProgress);
                 data.Available.Add(mission);
             }
         }
@@ -219,35 +237,6 @@ namespace Missions
         {
             var worker = new MissionWorker(mission);
             missionWorkers.Add(mission, worker);
-        }
-
-        /// <summary>
-        /// Tests whether a missions requirements are fulfilled or not.
-        /// </summary>
-        /// <returns></returns>
-        private bool requirementsFullfilled(Mission mission)
-        {
-            if (mission == null) return false;
-            
-            if (mission.Definition.RequiredLevel != 0 && 
-                EmployeeManager.Instance.GetCurrentMaxEmployeeLevel() < mission.Definition.RequiredLevel)
-            {
-                return false;
-            }
-
-            if (mission.Definition.RequiredEmployees != 0 &&
-                EmployeeManager.Instance.HiredEmployees < mission.Definition.RequiredEmployees)
-            {
-                return false;
-            }
-
-            foreach (var requirement in mission.Definition.RequiredMissions.RequiredMissions)
-            {
-                if (data.Completed.All(m => m.Definition != requirement))
-                    return false;
-            }
-            
-            return true;
         }
 
         /// <summary>

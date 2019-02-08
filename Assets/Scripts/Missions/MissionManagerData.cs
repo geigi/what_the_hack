@@ -12,12 +12,14 @@ namespace Missions
         public List<Mission> InProgress;
         public List<Mission> Completed;
         public List<Mission> Available;
+        public List<Mission> ForceAppearPool;
 
         public MissionManagerData()
         {
             InProgress = new List<Mission>();
             Available = new List<Mission>();
             Completed = new List<Mission>();
+            ForceAppearPool = new List<Mission>();
         }
     }
 }

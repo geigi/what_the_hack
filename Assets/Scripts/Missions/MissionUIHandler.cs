@@ -102,6 +102,21 @@ namespace Missions
                 {
                     var element = Instantiate(MissionPrefab, gameObject.transform, false);
                     element.GetComponent<MissionUIElement>().SetMission(mission);
+
+                    if (mission.Definition.ForceAppear)
+                    {
+                        element.transform.SetSiblingIndex(0);
+                    }
+                }
+            }
+
+            // Update on possibly changed mission values
+            foreach (Transform transform in gameObject.transform)
+            {
+                var element = transform.GetComponent<MissionUIElement>();
+                if (element.GetMission().Definition.ForceAppear)
+                {
+                    element.UpdateValues();
                 }
             }
         }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Base;
+using Employees;
 using UnityEngine;
 using Wth.ModApi.Names;
 using Wth.ModApi.Tools;
@@ -23,14 +25,18 @@ namespace Missions
         public float SkillDifficultyVariance = 0.3f;
 
         private MissionList missionList;
+        private List<MissionDefinition> forceAppearMissions;
 
         private void Awake()
         {
             missionList = ModHolder.Instance.GetMissionList();
+            
             if (missionList == null)
             {
                 missionList = ContentHub.Instance.DefaultMissionList;
             }
+            
+            findForceAppearMissions();
         }
 
         /// <summary>
@@ -44,17 +50,56 @@ namespace Missions
             do
             {
                 definition = missionList.missionList[Random.Range(0, missionList.missionList.Count)];
-            } while (definition.RequiredLevel > difficulty);
+            } while (definition.ForceAppear || !RequirementsFullfilled(definition));
 
             var mission = new Mission(definition);
             
             SetPlaceholders(mission);
+            SetGameProgress(difficulty, mission);
+
+            return mission;
+        }
+
+        /// <summary>
+        /// Calculates and sets all values that are dependent from the game progress.
+        /// </summary>
+        /// <param name="difficulty">Current game progress</param>
+        /// <param name="mission"></param>
+        public void SetGameProgress(int difficulty, Mission mission)
+        {
             calcDurationVariance(mission);
             RandomSkillValues(mission, difficulty);
 
             generateOutcome(mission);
+        }
 
-            return mission;
+        /// <summary>
+        /// Get a list of all missions that should force appear.
+        /// Includes only missions which requirements are fulfilled.
+        /// </summary>
+        /// <param name="difficulty"></param>
+        /// <returns></returns>
+        public List<Mission> GetForceAppearMissions()
+        {
+            List<Mission> missions = new List<Mission>();
+            
+            foreach (var definition in forceAppearMissions)
+            {
+                var mission = new Mission(definition);
+                SetPlaceholders(mission);
+                missions.Add(mission);
+            }
+
+            return missions;
+        }
+
+        /// <summary>
+        /// Searches for missions, that should always appear when the requirements are met
+        /// and saves them in a separate list for easy access.
+        /// </summary>
+        private void findForceAppearMissions()
+        {
+            forceAppearMissions = missionList.missionList.Where(m => m.ForceAppear).ToList();
         }
         
         /// <summary>
@@ -81,7 +126,7 @@ namespace Missions
         /// <param name="baseDifficulty">Base difficulty that will be added to the calculated difficulty.</param>
         private void RandomSkillValues(Mission mission, int baseDifficulty)
         {
-
+            mission.SkillDifficulty = new Dictionary<SkillDefinition, int>();
             List<SkillDefinition> skills = mission.Definition.SkillsRequired;
 
             int difficulty = calcMissionLevel(baseDifficulty + MissionBasePower, mission.Definition.Hardness, mission.Duration);
@@ -125,7 +170,7 @@ namespace Missions
         /// <param name="mission"></param>
         /// <returns></returns>
         public int calcRewardMoney(Mission mission) {
-            return (int) (Math.Sqrt(mission.Difficulty) * /*(1 + mission.getRisk()) * */ RandomUtils.mult_var(MissionRewardmoneyVariance) * MissionRewardmoneyFactor) * 10;
+            return (int) (Math.Sqrt(mission.Difficulty) * RandomUtils.mult_var(MissionRewardmoneyVariance) * MissionRewardmoneyFactor) * 10;
         }
         
         private float durationDifficultyFactor(int duration) {
@@ -153,6 +198,35 @@ namespace Missions
             mission.Replacements.Add("%TOWN%", nameList.Town());
             mission.Replacements.Add("%COUNTRY%", nameList.Country());
             mission.Replacements.Add("%INSTITUTION%", nameList.Institution());
+        }
+
+        /// <summary>
+        /// Tests whether a missions requirements are fulfilled or not.
+        /// </summary>
+        /// <returns></returns>
+        public bool RequirementsFullfilled(MissionDefinition mission)
+        {
+            if (mission == null) return false;
+            
+            if (mission.RequiredLevel != 0 && 
+                EmployeeManager.Instance.GetCurrentMaxEmployeeLevel() < mission.RequiredLevel)
+            {
+                return false;
+            }
+
+            if (mission.RequiredEmployees != 0 &&
+                EmployeeManager.Instance.HiredEmployees < mission.RequiredEmployees)
+            {
+                return false;
+            }
+
+            foreach (var requirement in mission.RequiredMissions.RequiredMissions)
+            {
+                if (MissionManager.Instance.GetData().Completed.All(m => m.Definition != requirement))
+                    return false;
+            }
+            
+            return true;
         }
     }
 }
