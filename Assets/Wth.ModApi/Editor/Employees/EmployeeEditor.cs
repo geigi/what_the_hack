@@ -4,7 +4,8 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Wth.ModApi.Editor.Tools;
-using Wth.ModApi.Employees;
+using Wth.ModApi.Editor;
+using Object = System.Object;
 
 namespace Wth.ModApi.Editor.Employees
 {
@@ -21,6 +22,8 @@ namespace Wth.ModApi.Editor.Employees
             assetName = "Employee";
             NeedsDictionary = true;
         }
+
+        private Vector2[] scrollPositions = new Vector2[2];
 
         [MenuItem("Tools/What_The_Hack ModApi/Employee Creator", priority = 42)]
         static void Init()
@@ -126,6 +129,45 @@ namespace Wth.ModApi.Editor.Employees
                     asset.employeeList[viewIndex - 1].Level, GUILayout.ExpandWidth(false));
                 GUILayout.EndHorizontal();
 
+                GUILayout.Space(10);
+
+                asset.employeeList[viewIndex - 1].SpawnLikelihood = EditorGUILayout.Slider("Spawn Likelihood",
+                    asset.employeeList[viewIndex - 1].SpawnLikelihood, 0f, 1f);
+
+                GUILayout.Space(10);
+
+                asset.employeeList[viewIndex - 1].Recurring =
+                    GUILayout.Toggle(asset.employeeList[viewIndex - 1].Recurring, "Recurring Employee");
+
+                GUILayout.Space(10);
+
+                asset.employeeList[viewIndex - 1].SpawnWhenAllConditionsAreMet = GUILayout.Toggle(
+                    asset.employeeList[viewIndex - 1].SpawnWhenAllConditionsAreMet, "Specific spawn conditions");
+
+                GUILayout.Space(10);
+
+                if (asset.employeeList[viewIndex - 1].SpawnWhenAllConditionsAreMet)
+                {
+                    asset.employeeList[viewIndex - 1].NumberOfDaysTillEmpCanSpawn = EditorGUILayout.IntField(
+                        "Passed Days",
+                        asset.employeeList[viewIndex - 1].NumberOfDaysTillEmpCanSpawn);
+
+                    asset.employeeList[viewIndex - 1].GameProgress =
+                        EditorGUILayout.IntField("GameProgress reached",
+                            asset.employeeList[viewIndex - 1].GameProgress);
+
+                    GUILayout.Space(10);
+
+                    GUILayout.Label("Missions to be successfully completed:");
+                    GUILayout.Space(3);
+                    scrollPositions[0] = ArrayField(ref asset.employeeList[viewIndex - 1].MissionSucceeded, "Mission", scrollPositions[0], false, 5);
+
+                    GUILayout.Space(10);
+                    
+                    GUILayout.Label("Items to be bought:");
+                    GUILayout.Space(3);
+                    scrollPositions[1] = ArrayField(ref asset.employeeList[viewIndex - 1].ItemsBought, "Item", scrollPositions[1], false, 5);
+                }
                 GUILayout.Space(10);
             }
             else

@@ -74,8 +74,8 @@ public class EmployeeFactory {
 
     private const float PrizeInvariance = 1.1f;
 
-    private ContentHub contentHub;
-    private NameLists names;
+    protected internal ContentHub contentHub;
+    protected internal NameLists names;
     private List<SkillDefinition> skills;
     private SkillDefinition allPurpSkillDef;
     private Material empMaterial;
@@ -239,7 +239,7 @@ public class EmployeeFactory {
         return employee;
     }
 
-    internal void GenerateName(ref EmployeeGeneratedData generatedData)
+    internal virtual void GenerateName(ref EmployeeGeneratedData generatedData)
     {
         NameLists employeeNames = names;
         generatedData.name = (generatedData.gender == "female") ? employeeNames.PersonName(PersonNames.FemaleFirstName) :
@@ -247,7 +247,7 @@ public class EmployeeFactory {
         generatedData.name += " " + employeeNames.PersonName(PersonNames.LastName);
     }
 
-    internal List<Skill> GenerateSkills()
+    internal virtual List<Skill> GenerateSkills()
     {
         Skill newSkill = new Skill(allPurpSkillDef);
         newSkill.AddSkillPoints(rnd.Next(100, 1000));
@@ -277,7 +277,7 @@ public class EmployeeFactory {
     /// Calculates the Salary of an Employee.
     /// </summary>
     /// <returns>The salary of an Employee</returns>
-    internal int calcSalary(EmployeeData empData)
+    internal virtual int calcSalary(EmployeeData empData)
     {
         AdjustSalaryValues();
         return (int) Mathf.Abs(((basicSalary + SkillLevelValue * CalculateSkillScore(empData) + SpecialValue * empData.Specials.Count) * 
@@ -301,7 +301,7 @@ public class EmployeeFactory {
     /// </summary>
     /// <param name="empData">The employee for which the prize should be calculated</param>
     /// <returns>Prize for the employee</returns>
-    internal int calcPrize(EmployeeData empData)
+    internal virtual int calcPrize(EmployeeData empData)
     {
         return (int) Mathf.Abs(empData.Salary * Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.2f));
     }

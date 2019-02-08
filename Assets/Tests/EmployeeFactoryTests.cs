@@ -7,6 +7,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Mono.Cecil.Cil;
+using NSubstitute;
 using UnityEditor.SceneManagement;
 using UnityEngine.Rendering;
 using Wth.ModApi.Employees;
@@ -79,6 +81,23 @@ namespace Assets.Tests
             //No Skill Duplicates
             var hash = new HashSet<String>();
             Assert.IsFalse(skills.Any(skill => !hash.Add(skill.GetName())));
+        }
+
+        /// <summary>
+        /// Test the GenerateName Method.
+        /// Asserts that the name is correctly set.
+        /// </summary>
+        [Test]
+        public void GenerateNameTest()
+        {
+            var generatedData = new EmployeeGeneratedData() { gender = "male"};
+            var names = Substitute.For<NameLists>();
+            names.PersonName(PersonNames.MaleFirstName).Returns("male");
+            names.PersonName(PersonNames.FemaleFirstName).Returns("female");
+            names.PersonName(PersonNames.LastName).Returns("last");
+            factory.names = names;
+            factory.GenerateName(ref generatedData);
+            Assert.AreEqual("male last", generatedData.name);
         }
 
         /// <summary>
