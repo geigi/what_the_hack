@@ -202,7 +202,7 @@ namespace Missions
         /// </summary>
         private void fillOpenMissions()
         {
-            int gameProgress = TeamManager.Instance.calcGameProgress();
+            float gameProgress = TeamManager.Instance.calcGameProgress();
             
             foreach (var mission in data.ForceAppearPool)
             {

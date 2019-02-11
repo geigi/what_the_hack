@@ -44,7 +44,7 @@ namespace Missions
         /// </summary>
         /// <param name="difficulty">Game progress</param>
         /// <returns>Random mission object</returns>
-        public Mission CreateMission(int difficulty)
+        public Mission CreateMission(float difficulty)
         {
             MissionDefinition definition;
             do
@@ -63,12 +63,12 @@ namespace Missions
         /// <summary>
         /// Calculates and sets all values that are dependent from the game progress.
         /// </summary>
-        /// <param name="difficulty">Current game progress</param>
+        /// <param name="progress">Current game progress</param>
         /// <param name="mission"></param>
-        public void SetGameProgress(int difficulty, Mission mission)
+        public void SetGameProgress(float progress, Mission mission)
         {
             calcDurationVariance(mission);
-            RandomSkillValues(mission, difficulty);
+            RandomSkillValues(mission, progress);
 
             generateOutcome(mission);
         }
@@ -124,7 +124,7 @@ namespace Missions
         /// </summary>
         /// <param name="mission"></param>
         /// <param name="baseDifficulty">Base difficulty that will be added to the calculated difficulty.</param>
-        private void RandomSkillValues(Mission mission, int baseDifficulty)
+        private void RandomSkillValues(Mission mission, float baseDifficulty)
         {
             mission.SkillDifficulty = new Dictionary<SkillDefinition, int>();
             List<SkillDefinition> skills = mission.Definition.SkillsRequired;
@@ -156,7 +156,7 @@ namespace Missions
         /// <param name="hardness"></param>
         /// <param name="duration"></param>
         /// <returns></returns>
-        private int calcMissionLevel(int baseDifficulty, float hardness, int duration) {
+        private int calcMissionLevel(float baseDifficulty, float hardness, int duration) {
             return Math.Max(1, (int) (
                 baseDifficulty
                 * hardness

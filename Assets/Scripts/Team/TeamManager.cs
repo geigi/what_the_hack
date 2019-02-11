@@ -17,6 +17,8 @@ namespace Team
     /// </summary>
     public class TeamManager: Singleton<TeamManager>, ISaveable<TeamManagerData>
     {
+        private const float GAME_PROGRESS_MONEY_FACTOR = 0.00001f;
+    
         public int MaxFloors = 3;
         public IntEvent FloorsChangedEvent;
         public List<Workplace> Workplaces;
@@ -108,9 +110,18 @@ namespace Team
         /// Calculate the current game progress.
         /// </summary>
         /// <returns></returns>
-        public virtual int calcGameProgress()
+        public virtual float calcGameProgress()
         {
-            return 0;
+            float result = 0;
+
+            result += ContentHub.Instance.bank.Balance * GAME_PROGRESS_MONEY_FACTOR;
+
+            foreach (var mission in MissionManager.Instance.GetData().Completed)
+            {
+                result += (mission.Difficulty * (1 + mission.Definition.Hardness)) * 0.2f;
+            }
+            
+            return result;
         }
 
         public TeamManagerData GetData()

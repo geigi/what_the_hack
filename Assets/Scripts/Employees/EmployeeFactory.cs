@@ -381,8 +381,8 @@ public class EmployeeFactory {
     /// <returns>The Game Score</returns>
     private void AdjustSalaryValues()
     {
-       int progress =  Math.Max(TeamManager.Instance.calcGameProgress(), 1);
-       basicSalary *= progress;
+       float progress =  Math.Max(TeamManager.Instance.calcGameProgress(), 1f);
+       basicSalary *= (int) progress;
        if (rnd.NextDouble() < 0.5) SkillLevelValue++;
        else SpecialValue++;
     }

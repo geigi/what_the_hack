@@ -297,8 +297,8 @@ namespace Wth.ModApi.Editor
 
             for (var index = 0; index < array.Length; index++)
             {
-                array[index] = EditorGUILayout.ObjectField(label: objectLabel, array[index],
-                    typeof(T), allowSceneObjects, guiLayoutOptionsObjectField) as T;
+                array[index] = EditorGUILayout.ObjectField(label: objectLabel, obj: array[index],
+                    objType: typeof(T), allowSceneObjects: allowSceneObjects, options: guiLayoutOptionsObjectField) as T;
             }
             if(array.Length > maxObj && maxObj > 0)
                 EditorGUILayout.EndScrollView();
