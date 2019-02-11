@@ -116,7 +116,7 @@ namespace Assets.Tests
             Assert.IsNotEmpty(manager.GetData().employeesForHire);
             manager.Received().AddEmployeeForHireToGui(testEmployee);
             bank.Received(1).Pay(Arg.Any<int>());
-            rand.Received(2).NextDouble();
+            rand.Received(MaxNumberOfHireableEmployees + 1).NextDouble();
         }
         
         /// <summary>
