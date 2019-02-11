@@ -36,7 +36,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
             }
             else
             {
-               
+                empImage.sprite = employeeData.EmployeeDefinition.image;
             }
 
             //Prize does not change, can be set once.

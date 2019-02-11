@@ -122,6 +122,12 @@ namespace Wth.ModApi.Editor.Employees
                 }
 
                 GUILayout.EndHorizontal();
+
+                GUILayout.Space(10);
+
+                asset.employeeList[viewIndex - 1].image = EditorGUILayout.ObjectField("Image",
+                    asset.employeeList[viewIndex - 1].image, typeof(Sprite), false) as Sprite;
+
                 GUILayout.Space(10);
 
                 GUILayout.BeginHorizontal();

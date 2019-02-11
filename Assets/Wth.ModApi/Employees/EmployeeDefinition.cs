@@ -37,6 +37,11 @@ public class EmployeeDefinition : ScriptableObject
     public AnimationClip WorkingAnimation = null;
 
     /// <summary>
+    /// The static image of the employee, which is shown when the employee is hire able.
+    /// </summary>
+    public Sprite image;
+
+    /// <summary>
     /// Likelihood for the employee to spawn, when all conditions are met.
     /// </summary>
     public float SpawnLikelihood = 0.3f;
