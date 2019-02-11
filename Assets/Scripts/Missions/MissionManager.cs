@@ -123,7 +123,7 @@ namespace Missions
         /// Get the data object that needs to be serialized.
         /// </summary>
         /// <returns></returns>
-        public MissionManagerData GetData()
+        public virtual MissionManagerData GetData()
         {
             return data;
         }

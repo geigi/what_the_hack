@@ -7,11 +7,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Employees;
+using GameTime;
+using Missions;
 using Mono.Cecil.Cil;
 using NSubstitute;
+using Team;
 using UnityEditor.SceneManagement;
 using UnityEngine.Rendering;
 using Wth.ModApi.Employees;
+using Wth.ModApi.Items;
 using Wth.ModApi.Names;
 using Random = System.Random;
 
@@ -31,6 +36,17 @@ namespace Assets.Tests
         {
             EditorSceneManager.OpenScene("Assets/Scenes/MainGame.unity");
             factory = new EmployeeFactory();
+            var teamManger = Substitute.For<TeamManager>();
+            var gameTime = Substitute.For<GameTime.GameTime>();
+            var missionManager = Substitute.For<MissionManager>();
+            missionManager.GetData().ReturnsForAnyArgs(new MissionManagerData()
+            {
+                Completed = new List<Mission>()
+            });
+
+            factory.gameTime = gameTime;
+            factory.teamManager = teamManger;
+            factory.missionManager = missionManager;
         }
 
         /// <summary>
@@ -130,6 +146,147 @@ namespace Assets.Tests
             }
 
             return genData;
+        }
+
+        [Test]
+        public void ConditionsMetTest_True()
+        {
+            factory.teamManager.calcGameProgress().ReturnsForAnyArgs(3);
+            factory.gameTime.GetData().ReturnsForAnyArgs(new GameTimeData()
+                { Date = new GameDate() { DateTime = new DateTime(1, 1, 20) } });
+
+            var mission = new MissionDefinition();
+
+            var empDef = Substitute.For<EmployeeDefinition>();
+            empDef.SpawnWhenAllConditionsAreMet = true;
+            empDef.GameProgress = 2;
+            empDef.NumberOfDaysTillEmpCanSpawn = 10;
+            empDef.MissionSucceeded = new MissionDefinition[] {mission};
+            factory.missionManager.GetData().Completed.Add(new Mission(mission));
+            empDef.ItemsBought = new ItemDefinition[0];
+
+            Assert.True(factory.ConditionsMet(empDef));
+        }
+
+        [Test]
+        public void ConditionsMetTest_TrueNoConditionsSet()
+        {
+            var empDef = Substitute.For<EmployeeDefinition>();
+            empDef.SpawnWhenAllConditionsAreMet = false;
+            Assert.True(factory.ConditionsMet(empDef));
+        } 
+
+        [Test]
+        public void ConditionsMetTest_FalseGameProgress()
+        {
+            factory.teamManager.calcGameProgress().ReturnsForAnyArgs(2);
+            factory.gameTime.GetData().ReturnsForAnyArgs(new GameTimeData()
+                { Date = new GameDate() { DateTime = new DateTime(1, 1, 1) } });
+
+            var empDef = Substitute.For<EmployeeDefinition>();
+            empDef.SpawnWhenAllConditionsAreMet = true;
+            empDef.GameProgress = 10;
+            empDef.MissionSucceeded = new MissionDefinition[0];
+            empDef.ItemsBought = new ItemDefinition[0];
+            Assert.False(factory.ConditionsMet(empDef));
+        }
+
+        [Test]
+        public void ConditionsMetTest_FalseNumDays()
+        {
+            factory.teamManager.calcGameProgress().ReturnsForAnyArgs(0);
+            factory.gameTime.GetData().ReturnsForAnyArgs(new GameTimeData()
+                {Date = new GameDate() {DateTime = new DateTime(1, 1, 10)}});
+
+            var empDef = Substitute.For<EmployeeDefinition>();
+            empDef.SpawnWhenAllConditionsAreMet = true;
+            empDef.GameProgress = 0;
+            empDef.MissionSucceeded = new MissionDefinition[0];
+            empDef.ItemsBought = new ItemDefinition[0];
+            empDef.NumberOfDaysTillEmpCanSpawn = 11;
+
+            Assert.False(factory.ConditionsMet(empDef));
+        }
+
+        [Test]
+        public void ConditionsMetTest_FalseMissionNotSucceeded()
+        {
+            factory.teamManager.calcGameProgress().ReturnsForAnyArgs(0);
+            factory.gameTime.GetData().ReturnsForAnyArgs(new GameTimeData()
+                { Date = new GameDate() { DateTime = new DateTime(1, 1, 1) } });
+
+            var mission = new MissionDefinition();
+
+            var empDef = Substitute.For<EmployeeDefinition>();
+            empDef.SpawnWhenAllConditionsAreMet = true;
+            empDef.GameProgress = 0;
+            empDef.MissionSucceeded = new MissionDefinition[] {mission};
+            empDef.ItemsBought = new ItemDefinition[0];
+            empDef.NumberOfDaysTillEmpCanSpawn = 0;
+
+            Assert.False(factory.ConditionsMet(empDef));
+        }
+
+        [Test]
+        public void AddSpecialEmployeesTest()
+        {
+            var SpecialEmployees = new List<EmployeeDefinition>
+            {
+                new EmployeeDefinition()
+                {
+                    SpawnWhenAllConditionsAreMet = true,
+                    GameProgress = 10,
+                    NumberOfDaysTillEmpCanSpawn = 0,
+                    MissionSucceeded = new MissionDefinition[0],
+                    ItemsBought = new ItemDefinition[0],
+                    Recurring = true
+                },
+                new EmployeeDefinition()
+                {
+                    SpawnWhenAllConditionsAreMet = true,
+                    GameProgress = 0,
+                    NumberOfDaysTillEmpCanSpawn = 0,
+                    MissionSucceeded = new MissionDefinition[0],
+                    ItemsBought = new ItemDefinition[0],
+                    Recurring = true
+                },
+                new EmployeeDefinition()
+                {
+                    SpawnWhenAllConditionsAreMet = true,
+                    GameProgress = 0,
+                    NumberOfDaysTillEmpCanSpawn = 0,
+                    MissionSucceeded = new MissionDefinition[0],
+                    ItemsBought = new ItemDefinition[0],
+                    Recurring = false
+                },
+                new EmployeeDefinition()
+                {
+                    SpawnWhenAllConditionsAreMet = true,
+                    GameProgress = 0,
+                    NumberOfDaysTillEmpCanSpawn = 0,
+                    MissionSucceeded = new MissionDefinition[0],
+                    ItemsBought = new ItemDefinition[0],
+                    Recurring = true
+                }
+            };
+
+            var contentHub = Substitute.For<ContentHub>();
+            contentHub.DefaultSpecialEmployees = new EmployeeList() {employeeList = SpecialEmployees};
+            var empManager = new EmployeeManager();
+            Debug.LogWarning(empManager);
+            empManager.InitDefaultState();
+            empManager.data.employeesForHire.Add(new EmployeeData(){EmployeeDefinition = SpecialEmployees[0]});
+            empManager.data.hiredEmployees.Add(new EmployeeData(){EmployeeDefinition = SpecialEmployees[1]});
+            empManager.data.exEmplyoees.Add(new EmployeeData(){EmployeeDefinition = SpecialEmployees[2]});
+            empManager.data.exEmplyoees.Add(new EmployeeData() { EmployeeDefinition = SpecialEmployees[3]});
+            var factory = Substitute.ForPartsOf<EmployeeFactory>();
+            factory.contentHub = contentHub;
+            factory.employeeManager = empManager;
+            factory.ConditionsMet(new EmployeeDefinition()).ReturnsForAnyArgs(true);
+            factory.AddSpecialEmployees();
+            factory.ReceivedWithAnyArgs(4).ConditionsMet(Arg.Any<EmployeeDefinition>());
+            Assert.AreEqual(1, factory.specialEmployeesToSpawn.Count);
+            Assert.AreSame(SpecialEmployees[3], factory.specialEmployeesToSpawn[0]);
         }
     }
 }

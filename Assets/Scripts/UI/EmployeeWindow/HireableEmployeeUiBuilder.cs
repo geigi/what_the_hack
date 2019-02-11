@@ -28,9 +28,17 @@ namespace Assets.Scripts.UI.EmployeeWindow
         public override void SetEmp(EmployeeData _empData, UnityAction buttonAction)
         {
             base.SetEmp(_empData, buttonAction);
-            empImage.sprite = (employeeData.generatedData.gender == "male")
-                ? sprites[employeeData.generatedData.idleClipIndex]
-                : sprites[4 + employeeData.generatedData.idleClipIndex];
+            if (_empData.generatedData != null)
+            {
+                empImage.sprite = (employeeData.generatedData.gender == "male")
+                    ? sprites[employeeData.generatedData.idleClipIndex]
+                    : sprites[4 + employeeData.generatedData.idleClipIndex];
+            }
+            else
+            {
+               
+            }
+
             //Prize does not change, can be set once.
             prize.text = $"{employeeData.Prize} $";
         }

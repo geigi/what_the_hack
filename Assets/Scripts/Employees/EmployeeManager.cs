@@ -87,7 +87,7 @@ namespace Employees
         /// </summary>
         public const float chanceRemoveEmpForHirePerDay = 0.3f;
 
-        private EmployeeManagerData data;
+        internal EmployeeManagerData data;
 
         internal static System.Random rand = new Random();
 
@@ -178,7 +178,7 @@ namespace Employees
         public EmployeeData GenerateEmployeeForHire()
         {
             EmployeeData newEmployee = new EmployeeData();
-            newEmployee = factoryObject.GenerateEmployee();
+            newEmployee = factoryObject.GetNewEmployee();
 
             return newEmployee;
         }
@@ -313,7 +313,7 @@ namespace Employees
             return highestLevel;
         }
         
-        public EmployeeManagerData GetData()
+        public virtual EmployeeManagerData GetData()
         {
             return data;
         }

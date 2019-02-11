@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Employees;
 using GameSystem;
+using GameTime;
+using Missions;
 using SaveGame;
 using Team;
 using UnityEngine;
@@ -68,13 +71,17 @@ public class EmployeeFactory {
 
     private static int numberOfBeginningSkills = 3;
 
-    private static Random rnd = new Random();
+    protected internal static Random rnd = new Random();
 
     private const float SalaryInvariance = 1.1f;
 
     private const float PrizeInvariance = 1.1f;
-
+    
     protected internal ContentHub contentHub;
+    protected internal TeamManager teamManager;
+    protected internal MissionManager missionManager;
+    protected internal GameTime.GameTime gameTime;
+    protected internal EmployeeManager employeeManager;
     protected internal NameLists names;
     private List<SkillDefinition> skills;
     private SkillDefinition allPurpSkillDef;
@@ -83,15 +90,22 @@ public class EmployeeFactory {
     private Texture2D colorSwapTex;
     private Color[] spriteColors;
 
+    protected internal List<EmployeeDefinition> specialEmployeesToSpawn;
+
     public EmployeeFactory()
     {
         contentHub = ContentHub.Instance;
+        teamManager = TeamManager.Instance;
+        missionManager = MissionManager.Instance;
+        gameTime = GameTime.GameTime.Instance;
+        employeeManager = EmployeeManager.Instance;
         names = contentHub.GetNameLists();
         skills = contentHub.GetSkillSet().keys;
         allPurpSkillDef = skills.Find(x => x.skillName.Equals("All Purpose"));
         empMaterial = contentHub.DefaultEmpMaterial;
         InitColorSwapTex();
         spriteColors = new Color[colorSwapTex.width];
+        specialEmployeesToSpawn = new List<EmployeeDefinition>();
     }
 
     private void InitColorSwapTex()
@@ -161,7 +175,7 @@ public class EmployeeFactory {
     /// <param name="standardMaterial">The standard Material, from which a new Material should be generated.</param>
     /// <param name="empData">The generated Data, where the colors are specified.</param>
     /// <returns></returns>
-    public Material GenerateMaterialForEmployee( EmployeeGeneratedData empData)
+    public Material GenerateMaterialForEmployee(EmployeeGeneratedData empData)
     {
         Material newMat = new Material(empMaterial);
         SwapColor(SwapIndex.skin, empData.skinColor);
@@ -199,10 +213,87 @@ public class EmployeeFactory {
     }
 
     /// <summary>
+    /// Adds all SpecialEmployees to the special EmployeesToSpawn List, iff all of their conditions are met and their are currently not
+    /// hireable or hired. If they are an ExEmployee they must also have the recurring trade to be put in the List.
+    /// </summary>
+    public virtual void AddSpecialEmployees() =>
+        specialEmployeesToSpawn.AddRange(contentHub.GetEmployeeLists().employeeList.FindAll(empDef =>
+            ConditionsMet(empDef) && !(employeeManager.GetData().employeesForHire
+                                           .Any(empData => empData.EmployeeDefinition == empDef) ||
+                                       employeeManager.GetData().hiredEmployees 
+                                           .Any(empData => empData.EmployeeDefinition == empDef) ||
+                                       employeeManager.GetData().exEmplyoees
+                                           .Any(empData => empData.EmployeeDefinition == empDef) && !empDef.Recurring)));
+    
+
+    /// <summary>
+    /// Checks if all the Conditions for an EmployeeDefinition is Met.
+    /// </summary>
+    /// <param name="empDef">The EmployeeDefinition to check</param>
+    /// <returns>True iff all Conditions for this EmployeeDefinition are met</returns>
+    protected internal virtual bool ConditionsMet(EmployeeDefinition empDef)
+    {
+        if (!empDef.SpawnWhenAllConditionsAreMet) return true;
+        if (empDef.MissionSucceeded.Any(mission => !missionManager.GetData().Completed
+            .Any(completedMission => completedMission.Definition = mission)))
+                return false;
+
+        if (empDef.GameProgress > teamManager.calcGameProgress()) return false;
+        return !((gameTime.GetData().Date.GetDateTime() - new DateTime(1, 1, 1)).TotalDays <
+                 empDef.NumberOfDaysTillEmpCanSpawn);
+    }
+    
+    /// <summary>
+    /// Returns either a SpecialEmployee, if one can be spawned, or null if no Special Employee can be spwaned
+    /// </summary>
+    /// <returns>A Special Employee, or null</returns>
+    public virtual EmployeeData SpecialEmployee()
+    {
+        AddSpecialEmployees();
+        for (var index = specialEmployeesToSpawn.Count - 1; index >= 0; index--)
+        {
+            var data = specialEmployeesToSpawn[index];
+            if (rnd.NextDouble() < data.SpawnLikelihood)
+            {
+                specialEmployeesToSpawn.Remove(data);
+                return GenerateSpecialEmployee(data);
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Generates a Special Employee, by generating Skills Special, etc. for the Employee.
+    /// </summary>
+    /// <param name="empDef">The EmployeeDefinition this Employee is built upon.</param>
+    /// <returns>Employee Data for the EmployeeDefinition</returns>
+    public virtual EmployeeData GenerateSpecialEmployee(EmployeeDefinition empDef)
+    {
+        EmployeeData employee = new EmployeeData
+        {
+            EmployeeDefinition = empDef,
+            Skills = GenerateSkills(),
+            Specials = new List<EmployeeSpecial>(),
+            hireableDays = rnd.Next(3, 7)
+        };
+        employee.Salary = calcSalary(employee);
+        employee.Prize = calcPrize(employee);
+        return employee;
+    }
+
+    /// <summary>
+    /// Gets a new Employee. The Employee returned can either be special or generated
+    /// </summary>
+    /// <returns>The new EmployeeData</returns>
+    public virtual EmployeeData GetNewEmployee() => SpecialEmployee() ?? GenerateRandomEmployee();
+    
+
+    /// <summary>
     /// Generates new and random EmployeeData.
     /// </summary>
     /// <returns>The generated EmployeeData.</returns>
-    public virtual EmployeeData GenerateEmployee()
+    public virtual EmployeeData GenerateRandomEmployee()
     {
         EmployeeData employee = new EmployeeData();
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();

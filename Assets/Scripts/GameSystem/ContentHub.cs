@@ -10,7 +10,7 @@ using UnityEngine;
 /// This class is the hub where other classes can get the game content.
 /// If a mod is loaded it returns the mods content, otherwise the default content.
 /// </summary>
-public sealed class ContentHub: Singleton<ContentHub>
+public class ContentHub: Singleton<ContentHub>
 {
     /// <summary>
     /// The <see cref="SkillSet"/> of the base game.

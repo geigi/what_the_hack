@@ -87,7 +87,7 @@ namespace GameTime
         /// Return the serializable object which stores the game time data.
         /// </summary>
         /// <returns>Serializable game time data</returns>
-        public GameTimeData GetData()
+        public virtual GameTimeData GetData()
         {
             return data;
         }

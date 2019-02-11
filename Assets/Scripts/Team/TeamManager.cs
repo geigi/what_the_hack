@@ -108,7 +108,7 @@ namespace Team
         /// Calculate the current game progress.
         /// </summary>
         /// <returns></returns>
-        public int calcGameProgress()
+        public virtual int calcGameProgress()
         {
             return 0;
         }

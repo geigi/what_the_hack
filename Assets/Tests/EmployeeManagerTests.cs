@@ -47,7 +47,7 @@ namespace Assets.Tests
                 generatedData = new EmployeeGeneratedData {name = "Test Employee"},
                 hireableDays = 1
             };
-            factory.GenerateEmployee().Returns(testEmployee);
+            factory.GetNewEmployee().Returns(testEmployee);
 
             emp.factoryObject = factory;
             emp.InitDefaultState();
@@ -63,7 +63,7 @@ namespace Assets.Tests
         {
             EmployeeData dat = emp.GenerateEmployeeForHire();
             Assert.AreEqual(testEmployee, dat);
-            factory.Received().GenerateEmployee();
+            factory.Received().GetNewEmployee();
         }
 
         /// <summary>

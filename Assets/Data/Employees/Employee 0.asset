@@ -17,7 +17,7 @@ MonoBehaviour:
   IdleAnimation: {fileID: 7400000, guid: 462612ee09e600f4dbe179e32b481f6d, type: 2}
   WalkingAnimation: {fileID: 7400000, guid: 7c1225d648e48074085d55316a8669f4, type: 2}
   WorkingAnimation: {fileID: 7400000, guid: a79da60bfb0610c45b838f1e42cfcd60, type: 2}
-  SpawnLikelihood: 0.7
+  SpawnLikelihood: 0
   SpawnWhenAllConditionsAreMet: 0
   Recurring: 0
   NumberOfDaysTillEmpCanSpawn: 0

@@ -61,11 +61,18 @@ namespace Assets.Scripts.UI.EmployeeWindow
             this.employeeData = _empData;
             factory = new EmployeeFactory();
             GenerateSkillGui();
-            empImage.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
+            if (employeeData.generatedData != null)
+            {
+                empImage.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
+                empName.text = employeeData.generatedData.name;
+            }
+            else
+            {
+                empName.text = employeeData.EmployeeDefinition.EmployeeName;
+            }
             employeeData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
             button.onClick.AddListener(buttonAction);
             //EmployeeName, specials and Salary are not going to change, so they can be set once.
-            empName.text = employeeData.generatedData.name;
             salaryTime.text = "a Week";
             specialList.text = string.Join(",", specialNames);
             salary.text = $"{employeeData.Salary} $";
