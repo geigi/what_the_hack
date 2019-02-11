@@ -80,7 +80,7 @@ namespace Employees
         /// <summary>
         /// Chance that a new Hireable Employee appears per Day
         /// </summary>
-        public const float chanceNewEmpForHirePerDay = 0.3f;
+        public const float chanceNewEmpForHirePerDay = 1.0f;
 
         /// <summary>
         /// Chance tha ta Hireable Employee is removed from the list of hireable employees.
@@ -271,7 +271,7 @@ namespace Employees
             data.employeesForHire.ForEach(data => data.hireableDays--);
             data.employeesForHire.FindAll(data => data.hireableDays == 0).ForEach(data => RemoveEmployeeForHire(data));
             
-            if (data.employeesForHire.Count < MaxNumberOfHireableEmployees && 
+            while (data.employeesForHire.Count < MaxNumberOfHireableEmployees && 
                 rand.NextDouble() < chanceNewEmpForHirePerDay)
             {
                 var employeeData = GenerateEmployeeForHire();
