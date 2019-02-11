@@ -40,7 +40,7 @@ namespace GameSystem
         /// Save game time mode dropdown value to PlayerPrefs.
         /// </summary>
         /// <param name="dropdownValue"></param>
-        public void SetGameTime(int dropdownValue) {
+        public static void SetGameTime(int dropdownValue) {
             PlayerPrefs.SetInt(GameTimeKey, dropdownValue);
         }
         
