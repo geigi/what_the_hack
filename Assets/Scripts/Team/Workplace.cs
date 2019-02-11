@@ -71,6 +71,10 @@ namespace Team
         {
             gameSelectionManager = GameSelectionManager.Instance;
             
+            // A Workplace blocks 2 tiles
+            position2 = new Vector2Int(Position.x, Position.y - 1);
+            position3 = new Vector2Int(Position.x, Position.y + 1);
+            
             var BottomTilePosition = Grid.go_grid.CellToWorld(new Vector3Int(Position.x, Position.y + 1, 0));
             var layer = Grid.CalculateSortingLayer(BottomTilePosition);
             Desk.sortingOrder = layer;
@@ -108,10 +112,6 @@ namespace Team
             data.Enabled = enable;
             if (enable)
             {
-                // A Workplace blocks 2 tiles
-                position2 = new Vector2Int(Position.x, Position.y - 1);
-                position3 = new Vector2Int(Position.x, Position.y + 1);
-                
                 // Test if tiles are blocked/occupied
                 var node1State = Grid.GetNodeState(Position);
                 var node2State = Grid.GetNodeState(position2);

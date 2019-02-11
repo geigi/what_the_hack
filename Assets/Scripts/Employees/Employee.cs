@@ -198,6 +198,8 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         var tile = grid.getRandomFreeNode();
 
         gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(tile.gridX, tile.gridY, 0));
+        EmployeeData.Position = tile.gridPosition;
+        
         tile.SetState(Enums.TileState.OCCUPIED);
 
         IdleWalking(true);
