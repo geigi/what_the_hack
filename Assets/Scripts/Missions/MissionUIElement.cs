@@ -73,11 +73,15 @@ namespace Missions
                 }
             }
 
-            if (DisplayMode == MissionUiModeSelector.InProgress)
+            if (DisplayMode == MissionUiModeSelector.InProgress || RemainingDays != null)
             {
                 timeStepAction = OnTimeStep;
                 TimeStepEvent.AddListener(timeStepAction);
                 OnTimeStep(0);
+            }
+
+            if (SkillProgressUi != null)
+            {
                 SkillProgressUi.SetMission(mission);
             }
 
@@ -150,12 +154,17 @@ namespace Missions
         
         private void OnTimeStep(int step)
         {
-            RemainingDays.text = mission.RemainingDays.ToString();
-            if (mission.RemainingTicks > 0)
-                RemainingTimeBar.SetProgress(
-                    1f - mission.RemainingTicks / (float) mission.TotalTicks);
-            else
-                RemainingTimeBar.SetProgress(1f);
+            if (RemainingDays != null) {}
+                RemainingDays.text = mission.RemainingDays.ToString();
+
+            if (RemainingTimeBar != null)
+            {
+                if (mission.RemainingTicks > 0)
+                    RemainingTimeBar.SetProgress(
+                        1f - mission.RemainingTicks / (float) mission.TotalTicks);
+                else
+                    RemainingTimeBar.SetProgress(1f);
+            }
         }
 
         private void OnDestroy()
