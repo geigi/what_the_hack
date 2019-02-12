@@ -252,6 +252,7 @@ namespace Team
             {
                 if (employee == gameSelectionManager.Employee)
                 {
+                    MissionManager.Instance.GetMissionWorker(data.Mission).RemoveEmployee(employee.EmployeeData);
                     StopWorking();
                     gameSelectionManager.ClearEmployee();
                     gameSelectionManager.ClearWorkplace();
