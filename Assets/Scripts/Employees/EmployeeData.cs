@@ -80,7 +80,7 @@ namespace Wth.ModApi.Employees
                     result += special.GetCriticalFailureChance();
                 }
             
-                return result;
+                return 1 + result;
             }
         }
     
@@ -99,7 +99,7 @@ namespace Wth.ModApi.Employees
                     result += special.GetCriticalSuccessChance();
                 }
             
-                return result;
+                return 1 + result;
             }
         }
         
