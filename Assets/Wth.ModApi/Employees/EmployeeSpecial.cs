@@ -89,6 +89,26 @@ namespace Wth.ModApi.Employees
         }
 
         /// <summary>
+        /// Returns the chance for the employee to have a critical failure
+        /// Critical failure is defined as a dice roll with a 20 sided dice that has a result lower than (1 + criticalFailureChance)
+        /// </summary>
+        /// <returns></returns>
+        public int GetCriticalFailureChance()
+        {
+            return 0;
+        }
+
+        /// <summary>
+        /// Returns the chance for the employee to have a critical success
+        /// Critical emoji_success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
+        /// </summary>
+        /// <returns></returns>
+        public int GetCriticalSuccessChance()
+        {
+            return 0;
+        }
+
+        /// <summary>
         /// Get's called when a level up has occured.
         /// </summary>
         public void OnLevelUp()

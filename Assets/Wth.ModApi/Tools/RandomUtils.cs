@@ -4,6 +4,13 @@ namespace Wth.ModApi.Tools
 {
     public static class RandomUtils
     {
+        private static System.Random random = new System.Random();
+        
+        public static int RollDice(int sides)
+        {
+            return random.Next(1, sides);
+        }
+        
         public static int var(int v) {
             return Random.Range(-v, v);
         }

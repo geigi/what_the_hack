@@ -64,6 +64,45 @@ namespace Wth.ModApi.Employees
         /// Represents how many days the Employee wil continue to stay in the "for hire" list until he is removed.
         /// </summary>
         public int hireableDays;
+        
+        /// <summary>
+        /// The critical failure bonus of this employee.
+        /// Only EmployeeSpecials can modify this value.
+        /// </summary>
+        public int CriticalFailureChance
+        {
+            get
+            {
+                int result = 0;
+
+                foreach (var special in Specials)
+                {
+                    result += special.GetCriticalFailureChance();
+                }
+            
+                return result;
+            }
+        }
+    
+        /// <summary>
+        /// The critical success bonus of this employee.
+        /// Only EmployeeSpecials can modify this value.
+        /// </summary>
+        public int CriticalSuccessChance
+        {
+            get
+            {
+                int result = 0;
+
+                foreach (var special in Specials)
+                {
+                    result += special.GetCriticalSuccessChance();
+                }
+            
+                return result;
+            }
+        }
+        
         /// <summary>
         /// Empty Constructor.
         /// </summary>

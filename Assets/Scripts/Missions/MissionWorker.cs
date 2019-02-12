@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
+using Wth.ModApi.Tools;
 using Random = System.Random;
 
 namespace Missions
@@ -20,6 +21,10 @@ namespace Missions
         /// This value influences the random part of the progress value.
         /// </summary>
         public const float RANDOM_FACTOR = 10f;
+        /// <summary>
+        /// This value defines the dice sides for critical success/failure chances.
+        /// </summary>
+        public const int DICE_SIDES = 40;
 
         private List<EmployeeData> employees;
         private Mission mission;
@@ -85,7 +90,24 @@ namespace Missions
                             (BASE_VALUE + (float) random.NextDouble() * RANDOM_FACTOR) * 1f /
                             mission.TotalTicks;
 
-            return skillValue + stepValue;
+            return skillValue + stepValue * GetCricitalChanceFactor(employee);
+        }
+
+        /// <summary>
+        /// Roll a dice to determine, whether this step is a critical success or failure.
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns>Factor which must be multiplied to the skill step value</returns>
+        private float GetCricitalChanceFactor(EmployeeData employee)
+        {
+            var dice = RandomUtils.RollDice(DICE_SIDES);
+
+            if (dice < employee.CriticalFailureChance)
+                return 0.5f;
+            else if (dice > DICE_SIDES - employee.CriticalSuccessChance)
+                return 2f;
+            else
+                return 1f;
         }
 
         /// <summary>
@@ -108,6 +130,8 @@ namespace Missions
                     }
 
                     var newValue = WorkOnSkill(employee, skill, value);
+                    
+                    
                     mission.Progress[skill] = newValue;
                     mission.ProgressChanged.Invoke(new KeyValuePair<SkillDefinition, float>(skill, newValue));
                 }
