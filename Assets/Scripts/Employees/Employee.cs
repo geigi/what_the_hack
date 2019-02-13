@@ -593,10 +593,11 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                 this.path[this.path.Count - 1].SetState(Enums.TileState.FREE);
             this.path = path;
             path[path.Count - 1].SetState(Enums.TileState.OCCUPIED);
-            foreach (var node in path)
-            {
-                Debug.unityLogger.Log(LogType.Log, "Node: " + node.gridX.ToString() + ":" + node.gridY.ToString());
-            }
+            
+            //foreach (var node in path)
+            //{
+            //    Debug.unityLogger.Log(LogType.Log, "Node: " + node.gridX.ToString() + ":" + node.gridY.ToString());
+            //}
 
             StopFollowPath();
             followPathCoroutine = StartCoroutine(FollowPath(null));
