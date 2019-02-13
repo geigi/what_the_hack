@@ -341,7 +341,7 @@ public class EmployeeFactory {
     internal virtual List<Skill> GenerateSkills()
     {
         Skill newSkill = new Skill(allPurpSkillDef);
-        newSkill.AddSkillPoints(rnd.Next(100, 1000));
+        newSkill.AddSkillPoints(rnd.Next(1, 10));
         List<Skill> skillList = new List<Skill> {newSkill};
 
         for (int i = 1; i < numberOfBeginningSkills; i++)
@@ -351,8 +351,8 @@ public class EmployeeFactory {
             {
                 int index = rnd.Next(maxValue: skills.Count);
                 s = new Skill(skills[index]);
-                s.AddSkillPoints(rnd.Next(100, 1000));
-            } while (skillList.Exists(x => x.skillData.skillName.Equals(s.skillData.skillName)));
+                s.AddSkillPoints(rnd.Next(1, 10));
+            } while (skillList.Exists(x => x.SkillData.skillName.Equals(s.SkillData.skillName)));
             skillList.Add(s);
         }
 
@@ -402,5 +402,5 @@ public class EmployeeFactory {
     /// </summary>
     /// <param name="empData">The Employee of which the SkillScore should be calculated</param>
     /// <returns>The skill score</returns>
-    private int CalculateSkillScore(EmployeeData empData) => empData.Skills.Sum(skill => skill.level);
+    private int CalculateSkillScore(EmployeeData empData) => empData.Skills.Sum(skill => skill.Level);
 }

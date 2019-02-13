@@ -30,10 +30,10 @@ namespace Assets.Tests
         [Test]
         public void AddSkillPointsTest_SameLevel()
         {
-            s.AddSkillPoints(10);
-            Assert.AreEqual(10, s.points);
-            Assert.AreEqual(0, s.level);
-            Assert.AreEqual(Skill.LevelAptitudeName.Newbie, s.skillLevelName);
+            s.AddSkillPoints(1);
+            Assert.AreEqual(1, s.Points);
+            Assert.AreEqual(1, s.Level);
+            Assert.AreEqual(Skill.LevelAptitudeName.Newbie, s.SkillLevelName);
         }
 
         /// <summary>
@@ -43,11 +43,12 @@ namespace Assets.Tests
         [Test]
         public void AddSkillPointsTest_NextLevel()
         {
-            s.AddSkillPoints(100);
-            Assert.AreEqual(100, s.points);
-            Assert.AreEqual(1, s.level);
-            Assert.AreEqual(100 * Skill.levelFactor, s.nextLevelPoints);
-            Assert.AreEqual(Skill.LevelAptitudeName.Newbie, s.skillLevelName);
+            var nextLevelPoints = s.nextLevelPoints;
+            s.AddSkillPoints(s.nextLevelPoints);
+            Assert.AreEqual(nextLevelPoints, s.Points + s.SpendPoints);
+            Assert.AreEqual(2, s.Level);
+            Assert.AreEqual((float) Math.Pow(Skill.levelFactor, s.Level), s.nextLevelPoints);
+            Assert.AreEqual(Skill.LevelAptitudeName.Newbie, s.SkillLevelName);
         }
 
         /// <summary>
@@ -58,9 +59,9 @@ namespace Assets.Tests
         public void AddSkillPointsTest_AdvancedMoreThanOneLevel()
         {
             s.AddSkillPoints(1000);
-            Assert.AreEqual(1000, s.points);
-            Assert.AreEqual(6, s.level);
-            Assert.AreEqual(Skill.LevelAptitudeName.Beginner, s.skillLevelName);
+            Assert.AreEqual(1000, (int) (s.Points + s.SpendPoints));
+            Assert.AreEqual(15, s.Level);
+            Assert.AreEqual(Skill.LevelAptitudeName.Master, s.SkillLevelName);
         }
     }
 }

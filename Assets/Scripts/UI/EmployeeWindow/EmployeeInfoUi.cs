@@ -50,10 +50,10 @@ namespace UI.EmployeeWindow
             foreach (var skill in employee.EmployeeData.Skills)
             {
                 var go = Instantiate(SkillPrefab, SkillContainer.transform, false);
-                go.GetComponentsInChildren<Text>().First().text = skill.level.ToString();
+                go.GetComponentsInChildren<Text>().First().text = skill.Level.ToString();
                 go.GetComponentsInChildren<Image>().First().sprite = skill.GetSprite();
 
-                UnityAction skillChanged = () => go.GetComponent<Text>().text = skill.level.ToString();
+                UnityAction skillChanged = () => go.GetComponent<Text>().text = skill.Level.ToString();
                 skill.SkillEvent.AddListener(skillChanged);
                 skillEvents.Add(skillChanged);
             }

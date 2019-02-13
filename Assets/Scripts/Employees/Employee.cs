@@ -8,7 +8,9 @@ using Items;
 using Missions;
 using Pathfinding;
 using Team;
+using UE.Common;
 using UE.Events;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -16,6 +18,7 @@ using UnityEngine.Tilemaps;
 using Utils;
 using World;
 using Wth.ModApi.Employees;
+using Wth.ModApi.Tools;
 
 /// <summary>
 /// This class represents an employee in the Game. All data is saved in the EmployeeData Scriptable Object.
@@ -27,6 +30,12 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     public const float walkingSpeed = 1.0f;
     public const float regularAnimationSpeed = 1.0f;
     public const float idleAnimationSpeed = 0.75f;
+    public const float SCORE_MISSION_COMPLETED = 1;
+    public const float SCORE_MISSION_COMPLETED_PERLEVEL = 0.1f;
+    private const int COST_INCREMENT_ALLPURPOSE = 12;
+    private const int COST_NEW_SKILL = 14;
+    private const int COST_INCREMENT_SKILL = 6;
+    private const int MAX_SKILL_NUMBER = 4;
 
     public UnityEvent stateEvent = new UnityEvent();
 
@@ -46,7 +55,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
             }
         }
     }
-    
+
     private EmployeeFactory factory;
     private ContentHub contentHub;
     private GameObject employeeLayer;
@@ -66,6 +75,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private SpriteOutline spriteOutline;
     private Vector3 defaultScale = new Vector3(1f, 1f, 1f);
     private Vector3 flippedScale = new Vector3(-1f, 1f, 1f);
+    private Workplace workplace;
 
     public Enums.EmployeeState State
     {
@@ -114,7 +124,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         tileBlockedAction = OnTileBlocked;
         tileBlockedEvent = ContentHub.Instance.TileBlockedEvent;
         tileBlockedEvent.AddListener(tileBlockedAction);
-        
+
         employeeLayer = GameObject.FindWithTag("EmployeeLayer");
         this.grid = GameObject.FindWithTag("Pathfinding").GetComponent<AGrid>();
         tilemap = GameObject.FindWithTag("Tilemap").GetComponent<Tilemap>();
@@ -123,7 +133,6 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
 
     void Start()
     {
-        
     }
 
     /// <summary>
@@ -181,16 +190,16 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
 
         spriteOutline = gameObject.AddComponent<SpriteOutline>();
         spriteOutline.enabled = false;
-        
+
         if (isFreshman) PlaceOnRandomTile();
         else
         {
-            gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(EmployeeData.Position.x, EmployeeData.Position.y, 0));
+            gameObject.transform.position =
+                tilemap.GetCellCenterWorld(new Vector3Int(EmployeeData.Position.x, EmployeeData.Position.y, 0));
             grid.getNode(employeeData.Position).SetState(Enums.TileState.OCCUPIED);
             if (EmployeeData.State != Enums.EmployeeState.WORKING)
                 EmployeeData.State = Enums.EmployeeState.IDLE;
         }
-            
     }
 
     private void PlaceOnRandomTile()
@@ -199,7 +208,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
 
         gameObject.transform.position = tilemap.GetCellCenterWorld(new Vector3Int(tile.gridX, tile.gridY, 0));
         EmployeeData.Position = tile.gridPosition;
-        
+
         tile.SetState(Enums.TileState.OCCUPIED);
 
         IdleWalking(true);
@@ -236,8 +245,21 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         RequestNewWalkToWorkplace(workplace);
     }
 
-    public void StopWorking()
+    /// <summary>
+    /// Stop working and return to IDLE.
+    /// Levels the employee if the mission was completed successfully.
+    /// </summary>
+    /// <param name="completedSuccessfully"></param>
+    public void StopWorking(bool completedSuccessfully)
     {
+        if (completedSuccessfully)
+        {
+            EmployeeData.IncrementFreeScore(SCORE_MISSION_COMPLETED +
+                                            workplace.Mission.Difficulty * SCORE_MISSION_COMPLETED_PERLEVEL);
+            LevelUp();
+        }
+
+        workplace = null;
         grid.getNode(EmployeeData.Position).SetState(Enums.TileState.FREE);
         State = Enums.EmployeeState.IDLE;
         IdleWalking(true);
@@ -277,7 +299,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         var callback = new System.Action<List<Node>, bool, object>(WorkplacePathFound);
         var position = gameObject.transform.position;
         var go = this.grid.getNode(position).gridPosition;
-        
+
         var employeeCell = grid.go_grid.WorldToCell(position);
         if (employeeCell.ToVector2Int().Equals(workplace.GetChairTile()))
         {
@@ -362,12 +384,202 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
 
     private void StartWorking(Workplace workplace)
     {
+        this.workplace = workplace;
         State = Enums.EmployeeState.WORKING;
         spriteRenderer.sortingOrder = workplace.GetEmployeeSortingOrder();
         transform.localScale = defaultScale;
         transform.Translate(-0.07f, 0, 0);
         workplace.StartWorking();
     }
+
+    #region Level System
+    /// <summary>
+    /// Call this to trigger a level up.
+    /// Aborts, if the employee doesn't have enough score points.
+    /// </summary>
+    private void LevelUp()
+    {
+        if (EmployeeData.FreeScore < EmployeeData.LevelUpScoreNeeded) return;
+        Debug.Log(Name + " levels up!");
+
+        spendScorePoints();
+        EmployeeData.Level += 1;
+        EmployeeData.UseScore(EmployeeData.LevelUpScoreNeeded);
+        onLevelUp();
+    }
+
+    /// <summary>
+    /// Spend the score points by educating the employee.
+    /// </summary>
+    private void spendScorePoints()
+    {
+        var pointsToSpend = EmployeeData.LevelUpScoreNeeded;
+
+        // educate two times
+        Educate(pointsToSpend / 2);
+        Educate(pointsToSpend / 2);
+    }
+
+    /// <summary>
+    /// Educating can have a number of different effects like increasing a skill, learning a new one or learning a new special.
+    /// </summary>
+    /// <param name="pointsToSpend"></param>
+    private void Educate(float pointsToSpend)
+    {
+        bool success = false;
+        while (!success)
+        {
+            int roll = RandomUtils.RollDice(12);
+
+            switch (roll)
+            {
+                case 1:
+                    success = incrementAllPurpose(pointsToSpend);
+                    break;
+                case 2:
+                    success = learnSkill(pointsToSpend);
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                    success = incrementSkill(pointsToSpend);
+                    break;
+                case 10:
+                case 11:
+                    success = rollSpecial();
+                    break;
+                case 12:
+                    return; //wasting time playing video games
+                case 13:
+                    break;
+                //TODO: Implement more features for Employees!
+                case 20:
+                    //this is a magic employee and gets a super skill!
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Increment the all purpose skill.
+    /// </summary>
+    /// <param name="pointsToSpend"></param>
+    /// <returns></returns>
+    private bool incrementAllPurpose(float pointsToSpend)
+    {
+        var allPurpose = EmployeeData.Skills.First(s => s.SkillData == ContentHub.Instance.GeneralPurposeSkill);
+        // We don't want all purpose to be to powerful
+        allPurpose.AddSkillPoints(pointsToSpend / 1.5f);
+
+        Debug.Log(Name + " incremented all purpose.");
+
+        return true;
+    }
+
+    /// <summary>
+    /// Increment a skill.
+    /// Prefers a skill that was used by this mission.
+    /// If no skill was used a random one is picked.
+    /// </summary>
+    /// <param name="pointsToSpend"></param>
+    /// <returns></returns>
+    private bool incrementSkill(float pointsToSpend)
+    {
+        Skill skill;
+
+        // If the employee has used a skill or multiple in this mission we want to increase the value of those.
+        // Otherwise we choose one random skill.
+        var skillsUsedInMission =
+            workplace.Mission.SkillDifficulty.Keys.Where(s => EmployeeData.Skills.Any(sk => sk.SkillData == s))
+                .ToList();
+
+        if (skillsUsedInMission.Count > 0)
+        {
+            var skillDef = skillsUsedInMission.RandomElement();
+            skill = EmployeeData.GetSkill(skillDef);
+        }
+        else
+        {
+            do
+            {
+                skill = EmployeeData.Skills.RandomElement();
+            } while (skill.SkillData != ContentHub.Instance.GeneralPurposeSkill);
+        }
+
+        skill.AddSkillPoints(pointsToSpend);
+
+        Debug.Log(Name + " incremented " + skill.GetName() + ".");
+
+        return true;
+    }
+
+    /// <summary>
+    /// Learn a new skill and add the first points to it.
+    /// </summary>
+    /// <param name="pointsToSpend"></param>
+    /// <returns></returns>
+    private bool learnSkill(float pointsToSpend)
+    {
+        if (EmployeeData.Skills.Count >= MAX_SKILL_NUMBER) return false;
+
+        SkillDefinition skillDef;
+
+        do
+        {
+            var skillSet = ContentHub.Instance.GetSkillSet();
+            skillDef = skillSet.keys.RandomElement();
+        } while (!isUniqueSkill(skillDef));
+
+        var skill = new Skill(skillDef);
+        addSkill(skill);
+        skill.AddSkillPoints(pointsToSpend);
+
+        Debug.Log(Name + " learned new skill: " + skillDef.skillName);
+        return true;
+    }
+
+    /// <summary>
+    /// Add a new employee special.
+    /// </summary>
+    /// <returns></returns>
+    private bool rollSpecial()
+    {
+        //TODO: Add a new special
+        return true;
+    }
+
+    /// <summary>
+    /// Tests, if a skill is already present.
+    /// </summary>
+    /// <param name="skill"></param>
+    /// <returns></returns>
+    private bool isUniqueSkill(SkillDefinition skill)
+    {
+        return EmployeeData.Skills.Any(s => s.SkillData == skill);
+    }
+
+    /// <summary>
+    /// Adds a new skill.
+    /// </summary>
+    /// <param name="skill"></param>
+    private void addSkill(Skill skill)
+    {
+        EmployeeData.Skills.Add(skill);
+    }
+
+    /// <summary>
+    /// Notify event listeners.
+    /// </summary>
+    private void onLevelUp()
+    {
+        
+    }
+    #endregion
+
 
     /// <summary>
     /// Get's called when the PathRequester found a path for this employee.

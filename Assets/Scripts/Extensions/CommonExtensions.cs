@@ -1,10 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UE.Common;
+using Wth.ModApi.Tools;
 
 namespace Extensions
 {
-    public static class VectorExtensions
+    public static class CommonExtensions
     {
+        /// <summary>
+        /// Return a random element of this list.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T RandomElement<T>(List<T> list)
+        {
+            return list[RandomUtils.RollDice(list.Count) - 1];
+        }
+        
         /// <summary>
         /// Convert a Vector3Int to a Vector2Int by dropping the z value.
         /// </summary>

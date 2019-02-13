@@ -148,7 +148,7 @@ namespace Missions
         {
             foreach (var workplace in TeamManager.Instance.GetWorkplacesWorkingOnMission(mission))
             {
-                workplace.StopWorking();
+                workplace.StopWorking(false);
             }
             
             mission.Finished.Invoke(mission);

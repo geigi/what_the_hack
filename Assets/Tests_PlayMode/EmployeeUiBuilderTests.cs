@@ -136,9 +136,9 @@ namespace Assets.Tests_PlayMode
             //Assert
             Assert.AreSame(sprite, skillbuilder.skillImage.sprite);
             Assert.AreSame(skill.GetName(), skillbuilder.skillName.text);
-            Assert.AreEqual(skill.skillLevelName + " " + skill.level, skillbuilder.skillLevel.text);
+            Assert.AreEqual(skill.SkillLevelName + " " + skill.Level, skillbuilder.skillLevel.text);
             skill.AddSkillPoints(1000);
-            Assert.AreEqual(skill.skillLevelName + " " + skill.level, skillbuilder.skillLevel.text);
+            Assert.AreEqual(skill.SkillLevelName + " " + skill.Level, skillbuilder.skillLevel.text);
             yield return null;
         }
 

@@ -69,7 +69,7 @@ namespace UI
                     {
                         foreach (var s in otherWorkplace.GetOccupyingEmployee().EmployeeData.Skills)
                         {
-                            if (s.skillData == skill.Key) skillSatisfied = true;
+                            if (s.SkillData == skill.Key) skillSatisfied = true;
                         }
                     }
                 }

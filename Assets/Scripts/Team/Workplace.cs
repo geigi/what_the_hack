@@ -196,10 +196,10 @@ namespace Team
         /// <summary>
         /// Stop any work on this workplace.
         /// </summary>
-        public void StopWorking()
+        public void StopWorking(bool completedSuccessfully)
         {
             Animator.SetTrigger(idleProperty);
-            employee.StopWorking();
+            employee.StopWorking(completedSuccessfully);
             employee = null;
             data.Mission.Finished.RemoveListener(missionFinishedAction);
             data.Mission = null;
@@ -253,7 +253,7 @@ namespace Team
                 if (employee == gameSelectionManager.Employee)
                 {
                     MissionManager.Instance.GetMissionWorker(data.Mission).RemoveEmployee(employee.EmployeeData);
-                    StopWorking();
+                    StopWorking(false);
                     gameSelectionManager.ClearEmployee();
                     gameSelectionManager.ClearWorkplace();
                 }
@@ -286,7 +286,7 @@ namespace Team
         {
             if (mission == data.Mission)
             {
-                StopWorking();
+                StopWorking(mission.Completed());
 
                 if (gameSelectionManager.Workplace == this)
                 {

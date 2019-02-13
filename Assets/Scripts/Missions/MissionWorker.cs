@@ -82,9 +82,9 @@ namespace Missions
         {
             int employeeValue;
             employeeValue = employee.HasSkill(skill)
-                ? employee.GetSkill(skill).level
+                ? employee.GetSkill(skill).Level
                 // General Purpose should be weaker than a specific skill
-                : employee.GetGeneralPurpose().level / 2;
+                : employee.GetGeneralPurpose().Level / 2;
 
             var stepValue = employeeValue * (1f / (mission.SkillDifficulty[skill] + mission.Difficulty)) *
                             (BASE_VALUE + (float) random.NextDouble() * RANDOM_FACTOR) * 1f /

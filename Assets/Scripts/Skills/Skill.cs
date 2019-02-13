@@ -43,29 +43,45 @@ public class Skill
     }
 
     /// <summary>
-    /// A factor by which nextLevelPoints is multiplied each time, this skill levels up.
+    /// This base is powed with the current level of this skill.
     /// </summary>
-    protected internal static float levelFactor = 1.9f;
+    protected internal static float levelFactor = 1.5f;
 
     /// <summary>
     /// Instance to store the skillData.
     /// </summary>
-    public SkillDefinition skillData { get; private set; }
-    
+    public SkillDefinition SkillData { get; private set; }
+
     /// <summary>
-    /// The points of this skill.
+    /// The current level points of this skill.
     /// </summary>
-    public float points { get; private set; }
+    public float Points
+    {
+        get => points;
+        private set => points = value;
+    }
+    private float points;
+
+    private float spendPoints = 0;
+    /// <summary>
+    /// Points spend on this skill.
+    /// </summary>
+    public float SpendPoints => spendPoints;
 
     /// <summary>
     /// The Level of this skill.
     /// </summary>
-    public int level { get; private set; }
+    public int Level
+    {
+        get => level;
+        private set => level = value;
+    }
+    private int level;
 
     /// <summary>
     /// The level aptitude name
     /// </summary>
-    public LevelAptitudeName skillLevelName { get; private set; } = LevelAptitudeName.Newbie;
+    public LevelAptitudeName SkillLevelName { get; private set; } = LevelAptitudeName.Newbie;
 
     /// <summary>
     /// The number of points needed to advance a Level.
@@ -82,10 +98,10 @@ public class Skill
     ///<param name="data">The data for this skill.</param>
     public Skill(SkillDefinition data)
     {
-        this.points = 0;
-        this.level = 0;
-        this.nextLevelPoints = 100;
-        this.skillData = data;
+        this.Points = 0;
+        this.Level = 1;
+        this.nextLevelPoints = levelFactor;
+        this.SkillData = data;
     }
 
     /// <summary>
@@ -94,12 +110,15 @@ public class Skill
     /// <param name="skillPoints">The number of points added to the points of this skill.</param>
     public void AddSkillPoints(float skillPoints)
     {
-        points += skillPoints;
-        while(points >= nextLevelPoints)
+        Points += skillPoints;
+        while (Points >= nextLevelPoints)
         {
-            level++;
-            nextLevelPoints = 100 * level * levelFactor;
-            skillLevelName = UpdateLevelAptitudeName();
+            Points -= nextLevelPoints;
+            spendPoints += nextLevelPoints;
+            Level++;
+            nextLevelPoints = (float) Math.Pow(levelFactor, Level);
+            SkillLevelName = UpdateLevelAptitudeName();
+            Debug.Log("Skill leveled up: " + GetName());
         }
         SkillEvent.Invoke();
     }
@@ -109,14 +128,14 @@ public class Skill
     /// This function is only left in for convenience.
     /// </summary>
     /// <returns>The name of this skill</returns>
-    public string GetName() => skillData.skillName;
+    public string GetName() => SkillData.skillName;
 
     /// <summary>
     /// Get the sprite of this skill.
     /// This function is only left in for convenience.
     /// </summary>
     /// <returns>The Sprite of this Skill</returns>
-    public Sprite GetSprite() => skillData.skillSprite;
+    public Sprite GetSprite() => SkillData.skillSprite;
 
     /// <summary>
     /// Returns the corresponding aptitude name for the current level.
@@ -128,7 +147,7 @@ public class Skill
         for (int i = list.Count - 1; i >= 1; i--)
         {
             var aptitude = list[i];
-            if (level >= (int) aptitude) return (LevelAptitudeName) list[i];
+            if (Level >= (int) aptitude) return (LevelAptitudeName) list[i];
         }
         return LevelAptitudeName.Newbie;
     }

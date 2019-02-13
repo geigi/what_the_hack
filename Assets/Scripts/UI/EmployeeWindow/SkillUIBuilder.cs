@@ -39,5 +39,5 @@ public class SkillUIBuilder : MonoBehaviour
         skillEvent.AddListener(UpdateSkillUi);
     }
 
-    private void UpdateSkillUi() => skillLevel.text = $"{skill.skillLevelName} {skill.level}";
+    private void UpdateSkillUi() => skillLevel.text = $"{skill.SkillLevelName} {skill.Level}";
 }

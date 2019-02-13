@@ -109,6 +109,16 @@ namespace Wth.ModApi.Employees
         }
 
         /// <summary>
+        /// Returns the learning multiplier for this special.
+        /// Note: All special multipliers will be combined by addition + 1f and then multiplied with the score value.
+        /// </summary>
+        /// <returns></returns>
+        public float GetLearningMultiplier()
+        {
+            return 0.0f;
+        }
+
+        /// <summary>
         /// Get's called when a level up has occured.
         /// </summary>
         public void OnLevelUp()

@@ -13,6 +13,9 @@ namespace Wth.ModApi.Employees
     [Serializable]
     public class EmployeeData
     {
+        public const int LEVELUP_THRESHOLD = 5;
+        public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.4f;
+        
         /// <summary>
         /// Level of the employee > 0.
         /// </summary>
@@ -64,6 +67,20 @@ namespace Wth.ModApi.Employees
         /// Represents how many days the Employee wil continue to stay in the "for hire" list until he is removed.
         /// </summary>
         public int hireableDays;
+
+        private float freeScore = 0;
+        /// <summary>
+        /// Score of level points that have not been spend yet.
+        /// </summary>
+        public float FreeScore => freeScore;
+
+        private float usedScore = 0;
+        /// <summary>
+        /// Score of level points that have been spend already.
+        /// </summary>
+        public float UsedScore => usedScore;
+
+        public float LevelUpScoreNeeded => Level * LEVELUP_THRESHOLD_INCREASE_FACTOR * LEVELUP_THRESHOLD;
         
         /// <summary>
         /// The critical failure bonus of this employee.
@@ -117,7 +134,7 @@ namespace Wth.ModApi.Employees
         /// <returns></returns>
         public bool HasSkill(SkillDefinition skill)
         {
-            return Skills.Any(s => s.skillData == skill);
+            return Skills.Any(s => s.SkillData == skill);
         }
 
         /// <summary>
@@ -127,12 +144,40 @@ namespace Wth.ModApi.Employees
         /// <returns></returns>
         public Skill GetSkill(SkillDefinition skill)
         {
-            return Skills.First(s => s.skillData == skill);
+            return Skills.First(s => s.SkillData == skill);
         }
 
         public Skill GetGeneralPurpose()
         {
-            return Skills.First(s => s.skillData == ContentHub.Instance.GeneralPurposeSkill);
+            return Skills.First(s => s.SkillData == ContentHub.Instance.GeneralPurposeSkill);
+        }
+
+        /// <summary>
+        /// Increments the free score.
+        /// All special multipliers will be combined by addition + 1f, then multiplied with the value.
+        /// </summary>
+        public void IncrementFreeScore(float value)
+        {
+            if (value > 0)
+            {
+                float multiplier = 1f;
+                foreach (var special in Specials)
+                {
+                    multiplier += special.GetLearningMultiplier();
+                }
+
+                freeScore += value * multiplier;
+            }
+        }
+
+        /// <summary>
+        /// Spends points from the free score.
+        /// </summary>
+        /// <param name="value"></param>
+        public void UseScore(float value)
+        {
+            freeScore -= value;
+            
         }
     }
 }
