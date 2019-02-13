@@ -289,8 +289,6 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         var go = this.grid.getNode(position).gridPosition;
         var end = this.grid.getRandomFreeNode().gridPosition;
         Pathfinding.PathRequestManager.RequestPath(new Pathfinding.PathRequest(go, end, null, callback));
-        Debug.unityLogger.Log(LogType.Log, "Start: " + go.x.ToString() + ":" + go.y.ToString());
-        Debug.unityLogger.Log(LogType.Log, "End: " + end.x.ToString() + ":" + end.y.ToString());
     }
 
     private void RequestNewWalkToWorkplace(Workplace workplace)

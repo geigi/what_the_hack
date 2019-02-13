@@ -1,6 +1,9 @@
 using System;
+using System.Globalization;
+using Employees;
 using GameSystem;
 using SaveGame;
+using Team;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,6 +13,7 @@ using UnityEngine;
 public class DebugHub : EditorWindow
 {
     public static readonly string LOAD_GAME = "DEBUG_LOAD_GAME";
+    private Vector2 scrollPos;
     
     [MenuItem("Tools/Debug Hub")]
     public static void ShowWindow()
@@ -26,6 +30,8 @@ public class DebugHub : EditorWindow
         GUILayout.BeginHorizontal();
         GUILayout.Label("Debug Hub", EditorStyles.boldLabel);
         GUILayout.EndHorizontal();
+        
+        scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.MaxWidth(EditorGUIUtility.currentViewWidth));
         
         GUILayout.BeginHorizontal();
         GUILayout.Label("Savegame", EditorStyles.miniBoldLabel);
@@ -56,47 +62,44 @@ public class DebugHub : EditorWindow
         GUILayout.EndHorizontal();
         #endregion
         
-        GUILayout.Space(10f);
-        
+        GUILayout.Space(10);
         GUILayout.BeginHorizontal();
         GUILayout.Label("Game Options", EditorStyles.miniBoldLabel);
         GUILayout.EndHorizontal();
 
         #region GameTime Mode
         GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-
-        var selected = (SettingsManager.GameTimeMode)EditorGUILayout.EnumPopup("GameTime Mode", SettingsManager.GetGameTime(), GUILayout.Width(300));
+        GUILayout.Space(10);
+        
+        var selected = (SettingsManager.GameTimeMode)EditorGUILayout.EnumPopup("GameTime Mode", SettingsManager.GetGameTime(), GUILayout.ExpandWidth(true));
         SettingsManager.SetGameTime((int) selected);
         
-        GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         #endregion
         
-        
+        GUILayout.Space(10);
         GUILayout.BeginHorizontal();
         GUILayout.Label("In-Game Variables", EditorStyles.miniBoldLabel);
         GUILayout.EndHorizontal();
         
         #region Balance
         GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
+        GUILayout.Space(10);
 
         EditorGUI.BeginDisabledGroup(!Application.isPlaying);
         var bank = ContentHub.Instance.bank;
-        var newBalance = EditorGUILayout.IntField("Balance:", bank.Balance, GUILayout.Width(300));
+        
+        var newBalance = EditorGUILayout.IntField("Balance:", bank.Balance, GUILayout.ExpandWidth(true));
         if (newBalance != bank.Balance)
             bank.Income(newBalance - bank.Balance);
         EditorGUI.EndDisabledGroup();
         
-        GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         #endregion
         
         #region Game Speed
         GUILayout.BeginHorizontal();
-        GUILayout.FlexibleSpace();
-
+        GUILayout.Space(10);
         EditorGUI.BeginDisabledGroup(!Application.isPlaying);
         var gameTime = GameTime.GameTime.Instance;
 
@@ -106,7 +109,7 @@ public class DebugHub : EditorWindow
         else
             oldSpeed = gameTime.RealtimeMinutesPerTick;
         
-        var newSpeed = EditorGUILayout.Slider("Step Duration:", oldSpeed, 0.1f, 20f, GUILayout.Width(300));
+        var newSpeed = EditorGUILayout.Slider("Step Duration:", oldSpeed, 0.1f, 20f, GUILayout.ExpandWidth(true));
         if (Math.Abs(newSpeed - oldSpeed) > 0.001f)
             if (SettingsManager.GetGameTime() == SettingsManager.GameTimeMode.Classic)
                 gameTime.ClassicSecondsPerTick = newSpeed;
@@ -114,9 +117,64 @@ public class DebugHub : EditorWindow
                 gameTime.RealtimeMinutesPerTick = newSpeed;
             
         EditorGUI.EndDisabledGroup();
-        
-        GUILayout.FlexibleSpace();
         GUILayout.EndHorizontal();
         #endregion
+        
+        GUILayout.Space(10);
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Game Monitor", EditorStyles.miniBoldLabel);
+        GUILayout.EndHorizontal();
+        
+        #region Game Monitor
+        if (Application.isPlaying)
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.Space(10);
+            EditorGUILayout.FloatField("Game Progress:", TeamManager.Instance.calcGameProgress(), GUILayout.ExpandWidth(true));
+            GUILayout.EndHorizontal();
+        }
+        #endregion
+        
+        GUILayout.Space(10);
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Employee Monitor", EditorStyles.miniBoldLabel);
+        GUILayout.EndHorizontal();
+        
+        #region Employee Monitor
+
+        if (Application.isPlaying)
+        {
+            foreach (var employee in EmployeeManager.Instance.GetData().hiredEmployees)
+            {
+                var emp = EmployeeManager.Instance.GetEmployee(employee);
+                
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                EditorGUILayout.LabelField(emp.Name, EditorStyles.boldLabel, GUILayout.ExpandWidth(false));
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
+                
+                EditorGUILayout.IntField("Level:", employee.Level, GUILayout.ExpandWidth(true));
+                EditorGUILayout.FloatField("Free Score:", employee.FreeScore, GUILayout.ExpandWidth(true));
+                EditorGUILayout.FloatField("Used Score:", employee.UsedScore, GUILayout.ExpandWidth(true));
+                EditorGUILayout.FloatField("Next Level Score:", employee.LevelUpScoreNeeded, GUILayout.ExpandWidth(true));
+
+                GUILayout.Space(10);
+                
+                foreach (var skill in employee.Skills)
+                {
+                    GUILayout.Label(skill.GetName(), GUILayout.Width(300));
+                    GUILayout.Space(2);
+                    EditorGUILayout.IntField("Level:", skill.Level, GUILayout.ExpandWidth(true));
+                    EditorGUILayout.FloatField("Points:", skill.Points, GUILayout.ExpandWidth(true));
+                    EditorGUILayout.FloatField("Points needed:", skill.NextLevelPoints, GUILayout.ExpandWidth(true));
+                    GUILayout.Space(10);
+                }
+            }
+        }
+        
+        #endregion
+        
+        EditorGUILayout.EndScrollView();
     }
 }

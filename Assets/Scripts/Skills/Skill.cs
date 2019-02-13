@@ -82,11 +82,12 @@ public class Skill
     /// The level aptitude name
     /// </summary>
     public LevelAptitudeName SkillLevelName { get; private set; } = LevelAptitudeName.Newbie;
-
+    
     /// <summary>
     /// The number of points needed to advance a Level.
     /// </summary>    
-    protected internal float nextLevelPoints;
+    public float NextLevelPoints => nextLevelPoints;
+    private float nextLevelPoints;
 
     public Skill()
     {

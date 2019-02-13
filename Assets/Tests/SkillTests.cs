@@ -43,11 +43,11 @@ namespace Assets.Tests
         [Test]
         public void AddSkillPointsTest_NextLevel()
         {
-            var nextLevelPoints = s.nextLevelPoints;
-            s.AddSkillPoints(s.nextLevelPoints);
+            var nextLevelPoints = s.NextLevelPoints;
+            s.AddSkillPoints(s.NextLevelPoints);
             Assert.AreEqual(nextLevelPoints, s.Points + s.SpendPoints);
             Assert.AreEqual(2, s.Level);
-            Assert.AreEqual((float) Math.Pow(Skill.levelFactor, s.Level), s.nextLevelPoints);
+            Assert.AreEqual((float) Math.Pow(Skill.levelFactor, s.Level), s.NextLevelPoints);
             Assert.AreEqual(Skill.LevelAptitudeName.Newbie, s.SkillLevelName);
         }
 
