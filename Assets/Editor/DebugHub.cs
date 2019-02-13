@@ -20,6 +20,8 @@ public class DebugHub : EditorWindow
     
     private void OnGUI()
     {
+        if (ContentHub.Instance.bank == null) return;
+        
         // Header
         GUILayout.BeginHorizontal();
         GUILayout.Label("Debug Hub", EditorStyles.boldLabel);
