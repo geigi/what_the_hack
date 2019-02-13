@@ -359,7 +359,8 @@ public class EmployeeFactory {
         return skillList;
     }
 
-    private static int basicSalary = 100;
+    private const int basicSalary = 100;
+    private static int adaptedSalary = 100;
     private static float MaxInvariance = 1.5f;
     private static int SkillLevelValue = 10;
     private static int SpecialValue = 50;
@@ -371,7 +372,7 @@ public class EmployeeFactory {
     internal virtual int calcSalary(EmployeeData empData)
     {
         AdjustSalaryValues();
-        return (int) Mathf.Abs(((basicSalary + SkillLevelValue * CalculateSkillScore(empData) + SpecialValue * empData.Specials.Count) * 
+        return (int) Mathf.Abs(((adaptedSalary + SkillLevelValue * CalculateSkillScore(empData) + SpecialValue * empData.Specials.Count) * 
                                         Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.5f)));
     }
 
@@ -382,7 +383,7 @@ public class EmployeeFactory {
     private void AdjustSalaryValues()
     {
        float progress =  Math.Max(TeamManager.Instance.calcGameProgress(), 1f);
-       basicSalary *= (int) progress;
+       adaptedSalary = (int) (basicSalary * Math.Max((int) progress * 0.05f, 1f));
        if (rnd.NextDouble() < 0.5) SkillLevelValue++;
        else SpecialValue++;
     }
