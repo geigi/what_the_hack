@@ -155,6 +155,7 @@ public class DebugHub : EditorWindow
                 GUILayout.EndHorizontal();
                 
                 EditorGUILayout.IntField("Level:", employee.Level, GUILayout.ExpandWidth(true));
+                employee.SkillPoints = EditorGUILayout.IntField("Skill Points: ", employee.SkillPoints, GUILayout.ExpandWidth(true));
                 EditorGUILayout.FloatField("Free Score:", employee.FreeScore, GUILayout.ExpandWidth(true));
                 EditorGUILayout.FloatField("Used Score:", employee.UsedScore, GUILayout.ExpandWidth(true));
                 EditorGUILayout.FloatField("Next Level Score:", employee.LevelUpScoreNeeded, GUILayout.ExpandWidth(true));
@@ -166,8 +167,6 @@ public class DebugHub : EditorWindow
                     GUILayout.Label(skill.GetName(), GUILayout.Width(300));
                     GUILayout.Space(2);
                     EditorGUILayout.IntField("Level:", skill.Level, GUILayout.ExpandWidth(true));
-                    EditorGUILayout.FloatField("Points:", skill.Points, GUILayout.ExpandWidth(true));
-                    EditorGUILayout.FloatField("Points needed:", skill.NextLevelPoints, GUILayout.ExpandWidth(true));
                     GUILayout.Space(10);
                 }
             }

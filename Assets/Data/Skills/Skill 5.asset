@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Search
   skillSprite: {fileID: 21300358, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  LevelUpCost: 1
+  LevelUpCostFactor: 0

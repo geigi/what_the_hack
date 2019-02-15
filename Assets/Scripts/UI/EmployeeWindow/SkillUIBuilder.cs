@@ -23,6 +23,10 @@ public class SkillUIBuilder : MonoBehaviour
     /// </summary>
     public Text skillLevel;
     /// <summary>
+    /// Displays the current level of the skill
+    /// </summary>
+    public Text skillLevelName;
+    /// <summary>
     /// Skill object for which the UI is build.
     /// </summary>
     public Skill skill;
@@ -35,9 +39,18 @@ public class SkillUIBuilder : MonoBehaviour
         skillImage.sprite = skill.GetSprite();
         skillName.text = skill.GetName();
         UpdateSkillUi();
-        if (skillEvent == null) skillEvent = new UnityEvent();
+        skillEvent = _skill.SkillEvent;
         skillEvent.AddListener(UpdateSkillUi);
     }
 
-    private void UpdateSkillUi() => skillLevel.text = $"{skill.SkillLevelName} {skill.Level}";
+    private void UpdateSkillUi()
+    {
+        skillLevelName.text = $"{skill.SkillLevelName}";
+        skillLevel.text = $"{skill.Level}";
+    }
+
+    private void OnDestroy()
+    {
+        skillEvent.RemoveListener(UpdateSkillUi);
+    }
 }

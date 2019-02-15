@@ -24,6 +24,9 @@ namespace Missions
         public float SkillPowerPerDifficulty = 3.5f;
         public float SkillDifficultyVariance = 0.3f;
 
+        public float SKILL_GAME_PROGRESS_POWER = 0.1f;
+        public float SKILL_DIFFICULTY_FACTOR = 1.5f;
+
         private MissionList missionList;
         private List<MissionDefinition> forceAppearMissions;
 
@@ -70,7 +73,7 @@ namespace Missions
             calcDurationVariance(mission);
             RandomSkillValues(mission, progress);
 
-            generateOutcome(mission);
+            generateOutcome(mission, progress);
         }
 
         /// <summary>
@@ -115,8 +118,8 @@ namespace Missions
         /// Generate outcome for a mission.
         /// </summary>
         /// <param name="mission"></param>
-        private void generateOutcome(Mission mission) {
-            mission.RewardMoney = calcRewardMoney(mission);
+        private void generateOutcome(Mission mission, float progress) {
+            mission.RewardMoney = (int) (((Math.Sqrt(mission.AverageSkillDifficulty * mission.Difficulty) * 1f + Math.Max(progress, 1f) * 2f ) * RandomUtils.mult_var(MissionRewardmoneyVariance) * MissionRewardmoneyFactor) * 10);
         }
         
         /// <summary>
@@ -129,11 +132,11 @@ namespace Missions
             mission.SkillDifficulty = new Dictionary<SkillDefinition, int>();
             List<SkillDefinition> skills = mission.Definition.SkillsRequired;
 
-            int difficulty = calcMissionLevel(baseDifficulty + MissionBasePower, mission.Definition.Hardness, mission.Duration);
+            float difficulty = RandomUtils.mult_var(0.2f);
             int numSkills = skills.Count;
             mission.Difficulty = difficulty;
 
-            float difficultyPerSkill = calcSkillDifficulty(difficulty, numSkills);
+            float difficultyPerSkill = calcSkillDifficulty(baseDifficulty, numSkills);
             foreach (var s in skills) {
                 mission.SkillDifficulty.Add(s, (int) (difficultyPerSkill * RandomUtils.mult_var(SkillDifficultyVariance)));
             }
@@ -145,8 +148,8 @@ namespace Missions
         /// <param name="difficulty"></param>
         /// <param name="numSkills">Number of total skills required for the mission.</param>
         /// <returns></returns>
-        private float calcSkillDifficulty(int difficulty, int numSkills) {
-            return Math.Min(1, (difficulty * 2) / (float) (numSkills + 0.9)) * SkillPowerPerDifficulty;
+        private float calcSkillDifficulty(float difficulty, int numSkills) {
+            return Math.Max(1f, Math.Max(difficulty * SKILL_GAME_PROGRESS_POWER, 1f) * SKILL_DIFFICULTY_FACTOR / (numSkills + 0.9f)) * SkillPowerPerDifficulty;
         }
         
         /// <summary>
@@ -162,15 +165,6 @@ namespace Missions
                 * hardness
 //                        * durationDifficultyFactor(duration)
                 * RandomUtils.mult_var(MissionDifficultyVariance)));
-        }
-        
-        /// <summary>
-        /// Calculate the reward money for a given mission.
-        /// </summary>
-        /// <param name="mission"></param>
-        /// <returns></returns>
-        public int calcRewardMoney(Mission mission) {
-            return (int) (Math.Sqrt(mission.Difficulty) * RandomUtils.mult_var(MissionRewardmoneyVariance) * MissionRewardmoneyFactor) * 10;
         }
         
         private float durationDifficultyFactor(int duration) {

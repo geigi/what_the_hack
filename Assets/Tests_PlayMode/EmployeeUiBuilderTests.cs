@@ -5,6 +5,7 @@ using Assets.Scripts.UI.EmployeeWindow;
 using Employees;
 using NSubstitute;
 using NUnit.Framework;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -77,9 +78,10 @@ namespace Assets.Tests_PlayMode
             emp.EmployeeData = mockedEmployeeData;
             var evt = Substitute.For<UnityEvent>();
             var func = Substitute.For<UnityAction>();
+            var ui = Substitute.For<SkillEmployeeUi>();
             
             //Act
-            hiredBuilder.SetEmp(emp, evt, func);
+            hiredBuilder.SetEmp(emp, evt, func, ui);
 
             /*Assert*/
             AssertEmployeeUiBuilder(func);
@@ -136,9 +138,14 @@ namespace Assets.Tests_PlayMode
             //Assert
             Assert.AreSame(sprite, skillbuilder.skillImage.sprite);
             Assert.AreSame(skill.GetName(), skillbuilder.skillName.text);
-            Assert.AreEqual(skill.SkillLevelName + " " + skill.Level, skillbuilder.skillLevel.text);
-            skill.AddSkillPoints(1000);
-            Assert.AreEqual(skill.SkillLevelName + " " + skill.Level, skillbuilder.skillLevel.text);
+            Assert.AreEqual(skill.SkillLevelName.ToString(), skillbuilder.skillLevelName.text);
+            Assert.AreEqual(skill.Level.ToString(), skillbuilder.skillLevel.text);
+            for (int i = 0; i < 8; i++)
+            {
+                skill.LevelUp();
+            }
+            Assert.AreEqual(skill.SkillLevelName.ToString(), skillbuilder.skillLevelName.text);
+            Assert.AreEqual(skill.Level.ToString(), skillbuilder.skillLevel.text);
             yield return null;
         }
 
