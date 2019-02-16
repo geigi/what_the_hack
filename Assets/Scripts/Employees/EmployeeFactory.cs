@@ -70,11 +70,6 @@ public class EmployeeFactory {
 
     #endregion
 
-    private float SKILL_GAME_PROGRESS_POWER = 0.1f;
-    private float SKILL_DIFFICULTY_FACTOR = 1.5f;
-    private float SkillPowerPerDifficulty = 3.5f;
-    private float SkillDifficultyVariance = 0.3f;
-    
     private static int numberOfBeginningSkills = 3;
 
     protected internal static Random rnd = new Random();
@@ -370,14 +365,9 @@ public class EmployeeFactory {
     /// </summary>
     internal virtual void LevelUpSkills(List<Skill> skills)
     {
-        var progress = Math.Max(TeamManager.Instance.calcGameProgress(), 1f);
-
-        var difficultyPerSkill = Math.Max(1f, Math.Max(progress * SKILL_GAME_PROGRESS_POWER, 1f) * SKILL_DIFFICULTY_FACTOR / (skills.Count + 0.9f)) * SkillPowerPerDifficulty;
-        
         foreach (var s in skills)
         {
-            var difficulty = (int) (difficultyPerSkill * RandomUtils.mult_var(SkillDifficultyVariance));
-            for (int i = 0; i < difficulty; i++)
+            for (int i = 0; i < teamManager.GetRandomSkillValue(skills.Count); i++)
             {
                 s.LevelUp();
             }

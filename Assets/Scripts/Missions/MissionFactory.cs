@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Base;
 using Employees;
+using Team;
 using UnityEngine;
 using Wth.ModApi.Names;
 using Wth.ModApi.Tools;
@@ -136,20 +137,10 @@ namespace Missions
             int numSkills = skills.Count;
             mission.Difficulty = difficulty;
 
-            float difficultyPerSkill = calcSkillDifficulty(baseDifficulty, numSkills);
+            int difficultyPerSkill = TeamManager.Instance.GetRandomSkillValue(numSkills);
             foreach (var s in skills) {
-                mission.SkillDifficulty.Add(s, (int) (difficultyPerSkill * RandomUtils.mult_var(SkillDifficultyVariance)));
+                mission.SkillDifficulty.Add(s, difficultyPerSkill);
             }
-        }
-        
-        /// <summary>
-        /// Calculate the difficulty for a single skill.
-        /// </summary>
-        /// <param name="difficulty"></param>
-        /// <param name="numSkills">Number of total skills required for the mission.</param>
-        /// <returns></returns>
-        private float calcSkillDifficulty(float difficulty, int numSkills) {
-            return Math.Max(1f, Math.Max(difficulty * SKILL_GAME_PROGRESS_POWER, 1f) * SKILL_DIFFICULTY_FACTOR / (numSkills + 0.9f)) * SkillPowerPerDifficulty;
         }
         
         /// <summary>
