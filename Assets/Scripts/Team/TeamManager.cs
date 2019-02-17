@@ -133,7 +133,7 @@ namespace Team
         public virtual int GetRandomSkillValue(int skillCount)
         {
             var difficultyPerSkill = Math.Max(calcGameProgress() * SKILL_GAME_PROGRESS_POWER, 1f) * SKILL_DIFFICULTY_FACTOR / (skillCount + 0.9f) * SkillPowerPerDifficulty;
-            return (int) (difficultyPerSkill * RandomUtils.mult_var(SkillDifficultyVariance));
+            return Math.Max(1, (int) (difficultyPerSkill * RandomUtils.mult_var(SkillDifficultyVariance)));
         }
 
         public TeamManagerData GetData()
