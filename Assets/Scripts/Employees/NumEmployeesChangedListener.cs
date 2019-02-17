@@ -18,9 +18,9 @@ public class NumEmployeesChangedListener : MonoBehaviour
     {
         manager = managerObject.GetComponent<EmployeeManager>();
         text = GetComponent<Text>();
-        text.text = "0 / 4";
         evtAction += changeEmpNum;
         NumChangedEvent.AddListener(evtAction);
+        changeEmpNum(EmployeeManager.Instance.HiredEmployees);
     }
 
     private void changeEmpNum(int empNum)

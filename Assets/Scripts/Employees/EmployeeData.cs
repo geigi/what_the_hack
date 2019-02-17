@@ -15,8 +15,8 @@ namespace Wth.ModApi.Employees
     [Serializable]
     public class EmployeeData
     {
-        public const int LEVELUP_THRESHOLD = 5;
-        public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.4f;
+        public const int LEVELUP_THRESHOLD = 3;
+        public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.2f;
         
         /// <summary>
         /// Level of the employee > 0.
@@ -44,6 +44,7 @@ namespace Wth.ModApi.Employees
             set
             {
                 skillPoints = value;
+                if (SkillPointsChanged == null) SkillPointsChanged = new IntUnityEvent();
                 SkillPointsChanged.Invoke(value);
             } 
         }
@@ -99,8 +100,8 @@ namespace Wth.ModApi.Employees
         /// </summary>
         public float UsedScore => usedScore;
 
-        public float LevelUpScoreNeeded => Level * LEVELUP_THRESHOLD_INCREASE_FACTOR * LEVELUP_THRESHOLD;
-        
+        public float LevelUpScoreNeeded => (float) (Math.Pow(LEVELUP_THRESHOLD_INCREASE_FACTOR, Level) + LEVELUP_THRESHOLD);
+
         /// <summary>
         /// The critical failure bonus of this employee.
         /// Only EmployeeSpecials can modify this value.
@@ -197,7 +198,7 @@ namespace Wth.ModApi.Employees
         public void UseScore(float value)
         {
             freeScore -= value;
-            
+            usedScore += value;
         }
     }
 }

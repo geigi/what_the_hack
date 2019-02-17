@@ -412,8 +412,6 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private void spendScorePoints()
     {
         var pointsToSpend = EmployeeData.LevelUpScoreNeeded;
-
-        // educate two times
         Educate(pointsToSpend);
     }
 
@@ -520,7 +518,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     /// <returns></returns>
     private bool isUniqueSkill(SkillDefinition skill)
     {
-        return EmployeeData.Skills.Any(s => s.SkillData == skill);
+        return EmployeeData.Skills.All(s => s.SkillData != skill);
     }
 
     /// <summary>
