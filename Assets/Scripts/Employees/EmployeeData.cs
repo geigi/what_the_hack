@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UE.Events;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using Utils;
@@ -40,21 +41,36 @@ namespace Wth.ModApi.Employees
 
         public int SkillPoints
         {
-            get => skillPoints;
+            get
+            {
+                return skillPoints;
+            }
             set
             {
                 skillPoints = value;
                 if (SkillPointsChanged == null) SkillPointsChanged = new IntUnityEvent();
                 SkillPointsChanged.Invoke(value);
-            } 
+            }
         }
+
         private int skillPoints = 0;
 
         /// <summary>
         /// Gets fired when skill points change.
         /// </summary>
-        [NonSerialized]
-        public UnityEvent<int> SkillPointsChanged;
+        
+        public UnityEvent<int> SkillPointsChanged
+        {
+            get
+            {
+                if (skillPointsChanged == null) skillPointsChanged = new IntUnityEvent();
+                return skillPointsChanged;
+            }
+            set =>  skillPointsChanged = value;
+        }
+
+        [NonSerialized] 
+        private UnityEvent<int> skillPointsChanged;
         
         /// <summary>
         /// List of specials.

@@ -20,8 +20,8 @@ namespace Team
     {
         private const float GAME_PROGRESS_MONEY_FACTOR = 0.00001f;
         private const float MISSON_PROGRESS_MONEY_FACTOR = 0.8f;
-        private float SKILL_GAME_PROGRESS_POWER = 0.1f;
-        private float SKILL_DIFFICULTY_FACTOR = 1.5f;
+        private float SKILL_GAME_PROGRESS_POWER = 0.3f;
+        private float SKILL_DIFFICULTY_FACTOR = 1.25f;
         private float SkillPowerPerDifficulty = 3f;
         private float SkillDifficultyVariance = 0.3f;
     
@@ -132,7 +132,7 @@ namespace Team
         /// <returns></returns>
         public virtual int GetRandomSkillValue(int skillCount)
         {
-            var difficultyPerSkill = Math.Max(calcGameProgress() * SKILL_GAME_PROGRESS_POWER, 1f) * SKILL_DIFFICULTY_FACTOR / (skillCount + 0.9f) * SkillPowerPerDifficulty;
+            var difficultyPerSkill = Math.Max(calcGameProgress() * SKILL_GAME_PROGRESS_POWER, 1f) * SKILL_DIFFICULTY_FACTOR / (skillCount + 2f) * SkillPowerPerDifficulty;
             return Math.Max(1, (int) (difficultyPerSkill * RandomUtils.mult_var(SkillDifficultyVariance)));
         }
 

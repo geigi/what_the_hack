@@ -16,17 +16,56 @@ namespace Missions
     /// </summary>
     public class MissionFactory: Singleton<MissionFactory>
     {
+        /// <summary>
+        /// Defines how big the impact of the overall game progress is on the difficulty of a mission.
+        /// Bigger -> lower impact.
+        /// </summary>
+        [Header("Difficulty")]
+        public float GameProgressDifficultyFactor = 10f;
+        
+        /// <summary>
+        /// Defines how much the mission difficulty alters the payment.
+        /// Bigger -> higher payment
+        /// </summary>
+        public float MissionRewardDifficultyFactor = 2.0f;
+        
+        /// <summary>
+        /// Defines the random variance of mission difficulty.
+        /// </summary>
         public float MissionDifficultyVariance = 0.15f;
+        
+        /// <summary>
+        /// Defines how much the skill count influences the reward money.
+        /// Bigger -> higher payment
+        /// </summary>
+        [Header("Reward")]
+        public float SkillCountRewardFactor = 0.1f;
+        
+        /// <summary>
+        /// Defines the mission reward money variance.
+        /// </summary>
+        public float MissionRewardMoneyVariance = 0.05f;
+        
+        /// <summary>
+        /// Defines a basic mission money reward factor.
+        /// </summary>
+        public int MissionRewardMoneyFactor = 1000;
+        
+        /// <summary>
+        /// Defines how much the game progress influences the reward.
+        /// </summary>
+        public float MissionProgressRewardFactor = 0.5f;
+        
+        /// <summary>
+        /// Defines the minimum mission duration.
+        /// </summary>
+        [Header("Duration")]
         public int MissionDurationMinimum = 2;
+        
+        /// <summary>
+        /// Defines the mission duration variance in days.
+        /// </summary>
         public int MissionDurationVariance = 1;
-        public float MissionRewardmoneyVariance = 0.1f;
-        public int MissionRewardmoneyFactor = 20;
-        public int MissionBasePower = 1;
-        public float SkillPowerPerDifficulty = 3.5f;
-        public float SkillDifficultyVariance = 0.3f;
-
-        public float SKILL_GAME_PROGRESS_POWER = 0.1f;
-        public float SKILL_DIFFICULTY_FACTOR = 1.5f;
 
         private MissionList missionList;
         private List<MissionDefinition> forceAppearMissions;
@@ -119,8 +158,13 @@ namespace Missions
         /// Generate outcome for a mission.
         /// </summary>
         /// <param name="mission"></param>
-        private void generateOutcome(Mission mission, float progress) {
-            mission.RewardMoney = (int) (((Math.Sqrt(mission.AverageSkillDifficulty * mission.Difficulty) * 1f + Math.Max(progress, 1f) * 2f ) * RandomUtils.mult_var(MissionRewardmoneyVariance) * MissionRewardmoneyFactor) * 10);
+        private void generateOutcome(Mission mission, float progress)
+        {
+            var skillCount = 1f + mission.SkillDifficulty.Count * SkillCountRewardFactor;
+            var difficulty = mission.Difficulty * mission.AverageSkillDifficulty * MissionRewardDifficultyFactor;
+            var progressVal = Math.Max(progress, 1f) * MissionProgressRewardFactor;
+            var variance = RandomUtils.mult_var(MissionRewardMoneyVariance) * MissionRewardMoneyFactor;
+            mission.RewardMoney = (int) (skillCount * (difficulty + progressVal) * variance);
         }
         
         /// <summary>
@@ -133,7 +177,9 @@ namespace Missions
             mission.SkillDifficulty = new Dictionary<SkillDefinition, int>();
             List<SkillDefinition> skills = mission.Definition.SkillsRequired;
 
-            float difficulty = RandomUtils.mult_var(0.2f);
+            // Difficulty should be increased to make missions to hard for one person alone.
+            // This value gets increased over time. 2f means double the difficulty. 
+            float difficulty = Math.Max(1f, Math.Max(1f, baseDifficulty) / GameProgressDifficultyFactor) +  RandomUtils.var(0.2f);
             int numSkills = skills.Count;
             mission.Difficulty = difficulty;
 
