@@ -52,6 +52,7 @@ namespace Wth.ModApi.Employees
         /// <summary>
         /// Gets fired when skill points change.
         /// </summary>
+        [NonSerialized]
         public UnityEvent<int> SkillPointsChanged;
         
         /// <summary>
