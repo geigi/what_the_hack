@@ -147,12 +147,17 @@ namespace Wth.ModApi.Editor.Employees
 
                 GUILayout.Space(10);
 
+                asset.employeeList[viewIndex - 1].StartEmployee = EditorGUILayout.Toggle("Start Employee",
+                    asset.employeeList[viewIndex - 1].StartEmployee);
+                
+                GUILayout.Space(10);
+
                 asset.employeeList[viewIndex - 1].SpawnWhenAllConditionsAreMet = GUILayout.Toggle(
                     asset.employeeList[viewIndex - 1].SpawnWhenAllConditionsAreMet, "Specific spawn conditions");
 
                 GUILayout.Space(10);
 
-                if (asset.employeeList[viewIndex - 1].SpawnWhenAllConditionsAreMet)
+                if (asset.employeeList[viewIndex - 1].SpawnWhenAllConditionsAreMet && !asset.employeeList[viewIndex - 1].StartEmployee)
                 {
                     asset.employeeList[viewIndex - 1].NumberOfDaysTillEmpCanSpawn = EditorGUILayout.IntField(
                         "Passed Days",

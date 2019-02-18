@@ -259,7 +259,6 @@ public class EmployeeFactory {
                 return GenerateSpecialEmployee(data);
             }
         }
-
         return null;
     }
 
@@ -275,7 +274,7 @@ public class EmployeeFactory {
             EmployeeDefinition = empDef,
             Skills = GenerateSkills(),
             Specials = new List<EmployeeSpecial>(),
-            hireableDays = rnd.Next(3, 7)
+            hireableDays = empDef.SpawnLikelihood == 1 ? -1 : rnd.Next(3, 7)
         };
         employee.Salary = calcSalary(employee);
         employee.Prize = calcPrize(employee);

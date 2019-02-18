@@ -19,6 +19,7 @@ MonoBehaviour:
   WorkingAnimation: {fileID: 7400000, guid: a79da60bfb0610c45b838f1e42cfcd60, type: 2}
   image: {fileID: 21300018, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   SpawnLikelihood: 1
+  StartEmployee: 1
   SpawnWhenAllConditionsAreMet: 0
   Recurring: 0
   NumberOfDaysTillEmpCanSpawn: 0

@@ -82,11 +82,6 @@ namespace Employees
         /// </summary>
         public const float chanceNewEmpForHirePerDay = 1.0f;
 
-        /// <summary>
-        /// Chance tha ta Hireable Employee is removed from the list of hireable employees.
-        /// </summary>
-        public const float chanceRemoveEmpForHirePerDay = 0.3f;
-
         internal EmployeeManagerData data;
 
         internal static System.Random rand = new Random();
@@ -133,7 +128,11 @@ namespace Employees
 
             if (GameSettings.NewGame)
             {
-                for (int i = 0; i < 4; i++)
+                foreach (var startSpecial in GenerateStartEmployees())
+                {
+                    AddHiredEmployee(startSpecial);
+                }
+                for (int i = data.employeesForHire.Count; i < 4; i++)
                 {
                     EmployeeData empData = GenerateEmployeeForHire();
                     AddEmployeeForHire(empData);
@@ -172,6 +171,12 @@ namespace Employees
             }
         }
 
+        public List<EmployeeData> GenerateStartEmployees()
+        {
+            return specialEmployees.employeeList.FindAll(empDef => empDef.StartEmployee)
+                .ConvertAll(empDef => factoryObject.GenerateSpecialEmployee(empDef));
+        }
+
         /// <summary>
         /// Puts a new employee in the employeeForHire List.
         /// </summary>
@@ -179,7 +184,7 @@ namespace Employees
         {
             EmployeeData newEmployee = new EmployeeData();
             newEmployee = factoryObject.GetNewEmployee();
-
+            
             return newEmployee;
         }
 
@@ -218,6 +223,7 @@ namespace Employees
         {
             data.employeesForHire.Remove(employeeData);
             Destroy(EmployeeToGuiMap[employeeData]);
+            EmployeeToGuiMap.Remove(employeeData);
         }
         
         public void Cleanup()
@@ -251,8 +257,16 @@ namespace Employees
         public void FireEmployee(EmployeeData emp)
         {
             if (!data.hiredEmployees.Contains(emp)) return;
-            data.exEmplyoees.Add(emp);
             data.hiredEmployees.Remove(emp);
+
+            if (emp.EmployeeDefinition?.SpawnLikelihood == 1)
+            {
+                AddEmployeeForHire(emp);
+            }
+            else
+            {
+                data.exEmplyoees.Add(emp);
+            }
 
             if (HiredEmployees < MaxNumberOfHiredEmployees)
             {
@@ -262,17 +276,19 @@ namespace Employees
             EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
         }
 
+        public int minimumNumberOfEmployees = 2;
+
         /// <summary>
         /// Removes some Employees from the EmployeeForHire List and creates a new one.
         /// </summary>
         public void DayChanged(object date)
         {
             var gameDate = (GameDate) date;
-            data.employeesForHire.ForEach(data => data.hireableDays--);
-            data.employeesForHire.FindAll(data => data.hireableDays == 0).ForEach(data => RemoveEmployeeForHire(data));
-            
-            while (data.employeesForHire.Count < MaxNumberOfHireableEmployees && 
-                rand.NextDouble() < chanceNewEmpForHirePerDay)
+            data.employeesForHire.FindAll(data => data.hireableDays > 0).ForEach(data => data.hireableDays--);
+            data.employeesForHire.FindAll(data => data.hireableDays == 0).ForEach(RemoveEmployeeForHire);
+
+            while (data.employeesForHire.Count < minimumNumberOfEmployees || (data.employeesForHire.Count < MaxNumberOfHireableEmployees && 
+                rand.NextDouble() < chanceNewEmpForHirePerDay))
             {
                 var employeeData = GenerateEmployeeForHire();
                 AddEmployeeForHire(employeeData);

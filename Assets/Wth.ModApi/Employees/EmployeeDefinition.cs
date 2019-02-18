@@ -46,6 +46,8 @@ public class EmployeeDefinition : ScriptableObject
     /// </summary>
     public float SpawnLikelihood = 0.3f;
 
+    public bool StartEmployee = false;
+
     // Spawn Conditions
 
     /// <summary>
