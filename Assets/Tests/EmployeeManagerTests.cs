@@ -105,6 +105,7 @@ namespace Assets.Tests
             rand.NextDouble().Returns(0);
             var manager = Substitute.ForPartsOf<EmployeeManager>();
             EmployeeManager.rand = rand;
+            manager.minimumNumberOfEmployees = 0;
             var bank = Substitute.For<Bank>();
             bank.Pay(Arg.Any<int>()).ReturnsForAnyArgs(true);
             manager.InitDefaultState();
@@ -159,6 +160,7 @@ namespace Assets.Tests
             var rand = Substitute.ForPartsOf<Random>();
             rand.NextDouble().Returns(1);
             var manager = Substitute.ForPartsOf<EmployeeManager>();
+            manager.minimumNumberOfEmployees = 0;
             EmployeeManager.rand = rand;
             manager.InitDefaultState();
             manager.EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject> { { testEmployee, new GameObject() } };
