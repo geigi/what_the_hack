@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4be03f2ceb47b4ce3bf9691bc19374bf, type: 3}
-  m_Name: Employee 0
+  m_Name: TonaldDrump
   m_EditorClassIdentifier: 
-  EmployeeName: Max Muster
+  EmployeeName: Tonald Drump
   Level: 1
-  IdleAnimation: {fileID: 7400000, guid: 462612ee09e600f4dbe179e32b481f6d, type: 2}
-  WalkingAnimation: {fileID: 7400000, guid: 7c1225d648e48074085d55316a8669f4, type: 2}
-  WorkingAnimation: {fileID: 7400000, guid: a79da60bfb0610c45b838f1e42cfcd60, type: 2}
-  image: {fileID: 21300018, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  IdleAnimation: {fileID: 7400000, guid: 5b1cd433fb3c94e078156b212d8c6ab3, type: 2}
+  WalkingAnimation: {fileID: 7400000, guid: 115d106fba57d4eb8af54c64e62388e7, type: 2}
+  WorkingAnimation: {fileID: 7400000, guid: eb391b198b17e44df9f5086b2d1a9c01, type: 2}
+  image: {fileID: 21300172, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
   SpawnLikelihood: 1
-  StartEmployee: 1
+  StartEmployee: 0
   SpawnWhenAllConditionsAreMet: 0
   Recurring: 0
   NumberOfDaysTillEmpCanSpawn: 0
