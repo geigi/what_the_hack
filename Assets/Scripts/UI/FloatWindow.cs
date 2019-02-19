@@ -31,6 +31,10 @@ namespace UI
         /// </summary>
         public Vector2 DefaultOffset;
         /// <summary>
+        /// Top margin for the window.
+        /// </summary>
+        public int TopMargin;
+        /// <summary>
         /// The employee window is drawed as a screen space overlay.
         /// Therefore the popup needs to be hidden when such a ui object is currently drawn.
         /// </summary>
@@ -96,9 +100,9 @@ namespace UI
                 positionFinal += new Vector3(0, -top, 0);
             }
 
-            if (bottom > Screen.height)
+            if (bottom > Screen.height - TopMargin)
             {
-                positionFinal -= new Vector3(0, bottom - Screen.height, 0);
+                positionFinal -= new Vector3(0, bottom - Screen.height + TopMargin, 0);
             }
 
             // Apply final postion
