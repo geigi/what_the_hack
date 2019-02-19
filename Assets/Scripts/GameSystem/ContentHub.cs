@@ -13,30 +13,36 @@ using UnityEngine;
 public class ContentHub: Singleton<ContentHub>
 {
     /// <summary>
+    /// The <see cref="NameLists"/> of the base game.
+    /// </summary>
+    [Header("Default Game Data")]
+    public NameLists DefaultNameLists;
+    /// <summary>
     /// The <see cref="SkillSet"/> of the base game.
     /// </summary>
     public SkillSet DefaultSkillSet;
-    /// <summary>
-    /// The general purpose skill definition.
-    /// </summary>
-    public SkillDefinition GeneralPurposeSkill;
-    /// <summary>
-    /// The <see cref="NameLists"/> of the base game.
-    /// </summary>
-    public NameLists DefaultNameLists;
     /// <summary>
     /// The <see cref="EmployeeList"/> (special employees) of the base game.
     /// </summary>
     public EmployeeList DefaultSpecialEmployees;
     /// <summary>
+    /// The general purpose skill definition.
+    /// </summary>
+    public SkillDefinition GeneralPurposeSkill;
+    /// <summary>
     /// The <see cref="MissionList"/> of the base game.
     /// </summary>
     public MissionList DefaultMissionList;
+    
     /// <summary>
-    /// The default Material for all Employees.
+    /// The default Material for all generated Employees.
     /// </summary>
+    [Header("Employees")]
     public Material DefaultEmpMaterial;
-
+    /// <summary>
+    /// The default Material for special employees.
+    /// </summary>
+    public Material DefaultSpecialEmpMaterial;
     /// <summary>
     /// All Animation Clips that a male generated Employee can use.
     /// It is Required, that there are the same number of idle, walking and working animations.
@@ -49,15 +55,15 @@ public class ContentHub: Singleton<ContentHub>
     /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 
     /// </summary>
     public AnimationClip[] femaleAnimationClips;
-
     /// <summary>
     /// Animator controller for employee animations.
     /// </summary>
     public RuntimeAnimatorController EmployeeAnimations;
-
+    
     /// <summary>
     /// The game wide saveGameSystem instance.
     /// </summary>
+    [Header("Singletons")]
     public SaveGameSystem SaveGameSystem;
 
     /// <summary>

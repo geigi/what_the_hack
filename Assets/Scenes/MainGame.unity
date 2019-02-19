@@ -507,7 +507,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1221
+      value: 1287
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -527,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1443
+      value: 1521
       objectReference: {fileID: 0}
     - target: {fileID: 224585422429223084, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -4637,12 +4637,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4930
+      value: 4990
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4930
+      value: 4990
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -4926,12 +4926,12 @@ PrefabInstance:
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4930
+      value: 4990
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4930
+      value: 4990
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -8950,12 +8950,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2748
+      value: 2820
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2748
+      value: 2820
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -10101,7 +10101,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 7470
+      value: 7530
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -10111,7 +10111,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7470.0005
+      value: 7530.0005
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -11257,7 +11257,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4740, y: 4740}
+  m_AnchoredPosition: {x: 4800, y: 4800}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1765235018
@@ -14172,14 +14172,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _persistent: 0
-  DefaultSkillSet: {fileID: 11400000, guid: c58b24c8c7c20b44aba46d435d85e8d2, type: 2}
-  GeneralPurposeSkill: {fileID: 11400000, guid: 53850490f73b4824d839e523f2f371f6,
-    type: 2}
   DefaultNameLists: {fileID: 11400000, guid: d7dc88df516b1d941ba499e7e82a9135, type: 2}
+  DefaultSkillSet: {fileID: 11400000, guid: c58b24c8c7c20b44aba46d435d85e8d2, type: 2}
   DefaultSpecialEmployees: {fileID: 11400000, guid: 91e5487c9686c4250a8004ba06bdd22c,
+    type: 2}
+  GeneralPurposeSkill: {fileID: 11400000, guid: 53850490f73b4824d839e523f2f371f6,
     type: 2}
   DefaultMissionList: {fileID: 11400000, guid: cd69f77f8d11043e58794c81ae7fda21, type: 2}
   DefaultEmpMaterial: {fileID: 2100000, guid: 4a87d0a9fa551e64287f8d02beb43037, type: 2}
+  DefaultSpecialEmpMaterial: {fileID: 2100000, guid: e097f89bb32fc428c92886f873c78e14,
+    type: 2}
   maleAnimationClips:
   - {fileID: 7400000, guid: c603dad113a6da745b4258a5d57fc413, type: 2}
   - {fileID: 7400000, guid: 2ffe5cce91c0ceb46b725605d422ff85, type: 2}

@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EmpColorMaterial
-  m_Shader: {fileID: 4800000, guid: f02de50b97f89534ba5d675fb824d00c, type: 3}
-  m_ShaderKeywords: 
+  m_Name: EmpOutlineMaterial
+  m_Shader: {fileID: 4800000, guid: 39d57cebd021749a88848fce8e91105f, type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0

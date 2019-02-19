@@ -165,6 +165,8 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
             idle_anim = employeeData.EmployeeDefinition.IdleAnimation;
             walking_anim = employeeData.EmployeeDefinition.WalkingAnimation;
             working_anim = employeeData.EmployeeDefinition.WorkingAnimation;
+            // Add the Material.
+            spriteRenderer.material = ContentHub.Instance.DefaultSpecialEmpMaterial;
         }
         else
         {
