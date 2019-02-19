@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # https://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:ea064d7ae5c94c1762e55146bb0c70df:1ea33fc76963745bc36c3129e0787c27:29aa05aa20a099423cfc27178fbd19f7$
+# $TexturePacker:SmartUpdate:d31e8453de50d68a2c5ccef545898d33:1ea33fc76963745bc36c3129e0787c27:29aa05aa20a099423cfc27178fbd19f7$
 #
 :format=40300
 :texture=sheet.png
@@ -92,37 +92,37 @@ character-Emojis-no;518;144;32;32; 0.5;0.5; 0;0;0;0
 character-Emojis-ok;1808;1600;32;32; 0.5;0.5; 0;0;0;0
 character-Emojis-success;1845;1578;32;32; 0.5;0.5; 0;0;0;0
 character-Emojis-twitter;1808;1563;32;32; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_0;518;250;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_1;518;181;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_2;519;1344;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_3;1660;1577;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_4;557;1439;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_5;520;1482;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_6;557;1508;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_7;520;1551;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_8;520;1551;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_9;1734;1577;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_10;520;75;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_11;557;1577;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_12;520;1551;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_13;557;1508;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_14;520;1482;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_15;557;1439;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_16;519;1413;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_17;557;1370;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_18;557;1370;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_19;519;1413;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_20;557;1301;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_21;519;1275;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_22;519;1275;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_23;557;1232;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_24;557;1232;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_25;519;1275;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_26;519;1275;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_27;557;1232;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_28;557;1232;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_29;519;1206;32;64; 0.5;0.5; 0;0;0;0
-character-Specials-Trump_30;1697;1577;32;64; 0.5;0.5; 0;0;0;0
+character-Specials-Trump_0;518;250;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_1;518;181;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_2;519;1344;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_3;1660;1577;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_4;557;1439;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_5;520;1482;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_6;557;1508;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_7;520;1551;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_8;520;1551;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_9;1734;1577;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_10;520;75;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_11;557;1577;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_12;520;1551;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_13;557;1508;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_14;520;1482;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_15;557;1439;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_16;519;1413;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_17;557;1370;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_18;557;1370;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_19;519;1413;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_20;557;1301;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_21;519;1275;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_22;519;1275;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_23;557;1232;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_24;557;1232;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_25;519;1275;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_26;519;1275;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_27;557;1232;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_28;557;1232;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_29;519;1206;32;64; 0.5;0.12; 0;0;0;0
+character-Specials-Trump_30;1697;1577;32;64; 0.5;0.12; 0;0;0;0
 game-ambient-Room_Background;2;1646;600;400; 0.5;0.5; 0;0;0;0
 game-ambient-Room_FrontWall;607;1646;600;400; 0.5;0.5; 0;0;0;0
 game-ambient-Room_Ground_Floor;1212;1646;600;400; 0.5;0.5; 0;0;0;0
