@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Employees;
+using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Wth.ModApi.Employees;
 
 namespace UI.EmployeeWindow
 {
@@ -27,13 +30,20 @@ namespace UI.EmployeeWindow
         /// The FloatWindow that contains the information.
         /// </summary>
         public FloatWindow FloatWindow;
+        /// <summary>
+        /// The window must be hidden if the displayed employee is fired.
+        /// </summary>
+        public ObjectEvent EmployeeFiredEvent;
         
         private Employee employee;
-        private List<UnityAction> skillEvents;
+        private Dictionary<Skill, UnityAction> skillEvents;
+        private UnityAction<Object> employeeFiredAction;
 
         private void Awake()
         {
-            skillEvents = new List<UnityAction>();
+            skillEvents = new Dictionary<Skill, UnityAction>();
+            employeeFiredAction = new UnityAction<Object>(onEmployeeFired);
+            EmployeeFiredEvent.AddListener(employeeFiredAction);
         }
 
         /// <summary>
@@ -55,7 +65,7 @@ namespace UI.EmployeeWindow
 
                 UnityAction skillChanged = () => go.GetComponent<Text>().text = skill.Level.ToString();
                 skill.SkillEvent.AddListener(skillChanged);
-                skillEvents.Add(skillChanged);
+                skillEvents.Add(skill, skillChanged);
             }
             
             FloatWindow.Select(employee.gameObject);
@@ -70,7 +80,8 @@ namespace UI.EmployeeWindow
             
             for (int i = 0; i < employee.EmployeeData.Skills.Count; i++)
             {
-                employee.EmployeeData.Skills[i].SkillEvent.RemoveListener(skillEvents[i]);
+                var skill = employee.EmployeeData.Skills[i];
+                skill.SkillEvent.RemoveListener(skillEvents[skill]);
             }
             
             foreach (Transform go in SkillContainer.transform)
@@ -79,6 +90,11 @@ namespace UI.EmployeeWindow
             }
             
             skillEvents.Clear();
+        }
+
+        private void onEmployeeFired(Object emp)
+        {
+            FloatWindow.ResetTempHidden();
         }
     }
 }

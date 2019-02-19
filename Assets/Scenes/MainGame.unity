@@ -507,7 +507,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1342
+      value: 1419
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -527,7 +527,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1586
+      value: 1677
       objectReference: {fileID: 0}
     - target: {fileID: 224585422429223084, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -3086,6 +3086,7 @@ MonoBehaviour:
     type: 2}
   EmployeesNumChangedEvent: {fileID: 11400000, guid: 791325fa4779e184482c35fa185e22c2,
     type: 2}
+  EmployeeFired: {fileID: 11400000, guid: 24ca5fb80f0c84e0bbc86aec2ace5ae7, type: 2}
   bank: {fileID: 2117680114}
   minimumNumberOfEmployees: 2
 --- !u!224 &569903423 stripped
@@ -4637,12 +4638,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5040
+      value: 5110
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5040
+      value: 5110
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -4926,12 +4927,12 @@ PrefabInstance:
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5040
+      value: 5110
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5040
+      value: 5110
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -8950,12 +8951,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2880
+      value: 2964
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2880
+      value: 2964
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -10101,7 +10102,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 7580
+      value: 7650
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -10111,7 +10112,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7580.0005
+      value: 7650.0005
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -11257,7 +11258,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4850, y: 4850}
+  m_AnchoredPosition: {x: 4920, y: 4920}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1765235018
@@ -14284,6 +14285,7 @@ MonoBehaviour:
   SelectMissionState: {fileID: 11400000, guid: 9d336e02e5c58430787ca1e24f24ea79, type: 2}
   EmployeeInfo: {fileID: 7399041189597216832}
   WorkplaceInfo: {fileID: 621894081337742637}
+  EmployeeFiredEvent: {fileID: 11400000, guid: 24ca5fb80f0c84e0bbc86aec2ace5ae7, type: 2}
 --- !u!1 &2120288064
 GameObject:
   m_ObjectHideFlags: 0
@@ -16099,6 +16101,12 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2232805381711150765, guid: 1537d62408b7c43a981e4928c76c73ce,
+        type: 3}
+      propertyPath: EmployeeFiredEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 24ca5fb80f0c84e0bbc86aec2ace5ae7,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1537d62408b7c43a981e4928c76c73ce, type: 3}
 --- !u!114 &7399041189597216832 stripped

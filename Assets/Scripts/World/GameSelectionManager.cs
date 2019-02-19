@@ -1,15 +1,20 @@
 using System;
 using Base;
+using Employees;
 using Interfaces;
 using Items;
 using Missions;
 using Team;
+using UE.Events;
 using UE.StateMachine;
 using UI;
 using UI.EmployeeWindow;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using Utils;
+using Wth.ModApi.Employees;
+using Object = UnityEngine.Object;
 
 namespace World
 {
@@ -18,8 +23,11 @@ namespace World
         public State SelectMissionState;
         public EmployeeInfoUi EmployeeInfo;
         public WorkplaceInfoUi WorkplaceInfo;
+        public ObjectEvent EmployeeFiredEvent;
 
         private Workplace workplace;
+        private UnityAction<Object> employeeFiredAction;
+        
         public Workplace Workplace
         {
             get => workplace;
@@ -73,6 +81,12 @@ namespace World
         private bool employeeSelected = false;
         public bool EmployeeSelected => employeeSelected;
 
+        private void Awake()
+        {
+            employeeFiredAction = onEmployeeFired;
+            EmployeeFiredEvent.AddListener(onEmployeeFired);
+        }
+
         public void ClearEmployee()
         {
             if (employeeSelected)
@@ -93,6 +107,12 @@ namespace World
                 ClearWorkplace();
                 SelectMissionState.stateManager.InitialState.Enter();
             }
+        }
+
+        private void onEmployeeFired(Object emp)
+        {
+            if (employeeSelected && employee == (Employee)emp)
+                ClearEmployee();
         }
     }
 }

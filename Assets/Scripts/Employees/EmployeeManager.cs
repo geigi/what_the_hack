@@ -14,6 +14,7 @@ using UE.Events;
 using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
+using World;
 using Wth.ModApi.Employees;
 using DayOfWeek = GameTime.DayOfWeek;
 using Object = UnityEngine.Object;
@@ -62,6 +63,8 @@ namespace Employees
         public NetObjectEvent GameTimeDayTickEvent;
 
         public IntEvent EmployeesNumChangedEvent;
+
+        public ObjectEvent EmployeeFired;
 
         /// <summary>
         /// The bank object.
@@ -219,7 +222,7 @@ namespace Employees
             employeeGUI.transform.SetParent(EmployeeHiredContent.transform, false);
             employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, emp.stateEvent, () =>
             {
-                FireEmployee(emp.EmployeeData);
+                FireEmployee(emp);
                 Destroy(emp.gameObject);
                 Destroy(employeeGUI);
             }, SkillEmployeeUi);
@@ -257,12 +260,14 @@ namespace Employees
         }
 
         /// <summary>
-        /// Fires an employee. The employee will be removed from hiredEmployees and placed in exEmployees.  
+        /// Fires an employee. The employee will be removed from hiredEmployees and placed in exEmployees.
+        /// Note: The employee fired event is not raised in this method!
         /// </summary>
         /// <param name="emp"></param>
         public void FireEmployee(EmployeeData emp)
         {
             if (!data.hiredEmployees.Contains(emp)) return;
+
             data.hiredEmployees.Remove(emp);
 
             if (emp.EmployeeDefinition?.SpawnLikelihood == 1)
@@ -280,6 +285,16 @@ namespace Employees
                     EmployeeToGuiMap[empGUI].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(false));
             }
             EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
+        }
+        
+        /// <summary>
+        /// Fires an employee. The employee will be removed from hiredEmployees and placed in exEmployees.  
+        /// </summary>
+        /// <param name="emp"></param>
+        public void FireEmployee(Employee emp)
+        {
+            FireEmployee(emp.EmployeeData);
+            EmployeeFired.Raise(emp);
         }
 
         public int minimumNumberOfEmployees = 2;

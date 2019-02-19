@@ -144,6 +144,14 @@ namespace UI
         }
 
         /// <summary>
+        /// Reset the temporarily hidden state.
+        /// </summary>
+        public void ResetTempHidden()
+        {
+            tempHidden = false;
+        }
+
+        /// <summary>
         /// This method handles dragging.
         /// </summary>
         /// <param name="eventData"></param>
@@ -174,7 +182,6 @@ namespace UI
                 Canvas.enabled = true;
                 Scaler.enabled = true;
             }
-            
         }
     }
 }
