@@ -12,15 +12,15 @@ namespace Wth.ModApi.Tools
         }
         
         public static int var(int v) {
-            return Random.Range(-v, v);
+            return random.Next(-v, v);
         }
         
         public static float var(float v) {
-            return Random.Range(-v, v);
+            return (float)(-v + random.NextDouble() * (v + v));
         }
         
         public static float mult_var(float v) {
-            return 1 + Random.Range(-v, v);
+            return 1 + (float)(-v + random.NextDouble() * (v + v));
         }
     }
 }

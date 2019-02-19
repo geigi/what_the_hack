@@ -53,22 +53,6 @@ public class Skill
     public SkillDefinition SkillData { get; private set; }
 
     /// <summary>
-    /// The current level points of this skill.
-    /// </summary>
-    public float Points
-    {
-        get => points;
-        private set => points = value;
-    }
-    private float points;
-
-    private float spendPoints = 0;
-    /// <summary>
-    /// Points spend on this skill.
-    /// </summary>
-    public float SpendPoints => spendPoints;
-
-    /// <summary>
     /// The Level of this skill.
     /// </summary>
     public int Level
@@ -82,12 +66,11 @@ public class Skill
     /// The level aptitude name
     /// </summary>
     public LevelAptitudeName SkillLevelName { get; private set; } = LevelAptitudeName.Newbie;
-    
+
     /// <summary>
-    /// The number of points needed to advance a Level.
-    /// </summary>    
-    public float NextLevelPoints => nextLevelPoints;
-    private float nextLevelPoints;
+    /// How much the next level costs in skill points.
+    /// </summary>
+    public int LevelUpCost => (int) (SkillData.LevelUpCost + SkillData.LevelUpCostFactor * level);
 
     public Skill()
     {
@@ -99,28 +82,18 @@ public class Skill
     ///<param name="data">The data for this skill.</param>
     public Skill(SkillDefinition data)
     {
-        this.Points = 0;
         this.Level = 1;
-        this.nextLevelPoints = levelFactor;
         this.SkillData = data;
     }
 
     /// <summary>
-    /// Adds skillLevel points to the points of this skill and advances a Level if this skill holds enough points.
+    /// Cause a level up of this skill.
     /// </summary>
-    /// <param name="skillPoints">The number of points added to the points of this skill.</param>
-    public void AddSkillPoints(float skillPoints)
+    public void LevelUp()
     {
-        Points += skillPoints;
-        while (Points >= nextLevelPoints)
-        {
-            Points -= nextLevelPoints;
-            spendPoints += nextLevelPoints;
-            Level++;
-            nextLevelPoints = (float) Math.Pow(levelFactor, Level);
-            SkillLevelName = UpdateLevelAptitudeName();
-            Debug.Log("Skill leveled up: " + GetName());
-        }
+        Level++;
+        SkillLevelName = UpdateLevelAptitudeName();
+        Debug.Log("Skill leveled up: " + GetName());
         SkillEvent.Invoke();
     }
 

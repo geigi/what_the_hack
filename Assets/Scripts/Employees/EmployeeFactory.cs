@@ -12,6 +12,7 @@ using UnityEngine;
 using Utils;
 using Wth.ModApi.Employees;
 using Wth.ModApi.Names;
+using Wth.ModApi.Tools;
 using Random = System.Random;
 
 [assembly: InternalsVisibleTo("Tests")]
@@ -276,6 +277,7 @@ public class EmployeeFactory {
             Specials = new List<EmployeeSpecial>(),
             hireableDays = empDef.SpawnLikelihood == 1 ? -1 : rnd.Next(3, 7)
         };
+        LevelUpSkills(employee.Skills);
         employee.Salary = calcSalary(employee);
         employee.Prize = calcPrize(employee);
         return employee;
@@ -298,6 +300,7 @@ public class EmployeeFactory {
         EmployeeGeneratedData generatedData = new EmployeeGeneratedData();
         //Skills
         employee.Skills = GenerateSkills();
+        LevelUpSkills(employee.Skills);
         //Specials
         employee.Specials = new List<EmployeeSpecial>();
         //Color
@@ -340,7 +343,6 @@ public class EmployeeFactory {
     internal virtual List<Skill> GenerateSkills()
     {
         Skill newSkill = new Skill(allPurpSkillDef);
-        newSkill.AddSkillPoints(rnd.Next(1, 10));
         List<Skill> skillList = new List<Skill> {newSkill};
 
         for (int i = 1; i < numberOfBeginningSkills; i++)
@@ -350,12 +352,25 @@ public class EmployeeFactory {
             {
                 int index = rnd.Next(maxValue: skills.Count);
                 s = new Skill(skills[index]);
-                s.AddSkillPoints(rnd.Next(1, 10));
             } while (skillList.Exists(x => x.SkillData.skillName.Equals(s.SkillData.skillName)));
             skillList.Add(s);
         }
 
         return skillList;
+    }
+
+    /// <summary>
+    /// Level up the skills of a freshman depending on the game progress
+    /// </summary>
+    internal virtual void LevelUpSkills(List<Skill> skills)
+    {
+        foreach (var s in skills)
+        {
+            for (int i = 0; i < teamManager.GetRandomSkillValue(skills.Count); i++)
+            {
+                s.LevelUp();
+            }
+        }
     }
 
     private const int basicSalary = 100;

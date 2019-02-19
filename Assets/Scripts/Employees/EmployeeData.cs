@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UE.Events;
+using UI.EmployeeWindow;
 using UnityEngine;
+using UnityEngine.Events;
 using Utils;
 
 namespace Wth.ModApi.Employees
@@ -13,8 +16,8 @@ namespace Wth.ModApi.Employees
     [Serializable]
     public class EmployeeData
     {
-        public const int LEVELUP_THRESHOLD = 5;
-        public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.4f;
+        public const int LEVELUP_THRESHOLD = 3;
+        public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.2f;
         
         /// <summary>
         /// Level of the employee > 0.
@@ -35,6 +38,39 @@ namespace Wth.ModApi.Employees
         /// List of learned skills.
         /// </summary>
         public List<Skill> Skills;
+
+        public int SkillPoints
+        {
+            get
+            {
+                return skillPoints;
+            }
+            set
+            {
+                skillPoints = value;
+                if (SkillPointsChanged == null) SkillPointsChanged = new IntUnityEvent();
+                SkillPointsChanged.Invoke(value);
+            }
+        }
+
+        private int skillPoints = 0;
+
+        /// <summary>
+        /// Gets fired when skill points change.
+        /// </summary>
+        
+        public UnityEvent<int> SkillPointsChanged
+        {
+            get
+            {
+                if (skillPointsChanged == null) skillPointsChanged = new IntUnityEvent();
+                return skillPointsChanged;
+            }
+            set =>  skillPointsChanged = value;
+        }
+
+        [NonSerialized] 
+        private UnityEvent<int> skillPointsChanged;
         
         /// <summary>
         /// List of specials.
@@ -80,8 +116,8 @@ namespace Wth.ModApi.Employees
         /// </summary>
         public float UsedScore => usedScore;
 
-        public float LevelUpScoreNeeded => Level * LEVELUP_THRESHOLD_INCREASE_FACTOR * LEVELUP_THRESHOLD;
-        
+        public float LevelUpScoreNeeded => (float) (Math.Pow(LEVELUP_THRESHOLD_INCREASE_FACTOR, Level) + LEVELUP_THRESHOLD);
+
         /// <summary>
         /// The critical failure bonus of this employee.
         /// Only EmployeeSpecials can modify this value.
@@ -125,6 +161,7 @@ namespace Wth.ModApi.Employees
         /// </summary>
         public EmployeeData()
         {
+            SkillPointsChanged = new IntUnityEvent();
         }
         
         /// <summary>
@@ -177,7 +214,7 @@ namespace Wth.ModApi.Employees
         public void UseScore(float value)
         {
             freeScore -= value;
-            
+            usedScore += value;
         }
     }
 }

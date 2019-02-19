@@ -15,4 +15,14 @@ public class SkillDefinition : ScriptableObject
     /// The skills image / sprite.
     /// </summary>
     public Sprite skillSprite;
+
+    /// <summary>
+    /// The amount of skill points this skill requires for an level up.
+    /// </summary>
+    public int LevelUpCost = 1;
+
+    /// <summary>
+    /// The factor that defines how much each level up will cost more.
+    /// </summary>
+    public float LevelUpCostFactor = 0.0f;
 }

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: All Purpose
   skillSprite: {fileID: 21300360, guid: bcd6cdf5156da48e1b43fcc731b2e5ac, type: 3}
+  LevelUpCost: 2
+  LevelUpCostFactor: 0.1

@@ -399,6 +399,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         if (EmployeeData.FreeScore < EmployeeData.LevelUpScoreNeeded) return;
         Debug.Log(Name + " levels up!");
 
+        EmployeeData.SkillPoints += 1;
         spendScorePoints();
         EmployeeData.Level += 1;
         EmployeeData.UseScore(EmployeeData.LevelUpScoreNeeded);
@@ -411,10 +412,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private void spendScorePoints()
     {
         var pointsToSpend = EmployeeData.LevelUpScoreNeeded;
-
-        // educate two times
-        Educate(pointsToSpend / 2);
-        Educate(pointsToSpend / 2);
+        Educate(pointsToSpend);
     }
 
     /// <summary>
@@ -431,11 +429,9 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
             switch (roll)
             {
                 case 1:
-                    success = incrementAllPurpose(pointsToSpend);
-                    break;
-                case 2:
                     success = learnSkill(pointsToSpend);
                     break;
+                case 2:
                 case 3:
                 case 4:
                 case 5:
@@ -443,8 +439,6 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                 case 7:
                 case 8:
                 case 9:
-                    success = incrementSkill(pointsToSpend);
-                    break;
                 case 10:
                 case 11:
                     success = rollSpecial();
@@ -462,56 +456,20 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     }
 
     /// <summary>
-    /// Increment the all purpose skill.
-    /// </summary>
-    /// <param name="pointsToSpend"></param>
-    /// <returns></returns>
-    private bool incrementAllPurpose(float pointsToSpend)
-    {
-        var allPurpose = EmployeeData.Skills.First(s => s.SkillData == ContentHub.Instance.GeneralPurposeSkill);
-        // We don't want all purpose to be to powerful
-        allPurpose.AddSkillPoints(pointsToSpend / 1.5f);
-
-        Debug.Log(Name + " incremented all purpose.");
-
-        return true;
-    }
-
-    /// <summary>
     /// Increment a skill.
-    /// Prefers a skill that was used by this mission.
-    /// If no skill was used a random one is picked.
+    /// The method first verifies, that enough skill points are available.
     /// </summary>
-    /// <param name="pointsToSpend"></param>
+    /// <param name="skill"></param>
     /// <returns></returns>
-    private bool incrementSkill(float pointsToSpend)
+    public void IncrementSkill(Skill skill)
     {
-        Skill skill;
-
-        // If the employee has used a skill or multiple in this mission we want to increase the value of those.
-        // Otherwise we choose one random skill.
-        var skillsUsedInMission =
-            workplace.Mission.SkillDifficulty.Keys.Where(s => EmployeeData.Skills.Any(sk => sk.SkillData == s))
-                .ToList();
-
-        if (skillsUsedInMission.Count > 0)
+        if (EmployeeData.SkillPoints >= skill.LevelUpCost)
         {
-            var skillDef = skillsUsedInMission.RandomElement();
-            skill = EmployeeData.GetSkill(skillDef);
+            EmployeeData.SkillPoints -= skill.LevelUpCost;
+            skill.LevelUp();
+            
+            Debug.Log(Name + " incremented " + skill.GetName() + ".");
         }
-        else
-        {
-            do
-            {
-                skill = EmployeeData.Skills.RandomElement();
-            } while (skill.SkillData != ContentHub.Instance.GeneralPurposeSkill);
-        }
-
-        skill.AddSkillPoints(pointsToSpend);
-
-        Debug.Log(Name + " incremented " + skill.GetName() + ".");
-
-        return true;
     }
 
     /// <summary>
@@ -533,7 +491,11 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
 
         var skill = new Skill(skillDef);
         addSkill(skill);
-        skill.AddSkillPoints(pointsToSpend);
+
+        for (int i = 0; i < (int) (pointsToSpend / 2); i++)
+        {
+            skill.LevelUp();
+        }
 
         Debug.Log(Name + " learned new skill: " + skillDef.skillName);
         return true;
@@ -556,7 +518,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     /// <returns></returns>
     private bool isUniqueSkill(SkillDefinition skill)
     {
-        return EmployeeData.Skills.Any(s => s.SkillData == skill);
+        return EmployeeData.Skills.All(s => s.SkillData != skill);
     }
 
     /// <summary>

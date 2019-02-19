@@ -38,7 +38,21 @@ namespace Missions
         /// <summary>
         /// Calculated difficulty
         /// </summary>
-        public int Difficulty;
+        public float Difficulty;
+
+        public float AverageSkillDifficulty
+        {
+            get
+            {
+                float result = 0f;
+                foreach (var s in SkillDifficulty.Values)
+                {
+                    result += s;
+                }
+
+                return result / SkillDifficulty.Count;
+            }
+        }
         /// <summary>
         /// Calculated difficulties for the skills
         /// </summary>

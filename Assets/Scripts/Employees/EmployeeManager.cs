@@ -11,6 +11,7 @@ using GameTime;
 using Interfaces;
 using UE.Common;
 using UE.Events;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
@@ -50,6 +51,11 @@ namespace Employees
         /// </summary>
         public GameObject EmployeeHiredContent;
 
+        /// <summary>
+        /// Skill employee ui instance.
+        /// </summary>
+        public SkillEmployeeUi SkillEmployeeUi;
+        
         /// <summary>
         /// Event that will be fired when a day changes.
         /// </summary>
@@ -216,7 +222,7 @@ namespace Employees
                 FireEmployee(emp.EmployeeData);
                 Destroy(emp.gameObject);
                 Destroy(employeeGUI);
-            });
+            }, SkillEmployeeUi);
         }
 
         public virtual void RemoveEmployeeForHire(EmployeeData employeeData)

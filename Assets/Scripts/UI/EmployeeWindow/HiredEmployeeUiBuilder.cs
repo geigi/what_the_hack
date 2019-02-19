@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UI.EmployeeWindow;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -20,7 +21,10 @@ namespace Assets.Scripts.UI.EmployeeWindow
 
         public UnityEvent stateEvent;
 
+        public Button LevelUpButton;
         private void UpdateEmployeeState() => employeeState.text = emp.State.ToString();
+        
+        private SkillEmployeeUi SkillEmployeeUi;
 
         public void Update()
         {
@@ -32,12 +36,19 @@ namespace Assets.Scripts.UI.EmployeeWindow
         /// </summary>
         /// <param name="_emp">Object of the employee</param>
         /// <param name="buttonAction">Action the button should perform, when pressed</param>
-        public void SetEmp(Employee _emp, UnityEvent _stateEvent, UnityAction buttonAction)
+        public void SetEmp(Employee _emp, UnityEvent _stateEvent, UnityAction buttonAction, SkillEmployeeUi skillEmployeeUi)
         {
             this.emp = _emp;
+            this.SkillEmployeeUi = skillEmployeeUi;
             base.SetEmp(emp.EmployeeData, buttonAction);
             this.stateEvent = _stateEvent;
             this.stateEvent.AddListener(UpdateEmployeeState);
+            LevelUpButton.onClick.AddListener(() => SkillEmployeeUi.Show(emp));
+        }
+
+        private void OnDestroy()
+        {
+            LevelUpButton.onClick.RemoveListener(() => SkillEmployeeUi.Show(emp));
         }
     }
 }

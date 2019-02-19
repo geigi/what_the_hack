@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,11 +17,11 @@ namespace Missions
         /// <summary>
         /// This value is the most important tuning value for balancing.
         /// </summary>
-        public const float BASE_VALUE = 10f;
+        public const float BASE_VALUE = 1.4f;
         /// <summary>
         /// This value influences the random part of the progress value.
         /// </summary>
-        public const float RANDOM_FACTOR = 10f;
+        public const float RANDOM_FACTOR = 1f;
         /// <summary>
         /// This value defines the dice sides for critical success/failure chances.
         /// </summary>
@@ -86,9 +87,9 @@ namespace Missions
                 // General Purpose should be weaker than a specific skill
                 : employee.GetGeneralPurpose().Level / 2;
 
-            var stepValue = employeeValue * (1f / (mission.SkillDifficulty[skill] + mission.Difficulty)) *
-                            (BASE_VALUE + (float) random.NextDouble() * RANDOM_FACTOR) * 1f /
-                            mission.TotalTicks;
+            var stepValue = Math.Max(employeeValue, 1) * (1f / (mission.SkillDifficulty[skill] * mission.Difficulty)) *
+                            (RandomUtils.mult_var(0.1f) * RANDOM_FACTOR) * 1f /
+                            mission.TotalTicks * BASE_VALUE;
 
             return skillValue + stepValue * GetCricitalChanceFactor(employee);
         }
