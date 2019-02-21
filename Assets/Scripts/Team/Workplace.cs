@@ -7,6 +7,7 @@ using Interfaces;
 using Missions;
 using Pathfinding;
 using SaveGame;
+using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -32,6 +33,9 @@ namespace Team
         public Animator Animator;
         public SpriteOutline SpriteOutline;
 
+        [Header("Events")] 
+        public ObjectEvent EmployeeFiredEvent;
+
         public Mission Mission => data.Mission;
 
         private static readonly int idleProperty = Animator.StringToHash("idle");
@@ -45,6 +49,7 @@ namespace Team
         private Employee employee;
         private GameSelectionManager gameSelectionManager;
         private UnityAction<Mission> missionFinishedAction;
+        private UnityAction<Object> employeeFiredAction;
         
         private void LoadState()
         {
@@ -70,6 +75,8 @@ namespace Team
         private void Start()
         {
             gameSelectionManager = GameSelectionManager.Instance;
+            employeeFiredAction += onEmployeeFired;
+            EmployeeFiredEvent.AddListener(onEmployeeFired);
             
             // A Workplace blocks 2 tiles
             position2 = new Vector2Int(Position.x, Position.y - 1);
@@ -292,6 +299,14 @@ namespace Team
                 {
                     gameSelectionManager.ClearWorkplace();
                 }
+            }
+        }
+
+        private void onEmployeeFired(Object emp)
+        {
+            if ((Employee) emp == employee)
+            {
+                StopWorking(false);
             }
         }
     }

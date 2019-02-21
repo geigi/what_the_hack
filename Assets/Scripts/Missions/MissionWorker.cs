@@ -71,6 +71,16 @@ namespace Missions
         }
 
         /// <summary>
+        /// Is a given employee working on this mission?
+        /// </summary>
+        /// <param name="emp"></param>
+        /// <returns></returns>
+        public bool HasEmployee(EmployeeData emp)
+        {
+            return employees.Contains(emp);
+        }
+
+        /// <summary>
         /// This method calculates the mission progress for a given skill.
         /// The calculation can be manipulated and tuned with the <see cref="BASE_VALUE"/> and <see cref="RANDOM_FACTOR"/> constants.
         /// Calculation must be balanced for the entire length of a game.

@@ -325,6 +325,7 @@ MonoBehaviour:
   Position: {x: 0, y: 0}
   Animator: {fileID: 2537824350989066373}
   SpriteOutline: {fileID: 3529109038253289003}
+  EmployeeFiredEvent: {fileID: 11400000, guid: 24ca5fb80f0c84e0bbc86aec2ace5ae7, type: 2}
 --- !u!60 &7997155179932897452
 PolygonCollider2D:
   m_ObjectHideFlags: 0

@@ -30,17 +30,19 @@ namespace Missions
         /// <summary>
         /// Event that will be fired when a day changes.
         /// </summary>
-        public NetObjectEvent GameTimeDayTickEvent;
+        [Header("Foreign Events")] public NetObjectEvent GameTimeDayTickEvent;
 
         public IntEvent GameTimeTickEvent;
+        public ObjectEvent EmployeeFiredEvent;
 
-        public GameEvent AvailableMissionsChanged;
+        [Header("Own Events")] public GameEvent AvailableMissionsChanged;
         public GameEvent CompletedMissionsChanged;
         public GameEvent InProgressMissionsChanged;
 
         private MissionManagerData data;
         private UnityAction<object> dayChangedAction;
         private UnityAction<int> onTickAction;
+        private UnityAction<Object> employeeFiredAction;
         private MissionList missionList;
 
         private Dictionary<Mission, MissionWorker> missionWorkers;
@@ -48,7 +50,7 @@ namespace Missions
         private void Awake()
         {
             missionWorkers = new Dictionary<Mission, MissionWorker>();
-            
+
             if (GameSettings.NewGame)
                 InitDefaultState();
             else
@@ -59,6 +61,9 @@ namespace Missions
 
             onTickAction += onTick;
             GameTimeTickEvent.AddListener(onTickAction);
+
+            employeeFiredAction += onEmployeeFired;
+            EmployeeFiredEvent.AddListener(employeeFiredAction);
 
             missionList = ModHolder.Instance.GetMissionList();
             if (missionList == null)
@@ -150,7 +155,7 @@ namespace Missions
             {
                 workplace.StopWorking(false);
             }
-            
+
             mission.Finished.Invoke(mission);
         }
 
@@ -203,19 +208,19 @@ namespace Missions
         private void fillOpenMissions()
         {
             float gameProgress = TeamManager.Instance.calcGameProgress();
-            
+
             foreach (var mission in data.ForceAppearPool)
             {
                 if (MissionFactory.Instance.RequirementsFullfilled(mission.Definition) &&
                     data.Completed.All(m => m.Definition != mission.Definition) &&
-                    data.InProgress.All(m => m.Definition != mission.Definition) && 
+                    data.InProgress.All(m => m.Definition != mission.Definition) &&
                     data.Available.All(m => m.Definition != mission.Definition))
                 {
                     MissionFactory.Instance.SetGameProgress(gameProgress, mission);
                     data.Available.Add(mission);
                 }
             }
-            
+
             for (int i = data.Available.Count; i < MaxOpenMission; i++)
             {
                 var mission = MissionFactory.Instance.CreateMission(gameProgress);
@@ -252,7 +257,7 @@ namespace Missions
             missionWorkers[mission].Cleanup();
             missionWorkers.Remove(mission);
             mission.Cleanup();
-            
+
             if (mission.Completed())
             {
                 // Mission has completed successfully
@@ -269,5 +274,15 @@ namespace Missions
                 // TODO: Re-add to available if requested by definition
             }
         }
-    }
+
+        private void onEmployeeFired(Object emp)
+        {
+            var employee = (Employee) emp;
+            foreach (var missionWorker in missionWorkers)
+            {
+                if (missionWorker.Value.HasEmployee(employee.EmployeeData))
+                    missionWorker.Value.RemoveEmployee(employee.EmployeeData);
+            }
+        }
+}
 }
