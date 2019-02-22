@@ -55,6 +55,9 @@ public class ContentHub: Singleton<ContentHub>
     /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 
     /// </summary>
     public AnimationClip[] femaleAnimationClips;
+
+    public Sprite[] emojiBubbleSprites;
+
     /// <summary>
     /// Animator controller for employee animations.
     /// </summary>

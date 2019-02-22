@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Wth.ModApi.Employees.EmployeeData" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UAAAAKAAgAAAAAAgAQAAABAAIBAAAAABAAAABAAAAIA=</HashCode>
+      <FileName>Assets\Scripts\Employees\EmployeeData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Employee">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>LATBAYREsCI4AGAIAAAbBg4IgIAQAAIRAAAAHQFAAMA=</HashCode>
+      <FileName>Assets\Scripts\Employees\Employee.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="EmployeeData" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EmployeeFactory" Collapsed="true">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DAIUEJAICgAgBAgGBBABAAAAAAADBCggAcJEAxCAoNI=</HashCode>
+      <FileName>Assets\Scripts\Employees\EmployeeFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Employees.EmployeeManager">
+    <Position X="0.5" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACgIEAUCCBwLAAAggYAAQEAAMAgAACCAYQgEogAEI=</HashCode>
+      <FileName>Assets\Scripts\Employees\EmployeeManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="factoryObject" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Employees.EmployeeManagerData" Collapsed="true">
+    <Position X="3" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAQABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Employees\EmployeeManagerData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmployeeShadow" Collapsed="true">
+    <Position X="8.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAACAgAAAAIAAAAAAAAAAAAAAAAAQAAEA=</HashCode>
+      <FileName>Assets\Scripts\Employees\EmployeeShadow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.Scripts.UI.EmployeeWindow.EmployeeUiBuilder" Collapsed="true">
+    <Position X="5.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAEABiAAAABAAAAAAABCIAAAAAAAAIAQQAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\EmployeeWindow\EmployeeUiBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.Scripts.UI.EmployeeWindow.HireableEmployeeUiBuilder" Collapsed="true">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\EmployeeWindow\HireableEmployeeUiBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Assets.Scripts.UI.EmployeeWindow.HiredEmployeeUiBuilder" Collapsed="true">
+    <Position X="2.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAMACAAAABAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\EmployeeWindow\HiredEmployeeUiBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

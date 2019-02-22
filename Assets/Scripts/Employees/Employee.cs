@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Reaction;
 using Extensions;
 using GameTime;
 using Interfaces;
@@ -39,6 +40,8 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     public UnityEvent stateEvent = new UnityEvent();
 
     public EmployeeData EmployeeData;
+
+    public EmployeeReaction reaction;
 
     public string Name
     {
@@ -128,10 +131,6 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         this.grid = GameObject.FindWithTag("Pathfinding").GetComponent<AGrid>();
         tilemap = GameObject.FindWithTag("Tilemap").GetComponent<Tilemap>();
         gameObject.transform.parent = employeeLayer.transform;
-    }
-
-    void Start()
-    {
     }
 
     /// <summary>
@@ -638,6 +637,13 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         {
             RequestNewIdleWalk();
         }
+
+        if (reaction != null)
+        {
+            reaction.Position = this.transform.position;
+            reaction.reactionRenderer.sortingOrder = this.spriteRenderer.sortingOrder;
+        }
+       
     }
 
     void OnDestroy()
