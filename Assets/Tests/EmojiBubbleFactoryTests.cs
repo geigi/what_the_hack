@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using UnityEngine;
-using UnityEditor.SceneManagement;
+﻿using NUnit.Framework;
 
 namespace Assets.Tests
 {
@@ -18,7 +10,6 @@ namespace Assets.Tests
         [SetUp]
         public void SetUp()
         {
-            EditorSceneManager.OpenScene("Assets/Scenes/MainGame.unity");
             factory = EmojiBubbleFactory.Instance;
             factory.contentHub = ContentHub.Instance;
         }

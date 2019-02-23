@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 using Assets.Scripts.Reaction;
 using Base;
-using JetBrains.Annotations;
-using NSubstitute;
-using UE.Variables;
 using UnityEngine;
 
 public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
@@ -39,26 +34,27 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
         contentHub.emojiBubbleSprites.FirstOrDefault(sprite => sprite.name ==
                                                       $"character-Emojis-{type.ToString().ToLowerInvariant()}");
 
-    public void EmpReaction(Employee emp, EmojiType type, float displayTime)
+    public void EmpReaction(EmojiType type, Employee emp, Vector3 offset, float displayTime)
     {
-        var reaction = InitReaction(type, emp.transform.position, new Vector3(0, 2, 0));
+        var reaction = InitReaction(type, emp.transform.position, offset);
         emp.reaction = reaction.GetComponent<EmployeeReaction>();
         StartCoroutine(Countdown(reaction, displayTime, emp));
     }
 
-    public void NonEmpReaction(Vector3 position, EmojiType type, float displayTime)
+    public void NonEmpReaction(EmojiType type, Vector3 position, float displayTime)
     {
         var reaction = InitReaction(type, position, Vector3.zero);
         StartCoroutine(Countdown(reaction, displayTime));
     }
 
-    private GameObject InitReaction(EmojiType type, Vector3 position, Vector3 offset)
+    protected internal GameObject InitReaction(EmojiType type, Vector3 position, Vector3 offset)
     {
         Sprite reactionSprite = GetSpriteFromEmojiType(type);
         GameObject reactionObject = new GameObject("Reaction");
         var reaction = reactionObject.AddComponent<EmployeeReaction>();
         reaction.offset = offset;
-        reaction.ShowReaction(reactionSprite, position);
+        reaction.Position = position;
+        reaction.ShowReaction(reactionSprite);
         return reactionObject;
     }
 

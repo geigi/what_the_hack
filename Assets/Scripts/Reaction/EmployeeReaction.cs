@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Reaction
 {
@@ -28,10 +22,10 @@ namespace Assets.Scripts.Reaction
             gameObject.transform.parent = GameObject.FindGameObjectWithTag("EmployeeReactions").transform;
         }
 
-        public void ShowReaction(Sprite reaction, Vector3 position)
+        public void ShowReaction(Sprite reaction)
         {
             reactionRenderer.sprite = reaction;
-            gameObject.transform.position = position;
+            gameObject.transform.position = Position;
         }
     }
 }
