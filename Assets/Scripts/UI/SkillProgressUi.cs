@@ -29,8 +29,10 @@ namespace UI
         public Sprite AllPurpose;
 
         private Mission mission;
+        private MissionWorker worker;
         private List<KeyValuePair<SkillDefinition, ProgressBar>> progressBars;
         private UnityAction<KeyValuePair<SkillDefinition, float>> updateProgressAction;
+        private UnityAction employeesChangedAction;
 
         private void Awake()
         {
@@ -45,8 +47,9 @@ namespace UI
         public void SetMission(Mission mission)
         {
             this.mission = mission;
-            var workplaces = TeamManager.Instance.GetWorkplacesWorkingOnMission(mission);
-
+            worker = MissionManager.Instance.GetMissionWorker(mission);
+            var skills = worker.SkillsFulfilled;
+            
             foreach (var skill in mission.Progress)
             {
                 // We have to do some initialization in this method, because the Awake method might not be called yet.
@@ -56,38 +59,30 @@ namespace UI
                     progressBars = new List<KeyValuePair<SkillDefinition, ProgressBar>>();
                 if (updateProgressAction == null)
                     updateProgressAction = UpdateProgress;
+                if (employeesChangedAction == null)
+                    employeesChangedAction = onEmployeesChanged;
                     
                 var go = Instantiate(SkillPrefab, SkillContainer.transform, false);
                 go.GetComponentsInChildren<Image>().First(i => i.name == "SkillImage").sprite =
                     skill.Key.skillSprite;
                 var satisfiedImage = go.GetComponentsInChildren<Image>().First(i => i.name == "SatisfiedImage");
 
-                bool skillSatisfied = false;
-                foreach (var otherWorkplace in workplaces)
-                {
-                    if (otherWorkplace.IsOccupied())
-                    {
-                        foreach (var s in otherWorkplace.GetOccupyingEmployee().EmployeeData.Skills)
-                        {
-                            if (s.SkillData == skill.Key) skillSatisfied = true;
-                        }
-                    }
-                }
-
-                satisfiedImage.sprite = skillSatisfied ? Checkmark : AllPurpose;
-                satisfiedImage.color = skillSatisfied ? CheckmarkColor : Color.white;
+                satisfiedImage.sprite = skills[skill.Key] ? Checkmark : AllPurpose;
+                satisfiedImage.color = skills[skill.Key] ? CheckmarkColor : Color.white;
                     
                 var progress = go.GetComponentsInChildren<ProgressBar>().First();
                 progressBars.Add(new KeyValuePair<SkillDefinition, ProgressBar>(skill.Key, progress));
                 progress.SetProgress(skill.Value);
             }
-                
+            
             mission.ProgressChanged.AddListener(updateProgressAction);
+            worker.EmployeesChanged.AddListener(employeesChangedAction);
         }
 
         public void Clear()
         {
             mission?.ProgressChanged?.RemoveListener(updateProgressAction);
+            worker?.EmployeesChanged?.RemoveListener(onEmployeesChanged);
             
             foreach (Transform go in SkillContainer.transform)
             {
@@ -111,6 +106,18 @@ namespace UI
                     pair.Value.SetProgress(skill.Value);
                     break;
                 }
+            }
+        }
+
+        private void onEmployeesChanged()
+        {
+            var skills = worker.SkillsFulfilled;
+            foreach (var progressBar in progressBars)
+            {
+                var go = progressBar.Value.gameObject.transform.parent.gameObject;
+                var satisfiedImage = go.GetComponentsInChildren<Image>().First(i => i.name == "SatisfiedImage");
+                satisfiedImage.sprite = skills[progressBar.Key] ? Checkmark : AllPurpose;
+                satisfiedImage.color = skills[progressBar.Key] ? CheckmarkColor : Color.white;
             }
         }
     }

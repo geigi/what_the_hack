@@ -52,7 +52,7 @@ namespace Team
         /// Select an employee, fill in the information and display the window.
         /// This attaches to the skill changed events.
         /// </summary>
-        /// <param name="employee">Employee whos basic information should be displayed</param>
+        /// <param name="workplace">Workplace which basic information should be displayed</param>
         public void Select(Workplace workplace)
         {
             if (workplace.Mission != null)

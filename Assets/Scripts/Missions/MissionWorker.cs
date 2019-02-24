@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
@@ -27,6 +28,27 @@ namespace Missions
         /// </summary>
         public const int DICE_SIDES = 40;
 
+        /// <summary>
+        /// This dictionary reflects whether each skill is fulfilled by an employee skill (true) or by all purpose (false).
+        /// </summary>
+        public Dictionary<SkillDefinition, bool> SkillsFulfilled
+        {
+            get
+            {
+                Dictionary<SkillDefinition, bool> dic = new Dictionary<SkillDefinition, bool>();
+                
+                foreach (var skill in mission.Progress)
+                    dic[skill.Key] = employees.Any(e => e.HasSkill(skill.Key));
+
+                return dic;
+            }
+        }
+        
+        /// <summary>
+        /// Gets invoked when the employees working on this mission changed.
+        /// </summary>
+        public UnityEvent EmployeesChanged;
+
         private List<EmployeeData> employees;
         private Mission mission;
 
@@ -35,6 +57,7 @@ namespace Missions
 
         public MissionWorker(Mission mission)
         {
+            EmployeesChanged = new UnityEvent();
             this.mission = mission;
             random = new Random();
             gameTickAction += OnTimeStep;
@@ -59,6 +82,7 @@ namespace Missions
         public void AddEmployee(EmployeeData employee)
         {
             employees.Add(employee);
+            EmployeesChanged.Invoke();
         }
 
         /// <summary>
@@ -68,6 +92,7 @@ namespace Missions
         public void RemoveEmployee(EmployeeData employee)
         {
             employees.Remove(employee);
+            EmployeesChanged.Invoke();
         }
 
         /// <summary>

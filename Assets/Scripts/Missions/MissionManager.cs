@@ -136,11 +136,11 @@ namespace Missions
         public void AcceptMission(Mission mission)
         {
             data.Available.Remove(mission);
-            AvailableMissionsChanged.Raise();
             data.InProgress.Add(mission);
             mission.RemainingTicks = mission.Duration * GameTime.GameTime.Instance.ClockSteps;
-            InProgressMissionsChanged.Raise();
             missionWorkers.Add(mission, new MissionWorker(mission));
+            AvailableMissionsChanged.Raise();
+            InProgressMissionsChanged.Raise();
             mission.Finished.AddListener(missionFinished);
         }
 
