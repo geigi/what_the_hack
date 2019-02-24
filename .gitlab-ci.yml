@@ -67,6 +67,7 @@ variables:
         -logFile \
         -batchmode || true
     UNITY_EXIT_CODE=$(sed -n 's/.*failed="\([^"]*\).*/\1/p' $(pwd)/$TEST_PLATFORM-results.xml | grep -m1 "")
+    cat $(pwd)/$TEST_PLATFORM-results.xml
     if [ $UNITY_EXIT_CODE == "0" ]; then
       echo "Run succeeded, no failures occurred";
       exit 0
