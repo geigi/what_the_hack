@@ -28,6 +28,7 @@ namespace Assets.Tests_PlayMode
         {
             mockedEmployeeData = Substitute.For<EmployeeData>();
             mockedEmployeeData.Salary = 100;
+            mockedEmployeeData.Specials = new List<EmployeeSpecial>();
             mockedEmployeeData.IncrementFreeScore(mockedEmployeeData.LevelUpScoreNeeded);
             mockedEmployeeData.LevelUp();
             mockedEmployeeData.Prize = 10;
