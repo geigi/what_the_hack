@@ -17,10 +17,12 @@ namespace Assets.Scripts.UI.EmployeeWindow
         /// <summary>
         /// Prefab for the SkillUI.
         /// </summary>
+        [Header("Prefab")]
         public GameObject skillPrefab;
         /// <summary>
         /// Displays the current sprite of the employee.
         /// </summary>
+        [Header("General UI Elements")]
         public Image empImage;
         /// <summary>
         /// Displays the name of the employee.
@@ -45,6 +47,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
         /// <summary>
         /// Data of the employee the UI is build for.
         /// </summary>
+        [Header("Data")]
         public EmployeeData employeeData;
 
         private List<GameObject> skillUI;

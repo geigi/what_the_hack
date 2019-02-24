@@ -28,7 +28,8 @@ namespace Assets.Tests_PlayMode
         {
             mockedEmployeeData = Substitute.For<EmployeeData>();
             mockedEmployeeData.Salary = 100;
-            mockedEmployeeData.Level = 2;
+            mockedEmployeeData.IncrementFreeScore(mockedEmployeeData.LevelUpScoreNeeded);
+            mockedEmployeeData.LevelUp();
             mockedEmployeeData.Prize = 10;
             mockedEmployeeData.Skills = new List<Skill>() { new Skill(ScriptableObject.CreateInstance<SkillDefinition>()) };
             mockedEmployeeData.generatedData = new EmployeeGeneratedData

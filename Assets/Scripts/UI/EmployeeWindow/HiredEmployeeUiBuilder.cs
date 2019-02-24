@@ -15,26 +15,30 @@ namespace Assets.Scripts.UI.EmployeeWindow
         /// Employee for which the UI is build
         /// </summary>
         internal Employee emp;
+        
         /// <summary>
         /// Text to display the current state of the employee.
         /// </summary>
+        [Header("Hired UI Elements")]
         public Text employeeState;
-
-        public UnityEvent stateEvent;
-
+        public Text EmployeeLevel;
         public Button LevelUpButton;
         public Image LevelUpArrowImage;
         public Color SkillPointsAvailableColor;
         
+        [Header("Events")]
+        public UnityEvent stateEvent;
+
         private void UpdateEmployeeState() => employeeState.text = emp.State.ToString();
         
         private SkillEmployeeUi SkillEmployeeUi;
         private Color defaultButtonColor;
         private UnityAction<int> availablePointsChangedAction;
+        private UnityAction<int> levelChangedAction;
         private Image levelUpButtonImage;
         private Text levelUpButtonText;
         private RectTransform levelUpButtonRect;
-
+        
         private void Awake()
         {
             levelUpButtonImage = LevelUpButton.GetComponent<Image>();
@@ -65,12 +69,17 @@ namespace Assets.Scripts.UI.EmployeeWindow
             availablePointsChangedAction = onAvailablePointsChanged;
             emp.EmployeeData.SkillPointsChanged.AddListener(availablePointsChangedAction);
             onAvailablePointsChanged(emp.EmployeeData.SkillPoints);
+
+            levelChangedAction = onLevelChanged;
+            emp.EmployeeData.LevelChanged.AddListener(levelChangedAction);
+            onLevelChanged(emp.EmployeeData.Level);
         }
 
         private void OnDestroy()
         {
             LevelUpButton.onClick.RemoveListener(() => SkillEmployeeUi.Show(emp));
             emp.EmployeeData.SkillPointsChanged.RemoveListener(availablePointsChangedAction);
+            emp.EmployeeData.LevelChanged.RemoveListener(levelChangedAction);
         }
 
         private void onAvailablePointsChanged(int points)
@@ -95,6 +104,11 @@ namespace Assets.Scripts.UI.EmployeeWindow
                 levelUpButtonRect.offsetMin = offsetMin;
                 levelUpButtonText.alignment = TextAnchor.MiddleCenter;
             }
+        }
+
+        private void onLevelChanged(int level)
+        {
+            EmployeeLevel.text = emp.EmployeeData.Level.ToString();
         }
     }
 }

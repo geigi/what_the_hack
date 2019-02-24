@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UE.Common;
 using UE.Events;
-using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Wth.ModApi.Employees
@@ -18,11 +19,12 @@ namespace Wth.ModApi.Employees
     {
         public const int LEVELUP_THRESHOLD = 3;
         public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.2f;
-        
+
         /// <summary>
         /// Level of the employee > 0.
         /// </summary>
-        public int Level = 1;
+        public int Level => level;
+        private int level = 1;
         
         /// <summary>
         /// Salary of the employee.
@@ -58,7 +60,6 @@ namespace Wth.ModApi.Employees
         /// <summary>
         /// Gets fired when skill points change.
         /// </summary>
-        
         public UnityEvent<int> SkillPointsChanged
         {
             get
@@ -71,6 +72,22 @@ namespace Wth.ModApi.Employees
 
         [NonSerialized] 
         private UnityEvent<int> skillPointsChanged;
+        
+        /// <summary>
+        /// Gets fired when skill points change.
+        /// </summary>
+        public UnityEvent<int> LevelChanged
+        {
+            get
+            {
+                if (levelChanged == null) levelChanged = new IntUnityEvent();
+                return levelChanged;
+            }
+            set =>  levelChanged = value;
+        }
+
+        [NonSerialized] 
+        private UnityEvent<int> levelChanged;
         
         /// <summary>
         /// List of specials.
@@ -215,6 +232,20 @@ namespace Wth.ModApi.Employees
         {
             freeScore -= value;
             usedScore += value;
+        }
+
+        /// <summary>
+        /// Perform a level up of this employee.
+        /// </summary>
+        public void LevelUp()
+        {
+            if (FreeScore < LevelUpScoreNeeded) return;
+            
+            SkillPoints += 1;
+            UseScore(LevelUpScoreNeeded);
+            level += 1;
+            
+            LevelChanged.Invoke(level);
         }
     }
 }

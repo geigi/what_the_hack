@@ -398,10 +398,8 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         if (EmployeeData.FreeScore < EmployeeData.LevelUpScoreNeeded) return;
         Debug.Log(Name + " levels up!");
 
-        EmployeeData.SkillPoints += 1;
         spendScorePoints();
-        EmployeeData.Level += 1;
-        EmployeeData.UseScore(EmployeeData.LevelUpScoreNeeded);
+        EmployeeData.LevelUp();
         onLevelUp();
     }
 
