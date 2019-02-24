@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # https://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:d31e8453de50d68a2c5ccef545898d33:1ea33fc76963745bc36c3129e0787c27:29aa05aa20a099423cfc27178fbd19f7$
+# $TexturePacker:SmartUpdate:1e6b154126d7640a77c5e214381926ac:c5ce6eb61b202b25ec41f290c4ca5987:29aa05aa20a099423cfc27178fbd19f7$
 #
 :format=40300
 :texture=sheet.png
@@ -214,10 +214,12 @@ ui-terminal_button2;174;1619;19;13; 0.5;0.5; 2;2;2;2
 ui-up_arrow_inverted;1960;1804;11;11; 0.5;0.5; 0;0;0;0
 ui-warning;2029;1828;15;15; 0.5;0.5; 0;0;0;0
 ui-white;2043;1973;1;1; 0.5;0.5; 0;0;0;0
+ui-win32_arrow_down;1907;1793;9;9; 0.5;0.5; 0;0;0;0
 ui-win32_button1;2029;1920;16;7; 0.5;0.5; 2;2;2;2
 ui-win32_button2;2029;1908;16;7; 0.5;0.5; 2;2;2;2
-ui-win32_checkmark;1907;1808;9;9; 0.5;0.5; 0;0;0;0
+ui-win32_checkmark;1907;1779;9;9; 0.5;0.5; 0;0;0;0
 ui-win32_cursor;1960;1820;11;19; 0.5;0.5; 0;0;0;0
+ui-win32_dropdown;1907;1807;10;10; 0.5;0.5; 2;2;2;2
 ui-win32_hourglass1;1976;1953;24;24; 0.5;0.5; 0;0;0;0
 ui-win32_hourglass2;1944;1745;24;24; 0.5;0.5; 0;0;0;0
 ui-win32_hourglass3;1944;1716;24;24; 0.5;0.5; 0;0;0;0

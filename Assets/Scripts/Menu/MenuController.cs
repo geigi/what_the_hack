@@ -20,5 +20,17 @@ namespace Menu
             if (SaveGameSystem.DoesSaveGameExist(SaveGameSystem.DEFAULT_SAVE_GAME_NAME))
                 ResumeButton.gameObject.SetActive(true);
         }
+
+        /// <summary>
+        /// Quit the game.
+        /// </summary>
+        public void QuitApplication()
+        {
+            #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+        }
     }
 }
