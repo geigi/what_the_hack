@@ -1,4 +1,5 @@
-﻿using UI.EmployeeWindow;
+﻿using UE.Common;
+using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -22,9 +23,25 @@ namespace Assets.Scripts.UI.EmployeeWindow
         public UnityEvent stateEvent;
 
         public Button LevelUpButton;
+        public Image LevelUpArrowImage;
+        public Color SkillPointsAvailableColor;
+        
         private void UpdateEmployeeState() => employeeState.text = emp.State.ToString();
         
         private SkillEmployeeUi SkillEmployeeUi;
+        private Color defaultButtonColor;
+        private UnityAction<int> availablePointsChangedAction;
+        private Image levelUpButtonImage;
+        private Text levelUpButtonText;
+        private RectTransform levelUpButtonRect;
+
+        private void Awake()
+        {
+            levelUpButtonImage = LevelUpButton.GetComponent<Image>();
+            defaultButtonColor = levelUpButtonImage.color;
+            levelUpButtonText = LevelUpButton.GetComponentInChildren<Text>();
+            levelUpButtonRect = levelUpButtonText.gameObject.GetComponent<RectTransform>();
+        }
 
         public void Update()
         {
@@ -44,11 +61,40 @@ namespace Assets.Scripts.UI.EmployeeWindow
             this.stateEvent = _stateEvent;
             this.stateEvent.AddListener(UpdateEmployeeState);
             LevelUpButton.onClick.AddListener(() => SkillEmployeeUi.Show(emp));
+            
+            availablePointsChangedAction = onAvailablePointsChanged;
+            emp.EmployeeData.SkillPointsChanged.AddListener(availablePointsChangedAction);
+            onAvailablePointsChanged(emp.EmployeeData.SkillPoints);
         }
 
         private void OnDestroy()
         {
             LevelUpButton.onClick.RemoveListener(() => SkillEmployeeUi.Show(emp));
+            emp.EmployeeData.SkillPointsChanged.RemoveListener(availablePointsChangedAction);
+        }
+
+        private void onAvailablePointsChanged(int points)
+        {
+            if (points > 0)
+            {
+                // Skill level up points available
+                levelUpButtonImage.color = SkillPointsAvailableColor;
+                LevelUpArrowImage.enabled = true;
+                var offsetMin = levelUpButtonRect.offsetMin;
+                offsetMin = new Vector2(5, offsetMin.y);
+                levelUpButtonRect.offsetMin = offsetMin;
+                levelUpButtonText.alignment = TextAnchor.MiddleLeft;
+            }
+            else
+            {
+                // Skill level up points NOT available
+                levelUpButtonImage.color = defaultButtonColor;
+                LevelUpArrowImage.enabled = false;
+                var offsetMin = levelUpButtonRect.offsetMin;
+                offsetMin = new Vector2(0, offsetMin.y);
+                levelUpButtonRect.offsetMin = offsetMin;
+                levelUpButtonText.alignment = TextAnchor.MiddleCenter;
+            }
         }
     }
 }
