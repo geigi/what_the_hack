@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using UnityEditor.SceneManagement;
 
 namespace Assets.Tests
 {
@@ -10,6 +11,7 @@ namespace Assets.Tests
         [SetUp]
         public void SetUp()
         {
+            EditorSceneManager.OpenScene("Assets/Scenes/MainGame.unity");
             factory = EmojiBubbleFactory.Instance;
             factory.contentHub = ContentHub.Instance;
         }
