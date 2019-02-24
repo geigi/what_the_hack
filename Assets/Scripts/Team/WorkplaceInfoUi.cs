@@ -5,6 +5,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using World;
 
 namespace Team
 {
@@ -22,6 +23,9 @@ namespace Team
         public ProgressBar TimeProgressbar;
         public Text RemainingDays;
 
+        [Header("Buttons")] 
+        public Button StopWorkingButton;
+
         /// <summary>
         /// The FloatWindow that contains the information.
         /// </summary>
@@ -33,11 +37,15 @@ namespace Team
 
         private Workplace workplace;
         private UnityAction<int> onGameTickAction;
+        
+        private GameSelectionManager gameSelectionManager;
 
         private void Awake()
         {
+            gameSelectionManager = GameSelectionManager.Instance;
             onGameTickAction = onGameTick;
             GameTickEvent.AddListener(onGameTickAction);
+            StopWorkingButton.onClick.AddListener(onStopWorking);
         }
 
         /// <summary>
@@ -78,6 +86,13 @@ namespace Team
             SkillProgressUi.Clear();
 
             workplace = null;
+        }
+
+        private void onStopWorking()
+        {
+            workplace.StopWorking(false);
+            gameSelectionManager.ClearEmployee();
+            gameSelectionManager.ClearWorkplace();
         }
 
         private void onGameTick(int tick)

@@ -205,6 +205,7 @@ namespace Team
         /// </summary>
         public void StopWorking(bool completedSuccessfully)
         {
+            MissionManager.Instance.GetMissionWorker(data.Mission).RemoveEmployee(employee.EmployeeData);
             Animator.SetTrigger(idleProperty);
             employee.StopWorking(completedSuccessfully);
             employee = null;
@@ -257,12 +258,9 @@ namespace Team
             
             if (gameSelectionManager.EmployeeSelected)
             {
-                if (employee == gameSelectionManager.Employee)
+                if (gameSelectionManager.Employee != null && employee != null)
                 {
-                    MissionManager.Instance.GetMissionWorker(data.Mission).RemoveEmployee(employee.EmployeeData);
-                    StopWorking(false);
                     gameSelectionManager.ClearEmployee();
-                    gameSelectionManager.ClearWorkplace();
                 }
                 else if (IsOccupied())
                 {
