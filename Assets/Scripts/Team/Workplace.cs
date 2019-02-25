@@ -280,6 +280,8 @@ namespace Team
             {
                 SpriteOutline.enabled = true;
             }
+            
+            AudioPlayer.Instance.PlaySelect();
         }
 
         public void OnPointerDown(PointerEventData eventData)

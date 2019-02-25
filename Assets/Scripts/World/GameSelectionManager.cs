@@ -24,7 +24,7 @@ namespace World
         public EmployeeInfoUi EmployeeInfo;
         public WorkplaceInfoUi WorkplaceInfo;
         public ObjectEvent EmployeeFiredEvent;
-
+        
         private Workplace workplace;
         private UnityAction<Object> employeeFiredAction;
         

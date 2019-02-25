@@ -662,6 +662,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         GameSelectionManager.Instance.ClearWorkplace();
         GameSelectionManager.Instance.Employee = this;
         spriteOutline.enabled = true;
+        AudioPlayer.Instance.PlaySelect();
     }
 
     public void OnPointerDown(PointerEventData eventData)

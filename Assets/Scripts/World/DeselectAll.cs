@@ -9,6 +9,7 @@ namespace World
         {
             GameSelectionManager.Instance.ClearEmployee();
             GameSelectionManager.Instance.ClearWorkplace();
+            AudioPlayer.Instance.PlayDeselect();
         }
     }
 }

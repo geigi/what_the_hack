@@ -72,6 +72,9 @@ The following third party libraries are used by this game:
 ## WTH contains code based on projects
 - [Pathfinding][14] - MIT
 
+## Sounds
+sf3-sfx-menu-select.wav by broumbroum freesound.org
+
 [1]:	https://unity3d.com/de/get-unity/download/archive
 [2]:	#creating-a-mod
 [3]:	https://unity3d.com/de/get-unity/download/archive
