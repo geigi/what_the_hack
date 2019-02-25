@@ -87,9 +87,9 @@ namespace Assets.Tests_PlayMode
 
             /*Assert*/
             AssertEmployeeUiBuilder(func);
-            hiredBuilder.employeeState.text = "state";
+            hiredBuilder.employeeState.Set("1");
             evt.Invoke();
-            Assert.AreNotEqual("state", hiredBuilder.employeeState.text);
+            Assert.AreNotEqual("1", hiredBuilder.employeeState.GetComplete());
             yield return null;
         }
 

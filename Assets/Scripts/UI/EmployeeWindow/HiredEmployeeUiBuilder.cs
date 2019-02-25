@@ -1,4 +1,5 @@
 ﻿using UE.Common;
+using UI;
 using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,7 +21,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
         /// Text to display the current state of the employee.
         /// </summary>
         [Header("Hired UI Elements")]
-        public Text employeeState;
+        public TextBanner employeeState;
         public Text EmployeeLevel;
         public Button LevelUpButton;
         public Image LevelUpArrowImage;
@@ -29,7 +30,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
         [Header("Events")]
         public UnityEvent stateEvent;
 
-        private void UpdateEmployeeState() => employeeState.text = emp.State.ToString();
+        private void UpdateEmployeeState() => employeeState.Set(emp.State.ToString());
         
         private SkillEmployeeUi SkillEmployeeUi;
         private Color defaultButtonColor;
