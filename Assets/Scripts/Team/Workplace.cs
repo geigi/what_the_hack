@@ -205,7 +205,7 @@ namespace Team
         /// </summary>
         public void StopWorking(bool completedSuccessfully)
         {
-            MissionManager.Instance.GetMissionWorker(data.Mission).RemoveEmployee(employee.EmployeeData);
+            MissionManager.Instance.RemoveEmployeeFromMission(data.Mission, data.OccupyingEmployee);
             Animator.SetTrigger(idleProperty);
             employee.StopWorking(completedSuccessfully);
             employee = null;

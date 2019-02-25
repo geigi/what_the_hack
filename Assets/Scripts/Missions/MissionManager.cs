@@ -238,6 +238,24 @@ namespace Missions
             return missionWorkers[m];
         }
 
+        /// <summary>
+        /// Remove an employee from working on a mission.
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="e"></param>
+        public void RemoveEmployeeFromMission(Mission m, EmployeeData e)
+        {
+            try
+            {
+                var worker = GetMissionWorker(m);
+                worker.RemoveEmployee(e);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
         private void createMissionWorker(Mission mission)
         {
             var worker = new MissionWorker(mission);
