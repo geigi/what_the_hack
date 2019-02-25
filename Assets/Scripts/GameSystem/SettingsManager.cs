@@ -4,6 +4,8 @@ namespace GameSystem
 {
     public class SettingsManager: MonoBehaviour
     {
+        public const float DEFAULT_MUSIC_VOLUME = 1.0f;
+        public const float DEFAULT_FX_VOLUME = 1.0f;
         /// <summary>
         /// String for pixel perfect camera setting representation.
         /// </summary>
@@ -96,14 +98,26 @@ namespace GameSystem
         /// Get the music volume slider value from PlayerPrefs.
         /// </summary>
         public static float GetMusicVolume() {
-            return PlayerPrefs.GetFloat(MusicVolumeKey);
+            if (PlayerPrefs.HasKey(MusicVolumeKey))
+                return PlayerPrefs.GetFloat(MusicVolumeKey);
+            else
+            {
+                SetMusicVolume(DEFAULT_MUSIC_VOLUME);
+                return DEFAULT_MUSIC_VOLUME;
+            }
         }
         
         /// <summary>
         /// Get the sound fx volume slider value from PlayerPrefs.
         /// </summary>
         public static float GetSoundFxVolume() {
-            return PlayerPrefs.GetFloat(SoundFxVolumeKey);
+            if (PlayerPrefs.HasKey(SoundFxVolumeKey))
+                return PlayerPrefs.GetFloat(SoundFxVolumeKey);
+            else
+            {
+                SetSoundFxVolume(DEFAULT_FX_VOLUME);
+                return DEFAULT_FX_VOLUME;
+            }
         }
     }
 }
