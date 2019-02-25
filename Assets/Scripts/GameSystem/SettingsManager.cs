@@ -16,6 +16,14 @@ namespace GameSystem
         /// String for daytime setting representation.
         /// </summary>
         public const string DayTimeKey = "Day_Time";
+        /// <summary>
+        /// String for music volume setting representation.
+        /// </summary>
+        public const string MusicVolumeKey = "Music_Volume";
+        /// <summary>
+        /// String for sound fx volume setting representation.
+        /// </summary>
+        public const string SoundFxVolumeKey = "Sound_Fx_Volume";
         
         public enum PixelPerfectCameraValue {
             Off=0,
@@ -51,6 +59,22 @@ namespace GameSystem
         public static void SetDayTime(float sliderValue) {
             PlayerPrefs.SetFloat(DayTimeKey, sliderValue);
         }
+        
+        /// <summary>
+        /// Save music volume slider value to PlayerPrefs.
+        /// </summary>
+        /// <param name="sliderValue">0.0f-1.0f</param>
+        public static void SetMusicVolume(float sliderValue) {
+            PlayerPrefs.SetFloat(MusicVolumeKey, sliderValue);
+        }
+        
+        /// <summary>
+        /// Save sound fx volume slider value to PlayerPrefs.
+        /// </summary>
+        /// <param name="sliderValue">0.0f-1.0f</param>
+        public static void SetSoundFxVolume(float sliderValue) {
+            PlayerPrefs.SetFloat(SoundFxVolumeKey, sliderValue);
+        }
 
         /// <summary>
         /// Get the current game time mode.
@@ -66,6 +90,20 @@ namespace GameSystem
         /// </summary>
         public static float GetDayTime() {
             return PlayerPrefs.GetFloat(DayTimeKey);
+        }
+        
+        /// <summary>
+        /// Get the music volume slider value from PlayerPrefs.
+        /// </summary>
+        public static float GetMusicVolume() {
+            return PlayerPrefs.GetFloat(MusicVolumeKey);
+        }
+        
+        /// <summary>
+        /// Get the sound fx volume slider value from PlayerPrefs.
+        /// </summary>
+        public static float GetSoundFxVolume() {
+            return PlayerPrefs.GetFloat(SoundFxVolumeKey);
         }
     }
 }
