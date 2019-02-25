@@ -2,9 +2,6 @@
 using System.Linq;
 using Assets.Scripts.Reaction;
 using Base;
-using NSubstitute;
-using UE.Variables;
-using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 /// <summary>
