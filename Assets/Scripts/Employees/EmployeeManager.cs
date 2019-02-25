@@ -362,10 +362,9 @@ namespace Employees
             empGUI.transform.localScale = Vector3.one;
             empGUI.GetComponent<HireableEmployeeUiBuilder>().SetEmp(employeeData, () =>
             {
+                if (!bank.Pay(employeeData.Prize)) return;
                 HireEmployee(employeeData, empGUI);
-                bank.Pay(employeeData.Prize);
             });
-            
             EmployeeToGuiMap.Add(employeeData, empGUI);
         }
     }
