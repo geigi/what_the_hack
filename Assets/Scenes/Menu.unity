@@ -945,6 +945,7 @@ GameObject:
   - component: {fileID: 239798691}
   - component: {fileID: 239798690}
   - component: {fileID: 239798692}
+  - component: {fileID: 239798693}
   m_Layer: 0
   m_Name: MenuController
   m_TagString: Untagged
@@ -991,6 +992,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ResumeButton: {fileID: 588004939}
+--- !u!114 &239798693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239798689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd1b47167afc4d4dbc60e1f00aa263d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _persistent: 1
 --- !u!1 &242962065
 GameObject:
   m_ObjectHideFlags: 0

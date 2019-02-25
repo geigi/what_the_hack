@@ -35,6 +35,6 @@ public class SceneSwitcher : MonoBehaviour {
     /// </summary>
     private void GotoMainScene()
     {
-        SceneManager.LoadScene("MainGame");
+        SceneLoaderAsync.Instance.LoadScene();
     }
 }
