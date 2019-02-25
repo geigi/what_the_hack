@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using Assets.Scripts.Reaction;
 using Base;
+using UE.Events;
 using UnityEngine;
 
 /// <summary>
@@ -46,6 +48,10 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
     [UnityEngine.Range(0, 1)]
     public float step = 0.1f;
 
+    [Header("Emoji Sound Events")] 
+    public GameEvent SuccessEvent;
+    public GameEvent AngryEvent, OkEvent, NoEvent, LevelUpEvent;
+    
     /// <summary>
     /// Gets the Sprite for the corresponding reaction.
     /// </summary>
@@ -67,6 +73,7 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
         if(2*fadeTime > displayTime) Debug.Log("Your specified displayTime is smaller than the time for fade in and out together!");
         var reaction = InitReaction(type, emp.transform.position, offset);
         emp.reaction = reaction.GetComponent<EmployeeReaction>();
+        PlayEmojiSound(type);
         StartCoroutine(FadeAndCountdown(reaction, displayTime, emp));
     }
 
@@ -130,5 +137,38 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
         }
         if (emp != null) emp.reaction = null;
         Destroy(reaction);
+    }
+
+    /// <summary>
+    /// Play the matching sound to a given emoji type.
+    /// </summary>
+    /// <param name="type">The emoji type to play the sound to.</param>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    private void PlayEmojiSound(EmojiType type)
+    {
+        switch (type)
+        {
+            case EmojiType.SUCCESS:
+                if (SuccessEvent != null) SuccessEvent.Raise();
+                break;
+            case EmojiType.ANGRY:
+                if (AngryEvent != null) AngryEvent.Raise();
+                break;
+            case EmojiType.OK:
+                if (OkEvent != null) OkEvent.Raise();
+                break;
+            case EmojiType.NO:
+                if (NoEvent != null) NoEvent.Raise();
+                break;
+            case EmojiType.BUBBLE:
+                break;
+            case EmojiType.LEVELUP:
+                if (LevelUpEvent != null) LevelUpEvent.Raise();
+                break;
+            case EmojiType.TWITTER:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        }
     }
 }
