@@ -56,8 +56,6 @@ public class ContentHub: Singleton<ContentHub>
     /// </summary>
     public AnimationClip[] femaleAnimationClips;
 
-    public Sprite[] emojiBubbleSprites;
-
     /// <summary>
     /// Animator controller for employee animations.
     /// </summary>

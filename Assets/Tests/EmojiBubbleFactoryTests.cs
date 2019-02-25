@@ -13,7 +13,6 @@ namespace Assets.Tests
         {
             EditorSceneManager.OpenScene("Assets/Scenes/MainGame.unity");
             factory = EmojiBubbleFactory.Instance;
-            factory.contentHub = ContentHub.Instance;
         }
 
         [Test]
