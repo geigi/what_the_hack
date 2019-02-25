@@ -7,6 +7,9 @@ using UnityEngine.TestTools;
 
 namespace Assets.Tests_PlayMode
 {
+    /// <summary>
+    /// Play mode tests for the EmojiBubbleFactory
+    /// </summary>
     public class EmojiBubbleFactoryTests_PlayMode
     {
         [SetUp]
@@ -15,6 +18,11 @@ namespace Assets.Tests_PlayMode
             SceneManager.LoadScene("MainGame");
         }
 
+        /// <summary>
+        /// Tests the InitReaction function. Asserts that a new GameObject is created, with the EmployeeReaction script.
+        /// Also asserts that the variables are correctly set.
+        /// </summary>
+        /// <returns></returns>
         [UnityTest]
         public IEnumerator InitReactionTest()
         {
@@ -29,6 +37,10 @@ namespace Assets.Tests_PlayMode
             yield return null;
         }
 
+        /// <summary>
+        /// Tests the InitReaction function ad asserts that the offset is taken into account.
+        /// </summary>
+        /// <returns></returns>
         [UnityTest]
         public IEnumerator InitReactionTest_Offset()
         {
@@ -38,16 +50,26 @@ namespace Assets.Tests_PlayMode
             yield return null;
         }
 
+        /// <summary>
+        /// Tests the NonEmpReaction Method. Asserts a new Object is created and that it is displayed only for the specified time.
+        /// </summary>
+        /// <returns></returns>
         [UnityTest]
         public IEnumerator NonEmpReactionTest()
         {
             var bubbleFactory = GameObject.FindWithTag("EmployeeManager").GetComponent<EmojiBubbleFactory>();
             bubbleFactory.NonEmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, Vector3.one, 4);
+            var reaction = GameObject.FindWithTag("EmployeeReactions").transform.GetChild(0);
             Assert.AreEqual(1, GameObject.FindWithTag("EmployeeReactions").transform.childCount);
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(5f);
             Assert.AreEqual(0, GameObject.FindWithTag("EmployeeReactions").transform.childCount);
         }
 
+        /// <summary>
+        /// Tests the EmpReaction Method. Asserts the reaction is set for an employee
+        /// and that the reaction changes with the position of the employee. 
+        /// </summary>
+        /// <returns></returns>
         [UnityTest]
         public IEnumerator EmpReactionTest()
         {
@@ -64,6 +86,24 @@ namespace Assets.Tests_PlayMode
             Assert.AreEqual(empObj.transform.position + Vector3.one, reaction.transform.position);
             yield return new WaitForSeconds(5);
             Assert.IsNull(emp.reaction);
+        }
+
+        /// <summary>
+        /// Asserts that the Fade In and Out Animation works correctly.
+        /// </summary>
+        /// <returns></returns>
+        [UnityTest]
+        public IEnumerator ReactionFadeAnimationTest()
+        {
+            var bubbleFactory = GameObject.FindWithTag("EmployeeManager").GetComponent<EmojiBubbleFactory>();
+            bubbleFactory.NonEmpReaction(EmojiBubbleFactory.EmojiType.ANGRY, Vector3.zero, 4);
+            var reaction = GameObject.FindWithTag("EmployeeReactions").transform.GetChild(0);
+            yield return new WaitForSeconds(0.2f);
+            Assert.IsTrue(1f > reaction.GetComponent<SpriteRenderer>().color.a);
+            yield return new WaitForSeconds(1.2f);
+            Assert.AreEqual(1, Mathf.RoundToInt(reaction.GetComponent<SpriteRenderer>().color.a));
+            yield return new WaitForSeconds(2f);
+            Assert.IsTrue(1f > reaction.GetComponent<SpriteRenderer>().color.a);
         }
     }
 }

@@ -58,6 +58,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
 
     private EmployeeFactory factory;
     private ContentHub contentHub;
+    private EmojiBubbleFactory emojiBubbleFactory;
     private GameObject employeeLayer;
     private SpriteRenderer spriteRenderer;
     protected internal Animator animator;
@@ -118,6 +119,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     public void Awake()
     {
         contentHub = ContentHub.Instance;
+        emojiBubbleFactory = EmojiBubbleFactory.Instance;
         clipsMale = contentHub.maleAnimationClips;
         clipsFemale = contentHub.femaleAnimationClips;
 
@@ -241,6 +243,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         StopFollowPath();
 
         RequestNewWalkToWorkplace(workplace);
+        emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.OK, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
     }
 
     /// <summary>
@@ -255,7 +258,9 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
             EmployeeData.IncrementFreeScore(SCORE_MISSION_COMPLETED +
                                             workplace.Mission.Difficulty * SCORE_MISSION_COMPLETED_PERLEVEL);
             LevelUp();
-        }
+            emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
+        } else
+            emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.ANGRY, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
 
         workplace = null;
         grid.getNode(EmployeeData.Position).SetState(Enums.TileState.FREE);
@@ -532,7 +537,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     /// </summary>
     private void onLevelUp()
     {
-        
+        emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.LEVELUP, this, new Vector3(0, 2, 0), 10f);
     }
     #endregion
 
