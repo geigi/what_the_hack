@@ -115,6 +115,12 @@ build-AndroidPlugin:
     echo "Building for $BUILD_TARGET"
     export BUILD_PATH=./Builds/$BUILD_TARGET/
     mkdir -p $BUILD_PATH
+    if [ -z "$CI_COMMIT_TAG" ];
+    then
+      export BUILD_VERSION=$CI_COMMIT_REF_NAME-$CI_JOB_ID-$CI_COMMIT_SHORT_SHA
+    else
+      export BUILD_VERSION=$CI_COMMIT_TAG
+    fi
     xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' \
       /opt/Unity/Editor/Unity \
         -projectPath $(pwd) \
@@ -125,6 +131,7 @@ build-AndroidPlugin:
         -customBuildName $BUILD_NAME \
         -customBuildPath $BUILD_PATH \
         -customBuildOptions AcceptExternalModificationsToPlayer \
+        -customVersionNumber $BUILD_VERSION
         -executeMethod BuildCommand.PerformBuild \
         -logFile
     ls -la $BUILD_PATH

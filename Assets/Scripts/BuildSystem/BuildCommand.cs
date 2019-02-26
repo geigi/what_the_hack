@@ -52,6 +52,16 @@ static class BuildCommand
 		}
 		return buildPath;
 	}
+	
+	static string GetVersion ()
+	{
+		string version = GetArgument ("customVersionNumber");
+		Console.WriteLine (":: Received customVersionNumber " + version);
+		if (version == "") {
+			throw new Exception ("customVersionNumber argument is missing");
+		}
+		return version;
+	}
 
 	static string GetBuildName ()
 	{
@@ -118,6 +128,7 @@ static class BuildCommand
 		var buildPath = GetBuildPath ();
 		var buildName = GetBuildName ();
 		var fixedBuildPath = GetFixedBuildPath (buildTarget, buildPath, buildName);
+		PlayerSettings.bundleVersion = GetVersion();
 
 		BuildPipeline.BuildPlayer (GetEnabledScenes (), fixedBuildPath, buildTarget, GetBuildOptions ());
 		Console.WriteLine (":: Done with build");

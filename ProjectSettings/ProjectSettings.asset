@@ -155,7 +155,9 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.hsd.wth
+    Android: com.github.geigi.wth
+    Standalone: com.github.geigi.wth
+    iOS: com.github.geigi.wth
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 21
@@ -755,6 +757,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   scriptingDefineSymbols:
     1: 
+    4: 
     7: 
     13: 
   platformArchitecture: {}
