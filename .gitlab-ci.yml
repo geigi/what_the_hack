@@ -135,12 +135,12 @@ build-AndroidPlugin:
         -executeMethod BuildCommand.PerformBuild \
         -logFile
     ls -la $BUILD_PATH
-    cp -r $BUILD_PATH ./What_the_Hack_$BUILD_TARGET-$BUILD_VERSION
+    cp -r $BUILD_PATH ./What_the_Hack_$BUILD_TARGET
     [ -n "$(ls -A $BUILD_PATH)" ] # fail job if build folder is empty
   
   artifacts:
     paths:
-    - "./What_the_Hack_$BUILD_TARGET-*/"
+    - ./What_the_Hack_$BUILD_TARGET
     expire_in: 2 weeks
 
 .build-unity-android: &build-unity-android

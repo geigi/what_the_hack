@@ -156,6 +156,7 @@ static class BuildCommand
 		var buildPath = GetBuildPath ();
 		var buildName = GetBuildName ();
 		var fixedBuildPath = GetFixedBuildPath (buildTarget, buildPath, buildName);
+		PlayerSettings.bundleVersion = GetVersion();
 
 		BuildPipeline.BuildPlayer (GetEnabledScenes (), fixedBuildPath, buildTarget, GetBuildOptions ());
 		Console.WriteLine (":: Done with build");
