@@ -179,13 +179,13 @@ namespace Missions
 
             // Difficulty should be increased to make missions to hard for one person alone.
             // This value gets increased over time. 2f means double the difficulty. 
-            float difficulty = Math.Max(1f, Math.Max(1f, baseDifficulty) / GameProgressDifficultyFactor) +  RandomUtils.var(0.2f);
+            float difficulty = Math.Max(1f, Math.Max(1f, baseDifficulty) / GameProgressDifficultyFactor) + RandomUtils.var(0.2f);
             int numSkills = skills.Count;
             mission.Difficulty = difficulty;
 
-            int difficultyPerSkill = TeamManager.Instance.GetRandomSkillValue(numSkills);
+            int difficultyPerSkill = Math.Max(1, TeamManager.Instance.GetRandomSkillValue(numSkills) + (int)RandomUtils.var(MissionDifficultyVariance));
             foreach (var s in skills) {
-                mission.SkillDifficulty.Add(s, difficultyPerSkill);
+                mission.SkillDifficulty.Add(s, Math.Max(1, difficultyPerSkill + RandomUtils.var(1)));
             }
         }
         
