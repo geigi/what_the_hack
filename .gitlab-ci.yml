@@ -140,7 +140,7 @@ build-AndroidPlugin:
   
   artifacts:
     paths:
-    - ./What_the_Hack_$BUILD_TARGET-*/
+    - "./What_the_Hack_$BUILD_TARGET-*/"
     expire_in: 2 weeks
 
 .build-unity-android: &build-unity-android
@@ -237,7 +237,7 @@ generate-android-apk:
   artifacts:
     name: "$BUILD_NAME $CI_PIPELINE_IID $BUILD_TARGET"
     paths:
-    - $CI_PROJECT_DIR/*.apk
+    - "$CI_PROJECT_DIR/*.apk"
 
     expire_in: 1 week
   variables:
