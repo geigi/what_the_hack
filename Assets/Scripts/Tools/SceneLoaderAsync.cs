@@ -35,7 +35,7 @@ public class SceneLoaderAsync : Singleton<SceneLoaderAsync> {
         while (!asyncScene.isDone)
         {
             // loading bar progress
-            _loadingProgress = Mathf.Clamp01(asyncScene.progress / 0.9f) * 100;
+            _loadingProgress = Mathf.Clamp01(asyncScene.progress / 0.9f);
 
             // scene has loaded as much as possible, the last 10% can't be multi-threaded
             if (asyncScene.progress >= 0.9f)
