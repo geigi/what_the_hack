@@ -32,10 +32,20 @@ namespace UI
         private int position = 0;
         private Text textComponent;
         private Coroutine coroutine;
+        private bool awaitStart = false;
         
         private void Awake()
         {
             textComponent = GetComponent<Text>();
+        }
+
+        private void OnEnable()
+        {
+            if (awaitStart)
+            {
+                awaitStart = false;
+                coroutine = StartCoroutine(updateText());
+            }
         }
 
         /// <summary>
@@ -60,7 +70,11 @@ namespace UI
             }
 
             textComponent.text = text.Substring(0, MaxCharacters);
-            coroutine = StartCoroutine(updateText());
+
+            if (gameObject.activeInHierarchy)
+                coroutine = StartCoroutine(updateText());
+            else
+                awaitStart = true;
         }
 
         /// <summary>
