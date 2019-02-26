@@ -721,7 +721,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2607
+      value: 2629
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -741,7 +741,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3081
+      value: 3107
       objectReference: {fileID: 0}
     - target: {fileID: 224585422429223084, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -2033,31 +2033,13 @@ PrefabInstance:
     - target: {fileID: 3549788978582921469, guid: ff5f24169327b45808b2113542880f0c,
         type: 3}
       propertyPath: m_Text
-      value: "What are the ethical principles of hacking - motivation and limits\n\n-
-        Access to computers - and anything which might teach you something about the
-        way the world really works - should be unlimited and total. Always yield to
-        the Hands-On Imperative!\n- All information should be free.\n- Mistrust authority
-        - promote decentralization.\n- Hackers should be judged by their acting, not
-        bogus criteria such as degrees, age, race, or position.\n- You can create
-        art and beauty on a computer.\n- Computers can change your life for the better.\n-
-        Don't litter other people's data.\n- Make public data available, protect private
-        data.\n\nThe hacker ethics were first written down by Steven Levy in his book
-        \"Hackers: Heroes of the Computer Revolution (ISBN 0-440-13405-6, 1984). He
-        mentions the Tech Model Railroad Club at MIT, their members constructed a
-        supersystem of relays and switches - some of them became core members the
-        ai lab. They used the term \"hack\" for an \"elaborate ... prank\" with \"serious
-        respect implied\". The hacker ethics evolved in a time when computers were
-        scarce; and the people sharing a machine had to think about rules of cooperation.\n\nThe
-        last two point are additions by the CCC from the 80s. After some more or less
-        crazy individuals from the hacker scene had the idea of offering their \"hacker
-        know-how\" to the KGB there were intense discussions, three letter agencies
-        have a somewhat different opinion about freedom of information. As well were
-        intrusions into outside systems considered more and more counter productive.\n\nTo
-        protect the privacy of the individual and to strengthen the freedom of the
-        information which concern the public the yet last point was added.\n\nHacker
-        ethics are \u2014like the rest of the world\u2014 as such in constant discussion
-        and development. The above rules should be considered as guidelines and basis
-        for discussion.\n\nhttps://www.ccc.de/en/hackerethics"
+      value: "Access to computers\u2014and anything which might teach you something
+        about the way the world works\u2014should be unlimited and total. Always yield
+        to the Hands-On Imperative!\n\nAll information should be free\n\nMistrust
+        authority\u2014promote decentralization\n\nHackers should be judged by their
+        hacking, not criteria such as degrees, age, race, sex, or position\n\nYou
+        can create art and beauty on a computer\n\nComputers can change your life
+        for the better"
       objectReference: {fileID: 0}
     - target: {fileID: 3549788978582921469, guid: ff5f24169327b45808b2113542880f0c,
         type: 3}
@@ -2068,6 +2050,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FontData.m_MinSize
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3549788978582921469, guid: ff5f24169327b45808b2113542880f0c,
+        type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff5f24169327b45808b2113542880f0c, type: 3}
@@ -5839,12 +5826,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 6280
+      value: 6300
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 6280
+      value: 6300
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -6128,12 +6115,12 @@ PrefabInstance:
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 6280
+      value: 6300
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 6280
+      value: 6300
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -9953,12 +9940,12 @@ PrefabInstance:
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1078
+      value: 1122
       objectReference: {fileID: 0}
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3672
+      value: 3816
       objectReference: {fileID: 0}
     - target: {fileID: 2674409563540254636, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
@@ -11668,12 +11655,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4260
+      value: 4284
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4260
+      value: 4284
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -12990,7 +12977,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8820
+      value: 8840
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -13000,7 +12987,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 8820
+      value: 8840
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -14539,7 +14526,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5960, y: 5960}
+  m_AnchoredPosition: {x: 5980, y: 5980}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1765235018
@@ -19037,12 +19024,12 @@ PrefabInstance:
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 708
+      value: 0.000011604645
       objectReference: {fileID: 0}
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 708.00024
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2674409563540254636, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
