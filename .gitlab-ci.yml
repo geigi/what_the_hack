@@ -135,7 +135,7 @@ build-AndroidPlugin:
         -executeMethod BuildCommand.PerformBuild \
         -logFile
     ls -la $BUILD_PATH
-    cp -r $BUILD_PATH ./What_the_Hack_$BUILD_TARGET
+    cp -r $BUILD_PATH ./What_the_Hack_$BUILD_TARGET-$BUILD_VERSION
     [ -n "$(ls -A $BUILD_PATH)" ] # fail job if build folder is empty
   
   artifacts:
@@ -153,6 +153,12 @@ build-AndroidPlugin:
     echo "Building for $BUILD_TARGET"
     export BUILD_PATH=./Builds/$BUILD_TARGET/
     mkdir -p $BUILD_PATH
+    if [ -z "$CI_COMMIT_TAG" ];
+    then
+      export BUILD_VERSION=$CI_COMMIT_REF_NAME-$CI_JOB_ID-$CI_COMMIT_SHORT_SHA
+    else
+      export BUILD_VERSION=$CI_COMMIT_TAG
+    fi
     xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' \
       /opt/Unity/Editor/Unity \
         -projectPath $(pwd) \
@@ -163,6 +169,7 @@ build-AndroidPlugin:
         -customBuildName $BUILD_NAME \
         -customBuildPath $BUILD_PATH \
         -customBuildOptions AcceptExternalModificationsToPlayer \
+        -customVersionNumber $BUILD_VERSION
         -executeMethod BuildCommand.PerformBuildAndroid \
         -logFile
     ls -la $BUILD_PATH
@@ -207,6 +214,12 @@ generate-android-apk:
   image: unity-android:latest
   stage: post-build
   script: |
+    if [ -z "$CI_COMMIT_TAG" ];
+    then
+      export BUILD_VERSION=$CI_COMMIT_REF_NAME-$CI_JOB_ID-$CI_COMMIT_SHORT_SHA
+    else
+      export BUILD_VERSION=$CI_COMMIT_TAG
+    fi
     cd ./Builds
     cd ./$BUILD_TARGET
     cd ./$BUILD_NAME
@@ -218,7 +231,7 @@ generate-android-apk:
     ls -ahl
     find . -name '*.apk'
     ls -ahl build/outputs/apk/
-    cp ./build/outputs/apk/release/What_the_Hack-armeabi-v7a-release.apk $CI_PROJECT_DIR/What_the_Hack.apk
+    cp ./build/outputs/apk/release/What_the_Hack-armeabi-v7a-release.apk $CI_PROJECT_DIR/What_the_Hack-$BUILD_VERSION.apk
   # retry because sometimes checkingout artifacts fails
   retry: 2
   artifacts:
