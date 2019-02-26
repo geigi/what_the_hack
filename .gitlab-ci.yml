@@ -131,7 +131,7 @@ build-AndroidPlugin:
         -customBuildName $BUILD_NAME \
         -customBuildPath $BUILD_PATH \
         -customBuildOptions AcceptExternalModificationsToPlayer \
-        -customVersionNumber $BUILD_VERSION
+        -customVersionNumber $BUILD_VERSION \
         -executeMethod BuildCommand.PerformBuild \
         -logFile
     ls -la $BUILD_PATH
@@ -169,7 +169,7 @@ build-AndroidPlugin:
         -customBuildName $BUILD_NAME \
         -customBuildPath $BUILD_PATH \
         -customBuildOptions AcceptExternalModificationsToPlayer \
-        -customVersionNumber $BUILD_VERSION
+        -customVersionNumber $BUILD_VERSION \
         -executeMethod BuildCommand.PerformBuildAndroid \
         -logFile
     ls -la $BUILD_PATH
