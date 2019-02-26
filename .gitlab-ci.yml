@@ -140,7 +140,7 @@ build-AndroidPlugin:
   
   artifacts:
     paths:
-    - ./What_the_Hack_$BUILD_TARGET/
+    - ./What_the_Hack_$BUILD_TARGET-*/
     expire_in: 2 weeks
 
 .build-unity-android: &build-unity-android
