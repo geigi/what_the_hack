@@ -17,7 +17,7 @@ namespace Wth.ModApi.Employees
     [Serializable]
     public class EmployeeData
     {
-        public const int LEVELUP_THRESHOLD = 3;
+        public const int LEVELUP_THRESHOLD = 2;
         public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.2f;
 
         /// <summary>
