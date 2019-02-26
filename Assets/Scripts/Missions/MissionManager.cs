@@ -116,10 +116,17 @@ namespace Missions
         {
             for (int i = 0; i < data.InProgress.Count; i++)
             {
-                data.InProgress[i].RemainingTicks -= 1;
-                if (data.InProgress[i].RemainingTicks < 1)
+                if (data.InProgress[i].WorkStarted)
                 {
-                    data.InProgress[i].Finish();
+                    data.InProgress[i].RemainingTicks -= 1;
+                    if (data.InProgress[i].RemainingTicks < 1)
+                    {
+                        data.InProgress[i].Finish();
+                    }
+                }
+                else if (data.InProgress[i].AcceptDate.TimeStepDifference(GameTime.GameTime.Instance.GetData()) >= 9)
+                {
+                    data.InProgress[i].WorkStarted = true;
                 }
             }
         }
@@ -137,6 +144,7 @@ namespace Missions
         {
             data.Available.Remove(mission);
             data.InProgress.Add(mission);
+            mission.AcceptDate = (GameTimeData) GameTime.GameTime.Instance.GetData().Clone();
             mission.RemainingTicks = mission.Duration * GameTime.GameTime.Instance.ClockSteps;
             missionWorkers.Add(mission, new MissionWorker(mission));
             AvailableMissionsChanged.Raise();

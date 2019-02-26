@@ -86,6 +86,7 @@ namespace Missions
         /// <param name="employee"></param>
         public void AddEmployee(EmployeeData employee)
         {
+            mission.WorkStarted = true;
             employees.Add(employee);
             EmployeesChanged.Invoke();
         }

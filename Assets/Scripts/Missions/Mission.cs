@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UE.Events;
+using GameTime;
 using UnityEngine.Events;
 
 namespace Missions
@@ -68,6 +68,16 @@ namespace Missions
         /// </summary>
         public Dictionary<SkillDefinition, float> Progress;
 
+        /// <summary>
+        /// This boolean will be set to true when work has started on this mission.
+        /// </summary>
+        public bool WorkStarted = false;
+
+        /// <summary>
+        /// The date when this mission was accepted.
+        /// </summary>
+        public GameTimeData AcceptDate;
+        
         /// <summary>
         /// This property is necessary because no constructor is being called on deserialization.
         /// </summary>

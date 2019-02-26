@@ -7,7 +7,7 @@ namespace GameTime
     /// This class contains all gametime data needed to save/load a game.
     /// </summary>
     [Serializable]
-    public class GameTimeData
+    public class GameTimeData: ICloneable
     {
         /// <summary>
         /// In-game date in classic game mode.
@@ -28,6 +28,31 @@ namespace GameTime
         {
             Date = new GameDate();
             Step = 0;
+        }
+
+        /// <summary>
+        /// Get the difference between this date and another given date in timesteps.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int TimeStepDifference(GameTimeData other)
+        {
+            int difference = other.Step - Step;
+            var dayDifference = (int)(other.Date.DateTime - Date.DateTime).TotalDays;
+            difference += dayDifference * GameTime.Instance.ClockSteps;
+            return difference;
+        }
+        
+        /// <summary>
+        /// Clone this object
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            var clone = new GameTimeData();
+            clone.Date = (GameDate) Date.Clone();
+            clone.Step = Step;
+            return clone;
         }
     }
 }

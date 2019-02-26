@@ -20,7 +20,7 @@ namespace GameTime
     /// This class represents a specific date in the game.
     /// </summary>
     [Serializable]
-    public class GameDate
+    public class GameDate: ICloneable
     {
         /// <summary>
         /// Date. Only Day, Month and Year are used in the game.
@@ -63,6 +63,20 @@ namespace GameTime
         public DateTime GetDateTime()
         {
             return DateTime;
+        }
+        
+        /// <summary>
+        /// Create a clone of this object.
+        /// </summary>
+        /// <returns></returns>
+        public object Clone()
+        {
+            var date = new GameDate();
+            date.DateTime = date.DateTime.AddYears(DateTime.Year - 1);
+            date.DateTime = date.DateTime.AddMonths(DateTime.Month - 1);
+            date.DateTime = date.DateTime.AddDays(DateTime.Day - 1);
+            date.DayOfWeek = DayOfWeek;
+            return date;
         }
     }
 }
