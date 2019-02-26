@@ -237,7 +237,7 @@ generate-android-apk:
   artifacts:
     name: "$BUILD_NAME $CI_PIPELINE_IID $BUILD_TARGET"
     paths:
-    - $CI_PROJECT_DIR/What_the_Hack.apk
+    - $CI_PROJECT_DIR/*.apk
 
     expire_in: 1 week
   variables:
