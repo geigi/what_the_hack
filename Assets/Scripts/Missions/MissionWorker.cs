@@ -27,6 +27,11 @@ namespace Missions
         /// This value defines the dice sides for critical success/failure chances.
         /// </summary>
         public const int DICE_SIDES = 40;
+        /// <summary>
+        /// When a mission requires multiple skills and some of them are finished,
+        /// the remaining skill points will be generated x times faster by this factor.
+        /// </summary>
+        public const float SKILLS_COMPLETED_BOOST_FACTOR = 1.5f;
 
         /// <summary>
         /// This dictionary reflects whether each skill is fulfilled by an employee skill (true) or by all purpose (false).
@@ -113,18 +118,19 @@ namespace Missions
         /// <param name="employee"></param>
         /// <param name="skill"></param>
         /// <param name="skillValue"></param>
+        /// <param name="completedSkills"></param>
         /// <returns></returns>
-        private float WorkOnSkill(EmployeeData employee, SkillDefinition skill, float skillValue)
+        private float WorkOnSkill(EmployeeData employee, SkillDefinition skill, float skillValue, int completedSkills)
         {
             int employeeValue;
             employeeValue = employee.HasSkill(skill)
                 ? employee.GetSkill(skill).Level
                 // General Purpose should be weaker than a specific skill
                 : employee.GetGeneralPurpose().Level / 2;
-
+            
             var stepValue = Math.Max(employeeValue, 1) * (1f / (mission.SkillDifficulty[skill] * mission.Difficulty)) *
                             (RandomUtils.mult_var(0.1f) * RANDOM_FACTOR) * 1f /
-                            mission.TotalTicks * BASE_VALUE;
+                            mission.TotalTicks * BASE_VALUE * Math.Max(1f, (float) Math.Pow(SKILLS_COMPLETED_BOOST_FACTOR, completedSkills));
 
             return skillValue + stepValue * GetCricitalChanceFactor(employee);
         }
@@ -153,6 +159,8 @@ namespace Missions
         /// <param name="step"></param>
         private void OnTimeStep(int step)
         {
+            int completedSkills = mission.Progress.Count(s => s.Value >= 1f);
+            
             foreach (var employee in employees)
             {
                 List<SkillDefinition> skills = new List<SkillDefinition>(mission.Progress.Keys);
@@ -165,8 +173,7 @@ namespace Missions
                         continue;
                     }
 
-                    var newValue = WorkOnSkill(employee, skill, value);
-                    
+                    var newValue = WorkOnSkill(employee, skill, value, completedSkills);
                     
                     mission.Progress[skill] = newValue;
                     mission.ProgressChanged.Invoke(new KeyValuePair<SkillDefinition, float>(skill, newValue));
