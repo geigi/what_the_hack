@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using Assets.Scripts.Reaction;
 using Extensions;
 using Interfaces;
@@ -251,16 +252,20 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     /// Levels the employee if the mission was completed successfully.
     /// </summary>
     /// <param name="completedSuccessfully"></param>
-    public void StopWorking(bool completedSuccessfully)
+    public void StopWorking(bool completedSuccessfully, bool showEmoji)
     {
         if (completedSuccessfully)
         {
             EmployeeData.IncrementFreeScore(SCORE_MISSION_COMPLETED +
                                             workplace.Mission.Difficulty * SCORE_MISSION_COMPLETED_PERLEVEL);
-            LevelUp();
-            emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
+            var nextLevel = LevelUp();
+            if (showEmoji && nextLevel)
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.LEVELUP, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
+            else if (showEmoji)
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
         } else
-            emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.ANGRY, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
+            if (showEmoji)
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.ANGRY, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
 
         workplace = null;
         grid.getNode(EmployeeData.Position).SetState(Enums.TileState.FREE);
@@ -398,14 +403,15 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     /// Call this to trigger a level up.
     /// Aborts, if the employee doesn't have enough score points.
     /// </summary>
-    private void LevelUp()
+    private bool LevelUp()
     {
-        if (EmployeeData.FreeScore < EmployeeData.LevelUpScoreNeeded) return;
+        if (EmployeeData.FreeScore < EmployeeData.LevelUpScoreNeeded) return false;
         Debug.Log(Name + " levels up!");
 
         spendScorePoints();
         EmployeeData.LevelUp();
-        onLevelUp();
+        
+        return true;
     }
 
     /// <summary>
@@ -530,14 +536,6 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private void addSkill(Skill skill)
     {
         EmployeeData.Skills.Add(skill);
-    }
-
-    /// <summary>
-    /// Notify event listeners.
-    /// </summary>
-    private void onLevelUp()
-    {
-        emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.LEVELUP, this, new Vector3(0, 2, 0), 10f);
     }
     #endregion
 

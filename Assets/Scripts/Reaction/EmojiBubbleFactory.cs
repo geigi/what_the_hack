@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Reaction;
 using Base;
@@ -61,6 +62,13 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
         emojiBubbleSprites.FirstOrDefault(sprite => sprite.name ==
                                                       $"character-Emojis-{type.ToString().ToLowerInvariant()}");
 
+    private Dictionary<Employee, Coroutine> EmployeeCoroutineMap;
+
+    private void Awake()
+    {
+        EmployeeCoroutineMap = new Dictionary<Employee, Coroutine>();
+    }
+
     /// <summary>
     /// Reaction to show above an Employee
     /// </summary>
@@ -70,11 +78,25 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
     /// <param name="displayTime">Defines for how long the reaction appears</param>
     public void EmpReaction(EmojiType type, Employee emp, Vector3 offset, float displayTime)
     {
+        // Remove a possibly already existing emoji
+        if (EmployeeCoroutineMap.ContainsKey(emp) && EmployeeCoroutineMap[emp] != null)
+        {
+            StopCoroutine(EmployeeCoroutineMap[emp]);
+            EmployeeCoroutineMap[emp] = null;
+            Destroy(emp.reaction);
+            emp.reaction = null;
+        }
+        
         if(2*fadeTime > displayTime) Debug.Log("Your specified displayTime is smaller than the time for fade in and out together!");
         var reaction = InitReaction(type, emp.transform.position, offset);
         emp.reaction = reaction.GetComponent<EmployeeReaction>();
         PlayEmojiSound(type);
-        StartCoroutine(FadeAndCountdown(reaction, displayTime, emp));
+        
+        var coroutine = StartCoroutine(FadeAndCountdown(reaction, displayTime, emp));
+        if (EmployeeCoroutineMap.ContainsKey(emp))
+            EmployeeCoroutineMap[emp] = coroutine;
+        else
+            EmployeeCoroutineMap.Add(emp, coroutine);
     }
 
     /// <summary>
@@ -135,7 +157,12 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
             spriteRenderer.color = col;
             yield return new WaitForSeconds(timeStep);
         }
-        if (emp != null) emp.reaction = null;
+
+        if (emp != null)
+        {
+            emp.reaction = null;
+            EmployeeCoroutineMap[emp] = null;
+        }
         Destroy(reaction);
     }
 

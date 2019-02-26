@@ -156,7 +156,9 @@ public class DebugHub : EditorWindow
                 
                 EditorGUILayout.IntField("Level:", employee.Level, GUILayout.ExpandWidth(true));
                 employee.SkillPoints = EditorGUILayout.IntField("Skill Points: ", employee.SkillPoints, GUILayout.ExpandWidth(true));
-                EditorGUILayout.FloatField("Free Score:", employee.FreeScore, GUILayout.ExpandWidth(true));
+                var freeScore = EditorGUILayout.FloatField("Free Score:", employee.FreeScore, GUILayout.ExpandWidth(true));
+                if (Math.Abs(freeScore - employee.FreeScore) > 0.01)
+                    employee.IncrementFreeScore(freeScore - employee.FreeScore);
                 EditorGUILayout.FloatField("Used Score:", employee.UsedScore, GUILayout.ExpandWidth(true));
                 EditorGUILayout.FloatField("Next Level Score:", employee.LevelUpScoreNeeded, GUILayout.ExpandWidth(true));
 

@@ -90,7 +90,7 @@ namespace Team
 
         private void onStopWorking()
         {
-            workplace.StopWorking(false);
+            workplace.StopWorking(false, false);
             gameSelectionManager.ClearEmployee();
             gameSelectionManager.ClearWorkplace();
         }
