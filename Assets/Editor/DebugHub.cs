@@ -160,7 +160,7 @@ public class DebugHub : EditorWindow
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button("Spawn Emoji", GUILayout.Width(85)))
                 {
-                    EmojiBubbleFactory.Instance.EmpReaction(EmojiBubbleFactory.EmojiType.OK, emp, new Vector3(0, 2), EmojiBubbleFactory.Instance.StandardDisplayTime);
+                    EmojiBubbleFactory.Instance.EmpReaction(EmojiBubbleFactory.EmojiType.OK, emp, EmojiBubbleFactory.EMPLYOEE_OFFSET, EmojiBubbleFactory.Instance.StandardDisplayTime);
                 }
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();

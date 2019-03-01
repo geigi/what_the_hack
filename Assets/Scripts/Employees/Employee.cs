@@ -244,7 +244,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         StopFollowPath();
 
         RequestNewWalkToWorkplace(workplace);
-        emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.OK, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
+        emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.OK, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, emojiBubbleFactory.StandardDisplayTime);
     }
 
     /// <summary>
@@ -260,12 +260,12 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                                             workplace.Mission.Difficulty * SCORE_MISSION_COMPLETED_PERLEVEL);
             var nextLevel = LevelUp();
             if (showEmoji && nextLevel)
-                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.LEVELUP, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.LEVELUP, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, emojiBubbleFactory.StandardDisplayTime);
             else if (showEmoji)
-                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, emojiBubbleFactory.StandardDisplayTime);
         } else
             if (showEmoji)
-                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.ANGRY, this, new Vector3(0, 2), emojiBubbleFactory.StandardDisplayTime);
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.ANGRY, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, emojiBubbleFactory.StandardDisplayTime);
 
         workplace = null;
         grid.getNode(EmployeeData.Position).SetState(Enums.TileState.FREE);

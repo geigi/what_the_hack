@@ -12,6 +12,8 @@ using UnityEngine;
 /// </summary>
 public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
 { 
+    public static readonly Vector3 EMPLYOEE_OFFSET = new Vector3(0, 1.8f);
+    
     /// <summary>
     /// Contains all types of different reactions.
     /// </summary>
@@ -41,13 +43,6 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
     /// If 2*fadeTime > than the specified displayTime, the sprite will show for 2*fadeTime. 
     /// </summary>
     public float fadeTime = 1f;
-
-    /// <summary>
-    /// step Variable for the FadeAnimation.
-    /// How much to advance the alpha each iteration
-    /// </summary>
-    [UnityEngine.Range(0, 1)]
-    public float step = 0.1f;
 
     [Header("Emoji Sound Events")] 
     public GameEvent SuccessEvent;
@@ -139,23 +134,32 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
     /// <returns></returns>
     private IEnumerator FadeAndCountdown(GameObject reaction, float time, Employee emp = null)
     {
-        var timeStep = fadeTime * step;
         var spriteRenderer = reaction.GetComponent<SpriteRenderer>();
         var col = spriteRenderer.color;
         col.a = 0;
         spriteRenderer.color = col;
         while (col.a < 1)
         {
-            col.a += step;
+            var stepChange = Time.deltaTime / fadeTime;
+            if (col.a + stepChange > 1f)
+                col.a = 1f;
+            else
+                col.a += stepChange;
+            
             spriteRenderer.color = col;
-            yield return new WaitForSeconds(timeStep);
+            yield return 0;
         }
         yield return new WaitForSeconds(time - 2*fadeTime);
         while (col.a > 0)
         {
-            col.a -= step;
+            var stepChange = Time.deltaTime / fadeTime;
+            if (col.a - stepChange < 0f)
+                col.a = 0f;
+            else
+                col.a -= stepChange;
+            
             spriteRenderer.color = col;
-            yield return new WaitForSeconds(timeStep);
+            yield return 0;
         }
 
         if (emp != null)
