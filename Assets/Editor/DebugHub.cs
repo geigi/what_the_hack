@@ -154,6 +154,19 @@ public class DebugHub : EditorWindow
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
                 
+                GUILayout.Space(10);
+                
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                if (GUILayout.Button("Spawn Emoji", GUILayout.Width(85)))
+                {
+                    EmojiBubbleFactory.Instance.EmpReaction(EmojiBubbleFactory.EmojiType.OK, emp, new Vector3(0, 2), EmojiBubbleFactory.Instance.StandardDisplayTime);
+                }
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
+                
+                GUILayout.Space(10);
+                
                 EditorGUILayout.IntField("Level:", employee.Level, GUILayout.ExpandWidth(true));
                 employee.SkillPoints = EditorGUILayout.IntField("Skill Points: ", employee.SkillPoints, GUILayout.ExpandWidth(true));
                 var freeScore = EditorGUILayout.FloatField("Free Score:", employee.FreeScore, GUILayout.ExpandWidth(true));

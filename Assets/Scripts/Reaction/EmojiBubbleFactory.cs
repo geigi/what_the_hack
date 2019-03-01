@@ -83,7 +83,7 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
         {
             StopCoroutine(EmployeeCoroutineMap[emp]);
             EmployeeCoroutineMap[emp] = null;
-            Destroy(emp.reaction);
+            Destroy(emp.reaction.gameObject);
             emp.reaction = null;
         }
         
@@ -163,7 +163,7 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
             emp.reaction = null;
             EmployeeCoroutineMap[emp] = null;
         }
-        Destroy(reaction);
+        Destroy(reaction.gameObject);
     }
 
     /// <summary>
