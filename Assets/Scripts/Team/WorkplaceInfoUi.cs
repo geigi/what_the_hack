@@ -1,5 +1,6 @@
 using System.Linq;
 using Extensions;
+using Missions;
 using UE.Events;
 using UI;
 using UnityEngine;
@@ -34,9 +35,11 @@ namespace Team
 
         [Header("Events")]
         public IntEvent GameTickEvent;
+        public GameEvent CompletedMissionChanged;
 
         private Workplace workplace;
         private UnityAction<int> onGameTickAction;
+        private UnityAction onCompletedMissionAction;
         
         private GameSelectionManager gameSelectionManager;
 
@@ -46,6 +49,8 @@ namespace Team
             onGameTickAction = onGameTick;
             GameTickEvent.AddListener(onGameTickAction);
             StopWorkingButton.onClick.AddListener(onStopWorking);
+            onCompletedMissionAction = onCompletedMission;
+            CompletedMissionChanged.AddListener(onCompletedMissionAction);
         }
 
         /// <summary>
@@ -93,6 +98,14 @@ namespace Team
             workplace.StopWorking(false, false);
             gameSelectionManager.ClearEmployee();
             gameSelectionManager.ClearWorkplace();
+        }
+
+        private void onCompletedMission()
+        {
+            if (workplace != null && MissionManager.Instance.GetData().Completed.Contains(workplace.Mission))
+            {
+                Deselect();
+            }
         }
 
         private void onGameTick(int tick)
