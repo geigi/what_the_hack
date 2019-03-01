@@ -102,7 +102,7 @@ namespace Assets.Tests_PlayMode
             Assert.IsTrue(1f > reaction.GetComponent<SpriteRenderer>().color.a);
             yield return new WaitForSeconds(1.2f);
             Assert.AreEqual(1, Mathf.RoundToInt(reaction.GetComponent<SpriteRenderer>().color.a));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(2.2f);
             Assert.IsTrue(1f > reaction.GetComponent<SpriteRenderer>().color.a);
         }
     }
