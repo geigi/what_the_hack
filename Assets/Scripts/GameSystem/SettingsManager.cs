@@ -26,6 +26,10 @@ namespace GameSystem
         /// String for sound fx volume setting representation.
         /// </summary>
         public const string SoundFxVolumeKey = "Sound_Fx_Volume";
+        /// <summary>
+        /// String for windowed / fullscreen setting representation (desktop only)
+        /// </summary>
+        public const string WindowStateKey = "Fullscreen";
         
         public enum PixelPerfectCameraValue {
             Off=0,
@@ -119,5 +123,26 @@ namespace GameSystem
                 return DEFAULT_FX_VOLUME;
             }
         }
+        
+#if UNITY_STANDALONE
+        /// <summary>
+        /// Save window state to PlayerPrefs.
+        /// </summary>
+        /// <param name="state"></param>
+        public static void SetWindowState(bool state) {
+            PlayerPrefs.SetInt(WindowStateKey, state ? 1 : 0);
+        }
+        
+        /// <summary>
+        /// Get the sound fx volume slider value from PlayerPrefs.
+        /// </summary>
+        public static bool GetWindowState()
+        {
+            var val = PlayerPrefs.GetInt(WindowStateKey);
+            if (val < 1)
+                return false;
+            else return true;
+        }
+#endif
     }
 }

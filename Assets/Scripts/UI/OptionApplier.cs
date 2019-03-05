@@ -11,13 +11,17 @@ namespace UI
     /// </summary>
     public class OptionApplier : MonoBehaviour
     {
-        [Header("UI Elements")]
-        public Slider MusicVolumeSlider, SoundFxVolumeSlider;
+        [Header("UI Elements")] 
+        public Slider MusicVolumeSlider;
+        public Slider SoundFxVolumeSlider;
+        public GameObject GraphicsContainer;
+        public Toggle WindowModeToggle;
 
         [Header("Objects to change")] 
         public AudioMixer AudioMixer;
 
         private UnityAction<float> musicVolumeAction, soundFxVolumeAction;
+        private UnityAction<bool> windowModeAction;
         
         private void Start()
         {
@@ -29,12 +33,21 @@ namespace UI
             
             soundFxVolumeAction = soundFxVolumeChanged;
             SoundFxVolumeSlider.onValueChanged.AddListener(soundFxVolumeAction);
+
+            #if UNITY_STANDALONE
+            GraphicsContainer.SetActive(true);
+            WindowModeToggle.isOn = SettingsManager.GetWindowState();
+
+            windowModeAction = windowModeChanged;
+            WindowModeToggle.onValueChanged.AddListener(windowModeAction);
+            #endif
         }
 
         private void OnDestroy()
         {
             MusicVolumeSlider.onValueChanged.RemoveListener(musicVolumeAction);
             SoundFxVolumeSlider.onValueChanged.RemoveListener(soundFxVolumeAction);
+            WindowModeToggle.onValueChanged.RemoveListener(windowModeAction);
         }
 
         private void musicVolumeChanged(float value)
@@ -48,5 +61,19 @@ namespace UI
             SettingsManager.SetSoundFxVolume(value);
             AudioMixer.SetFloat("FxVol", Mathf.Log(value) * 20);
         }
+
+#if UNITY_STANDALONE
+        private void windowModeChanged(bool state)
+        {
+            if (state)
+            {
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                Screen.SetResolution (Screen.currentResolution.width, Screen.currentResolution.height, true);
+            }
+            else
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+            SettingsManager.SetWindowState(state);
+        }
+#endif
     }
 }
