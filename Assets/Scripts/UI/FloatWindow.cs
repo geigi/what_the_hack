@@ -100,9 +100,9 @@ namespace UI
                 positionFinal += new Vector3(0, -top, 0);
             }
 
-            if (bottom > Screen.height - TopMargin)
+            if (bottom > Screen.height - TopMargin * Canvas.scaleFactor)
             {
-                positionFinal -= new Vector3(0, bottom - Screen.height + TopMargin, 0);
+                positionFinal -= new Vector3(0, bottom - Screen.height + TopMargin * Canvas.scaleFactor, 0);
             }
 
             // Apply final postion

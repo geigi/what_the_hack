@@ -1,4 +1,5 @@
-﻿using SaveGame;
+﻿using GameSystem;
+using SaveGame;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,13 @@ namespace Menu
             // Show Resume button only when a savegame exists
             if (SaveGameSystem.DoesSaveGameExist(SaveGameSystem.DEFAULT_SAVE_GAME_NAME))
                 ResumeButton.gameObject.SetActive(true);
+            
+#if UNITY_STANDALONE
+            if (SettingsManager.GetWindowState())
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+            else
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+#endif
         }
 
         /// <summary>
