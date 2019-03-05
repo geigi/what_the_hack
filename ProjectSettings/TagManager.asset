@@ -15,6 +15,7 @@ TagManager:
   - MissionManager
   - EmployeeManager
   - EmployeeReactions
+  - Money
   layers:
   - Default
   - TransparentFX
