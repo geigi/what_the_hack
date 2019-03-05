@@ -50,10 +50,10 @@ namespace UI
 
         private void OnDestroy()
         {
-            GameTimeMode.onValueChanged.RemoveListener(gameTimeModeAction);
-            MusicVolumeSlider.onValueChanged.RemoveListener(musicVolumeAction);
-            SoundFxVolumeSlider.onValueChanged.RemoveListener(soundFxVolumeAction);
-            WindowModeToggle.onValueChanged.RemoveListener(windowModeAction);
+            GameTimeMode.onValueChanged?.RemoveListener(gameTimeModeAction);
+            MusicVolumeSlider.onValueChanged?.RemoveListener(musicVolumeAction);
+            SoundFxVolumeSlider.onValueChanged?.RemoveListener(soundFxVolumeAction);
+            WindowModeToggle.onValueChanged?.RemoveListener(windowModeAction);
         }
 
         private void gameTimeModeChanged(int state)
