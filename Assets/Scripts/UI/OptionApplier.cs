@@ -12,6 +12,7 @@ namespace UI
     public class OptionApplier : MonoBehaviour
     {
         [Header("UI Elements")] 
+        public Dropdown GameTimeMode;
         public Slider MusicVolumeSlider;
         public Slider SoundFxVolumeSlider;
         public GameObject GraphicsContainer;
@@ -20,11 +21,15 @@ namespace UI
         [Header("Objects to change")] 
         public AudioMixer AudioMixer;
 
+        private UnityAction<int> gameTimeModeAction;
         private UnityAction<float> musicVolumeAction, soundFxVolumeAction;
         private UnityAction<bool> windowModeAction;
         
         private void Start()
         {
+            gameTimeModeAction = gameTimeModeChanged;
+            GameTimeMode.onValueChanged.AddListener(gameTimeModeAction);
+            
             MusicVolumeSlider.value = SettingsManager.GetMusicVolume();
             SoundFxVolumeSlider.value = SettingsManager.GetSoundFxVolume();
             
@@ -45,9 +50,15 @@ namespace UI
 
         private void OnDestroy()
         {
+            GameTimeMode.onValueChanged.RemoveListener(gameTimeModeAction);
             MusicVolumeSlider.onValueChanged.RemoveListener(musicVolumeAction);
             SoundFxVolumeSlider.onValueChanged.RemoveListener(soundFxVolumeAction);
             WindowModeToggle.onValueChanged.RemoveListener(windowModeAction);
+        }
+
+        private void gameTimeModeChanged(int state)
+        {
+            SettingsManager.SetGameTime(state);
         }
 
         private void musicVolumeChanged(float value)
