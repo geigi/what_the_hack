@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Assets.Scripts.NotificationSystem;
 using Base;
 using Employees;
 using GameSystem;
@@ -24,6 +25,7 @@ namespace SaveGame
         public EmployeeManager EmployeeManager;
         public MissionManager MissionManager;
         public Bank bank;
+        public NotificationCenter NotificationCenter;
 
         private MainSaveGame currentSaveGame;
 
@@ -66,6 +68,7 @@ namespace SaveGame
             saveGame.missionManagerData = MissionManager.GetData();
             saveGame.teamManagerData = TeamManager.Instance.GetData();
             saveGame.gameTime = GameTime.GameTime.Instance.GetData();
+            saveGame.NotificationCenterData = NotificationCenter.Instance.GetData();
             FillTileMapData(saveGame);
             saveGame.balance = bank.Balance;
             return saveGame;

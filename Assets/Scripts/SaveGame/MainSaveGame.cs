@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.NotificationSystem;
 using Employees;
 using GameTime;
 using Missions;
@@ -57,8 +58,13 @@ namespace SaveGame
 		public TeamManagerData teamManagerData;
 		
         /// <summary>
-        /// The current balance on this savegame.
+        /// All Persistent data from Bank.
         /// </summary>
         public int balance;
+
+        /// <summary>
+        /// All persistent Data from NotificationCenter
+        /// </summary>
+        public NotificationCenterData NotificationCenterData;
     }
 }
