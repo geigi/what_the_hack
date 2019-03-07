@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.NotificationSystem;
 using Base;
 using Employees;
 using GameSystem;
@@ -47,9 +48,12 @@ namespace Missions
 
         private Dictionary<Mission, MissionWorker> missionWorkers;
 
+        private NotificationCenter notificationCenter;
+
         private void Awake()
         {
             missionWorkers = new Dictionary<Mission, MissionWorker>();
+            notificationCenter = NotificationCenter.Instance;
 
             if (GameSettings.NewGame)
                 InitDefaultState();
@@ -290,12 +294,18 @@ namespace Missions
                 data.Completed.Add(mission);
                 CompletedMissionsChanged.Raise();
 
+                //Notification
+                notificationCenter.Success($"Mission: {mission.GetName()} was completed successfully");
+
                 // Payout
                 ContentHub.Instance.bank.Income(mission.RewardMoney);
             }
             else
             {
                 // Mission has failed
+
+                //Notification
+                notificationCenter.Fail($"Mission: {mission.GetName()} failed.");
 
                 // TODO: Re-add to available if requested by definition
             }

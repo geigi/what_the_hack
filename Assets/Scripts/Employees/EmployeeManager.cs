@@ -3,6 +3,7 @@ using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.NotificationSystem;
 using Assets.Scripts.UI.EmployeeWindow;
 using Base;
 using Extensions;
@@ -109,9 +110,12 @@ namespace Employees
 
         private UnityAction<object> dayChangedAction;
 
+        private NotificationCenter notificationCenter;
+
         private void Awake()
         {
             contentHub = ContentHub.Instance;
+            notificationCenter = NotificationCenter.Instance;
             EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject>();
             this.specialEmployees = contentHub.GetEmployeeLists();
             factoryObject = new EmployeeFactory();
@@ -317,7 +321,12 @@ namespace Employees
 
             //Pay Employees, at the start of each week.
             if (gameDate.DayOfWeek == DayOfWeek.Monday)
+            {
+                notificationCenter.Info("Payday is here!");
                 data.hiredEmployees.ForEach(emp => bank.Pay(emp.Salary));
+            }
+            else if (gameDate.DayOfWeek == DayOfWeek.Sunday)
+                notificationCenter.Info("Only one day left till payday.");
         }
 
         public Employee GetEmployee(EmployeeData data)
