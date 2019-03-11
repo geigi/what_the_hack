@@ -15,6 +15,10 @@ namespace GameSystem
         /// </summary>
         public const string GameTimeKey = "Game_Time";
         /// <summary>
+        /// String for difficulty settings representation.
+        /// </summary>
+        public const string DifficultyKey = "Difficulty";
+        /// <summary>
         /// String for daytime setting representation.
         /// </summary>
         public const string DayTimeKey = "Day_Time";
@@ -43,6 +47,11 @@ namespace GameSystem
         public enum GameTimeMode { Classic, Realtime }
 
         /// <summary>
+        /// Tis enum represents the four different difficulties. 
+        /// </summary>
+        public enum Difficulty { Easy, Normal, Hard, Guru}
+
+        /// <summary>
         /// Save pixel perfect camera dropdown value to PlayerPrefs.
         /// </summary>
         /// <param name="dropdownValue"></param>
@@ -57,7 +66,13 @@ namespace GameSystem
         public static void SetGameTime(int dropdownValue) {
             PlayerPrefs.SetInt(GameTimeKey, dropdownValue);
         }
-        
+
+        /// <summary>
+        /// Save difficulty to PlayerPrefs.
+        /// </summary>
+        /// <param name="dropdownValue">New difficulty value</param>
+        public static void SetDifficulty(int dropdownValue) => PlayerPrefs.SetInt(DifficultyKey, dropdownValue);
+
         /// <summary>
         /// Save daytime slider value to PlayerPrefs.
         /// </summary>
@@ -90,6 +105,12 @@ namespace GameSystem
         {
             return (GameTimeMode) PlayerPrefs.GetInt(GameTimeKey);
         }
+
+        /// <summary>
+        /// Gets the current difficulty,
+        /// </summary>
+        /// <returns>Current difficulty</returns>
+        public static Difficulty GetDifficulty() => (Difficulty) PlayerPrefs.GetInt(DifficultyKey);
         
         /// <summary>
         /// Get the daytime slider value from PlayerPrefs.

@@ -17,6 +17,7 @@ using UnityEditor.ProjectWindowCallback;
 using UnityEditor.SceneManagement;
 using UnityEngine.Events;
 using UnityEngine.TestTools;
+using Assets.Scripts.NotificationSystem;
 using Wth.ModApi.Employees;
 using DayOfWeek = GameTime.DayOfWeek;
 using Object = System.Object;
@@ -111,12 +112,16 @@ namespace Assets.Tests
             manager.InitDefaultState();
             manager.factoryObject = factory;
             manager.bank = bank;
+            var notifications = Substitute.For<NotificationCenter>();
+            notifications.WhenForAnyArgs(x => x.Info(Arg.Any<string>())).DoNotCallBase();
+            manager.notificationCenter = notifications;
             manager.GetData().hiredEmployees.Add(testEmployee);
             manager.WhenForAnyArgs(x => x.AddEmployeeForHireToGui(testEmployee)).DoNotCallBase();
             manager.DayChanged(new GameDate());
             Assert.IsNotEmpty(manager.GetData().employeesForHire);
             manager.Received().AddEmployeeForHireToGui(testEmployee);
             bank.Received(1).Pay(Arg.Any<int>());
+            notifications.Received(1).Info(Arg.Any<string>());
             rand.Received(MaxNumberOfHireableEmployees + 1).NextDouble();
         }
         
@@ -163,11 +168,15 @@ namespace Assets.Tests
             manager.minimumNumberOfEmployees = 0;
             EmployeeManager.rand = rand;
             manager.InitDefaultState();
+            var notifications = Substitute.For<NotificationCenter>();
+            notifications.WhenForAnyArgs(x => x.Info(Arg.Any<string>())).DoNotCallBase();
+            manager.notificationCenter = notifications;
             manager.EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject> { { testEmployee, new GameObject() } };
             manager.WhenForAnyArgs(x => x.AddEmployeeForHireToGui(Arg.Any<EmployeeData>())).DoNotCallBase();
             manager.WhenForAnyArgs(x => x.RemoveEmployeeForHire(Arg.Any<EmployeeData>())).DoNotCallBase();
             manager.GetData().employeesForHire.Add(emp);
             manager.DayChanged(new GameDate());
+            notifications.Received(1).Info(Arg.Any<string>());
             Assert.AreEqual(1, manager.GetData().employeesForHire.Count);
             Assert.AreEqual(1, emp.hireableDays);
         }

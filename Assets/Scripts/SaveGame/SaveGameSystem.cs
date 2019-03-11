@@ -71,6 +71,7 @@ namespace SaveGame
             saveGame.NotificationCenterData = NotificationCenter.Instance.GetData();
             FillTileMapData(saveGame);
             saveGame.balance = bank.Balance;
+            saveGame.Difficulty = SettingsManager.GetDifficulty();
             return saveGame;
         }
 

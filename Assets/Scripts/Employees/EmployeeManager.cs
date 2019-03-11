@@ -110,7 +110,7 @@ namespace Employees
 
         private UnityAction<object> dayChangedAction;
 
-        private NotificationCenter notificationCenter;
+        protected internal NotificationCenter notificationCenter;
 
         private void Awake()
         {

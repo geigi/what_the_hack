@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.NotificationSystem;
 using Employees;
+using GameSystem;
 using GameTime;
 using Missions;
 using Team;
@@ -66,5 +67,10 @@ namespace SaveGame
         /// All persistent Data from NotificationCenter
         /// </summary>
         public NotificationCenterData NotificationCenterData;
+
+        /// <summary>
+        /// Difficulty of the current game.
+        /// </summary>
+        public SettingsManager.Difficulty Difficulty;
     }
 }

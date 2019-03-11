@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2b088acf25b42ccadef9e94be7828c6, type: 3}
-  m_Name: ModSelection
+  m_Name: DifficultySelectionState
   m_EditorClassIdentifier: 
   stateManager: {fileID: 11400000, guid: 11c2ba47482af4c698364f9d2e8ec57c, type: 2}
   DeveloperDescription: 

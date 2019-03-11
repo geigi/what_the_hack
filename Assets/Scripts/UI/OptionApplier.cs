@@ -13,6 +13,7 @@ namespace UI
     {
         [Header("UI Elements")] 
         public Dropdown GameTimeMode;
+        public Dropdown Difficulty;
         public Slider MusicVolumeSlider;
         public Slider SoundFxVolumeSlider;
         public GameObject GraphicsContainer;
@@ -24,12 +25,16 @@ namespace UI
         private UnityAction<int> gameTimeModeAction;
         private UnityAction<float> musicVolumeAction, soundFxVolumeAction;
         private UnityAction<bool> windowModeAction;
+        private UnityAction<int> difficultyChangedAction;
         
         private void Start()
         {
             gameTimeModeAction = gameTimeModeChanged;
             GameTimeMode.onValueChanged.AddListener(gameTimeModeAction);
-            
+
+            difficultyChangedAction = DifficultyChanged;
+            Difficulty.onValueChanged.AddListener(difficultyChangedAction);
+
             MusicVolumeSlider.value = SettingsManager.GetMusicVolume();
             SoundFxVolumeSlider.value = SettingsManager.GetSoundFxVolume();
             
@@ -60,6 +65,8 @@ namespace UI
         {
             SettingsManager.SetGameTime(state);
         }
+
+        private void DifficultyChanged(int difficulty) => SettingsManager.SetDifficulty(difficulty);
 
         private void musicVolumeChanged(float value)
         {

@@ -44,7 +44,7 @@ namespace Assets.Scripts.NotificationSystem
             notificationData = saveGame.NotificationCenterData;
         }
 
-        public void Info(string message)
+        public virtual void Info(string message)
         {
             newNotification(message, NotificationType.Info);
         }
