@@ -8,15 +8,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Mission", menuName = "What_The_Hack ModApi/Missions/Mission Definition", order = -401)]
 public sealed class MissionDefinition : ScriptableObject
 {
-
-    public enum DifficultyOption
-    {
-        Easy,
-        Normal,
-        Hard,
-        Guru
-    }
-
     /// <summary>
     /// The title of this mission.
     /// </summary>
@@ -55,7 +46,7 @@ public sealed class MissionDefinition : ScriptableObject
     /// <summary>
     /// The DifficultyOption of this level.
     /// </summary>
-    public DifficultyOption Difficulty = DifficultyOption.Easy;
+    public MissionList.DifficultyOption Difficulty = MissionList.DifficultyOption.Easy;
 
     /// <summary>
     /// The hardness of this level. Must be between 0.0-10.0.

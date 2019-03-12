@@ -33,3 +33,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 54bc7ee44428e4c4fab701fe7e94ea53, type: 2}
   - {fileID: 11400000, guid: 8649f3774327746c3b04871828264f9c, type: 2}
   - {fileID: 11400000, guid: f0965a62e657d4d9587535cc0ca4766e, type: 2}
+  easyDifficultyDescription: In this difficulty you can expect easy and straightforward
+    missions.
+  normalDifficultyDescription: In this difficulty you can expect everything from the
+    previous difficulty, as well as special missions on the topic of SQL-Injection.
+  hardDifficultyDescription: In this difficulty you can expect everything from the
+    previous difficulties, as well as special missions on the topic of CrossSiteScripting.
+  guruDifficultyDescription: In this difficulty you can expect everything from the
+    previous difficulties, as well as special missions on the topic of Secure Passwords.
