@@ -22,7 +22,13 @@ namespace Wth.ModApi.Editor.Missions
         private SerializedObject soRequiredMissions;
         private ReorderableList listRequiredMissions;
         private Vector2 scrollPos;
-        
+
+        private string[] difficultyOptions = new[] {MissionDefinition.DifficultyOption.Easy.ToString(),
+            MissionDefinition.DifficultyOption.Normal.ToString(), MissionDefinition.DifficultyOption.Hard.ToString(),
+            MissionDefinition.DifficultyOption.Guru.ToString()};
+
+        private int dropdownSelected;
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -53,6 +59,8 @@ namespace Wth.ModApi.Editor.Missions
                     asset.missionList = new List<MissionDefinition>();
                 CreateAssetNavigation(asset.missionList.Count);
                 GUILayout.Space(10);
+
+                dropdownSelected = (int) asset.missionList[viewIndex - 1].Difficulty;
 
                 GUILayout.BeginHorizontal();
                 GUILayout.FlexibleSpace();
@@ -139,8 +147,9 @@ namespace Wth.ModApi.Editor.Missions
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
-            GUILayout.Label("Difficulty", GUILayout.Width(146));
-            mission.Difficulty = EditorGUILayout.IntSlider(mission.Difficulty, 0, 5);
+            //Difficulty Dropdown
+            dropdownSelected = EditorGUILayout.Popup("Difficulty", dropdownSelected, difficultyOptions);
+            mission.Difficulty = (MissionDefinition.DifficultyOption) dropdownSelected;
             GUILayout.Label("Hardness", GUILayout.Width(146));
             mission.Hardness = EditorGUILayout.Slider(mission.Hardness, 0.5f, 10f);
             GUILayout.EndHorizontal();

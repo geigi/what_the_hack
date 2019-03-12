@@ -30,3 +30,4 @@ MonoBehaviour:
   AppearAfterDays: 0
   RequiredMissions: {fileID: 11400000, guid: e423c6c8e62ca4bb69d6d6da090ed567, type: 2}
   ForceAppear: 0
+  ReApper: 0
