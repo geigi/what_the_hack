@@ -44,6 +44,10 @@ public class ContentHub: Singleton<ContentHub>
     /// </summary>
     public Material DefaultSpecialEmpMaterial;
     /// <summary>
+    /// The default material for employee UI images.
+    /// </summary>
+    public Material DefaultEmpUiMaterial;
+    /// <summary>
     /// All Animation Clips that a male generated Employee can use.
     /// It is Required, that there are the same number of idle, walking and working animations.
     /// The first indices of the array, should hold the idle Animations, then the walking and finally the working Animations. 

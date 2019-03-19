@@ -86,7 +86,7 @@ public class EmployeeFactory {
     protected internal NameLists names;
     private List<SkillDefinition> skills;
     private SkillDefinition allPurpSkillDef;
-    private Material empMaterial;
+    private Material empMaterial, empUiMaterial;
 
     private Texture2D colorSwapTex;
     private Color[] spriteColors;
@@ -104,6 +104,7 @@ public class EmployeeFactory {
         skills = contentHub.GetSkillSet().keys;
         allPurpSkillDef = skills.Find(x => x.skillName.Equals("All Purpose"));
         empMaterial = contentHub.DefaultEmpMaterial;
+        empUiMaterial = contentHub.DefaultEmpUiMaterial;
         InitColorSwapTex();
         spriteColors = new Color[colorSwapTex.width];
         specialEmployeesToSpawn = new List<EmployeeDefinition>();
@@ -120,6 +121,7 @@ public class EmployeeFactory {
 
         colorSwapTex.Apply();
         empMaterial.SetTexture("_SwapTex", colorSwapTex);
+        empUiMaterial.SetTexture("_SwapTex", colorSwapTex);
     }
 
     private void SwapColor(SwapIndex index, Color color)
@@ -173,12 +175,14 @@ public class EmployeeFactory {
     /// Generates a new Material, with the Colors specified in empData.
     /// The Material provided as a parameter is not changed during the process.
     /// </summary>
-    /// <param name="standardMaterial">The standard Material, from which a new Material should be generated.</param>
     /// <param name="empData">The generated Data, where the colors are specified.</param>
+    /// <param name="ui"></param>
     /// <returns></returns>
-    public Material GenerateMaterialForEmployee(EmployeeGeneratedData empData)
+    public Material GenerateMaterialForEmployee(EmployeeGeneratedData empData, bool ui = false)
     {
-        Material newMat = new Material(empMaterial);
+        Material newMat;
+        newMat = ui ? new Material(empUiMaterial) : new Material(empMaterial);
+        
         SwapColor(SwapIndex.skin, empData.skinColor);
         SwapColor(SwapIndex.hair, empData.hairColor);
         SwapColor(SwapIndex.shirt, empData.shirtColor);

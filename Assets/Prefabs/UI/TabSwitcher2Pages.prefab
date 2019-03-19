@@ -268,6 +268,11 @@ PrefabInstance:
       propertyPath: m_Text
       value: Tab 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7927008356305292027, guid: 0fe794c0ecc70482abf547625803f644,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe794c0ecc70482abf547625803f644, type: 3}
 --- !u!224 &1057546686823219409 stripped
@@ -473,6 +478,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: Tab 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927008356305292027, guid: 0fe794c0ecc70482abf547625803f644,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe794c0ecc70482abf547625803f644, type: 3}

@@ -66,7 +66,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
             GenerateSkillGui();
             if (employeeData.generatedData != null)
             {
-                empImage.material = factory.GenerateMaterialForEmployee(employeeData.generatedData);
+                empImage.material = factory.GenerateMaterialForEmployee(employeeData.generatedData, true);
                 empName.text = employeeData.generatedData.name;
             }
             else

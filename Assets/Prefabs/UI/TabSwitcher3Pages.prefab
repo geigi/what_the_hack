@@ -218,6 +218,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7927008356305292027, guid: 0fe794c0ecc70482abf547625803f644,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe794c0ecc70482abf547625803f644, type: 3}
 --- !u!224 &7407791140325287877 stripped
@@ -373,6 +378,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7927008356305292027, guid: 0fe794c0ecc70482abf547625803f644,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe794c0ecc70482abf547625803f644, type: 3}
 --- !u!224 &7313445167174471530 stripped
@@ -526,6 +536,11 @@ PrefabInstance:
     - target: {fileID: 7927008356305292026, guid: 0fe794c0ecc70482abf547625803f644,
         type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7927008356305292027, guid: 0fe794c0ecc70482abf547625803f644,
+        type: 3}
+      propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

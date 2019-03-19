@@ -20,6 +20,8 @@
             _StencilWriteMask("Stencil Write Mask", Float) = 255
             _StencilReadMask("Stencil Read Mask", Float) = 255
             _ColorMask("Color Mask", Float) = 15
+            
+        [Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip ("Use Alpha Clip", Float) = 0
     }
 
         SubShader
@@ -27,11 +29,16 @@
             Tags 
             { 
                 "Queue" = "Transparent"
+                "IgnoreProjector"="True"
+                "RenderType"="Transparent"
+                "PreviewType"="Plane"
+                "CanUseSpriteAtlas"="True"
             }
 
             Cull Off
             ZWrite Off
             Blend One OneMinusSrcAlpha
+            ZTest [unity_GUIZTestMode]
 
             // required for UI.Mask
             Stencil
@@ -49,13 +56,16 @@
                 #pragma surface surf Lambert alpha:fade vertex:vert
                 #pragma multi_compile _ PIXELSNAP_ON
                 #include "UnityCG.cginc"
+                #include "UnityUI.cginc"
                 #include "UnityLightingCommon.cginc"
+                #pragma multi_compile __ UNITY_UI_ALPHACLIP
 
                 struct appdata_t
                 {
                     float4 vertex   : POSITION;
                     float4 color    : COLOR;
                     float2 texcoord : TEXCOORD0;
+                    float4 worldPosition : TEXCOORD1;
                     float3 normal   : NORMAL;
                     float4 tangent  : TANGENT;
                 };
@@ -67,9 +77,11 @@
                     fixed4 color : COLOR;
                     float4 vertex   : SV_POSITION;
                     float2 texcoord  : TEXCOORD0;
+                    float4 worldPosition : TEXCOORD1;
                 };
 
                 fixed4 _Color;
+                float4 _ClipRect;
 
                 void vert(inout appdata_t IN, out Input OUT)
                 {
@@ -77,8 +89,12 @@
                     OUT.vertex = UnityObjectToClipPos(IN.vertex);
                     OUT.texcoord = IN.texcoord;
                     OUT.color = IN.color * _Color;
+                    OUT.worldPosition = IN.vertex;
     #ifdef PIXELSNAP_ON
                     OUT.vertex = UnityPixelSnap(OUT.vertex);
+    #endif
+    #ifdef UNITY_HALF_TEXEL_OFFSET
+                    OUT.vertex.xy += (_ScreenParams.zw-1.0)*float2(-1,1);
     #endif
                 }
 
@@ -124,6 +140,11 @@
                     o.Alpha = final.a;
                     o.Albedo = final.rgb * final.a;
                     o.Normal = UnpackNormal (tex2D (_BumpMap, IN.uv_BumpMap));
+                    
+                    #ifdef UNITY_UI_ALPHACLIP
+                    o.Alpha *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
+                    clip (o.Alpha - 0.001);
+                    #endif
                 }
             ENDCG
         }
