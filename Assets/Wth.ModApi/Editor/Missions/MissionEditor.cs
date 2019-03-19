@@ -18,11 +18,18 @@ namespace Wth.ModApi.Editor.Missions
     {
         private bool skillFold = true;
         private bool requirementsFold = true;
+        private bool difficultyDescriptionFold = false;
         private MissionRequirements requiredMissions;
         private SerializedObject soRequiredMissions;
         private ReorderableList listRequiredMissions;
         private Vector2 scrollPos;
-        
+
+        private string[] difficultyOptions = new[] {MissionList.DifficultyOption.Easy.ToString(),
+            MissionList.DifficultyOption.Normal.ToString(), MissionList.DifficultyOption.Hard.ToString(),
+            MissionList.DifficultyOption.Guru.ToString()};
+
+        private int dropdownSelected;
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -51,8 +58,13 @@ namespace Wth.ModApi.Editor.Missions
             {
                 if (asset.missionList == null)
                     asset.missionList = new List<MissionDefinition>();
+
+                CreateDifficultyDescription();
+                GUILayout.Space(10);
                 CreateAssetNavigation(asset.missionList.Count);
                 GUILayout.Space(10);
+
+                dropdownSelected = (int) asset.missionList[viewIndex - 1].Difficulty;
 
                 GUILayout.BeginHorizontal();
                 GUILayout.FlexibleSpace();
@@ -139,8 +151,9 @@ namespace Wth.ModApi.Editor.Missions
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
-            GUILayout.Label("Difficulty", GUILayout.Width(146));
-            mission.Difficulty = EditorGUILayout.IntSlider(mission.Difficulty, 0, 5);
+            //Difficulty Dropdown
+            dropdownSelected = EditorGUILayout.Popup("Difficulty", dropdownSelected, difficultyOptions);
+            mission.Difficulty = (MissionList.DifficultyOption) dropdownSelected;
             GUILayout.Label("Hardness", GUILayout.Width(146));
             mission.Hardness = EditorGUILayout.Slider(mission.Hardness, 0.5f, 10f);
             GUILayout.EndHorizontal();
@@ -237,6 +250,34 @@ namespace Wth.ModApi.Editor.Missions
                 
                 EditorGUILayout.EndVertical();
                 EditorGUILayout.EndHorizontal();
+            }
+        }
+
+        private void CreateDifficultyDescription()
+        {
+            difficultyDescriptionFold = EditorGUILayout.Foldout(difficultyDescriptionFold, "Difficulty Description");
+            if (difficultyDescriptionFold)
+            {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("Easy:", GUILayout.Width(146));
+                asset.easyDifficultyDescription = EditorGUILayout.TextArea(asset.easyDifficultyDescription,
+                    EditorStyles.textArea, GUILayout.Height(80));
+                GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("Normal:", GUILayout.Width(146));
+                asset.normalDifficultyDescription = EditorGUILayout.TextArea(asset.normalDifficultyDescription,
+                    EditorStyles.textArea, GUILayout.Height(80));
+                GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("Hard:", GUILayout.Width(146));
+                asset.hardDifficultyDescription = EditorGUILayout.TextArea(asset.hardDifficultyDescription,
+                    EditorStyles.textArea, GUILayout.Height(80));
+                GUILayout.EndHorizontal();
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("Guru:", GUILayout.Width(146));
+                asset.guruDifficultyDescription = EditorGUILayout.TextArea(asset.guruDifficultyDescription,
+                    EditorStyles.textArea, GUILayout.Height(80));
+                GUILayout.EndHorizontal();
             }
         }
 

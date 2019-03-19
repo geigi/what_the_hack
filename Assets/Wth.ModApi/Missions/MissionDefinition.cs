@@ -44,9 +44,9 @@ public sealed class MissionDefinition : ScriptableObject
     public List<SkillDefinition> SkillsRequired = new List<SkillDefinition>();
 
     /// <summary>
-    /// The Difficulty of this level. Must be 0-5.
+    /// The DifficultyOption of this level.
     /// </summary>
-    public int Difficulty = 0;
+    public MissionList.DifficultyOption Difficulty = MissionList.DifficultyOption.Easy;
 
     /// <summary>
     /// The hardness of this level. Must be between 0.0-10.0.

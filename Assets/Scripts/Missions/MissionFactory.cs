@@ -90,10 +90,12 @@ namespace Missions
         /// <returns>Random mission object</returns>
         public Mission CreateMission(float difficulty)
         {
+            var difficultyOption = SettingsManager.GetDifficulty();
             MissionDefinition definition;
             do
             {
-                definition = missionList.missionList[Random.Range(0, missionList.missionList.Count)];
+                definition = missionList.missionList.FindAll(currentMission => (int) currentMission.Difficulty <= (int) difficultyOption)
+                    [Random.Range(0, missionList.missionList.Count(currentMission => (int)currentMission.Difficulty <= (int)difficultyOption))];
             } while (definition.ForceAppear || !RequirementsFullfilled(definition));
 
             var mission = new Mission(definition);
