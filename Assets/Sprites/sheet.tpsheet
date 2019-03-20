@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # https://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:1e6b154126d7640a77c5e214381926ac:c5ce6eb61b202b25ec41f290c4ca5987:29aa05aa20a099423cfc27178fbd19f7$
+# $TexturePacker:SmartUpdate:2116782ac00a83bd30392f9e667b4daa:89d75e2f2932262a674dc156aaa58597:29aa05aa20a099423cfc27178fbd19f7$
 #
 :format=40300
 :texture=sheet.png
@@ -163,6 +163,7 @@ game-interior-Table_bf_1;1817;1982;64;64; 0.5;0.5; 0;0;0;0
 game-interior-Table_bf_2;1886;1982;64;64; 0.5;0.5; 0;0;0;0
 ui-base_game_banner;2;132;400;182; 0.5;0.5; 0;0;0;0
 ui-calendar;279;3;12;12; 0.5;0.5; 0;0;0;0
+ui-dropdown_arrow;296;3;12;12; 0.5;0.5; 0;0;0;0
 ui-error;2029;1888;15;15; 0.5;0.5; 0;0;0;0
 ui-floor_icon;1845;1467;32;32; 0.5;0.5; 0;0;0;0
 ui-GameLogo;261;20;360;38; 0.5;0.5; 0;0;0;0
