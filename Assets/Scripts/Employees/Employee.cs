@@ -518,9 +518,9 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     /// <returns></returns>
     private bool gainSpecial()
     {
-        if (EmployeeData.Specials.Count < MAX_SPECIALS)
+        if (EmployeeData.GetSpecials().Count < MAX_SPECIALS)
         {
-            EmployeeData.Specials.Add(
+            EmployeeData.AddSpecial(
                 (EmployeeSpecial) Activator.CreateInstance(EmployeeFactory.EmployeeSpecials.RandomElement()));
             return true;
         }

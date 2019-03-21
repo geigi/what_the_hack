@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using DefaultNamespace;
 using UE.Common;
 using UE.Events;
 using UnityEngine;
@@ -92,7 +94,23 @@ namespace Wth.ModApi.Employees
         /// <summary>
         /// List of specials.
         /// </summary>
-        public List<EmployeeSpecial> Specials;
+        private List<EmployeeSpecial> Specials;
+        
+        /// <summary>
+        /// Gets fired when specials change.
+        /// </summary>
+        public UnityEvent<EmployeeSpecial> SpecialsChanged
+        {
+            get
+            {
+                if (specialsChanged == null) specialsChanged = new EmployeeSpecialEvent();
+                return specialsChanged;
+            }
+            set =>  specialsChanged = value;
+        }
+
+        [NonSerialized] 
+        private UnityEvent<EmployeeSpecial> specialsChanged;
         
         /// <summary>
         /// World position of the employee.
@@ -179,6 +197,7 @@ namespace Wth.ModApi.Employees
         public EmployeeData()
         {
             SkillPointsChanged = new IntUnityEvent();
+            Specials = new List<EmployeeSpecial>();
         }
         
         /// <summary>
@@ -246,6 +265,24 @@ namespace Wth.ModApi.Employees
             level += 1;
             
             LevelChanged.Invoke(level);
+        }
+
+        /// <summary>
+        /// Add a new special to this employee.
+        /// </summary>
+        /// <param name="special"></param>
+        public void AddSpecial(EmployeeSpecial special)
+        {
+            Specials.Add(special);
+            SpecialsChanged.Invoke(special);
+        }
+
+        /// <summary>
+        /// Get the specials of this employee.
+        /// </summary>
+        public ReadOnlyCollection<EmployeeSpecial> GetSpecials()
+        {
+            return Specials.AsReadOnly();
         }
     }
 }

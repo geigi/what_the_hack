@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # https://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:2116782ac00a83bd30392f9e667b4daa:89d75e2f2932262a674dc156aaa58597:29aa05aa20a099423cfc27178fbd19f7$
+# $TexturePacker:SmartUpdate:1eb097e8f2bca57ad91da05f1dcafffd:c12eec9e526e1317cbc3256ec02fc2f0:29aa05aa20a099423cfc27178fbd19f7$
 #
 :format=40300
 :texture=sheet.png
@@ -162,8 +162,8 @@ game-interior-Table_2;1817;1775;48;64; 0.5;0.5; 0;0;0;0
 game-interior-Table_bf_1;1817;1982;64;64; 0.5;0.5; 0;0;0;0
 game-interior-Table_bf_2;1886;1982;64;64; 0.5;0.5; 0;0;0;0
 ui-base_game_banner;2;132;400;182; 0.5;0.5; 0;0;0;0
-ui-calendar;279;3;12;12; 0.5;0.5; 0;0;0;0
-ui-dropdown_arrow;296;3;12;12; 0.5;0.5; 0;0;0;0
+ui-calendar;297;3;12;12; 0.5;0.5; 0;0;0;0
+ui-dropdown_arrow;314;3;12;12; 0.5;0.5; 0;0;0;0
 ui-error;2029;1888;15;15; 0.5;0.5; 0;0;0;0
 ui-floor_icon;1845;1467;32;32; 0.5;0.5; 0;0;0;0
 ui-GameLogo;261;20;360;38; 0.5;0.5; 0;0;0;0
@@ -195,19 +195,20 @@ ui-Skill_Icons_4;252;1619;13;13; 0.5;0.5; 0;0;0;0
 ui-Skill_Icons_5;270;1619;13;13; 0.5;0.5; 0;0;0;0
 ui-Skill_Icons_6;288;1619;13;13; 0.5;0.5; 0;0;0;0
 ui-SplashBackground;519;801;512;400; 0.5;0.5; 0;0;0;0
-ui-statusbar_bandwidth;306;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_bandwidth_black;324;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_1;342;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_2;360;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_3;378;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_4;396;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_5;414;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_6;432;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_7;450;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_8;468;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_clock_9;486;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_employees;504;1620;13;12; 0.5;0.5; 0;0;0;0
-ui-statusbar_money;261;3;13;12; 0.5;0.5; 0;0;0;0
+ui-star;306;1619;13;13; 0.5;0.5; 0;0;0;0
+ui-statusbar_bandwidth;324;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_bandwidth_black;342;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_1;360;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_2;378;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_3;396;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_4;414;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_5;432;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_6;450;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_7;468;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_8;486;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_clock_9;504;1620;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_employees;261;3;13;12; 0.5;0.5; 0;0;0;0
+ui-statusbar_money;279;3;13;12; 0.5;0.5; 0;0;0;0
 ui-tab_view_border;1960;1774;10;10; 0.5;0.5; 2;2;2;2
 ui-terminal_9_patch;126;1619;19;13; 0.5;0.5; 1;1;1;1
 ui-terminal_button1;150;1619;19;13; 0.5;0.5; 2;2;2;2

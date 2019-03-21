@@ -28,7 +28,6 @@ namespace Assets.Tests_PlayMode
         {
             mockedEmployeeData = Substitute.For<EmployeeData>();
             mockedEmployeeData.Salary = 100;
-            mockedEmployeeData.Specials = new List<EmployeeSpecial>();
             mockedEmployeeData.IncrementFreeScore(mockedEmployeeData.LevelUpScoreNeeded);
             mockedEmployeeData.LevelUp();
             mockedEmployeeData.Prize = 10;
@@ -160,7 +159,6 @@ namespace Assets.Tests_PlayMode
             // Assert that the name, salary and Specials are displayed correctly
             Assert.AreEqual(mockedEmployeeData.Salary + " $", hireableBuilder.salary.text);
             Assert.AreEqual(mockedEmployeeData.generatedData.name, hireableBuilder.empName.text);
-            Assert.IsEmpty(hireableBuilder.specialList.text);
             //Check that the Button invokes the right method
             hireableBuilder.button.onClick.Invoke();
             func.Received(1);

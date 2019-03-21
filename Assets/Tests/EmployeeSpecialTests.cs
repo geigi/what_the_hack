@@ -14,7 +14,6 @@ namespace Assets.Tests
         public void SetUp()
         {
             data = new EmployeeData();
-            data.Specials = new List<EmployeeSpecial>();
         }
         
         [Test]
@@ -22,7 +21,7 @@ namespace Assets.Tests
         {
             var special = new FastLearner();
             
-            data.Specials.Add(special);
+            data.AddSpecial(special);
 
             int increment = 10;
             data.IncrementFreeScore(increment);

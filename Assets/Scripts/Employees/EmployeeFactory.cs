@@ -285,7 +285,6 @@ public class EmployeeFactory {
         {
             EmployeeDefinition = empDef,
             Skills = GenerateSkills(),
-            Specials = new List<EmployeeSpecial>(),
             hireableDays = empDef.SpawnLikelihood == 1 ? -1 : rnd.Next(3, 7)
         };
         LevelUpSkills(employee.Skills);
@@ -312,11 +311,9 @@ public class EmployeeFactory {
         //Skills
         employee.Skills = GenerateSkills();
         LevelUpSkills(employee.Skills);
-        //Specials
-        employee.Specials = new List<EmployeeSpecial>();
         if (RandomUtils.RollDice(20) == 13)
         {
-            employee.Specials.Add((EmployeeSpecial) Activator.CreateInstance(EmployeeSpecials.RandomElement()));
+            employee.AddSpecial((EmployeeSpecial) Activator.CreateInstance(EmployeeSpecials.RandomElement()));
         }
         //Color
         var employeeParts = Enum.GetValues(typeof(EmployeePart));
@@ -401,7 +398,7 @@ public class EmployeeFactory {
     internal virtual int calcSalary(EmployeeData empData)
     {
         AdjustSalaryValues();
-        return (int) Mathf.Abs(((adaptedSalary + SkillLevelValue * CalculateSkillScore(empData) + SpecialValue * empData.Specials.Count) * 
+        return (int) Mathf.Abs(((adaptedSalary + SkillLevelValue * CalculateSkillScore(empData) + SpecialValue * empData.GetSpecials().Count) * 
                                         Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.5f)));
     }
 

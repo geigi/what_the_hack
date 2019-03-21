@@ -19,6 +19,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
         /// </summary>
         [Header("Prefab")]
         public GameObject skillPrefab;
+        public GameObject SpecialPrefab;
         /// <summary>
         /// Displays the current sprite of the employee.
         /// </summary>
@@ -39,7 +40,7 @@ namespace Assets.Scripts.UI.EmployeeWindow
         /// <summary>
         /// Displays all specials of the employee.
         /// </summary>
-        public Text specialList;
+        public GameObject specialContainer;
         /// <summary>
         /// Functionality can be specific to each employee.
         /// </summary>
@@ -51,8 +52,9 @@ namespace Assets.Scripts.UI.EmployeeWindow
         public EmployeeData employeeData;
 
         private List<GameObject> skillUI;
-        private readonly List<string> specialNames = new List<string>();
         private EmployeeFactory factory;
+
+        private UnityAction<EmployeeSpecial> specialsChangedAction;
     
         /// <summary>
         /// Sets the Employee for the UI
@@ -73,12 +75,30 @@ namespace Assets.Scripts.UI.EmployeeWindow
             {
                 empName.text = employeeData.EmployeeDefinition.EmployeeName;
             }
-            employeeData.Specials?.ForEach(special => specialNames.Add(special.GetDisplayName()));
+
+            foreach (var special in employeeData.GetSpecials())
+            {
+                addSpecial(special);
+            }
+            
             button.onClick.AddListener(buttonAction);
             //EmployeeName, specials and Salary are not going to change, so they can be set once.
             salaryTime.text = "a Week";
-            specialList.text = string.Join(",", specialNames);
             salary.text = $"{employeeData.Salary} $";
+
+            specialsChangedAction = onSpecialsChanged;
+            _empData.SpecialsChanged.AddListener(specialsChangedAction);
+        }
+
+        private void addSpecial(EmployeeSpecial special)
+        {
+            var go = Instantiate(SpecialPrefab, specialContainer.transform, false);
+            go.GetComponentInChildren<Text>().text = special.GetDisplayName();
+        }
+        
+        private void onSpecialsChanged(EmployeeSpecial special)
+        {
+            addSpecial(special);
         }
 
         /// <summary>
@@ -97,6 +117,12 @@ namespace Assets.Scripts.UI.EmployeeWindow
                 skill.GetComponent<SkillUIBuilder>().SetSkill(s);
                 skillUI.Add(skill);
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (specialsChangedAction != null)
+                employeeData?.SpecialsChanged?.RemoveListener(specialsChangedAction);
         }
     }
 }

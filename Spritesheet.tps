@@ -573,6 +573,7 @@
             <key type="filename">Sprites/ui/Skill_Icons_4.png</key>
             <key type="filename">Sprites/ui/Skill_Icons_5.png</key>
             <key type="filename">Sprites/ui/Skill_Icons_6.png</key>
+            <key type="filename">Sprites/ui/star.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
