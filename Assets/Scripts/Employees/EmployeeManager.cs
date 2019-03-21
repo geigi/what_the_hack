@@ -145,7 +145,7 @@ namespace Employees
                 {
                     AddHiredEmployee(startSpecial);
                 }
-                for (int i = data.employeesForHire.Count; i < 4; i++)
+                for (int i = data.employeesForHire.Count; i < MaxNumberOfHireableEmployees; i++)
                 {
                     EmployeeData empData = GenerateEmployeeForHire();
                     AddEmployeeForHire(empData);

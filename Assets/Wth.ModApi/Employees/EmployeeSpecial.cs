@@ -14,20 +14,14 @@ namespace Wth.ModApi.Employees
         /// <summary>
         /// Empty constructor.
         /// </summary>
-        public EmployeeSpecial()
-        {
-            throw new NotImplementedException();
-        }
+        public EmployeeSpecial() { }
 
         /// <summary>
         /// Constructor used for deserialization.
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        public EmployeeSpecial(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
-        }
+        public EmployeeSpecial(SerializationInfo info, StreamingContext context) { }
 
         /// <summary>
         /// Returns the display name of this special.
@@ -53,7 +47,7 @@ namespace Wth.ModApi.Employees
         /// The value will be added to the hiring cost at the end of the calculation.
         /// </summary>
         /// <returns></returns>
-        public int GetHiringCostAbsoluteBonus()
+        public virtual int GetHiringCostAbsoluteBonus()
         {
             return 0;
         }
@@ -63,7 +57,7 @@ namespace Wth.ModApi.Employees
         /// The value will be multiplied with the hiring cost at the end of the calculation.
         /// </summary>
         /// <returns></returns>
-        public float GetHiringCostRelativeFactor()
+        public virtual float GetHiringCostRelativeFactor()
         {
             return 1;
         }
@@ -73,7 +67,7 @@ namespace Wth.ModApi.Employees
         /// The value will be added to the salary at the end of the calculation.
         /// </summary>
         /// <returns></returns>
-        public int GetSalaryAbsoluteBonus()
+        public virtual int GetSalaryAbsoluteBonus()
         {
             return 0;
         }
@@ -83,7 +77,7 @@ namespace Wth.ModApi.Employees
         /// The value will be multiplied with the salary at the end of the calculation.
         /// </summary>
         /// <returns></returns>
-        public float GetSalaryRelativeFactor()
+        public virtual float GetSalaryRelativeFactor()
         {
             return 1;
         }
@@ -93,7 +87,7 @@ namespace Wth.ModApi.Employees
         /// Critical failure is defined as a dice roll with a 20 sided dice that has a result lower than (1 + criticalFailureChance)
         /// </summary>
         /// <returns></returns>
-        public int GetCriticalFailureChance()
+        public virtual int GetCriticalFailureChance()
         {
             return 0;
         }
@@ -103,7 +97,7 @@ namespace Wth.ModApi.Employees
         /// Critical emoji_success is defined as a dice roll with a 20 sided dice that has a result greater than (20 - criticalSuccessChance)
         /// </summary>
         /// <returns></returns>
-        public int GetCriticalSuccessChance()
+        public virtual int GetCriticalSuccessChance()
         {
             return 0;
         }
@@ -113,7 +107,7 @@ namespace Wth.ModApi.Employees
         /// Note: All special multipliers will be combined by addition + 1f and then multiplied with the score value.
         /// </summary>
         /// <returns></returns>
-        public float GetLearningMultiplier()
+        public virtual float GetLearningMultiplier()
         {
             return 0.0f;
         }
@@ -121,7 +115,7 @@ namespace Wth.ModApi.Employees
         /// <summary>
         /// Get's called when a level up has occured.
         /// </summary>
-        public void OnLevelUp()
+        public virtual void OnLevelUp()
         {
         }
 
@@ -129,7 +123,7 @@ namespace Wth.ModApi.Employees
         /// Override if the special should be hidden in the UI.
         /// </summary>
         /// <returns></returns>
-        public bool IsHidden()
+        public virtual bool IsHidden()
         {
             return false;
         }
@@ -138,7 +132,7 @@ namespace Wth.ModApi.Employees
         /// Override if the special should not be learnable for employees.
         /// </summary>
         /// <returns></returns>
-        public bool IsLearnable()
+        public virtual bool IsLearnable()
         {
             return true;
         }
@@ -147,7 +141,7 @@ namespace Wth.ModApi.Employees
         /// Override if the special has requirements to be learned.
         /// </summary>
         /// <returns></returns>
-        public bool IsApplicable()
+        public virtual bool IsApplicable()
         {
             return true;
         }

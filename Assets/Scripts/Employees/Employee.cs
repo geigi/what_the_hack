@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,7 @@ using Utils;
 using World;
 using Wth.ModApi.Employees;
 using Wth.ModApi.Tools;
+using Object = UnityEngine.Object;
 
 /// <summary>
 /// This class represents an employee in the Game. All data is saved in the EmployeeData Scriptable Object.
@@ -35,6 +37,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private const int COST_NEW_SKILL = 14;
     private const int COST_INCREMENT_SKILL = 6;
     private const int MAX_SKILL_NUMBER = 4;
+    private const int MAX_SPECIALS = 2;
 
     public UnityEvent stateEvent = new UnityEvent();
 
@@ -449,7 +452,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                 case 9:
                 case 10:
                 case 11:
-                    success = rollSpecial();
+                    success = gainSpecial();
                     break;
                 case 12:
                     return; //wasting time playing video games
@@ -513,10 +516,16 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     /// Add a new employee special.
     /// </summary>
     /// <returns></returns>
-    private bool rollSpecial()
+    private bool gainSpecial()
     {
-        //TODO: Add a new special
-        return true;
+        if (EmployeeData.Specials.Count < MAX_SPECIALS)
+        {
+            EmployeeData.Specials.Add(
+                (EmployeeSpecial) Activator.CreateInstance(EmployeeFactory.EmployeeSpecials.RandomElement()));
+            return true;
+        }
+        
+        return false;
     }
 
     /// <summary>

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Employees;
+using Employees.Specials;
 using GameSystem;
 using GameTime;
 using Missions;
 using SaveGame;
 using Team;
+using UE.Common;
 using UnityEngine;
 using Utils;
 using Wth.ModApi.Employees;
@@ -21,6 +23,11 @@ using Random = System.Random;
 /// </summary>
 public class EmployeeFactory {
 
+    public static readonly List<Type> EmployeeSpecials = new List<Type>
+    {
+        typeof(FastLearner)
+    };
+    
     #region Colors
 
     //Default Colors
@@ -307,6 +314,10 @@ public class EmployeeFactory {
         LevelUpSkills(employee.Skills);
         //Specials
         employee.Specials = new List<EmployeeSpecial>();
+        if (RandomUtils.RollDice(20) == 13)
+        {
+            employee.Specials.Add((EmployeeSpecial) Activator.CreateInstance(EmployeeSpecials.RandomElement()));
+        }
         //Color
         var employeeParts = Enum.GetValues(typeof(EmployeePart));
         foreach (EmployeePart part in employeeParts)
