@@ -254,6 +254,11 @@ namespace Missions
                 return false;
             }
 
+            if (mission.AppearAfterDays != 0 && GameTime.GameTime.Instance.GetTotalGameDays() < mission.AppearAfterDays)
+            {
+                return false;
+            }
+
             foreach (var requirement in mission.RequiredMissions.RequiredMissions)
             {
                 if (MissionManager.Instance.GetData().Completed.All(m => m.Definition != requirement))

@@ -307,7 +307,8 @@ namespace Missions
                 //Notification
                 notificationCenter.Fail($"Mission: {mission.GetName()} failed.");
 
-                // TODO: Re-add to available if requested by definition
+                if (mission.Definition.Reappear)
+                    data.Available.Add(mission);
             }
         }
 

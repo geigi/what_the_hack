@@ -92,5 +92,5 @@ public sealed class MissionDefinition : ScriptableObject
     /// <summary>
     /// If the mission could not complete successfully, should it reappear in the available mission section?
     /// </summary>
-    public bool ReApper = false;
+    public bool Reappear = false;
 }

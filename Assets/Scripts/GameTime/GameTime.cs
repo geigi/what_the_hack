@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.ConstrainedExecution;
 using Base;
 using GameSystem;
 using Interfaces;
@@ -90,6 +91,15 @@ namespace GameTime
         public virtual GameTimeData GetData()
         {
             return data;
+        }
+
+        /// <summary>
+        /// Get the number of game days that have been passed since the start of the game.
+        /// </summary>
+        /// <returns></returns>
+        public int GetTotalGameDays()
+        {
+            return (data.Date.GetDateTime() - new DateTime(1, 1, 1)).Days;
         }
 
         /// <summary>
