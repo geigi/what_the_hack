@@ -9,7 +9,7 @@ namespace Wth.ModApi.Employees
     /// Employee specials are held by an employee and alter his skills and behavoir in different ways. Needs to be extended.
     /// </summary>
     [Serializable]
-    public abstract class EmployeeSpecial : ISerializable
+    public abstract class EmployeeSpecial
     {
         /// <summary>
         /// Empty constructor.
@@ -148,15 +148,5 @@ namespace Wth.ModApi.Employees
         /// </summary>
         /// <param name="employeeData"></param>
         public virtual void OnDayChanged(EmployeeData employeeData) { }
-
-        /// <summary>
-        /// This method fills the SerializationInfo on serialization.
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

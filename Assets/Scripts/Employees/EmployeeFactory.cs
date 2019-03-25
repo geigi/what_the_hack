@@ -314,7 +314,7 @@ public class EmployeeFactory {
         //Skills
         employee.Skills = GenerateSkills();
         LevelUpSkills(employee.Skills);
-        if (RandomUtils.RollDice(20) == 13)
+        if (true)
         {
             EmployeeSpecial special;
             do
