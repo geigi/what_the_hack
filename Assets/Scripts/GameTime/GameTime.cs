@@ -61,7 +61,19 @@ namespace GameTime
             tickRoutine = StartCoroutine(Tick());
         }
 
-        public void Stop()
+        /// <summary>
+        /// Pause the game.
+        /// </summary>
+        /// <param name="pause"></param>
+        public void Pause(bool pause)
+        {
+            if (pause && running)
+                stop();
+            else if (!running && !pause)
+                Start();
+        }
+        
+        private void stop()
         {
             running = false;
             StopCoroutine(tickRoutine);
