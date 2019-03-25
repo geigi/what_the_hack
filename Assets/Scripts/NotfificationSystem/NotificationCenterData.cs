@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets.Scripts.NotificationSystem
 {
+    [Serializable]
     public class NotificationCenterData
     {
         public List<Notification> Notifications;
