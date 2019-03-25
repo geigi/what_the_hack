@@ -657,8 +657,10 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     void OnDestroy()
     {
         Destroy(EmployeeShadow);
-        GameTime.GameTime.Instance.GameTickEvent.RemoveListener(timeStepAction);
-        GameTime.GameTime.Instance.GameDayEvent.RemoveListener(dayChangedAction);
+        if (timeStepAction != null)
+            GameTime.GameTime.Instance.GameTickEvent.RemoveListener(timeStepAction);
+        if (dayChangedAction != null)
+            GameTime.GameTime.Instance.GameDayEvent.RemoveListener(dayChangedAction);
     }
 
     /// <summary>
