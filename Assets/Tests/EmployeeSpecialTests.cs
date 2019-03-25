@@ -27,5 +27,15 @@ namespace Assets.Tests
             data.IncrementFreeScore(increment);
             Assert.AreEqual(data.FreeScore, increment * (1f + special.GetLearningMultiplier()));
         }
+
+        [Test]
+        public void CriticalSuccessFactor()
+        {
+            var special = new LuckyDevil();
+            
+            data.AddSpecial(special);
+            
+            Assert.AreEqual(data.CriticalSuccessChance, 1 + special.GetCriticalSuccessChance());
+        }
     }
 }

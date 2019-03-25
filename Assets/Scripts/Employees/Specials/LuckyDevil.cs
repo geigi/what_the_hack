@@ -4,29 +4,29 @@ using Wth.ModApi.Employees;
 namespace Employees.Specials
 {
     /// <summary>
-    /// This employee special improves employees learning ability by offering some extra score points for completed missions.
+    /// This employee special improves employees chance for a critical success roll.
     /// </summary>
     [Serializable]
-    public class FastLearner: EmployeeSpecial
+    public class LuckyDevil: EmployeeSpecial
     {
         public override string GetDisplayName()
         {
-            return "Fast Learner";
+            return "Lucky Devil";
         }
 
         public override string GetDescription()
         {
-            return "Quickly gets into things.";
+            return "Wins every game of poker.";
         }
 
         public override float GetScoreCost()
         {
-            return 7;
+            return 6;
         }
 
-        public override float GetLearningMultiplier()
+        public override int GetCriticalSuccessChance()
         {
-            return 0.5f;
+            return 1;
         }
     }
 }

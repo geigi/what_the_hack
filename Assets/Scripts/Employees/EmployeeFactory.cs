@@ -25,7 +25,8 @@ public class EmployeeFactory {
 
     public static readonly List<Type> EmployeeSpecials = new List<Type>
     {
-        typeof(FastLearner)
+        typeof(FastLearner),
+        typeof(LuckyDevil)
     };
     
     #region Colors
