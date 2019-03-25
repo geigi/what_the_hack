@@ -28,7 +28,8 @@ public class EmployeeFactory {
         typeof(FastLearner),
         typeof(LuckyDevil),
         typeof(Risky),
-        typeof(Unreliable)
+        typeof(Unreliable),
+        typeof(Twitter)
     };
     
     #region Colors

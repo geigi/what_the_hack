@@ -242,7 +242,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         StopFollowPath();
 
         RequestNewWalkToWorkplace(workplace);
-        emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.OK, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, emojiBubbleFactory.StandardDisplayTime);
+        emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.OK, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, EmojiBubbleFactory.StandardDisplayTime);
     }
 
     /// <summary>
@@ -258,12 +258,12 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                                             workplace.Mission.Difficulty * SCORE_MISSION_COMPLETED_PERLEVEL);
             var nextLevel = LevelUp();
             if (showEmoji && nextLevel)
-                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.LEVELUP, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, emojiBubbleFactory.StandardDisplayTime);
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.LEVELUP, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, EmojiBubbleFactory.StandardDisplayTime);
             else if (showEmoji)
-                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, emojiBubbleFactory.StandardDisplayTime);
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, EmojiBubbleFactory.StandardDisplayTime);
         } else
             if (showEmoji)
-                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.ANGRY, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, emojiBubbleFactory.StandardDisplayTime);
+                emojiBubbleFactory.EmpReaction(EmojiBubbleFactory.EmojiType.ANGRY, this, EmojiBubbleFactory.EMPLYOEE_OFFSET, EmojiBubbleFactory.StandardDisplayTime);
 
         workplace = null;
         grid.getNode(EmployeeData.Position).SetState(Enums.TileState.FREE);
@@ -657,9 +657,9 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     void OnDestroy()
     {
         Destroy(EmployeeShadow);
-        if (timeStepAction != null)
+        if (timeStepAction != null && GameTime.GameTime.Instance.GameTickEvent != null)
             GameTime.GameTime.Instance.GameTickEvent.RemoveListener(timeStepAction);
-        if (dayChangedAction != null)
+        if (dayChangedAction != null && GameTime.GameTime.Instance.GameDayEvent != null)
             GameTime.GameTime.Instance.GameDayEvent.RemoveListener(dayChangedAction);
     }
 

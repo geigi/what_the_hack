@@ -39,8 +39,6 @@ namespace Assets.Tests_PlayMode
             };
 
             SceneManager.LoadScene("MainGame");
-
-            
         }
 
         /// <summary>

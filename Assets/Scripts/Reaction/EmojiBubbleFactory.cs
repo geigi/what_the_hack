@@ -31,7 +31,7 @@ public class EmojiBubbleFactory : Singleton<EmojiBubbleFactory>
     /// <summary>
     /// Standard time to display the reaction.
     /// </summary>
-    public float StandardDisplayTime = 3f;
+    public static readonly float StandardDisplayTime = 3f;
 
     /// <summary>
     /// Contains all Sprites for the different Reactions.
