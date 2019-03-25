@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using Wth.ModApi.Items;
 
 /// <summary>
@@ -81,4 +82,10 @@ public class EmployeeDefinition : ScriptableObject
     /// Game Progress that has to be reached until this employee can spawn.
     /// </summary>
     public int GameProgress;
+
+    /// <summary>
+    /// Predefined employee specials.
+    /// </summary>
+    [Range(2, 2)]
+    public string[] EmployeeSpecials = new string[2];
 }

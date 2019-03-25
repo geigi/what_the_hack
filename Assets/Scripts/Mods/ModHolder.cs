@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Base;
 using ModTool;
 using UnityEngine;
+using Wth.ModApi.Employees;
 
 /// <summary>
 /// Class for holding the loaded mod.
@@ -15,6 +17,8 @@ public sealed class ModHolder: Singleton<ModHolder>
     /// </summary>
     private ModInfo mod;
 
+    private Mod modObject;
+
     /// <summary>
     /// Get and Save the loaded mod in the modInfo instance.
     /// </summary>
@@ -24,6 +28,7 @@ public sealed class ModHolder: Singleton<ModHolder>
         {
             if (m.loadState == ResourceLoadState.Loaded)
             {
+                modObject = m;
                 this.mod = m.GetAsset<ModInfo>("modinfo");
                 break;
             }
@@ -116,6 +121,29 @@ public sealed class ModHolder: Singleton<ModHolder>
         else
         {
             return null;
+        }
+    }
+
+    /// <summary>
+    /// Get a list of all specials implemented by this mod.
+    /// </summary>
+    /// <returns></returns>
+    public List<Type> GetCustomSpecials()
+    {
+        if (mod != null)
+        {
+            var specials = new List<Type>();
+            
+            foreach (var assembly in modObject.GetAssemblies())
+            {
+                specials.AddRange(assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(EmployeeSpecial)) && !t.IsAbstract));
+            }
+
+            return specials;
+        }
+        else
+        {
+            return new List<Type>();
         }
     }
 }

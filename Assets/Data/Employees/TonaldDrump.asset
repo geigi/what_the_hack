@@ -26,3 +26,6 @@ MonoBehaviour:
   MissionSucceeded: []
   ItemsBought: []
   GameProgress: 0
+  EmployeeSpecials:
+  - FastLearner
+  - LuckyDevil

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Experimental.UIElements;
 using UnityEngine;
 using Wth.ModApi.Editor.Tools;
 using Wth.ModApi.Editor;
@@ -134,7 +135,17 @@ namespace Wth.ModApi.Editor.Employees
                 asset.employeeList[viewIndex - 1].Level = EditorGUILayout.IntField("Level",
                     asset.employeeList[viewIndex - 1].Level, GUILayout.ExpandWidth(false));
                 GUILayout.EndHorizontal();
-
+                
+                GUILayout.Space(10);
+                    
+                GUILayout.BeginHorizontal();
+                asset.employeeList[viewIndex - 1].EmployeeSpecials[0] = EditorGUILayout.TextField("Special 1",
+                    asset.employeeList[viewIndex - 1].EmployeeSpecials[0]);
+                GUILayout.Space(10);
+                asset.employeeList[viewIndex - 1].EmployeeSpecials[1] = EditorGUILayout.TextField("Special 2",
+                    asset.employeeList[viewIndex - 1].EmployeeSpecials[1]);
+                GUILayout.EndHorizontal();
+                
                 GUILayout.Space(10);
 
                 asset.employeeList[viewIndex - 1].SpawnLikelihood = EditorGUILayout.Slider("Spawn Likelihood",

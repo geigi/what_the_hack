@@ -118,6 +118,7 @@ public class EmployeeFactory {
         InitColorSwapTex();
         spriteColors = new Color[colorSwapTex.width];
         specialEmployeesToSpawn = new List<EmployeeDefinition>();
+        EmployeeSpecials.AddRange(ModHolder.Instance.GetCustomSpecials());
     }
 
     private void InitColorSwapTex()
@@ -290,6 +291,17 @@ public class EmployeeFactory {
             Skills = GenerateSkills(),
             hireableDays = empDef.SpawnLikelihood == 1 ? -1 : rnd.Next(3, 7)
         };
+
+        foreach (var special in empDef.EmployeeSpecials)
+        {
+            var matches = EmployeeSpecials.Where(s => s.Name == special).ToList();
+            if (matches.Any())
+            {
+                var instance = (EmployeeSpecial) Activator.CreateInstance(matches.First());
+                employee.AddSpecial(instance);
+            }
+        }
+        
         addSpecials(employee);
         LevelUpSkills(employee.Skills);
         employee.Salary = calcSalary(employee);

@@ -391,6 +391,12 @@
             </summary>
             <param name="path">The path to a mod file</param>
         </member>
+        <member name="M:ModTool.Mod.GetAssemblies">
+            <summary>
+            Return assemblies included in this mod.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ModTool.Mod.UpdateConflicts(ModTool.Mod)">
             <summary>
             Update this Mod's conflicting Mods with the supplied Mod

@@ -141,12 +141,12 @@ namespace Wth.ModApi.Employees
         /// Override if the special has a custom action that will be executed on a time step change.
         /// </summary>
         /// <param name="employeeData"></param>
-        public virtual void OnTimeStepChanged(EmployeeData employeeData) { }
+        public virtual void OnTimeStepChanged(object employeeData) { }
 
         /// <summary>
         /// Override if the special has a custom action that will be executed on day change.
         /// </summary>
         /// <param name="employeeData"></param>
-        public virtual void OnDayChanged(EmployeeData employeeData) { }
+        public virtual void OnDayChanged(object employeeData) { }
     }
 }

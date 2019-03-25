@@ -38,12 +38,14 @@ namespace Employees.Specials
             return 0.6f;
         }
 
-        public override void OnDayChanged(EmployeeData employeeData)
+        public override void OnDayChanged(object employeeData)
         {
+            var employee = (EmployeeData) employeeData;
+            
             if (RandomUtils.rand() > chance) return;
             
-            NotificationCenter.Instance.Warning("An unreliable employee " + employeeData.Name + " has left the team.");
-            EmployeeManager.Instance.FireEmployee(employeeData);
+            NotificationCenter.Instance.Warning("An unreliable employee " + employee.Name + " has left the team.");
+            EmployeeManager.Instance.FireEmployee(employee);
         }
     }
 }
