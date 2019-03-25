@@ -37,5 +37,15 @@ namespace Assets.Tests
             
             Assert.AreEqual(data.CriticalSuccessChance, 1 + special.GetCriticalSuccessChance());
         }
+        
+        [Test]
+        public void CriticalFailureFactor()
+        {
+            var special = new Risky();
+            
+            data.AddSpecial(special);
+            
+            Assert.AreEqual(data.CriticalFailureChance, 1 + special.GetCriticalFailureChance());
+        }
     }
 }
