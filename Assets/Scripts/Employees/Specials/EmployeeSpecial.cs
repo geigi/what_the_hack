@@ -136,15 +136,18 @@ namespace Wth.ModApi.Employees
         {
             return true;
         }
+        
+        /// <summary>
+        /// Override if the special has a custom action that will be executed on a time step change.
+        /// </summary>
+        /// <param name="employeeData"></param>
+        public virtual void OnTimeStepChanged(EmployeeData employeeData) { }
 
         /// <summary>
-        /// Override if the special has requirements to be learned.
+        /// Override if the special has a custom action that will be executed on day change.
         /// </summary>
-        /// <returns></returns>
-        public virtual bool IsApplicable()
-        {
-            return true;
-        }
+        /// <param name="employeeData"></param>
+        public virtual void OnDayChanged(EmployeeData employeeData) { }
 
         /// <summary>
         /// This method fills the SerializationInfo on serialization.

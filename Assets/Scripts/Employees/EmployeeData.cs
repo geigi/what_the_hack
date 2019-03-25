@@ -22,6 +22,21 @@ namespace Wth.ModApi.Employees
         public const int LEVELUP_THRESHOLD = 2;
         public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.2f;
 
+        public string Name
+        {
+            get
+            {
+                if (generatedData != null)
+                {
+                    return generatedData.name;
+                }
+                else
+                {
+                    return EmployeeDefinition.EmployeeName;
+                }
+            }
+        }
+        
         /// <summary>
         /// Level of the employee > 0.
         /// </summary>

@@ -27,7 +27,8 @@ public class EmployeeFactory {
     {
         typeof(FastLearner),
         typeof(LuckyDevil),
-        typeof(Risky)
+        typeof(Risky),
+        typeof(Unreliable)
     };
     
     #region Colors
@@ -315,7 +316,13 @@ public class EmployeeFactory {
         LevelUpSkills(employee.Skills);
         if (RandomUtils.RollDice(20) == 13)
         {
-            employee.AddSpecial((EmployeeSpecial) Activator.CreateInstance(EmployeeSpecials.RandomElement()));
+            EmployeeSpecial special;
+            do
+            {
+                special = (EmployeeSpecial) Activator.CreateInstance(EmployeeSpecials.RandomElement());
+            } while (!special.IsLearnable() || employee.GetSpecials().Any(e => e.GetType() == special.GetType()));
+
+            employee.AddSpecial(special);
         }
         //Color
         var employeeParts = Enum.GetValues(typeof(EmployeePart));
@@ -400,8 +407,17 @@ public class EmployeeFactory {
     internal virtual int calcSalary(EmployeeData empData)
     {
         AdjustSalaryValues();
-        return (int) Mathf.Abs(((adaptedSalary + SkillLevelValue * CalculateSkillScore(empData) + SpecialValue * empData.GetSpecials().Count) * 
-                                        Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.5f)));
+        var salary = (int) Mathf.Abs(
+            ((adaptedSalary + SkillLevelValue * CalculateSkillScore(empData) +
+              SpecialValue * empData.GetSpecials().Count) *
+             Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.5f)));
+        
+        foreach (var special in empData.GetSpecials())
+        {
+            salary = (int) (salary * special.GetSalaryRelativeFactor()) + special.GetSalaryAbsoluteBonus();
+        }
+        
+        return salary;
     }
 
     /// <summary>
@@ -423,7 +439,14 @@ public class EmployeeFactory {
     /// <returns>Prize for the employee</returns>
     internal virtual int calcPrize(EmployeeData empData)
     {
-        return (int) Mathf.Abs(empData.Salary * Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.2f));
+        var price = (int) Mathf.Abs(empData.Salary * Mathf.Max(Convert.ToSingle(rnd.NextDouble() + 1), 1.2f));
+        
+        foreach (var special in empData.GetSpecials())
+        {
+            price = (int) (price * special.GetHiringCostRelativeFactor()) + special.GetHiringCostAbsoluteBonus();
+        }
+        
+        return price;
     }
 
     /// <summary>

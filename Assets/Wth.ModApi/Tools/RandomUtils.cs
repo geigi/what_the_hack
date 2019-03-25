@@ -1,10 +1,13 @@
-using UnityEngine;
-
 namespace Wth.ModApi.Tools
 {
     public static class RandomUtils
     {
         private static System.Random random = new System.Random();
+
+        public static float rand()
+        {
+            return (float) random.NextDouble();
+        }
         
         public static int RollDice(int sides)
         {

@@ -45,20 +45,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
 
     public EmployeeReaction reaction;
 
-    public string Name
-    {
-        get
-        {
-            if (EmployeeData.generatedData != null)
-            {
-                return EmployeeData.generatedData.name;
-            }
-            else
-            {
-                return EmployeeData.EmployeeDefinition.EmployeeName;
-            }
-        }
-    }
+    public string Name => EmployeeData.Name;
 
     private EmployeeFactory factory;
     private ContentHub contentHub;
@@ -81,6 +68,9 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private Vector3 defaultScale = new Vector3(1f, 1f, 1f);
     private Vector3 flippedScale = new Vector3(-1f, 1f, 1f);
     private Workplace workplace;
+
+    private UnityAction<int> timeStepAction;
+    private UnityAction<object> dayChangedAction;
 
     public Enums.EmployeeState State
     {
@@ -204,6 +194,11 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
             if (EmployeeData.State != Enums.EmployeeState.WORKING)
                 EmployeeData.State = Enums.EmployeeState.IDLE;
         }
+
+        timeStepAction = OnTimeStep;
+        dayChangedAction = OnDayChanged;
+        GameTime.GameTime.Instance.GameDayEvent.AddListener(dayChangedAction);
+        GameTime.GameTime.Instance.GameTickEvent.AddListener(timeStepAction);
     }
 
     private void PlaceOnRandomTile()
@@ -520,8 +515,13 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     {
         if (EmployeeData.GetSpecials().Count < MAX_SPECIALS)
         {
-            EmployeeData.AddSpecial(
-                (EmployeeSpecial) Activator.CreateInstance(EmployeeFactory.EmployeeSpecials.RandomElement()));
+            EmployeeSpecial special;
+            do
+            {
+                special = (EmployeeSpecial) Activator.CreateInstance(EmployeeFactory.EmployeeSpecials.RandomElement());
+            } while (!special.IsLearnable() || EmployeeData.GetSpecials().Any(e => e.GetType() == special.GetType()));
+            
+            EmployeeData.AddSpecial(special);
             return true;
         }
         
@@ -657,6 +657,32 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     void OnDestroy()
     {
         Destroy(EmployeeShadow);
+        GameTime.GameTime.Instance.GameTickEvent.RemoveListener(timeStepAction);
+        GameTime.GameTime.Instance.GameDayEvent.RemoveListener(dayChangedAction);
+    }
+
+    /// <summary>
+    /// Execute the time step special methods.
+    /// </summary>
+    /// <param name="step"></param>
+    private void OnTimeStep(int step)
+    {
+        foreach (var employeeSpecial in EmployeeData.GetSpecials())
+        {
+            employeeSpecial.OnTimeStepChanged(EmployeeData);
+        }
+    }
+
+    /// <summary>
+    /// Execute the day changed special methods.
+    /// </summary>
+    /// <param name="date"></param>
+    private void OnDayChanged(object date)
+    {
+        foreach (var employeeSpecial in EmployeeData.GetSpecials())
+        {
+            employeeSpecial.OnDayChanged(EmployeeData);
+        }
     }
 
     public void OnDeselect()
