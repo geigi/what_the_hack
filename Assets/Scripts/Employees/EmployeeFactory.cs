@@ -290,6 +290,7 @@ public class EmployeeFactory {
             Skills = GenerateSkills(),
             hireableDays = empDef.SpawnLikelihood == 1 ? -1 : rnd.Next(3, 7)
         };
+        addSpecials(employee);
         LevelUpSkills(employee.Skills);
         employee.Salary = calcSalary(employee);
         employee.Prize = calcPrize(employee);
@@ -314,16 +315,7 @@ public class EmployeeFactory {
         //Skills
         employee.Skills = GenerateSkills();
         LevelUpSkills(employee.Skills);
-        if (true)
-        {
-            EmployeeSpecial special;
-            do
-            {
-                special = (EmployeeSpecial) Activator.CreateInstance(EmployeeSpecials.RandomElement());
-            } while (!special.IsLearnable() || employee.GetSpecials().Any(e => e.GetType() == special.GetType()));
-
-            employee.AddSpecial(special);
-        }
+        addSpecials(employee);
         //Color
         var employeeParts = Enum.GetValues(typeof(EmployeePart));
         foreach (EmployeePart part in employeeParts)
@@ -351,6 +343,20 @@ public class EmployeeFactory {
         employee.generatedData = generatedData;
         employee.State = Enums.EmployeeState.PAUSED;
         return employee;
+    }
+
+    private static void addSpecials(EmployeeData employee)
+    {
+        if (RandomUtils.RollDice(20) == 13)
+        {
+            EmployeeSpecial special;
+            do
+            {
+                special = (EmployeeSpecial) Activator.CreateInstance(EmployeeSpecials.RandomElement());
+            } while (!special.IsLearnable() || employee.GetSpecials().Any(e => e.GetType() == special.GetType()));
+
+            employee.AddSpecial(special);
+        }
     }
 
     internal virtual void GenerateName(ref EmployeeGeneratedData generatedData)
