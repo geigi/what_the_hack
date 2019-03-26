@@ -18,7 +18,7 @@ namespace GameSystem
 		
 		private void Start()
 		{
-			if (SettingsManager.GetTutorialState() && GameSettings.NewGame)
+			if (SettingsManager.GetTutorialState() && (GameSettings.NewGame) || (!GameSettings.NewGame && SaveGameSystem.Instance.GetCurrentSaveGame().TutorialStage > 0))
 			{
 				Instantiate(TutorialPrefab);
                 TutorialState.Enter();

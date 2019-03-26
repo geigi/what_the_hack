@@ -72,5 +72,12 @@ namespace SaveGame
         /// Difficulty of the current game.
         /// </summary>
         public SettingsManager.Difficulty Difficulty;
-    }
+
+        /// <summary>
+        /// The current stage the tutorial is at.
+        /// 0: not run
+        /// -1: finished
+        /// </summary>
+        public int TutorialStage = 0;
+	}
 }

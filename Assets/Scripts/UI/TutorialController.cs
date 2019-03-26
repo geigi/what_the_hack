@@ -1,5 +1,6 @@
 using System.Collections;
 using GameSystem;
+using SaveGame;
 using UE.Events;
 using UE.StateMachine;
 using UnityEngine;
@@ -63,10 +64,10 @@ namespace UI
             EndShowAgainToggle.onValueChanged.AddListener(showAgainToggleAction);
             
             // connect events to track user progress
-            firstEmployeeHiredAction = onFirstEmployeeHired;
-            firstMissionAcceptedAction = onFirstMissionAccepted;
-            firstMissionSelectedAction = onFirstMissionSelected;
-            workplaceInfoOpenedAction = onWorkplaceInfoOpened;
+            firstEmployeeHiredAction = EnterPage3;
+            firstMissionAcceptedAction = EnterPage4;
+            firstMissionSelectedAction = EnterPage5;
+            workplaceInfoOpenedAction = EnterPage6;
             
             FirstEmployeeHired.AddListener(firstEmployeeHiredAction);
             FirstMissionAccepted.AddListener(firstMissionAcceptedAction);
@@ -75,6 +76,26 @@ namespace UI
 
             // disable buttons
             EnableUi(false);
+
+            if (!GameSettings.NewGame)
+            {
+                var lastStage = SaveGameSystem.Instance.GetCurrentSaveGame().TutorialStage;
+
+                if (lastStage == 2)
+                    EnterPage2();
+                else if (lastStage == 3)
+                    EnterPage3(null);
+                else if (lastStage == 4)
+                    EnterPage4();
+                else if (lastStage == 5)
+                    StartCoroutine(DelayPage5(0));
+                else if (lastStage == 6)
+                    StartCoroutine(DelayPage6(0));
+            }
+            else
+            {
+                SaveGameSystem.Instance.SetTutorialLevel(1);
+            }
         }
 
         private void Abort()
@@ -88,10 +109,7 @@ namespace UI
         {
             if (Page1.IsActive())
             {
-                Page2.Enter();
-                GotItButton.GetComponentInChildren<Text>().text = "Got it";
-                GotItButton.gameObject.SetActive(false);
-                EmployeesButton.interactable = true;
+                EnterPage2();
             }
             else if (Page4.IsActive() || Page5.IsActive())
             {
@@ -101,61 +119,76 @@ namespace UI
             {
                 active = false;
                 EnableUi(true);
-                Destroy(gameObject);
                 GameTime.GameTime.Instance.StartGame();
+                SaveGameSystem.Instance.SetTutorialLevel(-1);
+                Destroy(gameObject);
             }
         }
 
-        private void onShowAgainChanged(bool showAgain)
+        private void EnterPage2()
         {
-            SettingsManager.SetTutorialState(showAgain);
+            Page2.Enter();
+            GotItButton.gameObject.SetActive(false);
+            EmployeesButton.interactable = true;
+            SaveGameSystem.Instance.SetTutorialLevel(2);
         }
 
         // Page 3
-        private void onFirstEmployeeHired(Object obj)
+        private void EnterPage3(Object obj)
         {
+            GotItButton.gameObject.SetActive(false);
             EmployeesButton.interactable = false;
             MissionsButton.interactable = true;
             Page3.Enter();
             TutorialState.Enter();
+            SaveGameSystem.Instance.SetTutorialLevel(3);
         }
 
         // Page 4
-        private void onFirstMissionAccepted()
+        private void EnterPage4()
         {
             MissionsButton.interactable = false;
             GotItButton.gameObject.SetActive(true);
             GotItButton.GetComponentInChildren<Text>().text = "Got it";
             Page4.Enter();
             TutorialState.Enter();
+            SaveGameSystem.Instance.SetTutorialLevel(4);
         }
 
         // Page 5
-        private void onFirstMissionSelected()
+        private void EnterPage5()
         {
-            StartCoroutine(DelayPage5());
+            StartCoroutine(DelayPage5(3));
         }
 
-        private IEnumerator DelayPage5()
+        private IEnumerator DelayPage5(int delay)
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(delay);
+            GotItButton.GetComponentInChildren<Text>().text = "Got it";
             Page5.Enter();
             TutorialState.Enter();
+            SaveGameSystem.Instance.SetTutorialLevel(5);
         }
         
         // Page 6
-        private void onWorkplaceInfoOpened()
+        private void EnterPage6()
         {
-            StartCoroutine(DelayPage6());
+            StartCoroutine(DelayPage6(1));
         }
         
-        private IEnumerator DelayPage6()
+        private IEnumerator DelayPage6(int delay)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(delay);
             AbortButton.gameObject.SetActive(false);
             GotItButton.GetComponentInChildren<Text>().text = "Finish";
             Page6.Enter();
             TutorialState.Enter();
+            SaveGameSystem.Instance.SetTutorialLevel(6);
+        }
+        
+        private void onShowAgainChanged(bool showAgain)
+        {
+            SettingsManager.SetTutorialState(showAgain);
         }
         
         private void EnableUi(bool enable)

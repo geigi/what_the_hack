@@ -28,6 +28,7 @@ namespace SaveGame
         public NotificationCenter NotificationCenter;
 
         private MainSaveGame currentSaveGame;
+        private int TutorialStage = 0;
 
         private void Awake()
         {
@@ -51,7 +52,7 @@ namespace SaveGame
         {
             return currentSaveGame;
         }
-        
+
         /// <summary>
         /// Create a new savegame object.
         /// This method gathers all data and prepares the object
@@ -72,6 +73,7 @@ namespace SaveGame
             FillTileMapData(saveGame);
             saveGame.balance = bank.Balance;
             saveGame.Difficulty = SettingsManager.GetDifficulty();
+            saveGame.TutorialStage = TutorialStage;
             return saveGame;
         }
 
@@ -85,7 +87,7 @@ namespace SaveGame
             var saveGame = CreateNewSaveGame(saveGameName);
             return SaveGameToFile(saveGame);
         }
-        
+
         /// <summary>
         /// Save a saveGame to disk.
         /// </summary>
@@ -105,6 +107,7 @@ namespace SaveGame
                     Debug.LogError(e);
                     return false;
                 }
+
                 return true;
             }
         }
@@ -123,12 +126,13 @@ namespace SaveGame
 
             var formatter = CreateBinaryFormatter();
             MainSaveGame saveGame;
-   
+
             using (var stream = new FileStream(GetSavePath(saveGameName), FileMode.Open))
             {
                 try
                 {
                     saveGame = formatter.Deserialize(stream) as MainSaveGame;
+                    if (saveGame != null) TutorialStage = saveGame.TutorialStage;
                 }
                 catch (Exception e)
                 {
@@ -137,7 +141,7 @@ namespace SaveGame
                     return null;
                 }
             }
-        
+
             //RestoreTileMapData(saveGame);
             return saveGame;
         }
@@ -169,6 +173,16 @@ namespace SaveGame
         public static bool DoesSaveGameExist(string saveGameName)
         {
             return File.Exists(GetSavePath(saveGameName));
+        }
+
+        /// <summary>
+        /// Set the current tutorial stage for the savegame.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public void SetTutorialLevel(int value)
+        {
+            TutorialStage = value;
         }
 
         /// <summary>
