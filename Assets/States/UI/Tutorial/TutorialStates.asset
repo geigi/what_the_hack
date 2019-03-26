@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42231ad2e61e7a349b1e99e811c6985c, type: 3}
-  m_Name: TeamWindow
+  m_Name: TutorialStates
   m_EditorClassIdentifier: 
   instanced: 0
   fileLogging:
@@ -18,4 +18,4 @@ MonoBehaviour:
     FileName: Logs/main.log
   logToConsole: 0
   DeveloperDescription: 
-  InitialState: {fileID: 11400000, guid: 7596b72f281414e2790952a3e7f25c7b, type: 2}
+  InitialState: {fileID: 11400000, guid: 9bca4b6eb459b4b2a9d6325416c1ac6a, type: 2}

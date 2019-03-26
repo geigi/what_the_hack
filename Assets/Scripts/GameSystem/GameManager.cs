@@ -1,4 +1,5 @@
 ﻿using SaveGame;
+using UE.StateMachine;
 using UnityEngine;
 
 #if UNITY_EDITOR
@@ -12,16 +13,21 @@ namespace GameSystem
 	/// </summary>
 	public class GameManager : MonoBehaviour
 	{
-		public GameObject managers;
-	
-#if UNITY_EDITOR
-		// Use this for initialization
-		public void Awake ()
+		public GameObject TutorialPrefab;
+		public State TutorialState;
+		
+		private void Start()
 		{
-			if (EditorPrefs.GetBool("DEBUG_LOAD_GAME"))
-				GameSettings.NewGame = false;
+			if (SettingsManager.GetTutorialState() && GameSettings.NewGame)
+			{
+				Instantiate(TutorialPrefab);
+                TutorialState.Enter();
+			}
+			else
+			{
+				GameTime.GameTime.Instance.StartGame();
+			}
 		}
-#endif
 
 		void OnApplicationPause(bool isPaused)
 		{

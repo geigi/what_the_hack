@@ -711,7 +711,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3872
+      value: 4125
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -731,7 +731,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4576
+      value: 4875
       objectReference: {fileID: 0}
     - target: {fileID: 224664585383235072, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -3587,6 +3587,7 @@ MonoBehaviour:
   EmployeesNumChangedEvent: {fileID: 11400000, guid: 791325fa4779e184482c35fa185e22c2,
     type: 2}
   EmployeeFired: {fileID: 11400000, guid: 24ca5fb80f0c84e0bbc86aec2ace5ae7, type: 2}
+  FirstEmployeeHired: {fileID: 11400000, guid: 703fb0cb57fd247dc9b3e6d0a73e8dbc, type: 2}
   bank: {fileID: 2117680114}
   minimumNumberOfEmployees: 2
 --- !u!114 &553733956
@@ -5217,12 +5218,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7620
+      value: 7850
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 7620
+      value: 7850
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -5506,12 +5507,12 @@ PrefabInstance:
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 7620
+      value: 7850
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7620
+      value: 7850
       objectReference: {fileID: 0}
     - target: {fileID: 224801610192261912, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -8534,12 +8535,12 @@ PrefabInstance:
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3542
+      value: 4070
       objectReference: {fileID: 0}
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 11736
+      value: 13464
       objectReference: {fileID: 0}
     - target: {fileID: 2674409563540254636, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
@@ -10018,12 +10019,12 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5640
+      value: 5916
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5640
+      value: 5916
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -10163,12 +10164,12 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: -50
       objectReference: {fileID: 0}
-    - target: {fileID: 224712547996869410, guid: 01e51dc4902b04242af98d3c874eb32e,
+    - target: {fileID: 224149335157836840, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224149335157836840, guid: 01e51dc4902b04242af98d3c874eb32e,
+    - target: {fileID: 224712547996869410, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -11238,7 +11239,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 10160
+      value: 10390
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -11248,7 +11249,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10160
+      value: 10390
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 72a41ed579c814c2eb8f4f009a7719d4,
         type: 3}
@@ -12733,7 +12734,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 7070, y: 7070}
+  m_AnchoredPosition: {x: 7300, y: 7300}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1765235018
@@ -15740,6 +15741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2081988909}
   - component: {fileID: 2081988908}
+  - component: {fileID: 2081988910}
   m_Layer: 0
   m_Name: GameSystem
   m_TagString: Untagged
@@ -15779,6 +15781,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2081988910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081988907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a69a001927b45649ad0154453228e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2096846506
 GameObject:
   m_ObjectHideFlags: 0
@@ -16043,7 +16057,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1139cdf313eba4dceb8be1e14e0e7131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  managers: {fileID: 2117680107}
+  TutorialPrefab: {fileID: 990267656, guid: 9d11cb73b78e1474c89b33f1d4f72c15, type: 3}
+  TutorialState: {fileID: 11400000, guid: 16c7aaa8cd8a74737a75ed45641feb02, type: 2}
 --- !u!114 &2117680113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16092,6 +16107,8 @@ MonoBehaviour:
   EmployeeInfo: {fileID: 7399041189597216832}
   WorkplaceInfo: {fileID: 621894081337742637}
   EmployeeFiredEvent: {fileID: 11400000, guid: 24ca5fb80f0c84e0bbc86aec2ace5ae7, type: 2}
+  FirstMissionSelected: {fileID: 11400000, guid: d9a160f84040b4ac19ed6beaced80afd,
+    type: 2}
 --- !u!1 &2120288064
 GameObject:
   m_ObjectHideFlags: 0
@@ -16166,6 +16183,8 @@ MonoBehaviour:
     type: 2}
   GameTimeTickEvent: {fileID: 11400000, guid: 431622ad2d21640deb054b4a96e031d5, type: 2}
   EmployeeFiredEvent: {fileID: 11400000, guid: 24ca5fb80f0c84e0bbc86aec2ace5ae7, type: 2}
+  FirstMissionAcceptedEvent: {fileID: 11400000, guid: e5f9fd983fdb847039c84dcfe658d3ee,
+    type: 2}
   AvailableMissionsChanged: {fileID: 11400000, guid: 0b732ce3b8049432bb7820470b7c915d,
     type: 2}
   CompletedMissionsChanged: {fileID: 11400000, guid: 73033b5eed3e74a22b15adca53d9b4f6,
@@ -16378,6 +16397,8 @@ MonoBehaviour:
   FloatWindow: {fileID: 621945492534627907}
   GameTickEvent: {fileID: 11400000, guid: 431622ad2d21640deb054b4a96e031d5, type: 2}
   CompletedMissionChanged: {fileID: 11400000, guid: 73033b5eed3e74a22b15adca53d9b4f6,
+    type: 2}
+  WorkplaceInfoOpened: {fileID: 11400000, guid: 5c3bbfe172c7345ffa8eb6aadbe3e888,
     type: 2}
 --- !u!114 &621945492534627904
 MonoBehaviour:
@@ -17928,12 +17949,12 @@ PrefabInstance:
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1320
+      value: 1608
       objectReference: {fileID: 0}
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1320
+      value: 1608
       objectReference: {fileID: 0}
     - target: {fileID: 2674409563540254636, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}

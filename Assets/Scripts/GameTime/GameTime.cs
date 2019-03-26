@@ -55,7 +55,7 @@ namespace GameTime
                 LoadState();
         }
 
-        public void Start()
+        public void StartGame()
         {
             running = true;
             tickRoutine = StartCoroutine(Tick());
@@ -70,7 +70,7 @@ namespace GameTime
             if (pause && running)
                 stop();
             else if (!running && !pause)
-                Start();
+                StartGame();
         }
         
         private void stop()

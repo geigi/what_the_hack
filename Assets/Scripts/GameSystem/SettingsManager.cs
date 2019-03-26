@@ -34,6 +34,10 @@ namespace GameSystem
         /// String for windowed / fullscreen setting representation (desktop only)
         /// </summary>
         public const string WindowStateKey = "Fullscreen";
+        /// <summary>
+        /// String for tutorial setting representation
+        /// </summary>
+        public const string TutorialKey = "Tutorial";
         
         public enum PixelPerfectCameraValue {
             Off=0,
@@ -145,6 +149,29 @@ namespace GameSystem
             }
         }
         
+        /// <summary>
+        /// Save tutorial state to PlayerPrefs.
+        /// </summary>
+        /// <param name="state"></param>
+        public static void SetTutorialState(bool state) {
+            PlayerPrefs.SetInt(TutorialKey, state ? 1 : 0);
+        }
+        
+        /// <summary>
+        /// Get the tutorial value from PlayerPrefs.
+        /// </summary>
+        public static bool GetTutorialState()
+        {
+            if (PlayerPrefs.HasKey(TutorialKey))
+            {
+                var val = PlayerPrefs.GetInt(TutorialKey);
+                if (val < 1)
+                    return false;
+                else return true;
+            }
+            else return true;
+        }
+        
 #if UNITY_STANDALONE
         /// <summary>
         /// Save window state to PlayerPrefs.
@@ -155,7 +182,7 @@ namespace GameSystem
         }
         
         /// <summary>
-        /// Get the sound fx volume slider value from PlayerPrefs.
+        /// Get the window state value from PlayerPrefs.
         /// </summary>
         public static bool GetWindowState()
         {

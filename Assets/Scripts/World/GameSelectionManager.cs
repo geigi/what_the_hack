@@ -24,9 +24,11 @@ namespace World
         public EmployeeInfoUi EmployeeInfo;
         public WorkplaceInfoUi WorkplaceInfo;
         public ObjectEvent EmployeeFiredEvent;
+        public GameEvent FirstMissionSelected;
         
         private Workplace workplace;
         private UnityAction<Object> employeeFiredAction;
+        private bool firstMissionSelected = false;
         
         public Workplace Workplace
         {
@@ -106,6 +108,12 @@ namespace World
                 ClearEmployee();
                 ClearWorkplace();
                 SelectMissionState.stateManager.InitialState.Enter();
+
+                if (!firstMissionSelected)
+                {
+                    firstMissionSelected = true;
+                    FirstMissionSelected.Raise();
+                }
             }
         }
 

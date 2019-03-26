@@ -35,6 +35,7 @@ namespace Missions
 
         public IntEvent GameTimeTickEvent;
         public ObjectEvent EmployeeFiredEvent;
+        public GameEvent FirstMissionAcceptedEvent;
 
         [Header("Own Events")] public GameEvent AvailableMissionsChanged;
         public GameEvent CompletedMissionsChanged;
@@ -154,6 +155,12 @@ namespace Missions
             AvailableMissionsChanged.Raise();
             InProgressMissionsChanged.Raise();
             mission.Finished.AddListener(missionFinished);
+
+            if (!data.FirstMissionAccepted)
+            {
+                data.FirstMissionAccepted = true;
+                FirstMissionAcceptedEvent.Raise();
+            }
         }
 
         /// <summary>

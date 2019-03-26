@@ -9,6 +9,8 @@ namespace Missions
     [Serializable]
     public class MissionManagerData
     {
+        public bool FirstMissionAccepted = false;
+        
         public List<Mission> InProgress;
         public List<Mission> Completed;
         public List<Mission> Available;

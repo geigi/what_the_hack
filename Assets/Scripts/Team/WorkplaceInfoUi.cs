@@ -35,7 +35,7 @@ namespace Team
 
         [Header("Events")]
         public IntEvent GameTickEvent;
-        public GameEvent CompletedMissionChanged;
+        public GameEvent CompletedMissionChanged, WorkplaceInfoOpened;
 
         private Workplace workplace;
         private UnityAction<int> onGameTickAction;
@@ -69,6 +69,8 @@ namespace Team
                 UpdateRemainingTime();
                 
                 FloatWindow.Select(workplace.gameObject);
+                
+                WorkplaceInfoOpened.Raise();
             }
         }
 

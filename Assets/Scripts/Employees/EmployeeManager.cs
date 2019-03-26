@@ -67,6 +67,8 @@ namespace Employees
 
         public ObjectEvent EmployeeFired;
 
+        public ObjectEvent FirstEmployeeHired;
+
         /// <summary>
         /// The bank object.
         /// </summary>
@@ -261,6 +263,12 @@ namespace Employees
                     EmployeeToGuiMap[emp].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(true));
             }
             EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
+
+            if (!data.FirstEmployeeHired)
+            {
+                data.FirstEmployeeHired = true;
+                FirstEmployeeHired.Raise(GetEmployee(empData));
+            }
         }
 
         /// <summary>

@@ -586,6 +586,19 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Sprites/ui/arrow.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,3,9,6</rect>
+                <key>scale9Paddings</key>
+                <rect>4,3,9,6</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Sprites/ui/base_game_banner.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>

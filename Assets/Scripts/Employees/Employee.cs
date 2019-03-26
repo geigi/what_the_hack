@@ -110,6 +110,9 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private static readonly int idleProperty = Animator.StringToHash("idle");
     private static readonly int workingProperty = Animator.StringToHash("working");
 
+    private NetObjectEvent gameDateEvent;
+    private IntEvent gameTickEvent;
+    
     public void Awake()
     {
         contentHub = ContentHub.Instance;
@@ -199,6 +202,8 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         dayChangedAction = OnDayChanged;
         GameTime.GameTime.Instance.GameDayEvent.AddListener(dayChangedAction);
         GameTime.GameTime.Instance.GameTickEvent.AddListener(timeStepAction);
+        gameDateEvent = GameTime.GameTime.Instance.GameDayEvent;
+        gameTickEvent = GameTime.GameTime.Instance.GameTickEvent;
     }
 
     private void PlaceOnRandomTile()
@@ -651,16 +656,15 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
             reaction.Position = this.transform.position;
             reaction.reactionRenderer.sortingOrder = this.spriteRenderer.sortingOrder;
         }
-       
     }
 
     void OnDestroy()
     {
         Destroy(EmployeeShadow);
-        if (timeStepAction != null && GameTime.GameTime.Instance.GameTickEvent != null)
-            GameTime.GameTime.Instance.GameTickEvent.RemoveListener(timeStepAction);
-        if (dayChangedAction != null && GameTime.GameTime.Instance.GameDayEvent != null)
-            GameTime.GameTime.Instance.GameDayEvent.RemoveListener(dayChangedAction);
+        if (timeStepAction != null && gameDateEvent != null)
+            gameDateEvent.RemoveListener(dayChangedAction);
+        if (dayChangedAction != null && gameTickEvent != null)
+            gameTickEvent.RemoveListener(timeStepAction);
     }
 
     /// <summary>

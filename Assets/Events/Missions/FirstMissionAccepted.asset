@@ -2,20 +2,24 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!114 &11400000
 MonoBehaviour:
-  m_ObjectHideFlags: 32
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42231ad2e61e7a349b1e99e811c6985c, type: 3}
-  m_Name: TeamWindow
+  m_Script: {fileID: 11500000, guid: c7c1443e63093854d9928652fd22ff7d, type: 3}
+  m_Name: FirstMissionAccepted
   m_EditorClassIdentifier: 
   instanced: 0
-  fileLogging:
+  logging:
     logToFile: 0
     FileName: Logs/main.log
   logToConsole: 0
   DeveloperDescription: 
-  InitialState: {fileID: 11400000, guid: 7596b72f281414e2790952a3e7f25c7b, type: 2}
+  OnEventTriggered:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
