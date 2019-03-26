@@ -103,6 +103,7 @@ namespace UI
             active = false;
             EnableUi(true);
             SaveGameSystem.Instance.SetTutorialLevel(-1);
+            GameTime.GameTime.Instance.StartGame();
             Destroy(gameObject);
         }
 
