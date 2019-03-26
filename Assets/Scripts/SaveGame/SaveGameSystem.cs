@@ -69,7 +69,7 @@ namespace SaveGame
             saveGame.missionManagerData = MissionManager.GetData();
             saveGame.teamManagerData = TeamManager.Instance.GetData();
             saveGame.gameTime = GameTime.GameTime.Instance.GetData();
-            saveGame.NotificationCenterData = NotificationCenter.Instance.GetData();
+            saveGame.NotificationCenterData = NotificationCenter.GetData();
             FillTileMapData(saveGame);
             saveGame.balance = bank.Balance;
             saveGame.Difficulty = SettingsManager.GetDifficulty();

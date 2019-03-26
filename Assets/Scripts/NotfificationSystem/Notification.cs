@@ -1,5 +1,6 @@
 ﻿using System;
 using GameTime;
+using UnityEngine;
 
 namespace Assets.Scripts.NotificationSystem
 {
@@ -57,6 +58,23 @@ namespace Assets.Scripts.NotificationSystem
             this.message = message;
             this.category = category;
             this.date = date.Clone() as GameDate;
+        }
+
+        public Sprite GetCorrespondingIcon()
+        {
+            var ch = ContentHub.Instance;
+            switch (category)
+            {
+                case NotificationType.Fail:
+                    return ch.FailNotificationSprite;
+                case NotificationType.Info:
+                    return ch.InfoNotificationSprite;
+                case NotificationType.Success:
+                    return ch.SuccessNotificationSprite;
+                case NotificationType.Warning:
+                    return ch.WarningNotificationSprite;
+                default: return null;
+            }
         }
     }
 }

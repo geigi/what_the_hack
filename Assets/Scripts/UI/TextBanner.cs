@@ -66,6 +66,7 @@ namespace UI
             if (text.Length <= MaxCharacters)
             {
                 textComponent.text = text;
+                ScrollingFinished.Invoke();
                 return;
             }
 

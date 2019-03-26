@@ -75,6 +75,11 @@ public class ContentHub: Singleton<ContentHub>
     /// The game wide bank instance.
     /// </summary>
     public Bank bank;
+
+    public Sprite InfoNotificationSprite;
+    public Sprite WarningNotificationSprite;
+    public Sprite FailNotificationSprite;
+    public Sprite SuccessNotificationSprite;
     
     #region Events
     /// <summary>

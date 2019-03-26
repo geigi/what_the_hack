@@ -32,8 +32,11 @@ namespace UI
             gameTimeModeAction = gameTimeModeChanged;
             GameTimeMode.onValueChanged.AddListener(gameTimeModeAction);
 
-            difficultyChangedAction = DifficultyChanged;
-            Difficulty.onValueChanged.AddListener(difficultyChangedAction);
+            if (Difficulty != null)
+            {
+                difficultyChangedAction = DifficultyChanged;
+                Difficulty.onValueChanged.AddListener(difficultyChangedAction);
+            }
 
             MusicVolumeSlider.value = SettingsManager.GetMusicVolume();
             SoundFxVolumeSlider.value = SettingsManager.GetSoundFxVolume();
