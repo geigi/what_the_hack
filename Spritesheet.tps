@@ -493,6 +493,51 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
+            <key type="filename">Sprites/game/tutorial/MouseClick1.png</key>
+            <key type="filename">Sprites/game/tutorial/MouseClick2.png</key>
+            <key type="filename">Sprites/game/tutorial/MouseClick3.png</key>
+            <key type="filename">Sprites/game/tutorial/MouseClick4.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,5,7,10</rect>
+                <key>scale9Paddings</key>
+                <rect>4,5,7,10</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Sprites/game/tutorial/SelectWorkplace1.png</key>
+            <key type="filename">Sprites/game/tutorial/SelectWorkplace2.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>107,69,214,138</rect>
+                <key>scale9Paddings</key>
+                <rect>107,69,214,138</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">Sprites/game/tutorial/StartWorking1.png</key>
+            <key type="filename">Sprites/game/tutorial/StartWorking2.png</key>
+            <key type="filename">Sprites/game/tutorial/StartWorking3.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>169,90,337,179</rect>
+                <key>scale9Paddings</key>
+                <rect>169,90,337,179</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
             <key type="filename">Sprites/ui/GameLogo.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
