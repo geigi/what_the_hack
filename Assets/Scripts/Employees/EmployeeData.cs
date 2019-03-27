@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using DefaultNamespace;
+using Team;
 using UE.Common;
 using UE.Events;
 using UnityEngine;
@@ -22,6 +23,9 @@ namespace Wth.ModApi.Employees
         public const int LEVELUP_THRESHOLD = 2;
         public const float LEVELUP_THRESHOLD_INCREASE_FACTOR = 1.2f;
 
+        /// <summary>
+        /// The full ame of the employee.
+        /// </summary>
         public string Name
         {
             get
@@ -274,6 +278,8 @@ namespace Wth.ModApi.Employees
         public void LevelUp()
         {
             if (FreeScore < LevelUpScoreNeeded) return;
+            
+            TeamManager.Instance.ReportLevelUp(this);
             
             SkillPoints += 1;
             UseScore(LevelUpScoreNeeded);

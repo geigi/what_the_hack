@@ -4,6 +4,7 @@ using Employees;
 using Interfaces;
 using Items;
 using Missions;
+using SaveGame;
 using Team;
 using UE.Events;
 using UE.StateMachine;
@@ -109,7 +110,7 @@ namespace World
                 ClearWorkplace();
                 SelectMissionState.stateManager.InitialState.Enter();
 
-                if (!firstMissionSelected)
+                if (!firstMissionSelected && SaveGameSystem.Instance.GetCurrentSaveGame()?.TutorialStage < 4)
                 {
                     firstMissionSelected = true;
                     FirstMissionSelected.Raise();

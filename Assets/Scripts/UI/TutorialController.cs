@@ -6,6 +6,7 @@ using UE.StateMachine;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Wth.ModApi.Employees;
 
 namespace UI
 {
@@ -15,25 +16,31 @@ namespace UI
     public class TutorialController : MonoBehaviour
     {
         [Header("States")] public State TutorialState;
-        public State Page1, Page2, Page3, Page4, Page5, Page6;
+        public State Page1, Page2, Page3, Page4, Page5, Page6, Page7;
         public StateManager MainUiManager;
 
         [Header("Own UI Elements")] public Button AbortButton;
         public Button GotItButton;
         public Toggle StartShowAgainToggle, EndShowAgainToggle;
+        public Text Page7EmployeeName;
         
         [Header("Events")] 
         public ObjectEvent FirstEmployeeHired;
         public GameEvent FirstMissionAccepted, FirstMissionSelected, WorkplaceInfoOpened;
+        public NetObjectEvent FirstLevelUp;
 
         private bool active = false;
-        private int stage = 0;
 
         private Button ShopButton, MissionsButton, EmployeesButton, OptionsButton;
-        
-        private UnityAction abortAction, nextAction, firstMissionAcceptedAction, firstMissionSelectedAction, workplaceInfoOpenedAction;
+
+        private UnityAction abortAction,
+            nextAction,
+            firstMissionAcceptedAction,
+            firstMissionSelectedAction,
+            workplaceInfoOpenedAction;
         private UnityAction<bool> showAgainToggleAction;
         private UnityAction<Object> firstEmployeeHiredAction;
+        private UnityAction<object> firstLevelUpAction;
 
         private void Awake()
         {
@@ -50,11 +57,8 @@ namespace UI
 
             GotItButton.GetComponentInChildren<Text>().text = "Start";
 
-            Page1.Enter();
-            TutorialState.Enter();
-
             // connect UI events
-            abortAction = Abort;
+            abortAction = End;
             nextAction = Next;
             showAgainToggleAction = onShowAgainChanged;
 
@@ -68,11 +72,13 @@ namespace UI
             firstMissionAcceptedAction = EnterPage4;
             firstMissionSelectedAction = EnterPage5;
             workplaceInfoOpenedAction = EnterPage6;
+            firstLevelUpAction = EnterPage7;
             
             FirstEmployeeHired.AddListener(firstEmployeeHiredAction);
             FirstMissionAccepted.AddListener(firstMissionAcceptedAction);
             FirstMissionSelected.AddListener(firstMissionSelectedAction);
             WorkplaceInfoOpened.AddListener(workplaceInfoOpenedAction);
+            FirstLevelUp.AddListener(firstLevelUpAction);
 
             // disable buttons
             EnableUi(false);
@@ -81,7 +87,12 @@ namespace UI
             {
                 var lastStage = SaveGameSystem.Instance.GetCurrentSaveGame().TutorialStage;
 
-                if (lastStage == 2)
+                if (lastStage == 1)
+                {
+                    Page1.Enter();
+                    TutorialState.Enter();
+                }
+                else if (lastStage == 2)
                     EnterPage2();
                 else if (lastStage == 3)
                     EnterPage3(null);
@@ -91,14 +102,22 @@ namespace UI
                     StartCoroutine(DelayPage5(0));
                 else if (lastStage == 6)
                     StartCoroutine(DelayPage6(0));
+                else if (lastStage == 7)
+                {
+                    EnableUi(true);
+                    MainUiManager.InitialState.Enter();
+                    GameTime.GameTime.Instance.StartGame();
+                }
             }
             else
             {
                 SaveGameSystem.Instance.SetTutorialLevel(1);
+                Page1.Enter();
+                TutorialState.Enter();
             }
         }
 
-        private void Abort()
+        public void End()
         {
             active = false;
             EnableUi(true);
@@ -119,10 +138,14 @@ namespace UI
             }
             else if (Page6.IsActive())
             {
-                active = false;
                 EnableUi(true);
                 GameTime.GameTime.Instance.StartGame();
-                SaveGameSystem.Instance.SetTutorialLevel(-1);
+                SaveGameSystem.Instance.SetTutorialLevel(7);
+                MainUiManager.InitialState.Enter();
+            }
+            else if (Page7.IsActive())
+            {
+                active = false;
                 Destroy(gameObject);
             }
         }
@@ -175,6 +198,8 @@ namespace UI
         // Page 6
         private void EnterPage6()
         {
+            if (!GameSettings.NewGame && SaveGameSystem.Instance.GetCurrentSaveGame().TutorialStage > 5)
+                return;
             StartCoroutine(DelayPage6(1));
         }
         
@@ -186,6 +211,23 @@ namespace UI
             Page6.Enter();
             TutorialState.Enter();
             SaveGameSystem.Instance.SetTutorialLevel(6);
+        }
+        
+        // Page 7
+        private void EnterPage7(object emp)
+        {
+            StartCoroutine(DelayPage7(3, emp as EmployeeData));
+        }
+        
+        private IEnumerator DelayPage7(int delay, EmployeeData emp)
+        {
+            yield return new WaitForSeconds(delay);
+            AbortButton.gameObject.SetActive(false);
+            GotItButton.GetComponentInChildren<Text>().text = "Got it";
+            Page7EmployeeName.text = emp.Name;
+            Page7.Enter();
+            TutorialState.Enter();
+            SaveGameSystem.Instance.SetTutorialLevel(-1);
         }
         
         private void onShowAgainChanged(bool showAgain)
@@ -211,6 +253,7 @@ namespace UI
             FirstMissionAccepted.RemoveListener(firstMissionAcceptedAction);
             FirstMissionSelected.RemoveListener(firstMissionSelectedAction);
             WorkplaceInfoOpened.RemoveListener(workplaceInfoOpenedAction);
+            FirstLevelUp.RemoveListener(firstLevelUpAction);
         }
     }
 }

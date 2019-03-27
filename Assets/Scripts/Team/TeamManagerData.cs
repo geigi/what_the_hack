@@ -9,5 +9,6 @@ namespace Team
         public int Floors = 1;
         public int Workplaces = 1;
         public List<WorkplaceData> WorkplaceDatas;
+        public bool FirstLevelUpOccurred = false;
     }
 }

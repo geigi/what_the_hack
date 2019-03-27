@@ -9,6 +9,7 @@ using Missions;
 using SaveGame;
 using UE.Events;
 using UnityEngine;
+using Wth.ModApi.Employees;
 using Wth.ModApi.Tools;
 
 namespace Team
@@ -27,6 +28,7 @@ namespace Team
     
         public int MaxFloors = 3;
         public IntEvent FloorsChangedEvent;
+        public NetObjectEvent FirstLevelUpOccurred;
         public List<Workplace> Workplaces;
         
         private TeamManagerData data;
@@ -134,6 +136,18 @@ namespace Team
         {
             var difficultyPerSkill = Math.Max(calcGameProgress() * SKILL_GAME_PROGRESS_POWER, 1f) * SKILL_DIFFICULTY_FACTOR / (skillCount + 2f) * SkillPowerPerDifficulty;
             return Math.Max(1, (int) (difficultyPerSkill * RandomUtils.mult_var(SkillDifficultyVariance)));
+        }
+
+        /// <summary>
+        /// Employees must report a level up here.
+        /// It notifies the user when the tutorial is enabled on the first level up.
+        /// </summary>
+        public void ReportLevelUp(EmployeeData emp)
+        {
+            if (data.FirstLevelUpOccurred) return;
+
+            data.FirstLevelUpOccurred = true;
+            FirstLevelUpOccurred.Raise(emp);
         }
 
         public TeamManagerData GetData()
