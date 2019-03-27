@@ -18,13 +18,14 @@ namespace UI
         public Slider SoundFxVolumeSlider;
         public GameObject GraphicsContainer;
         public Toggle WindowModeToggle;
+        public Toggle TutorialToggle;
 
         [Header("Objects to change")] 
         public AudioMixer AudioMixer;
 
         private UnityAction<int> gameTimeModeAction;
         private UnityAction<float> musicVolumeAction, soundFxVolumeAction;
-        private UnityAction<bool> windowModeAction;
+        private UnityAction<bool> windowModeAction, tutorialAction;
         private UnityAction<int> difficultyChangedAction;
         
         private void Start()
@@ -47,6 +48,10 @@ namespace UI
             soundFxVolumeAction = soundFxVolumeChanged;
             SoundFxVolumeSlider.onValueChanged.AddListener(soundFxVolumeAction);
 
+            tutorialAction = tutorialChanged;
+            TutorialToggle.onValueChanged.AddListener(tutorialAction);
+            TutorialToggle.isOn = SettingsManager.GetTutorialState();
+            
             #if UNITY_STANDALONE
             GraphicsContainer.SetActive(true);
             WindowModeToggle.isOn = SettingsManager.GetWindowState();
@@ -83,6 +88,11 @@ namespace UI
             AudioMixer.SetFloat("FxVol", Mathf.Log(value) * 20);
         }
 
+        private void tutorialChanged(bool state)
+        {
+            SettingsManager.SetTutorialState(state);
+        }
+        
 #if UNITY_STANDALONE
         private void windowModeChanged(bool state)
         {
