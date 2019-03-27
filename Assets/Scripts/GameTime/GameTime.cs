@@ -57,8 +57,11 @@ namespace GameTime
 
         public void StartGame()
         {
-            running = true;
-            tickRoutine = StartCoroutine(Tick());
+            if (!running)
+            {
+                running = true;
+                tickRoutine = StartCoroutine(Tick());
+            }
         }
 
         /// <summary>
