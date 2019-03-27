@@ -27,6 +27,10 @@ namespace UI
         /// </summary>
         public CanvasScaler Scaler;
         /// <summary>
+        /// The gameobject that contains the window.
+        /// </summary>
+        public GameObject Content;
+        /// <summary>
         /// This offset will be added to the calculated screen position.
         /// </summary>
         public Vector2 DefaultOffset;
@@ -60,8 +64,7 @@ namespace UI
 
         private void Start()
         {
-            Canvas.enabled = false;
-            Scaler.enabled = false;
+            Content.SetActive(false);
         }
 
         private void Update()
@@ -118,15 +121,13 @@ namespace UI
         {
             anchor = gameobject;
             
-            Scaler.enabled = true;
-            
             var scaleFactor = Canvas.scaleFactor;
             offset.x = DefaultOffset.x * scaleFactor;
             offset.y = DefaultOffset.y * scaleFactor;
             
             setPosition();
             
-            Canvas.enabled = true;
+            Content.SetActive(true);
             selected = true;
         }
 
@@ -137,8 +138,7 @@ namespace UI
         {
             selected = false;
             
-            Canvas.enabled = false;
-            Scaler.enabled = false;
+            Content.SetActive(false);
             
             anchor = null;
         }
@@ -169,8 +169,7 @@ namespace UI
             if (state == ScreenSpaceOverlayGameObject && Canvas.enabled)
             {
                 tempHidden = true;
-                Canvas.enabled = false;
-                Scaler.enabled = false;
+                Content.SetActive(false);
             }
         }
 
@@ -179,8 +178,7 @@ namespace UI
             if (stateLeaved == ScreenSpaceOverlayGameObject && tempHidden)
             {
                 tempHidden = false;
-                Canvas.enabled = true;
-                Scaler.enabled = true;
+                Content.SetActive(true);
             }
         }
     }
