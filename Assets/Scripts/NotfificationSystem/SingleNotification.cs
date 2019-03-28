@@ -16,7 +16,7 @@ public class SingleNotification : MonoBehaviour
     public GameObject NotificationBar;
     public float xSeconds = 1f;
     public float animationTime = 2f;
-    public int maxHeight = 55;
+    public int maxHeight = 40;
 
     private Queue<Notification> notifications = new Queue<Notification>();
     private UnityAction<object> notificationAction;
