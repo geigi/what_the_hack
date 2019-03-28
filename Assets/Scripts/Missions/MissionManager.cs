@@ -284,7 +284,7 @@ namespace Missions
         /// <summary>
         /// This method is called when a mission finishes.
         /// It determines whether the mission is completed successfully or has failed.
-        /// It also handles the payout aswell as a possible reappearing of the mission.
+        /// It also handles the payout as well as a possible reappearing of the mission.
         /// </summary>
         /// <param name="mission"></param>
         private void missionFinished(Mission mission)
@@ -302,7 +302,11 @@ namespace Missions
                 CompletedMissionsChanged.Raise();
 
                 //Notification
-                notificationCenter.Success($"Mission: {mission.GetName()} was completed successfully");
+                if(mission.Definition.MissionSucceeded != null && mission.Definition.MissionSucceeded != "")
+                    notificationCenter.Success($"Mission: {mission.GetName()} completed! " +
+                                               $"{mission.Definition.MissionSucceeded} You've earned: {mission.RewardMoney}$.");
+                else
+                    notificationCenter.Success($"Mission: {mission.GetName()} completed! You've earned: {mission.RewardMoney}$.");
 
                 // Payout
                 ContentHub.Instance.bank.Income(mission.RewardMoney);
@@ -312,7 +316,12 @@ namespace Missions
                 // Mission has failed
 
                 //Notification
-                notificationCenter.Fail($"Mission: {mission.GetName()} failed.");
+                if (mission.Definition.MissionFailed != null && mission.Definition.MissionFailed != "")
+                    notificationCenter.Success($"Mission: {mission.GetName()} failed! " +
+                                               $"{mission.Definition.MissionFailed}");
+                else
+                    notificationCenter.Success($"Mission: {mission.GetName()} failed!");
+
 
                 if (mission.Definition.Reappear)
                     data.Available.Add(mission);

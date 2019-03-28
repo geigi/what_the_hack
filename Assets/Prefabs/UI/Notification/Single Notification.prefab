@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0fc45c61fb4a89b3d3a834bc1e8c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  MaxCharacters: 5
+  Speed: 0.3
+  MaxCharacters: 85
   Loop: 0
   ScrollingFinished:
     m_PersistentCalls:
@@ -294,6 +294,10 @@ MonoBehaviour:
   text: {fileID: 6591428296828994961}
   icon: {fileID: 7190445450974743491}
   newNotification: {fileID: 11400000, guid: 8759e4ac24a02b44fa608b78fd59c1ac, type: 2}
+  NotificationBar: {fileID: 0}
+  xSeconds: 1
+  animationTime: 2
+  maxHeight: 55
 --- !u!114 &6937705482389646874
 MonoBehaviour:
   m_ObjectHideFlags: 0
