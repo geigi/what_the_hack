@@ -115,7 +115,6 @@ public class SingleNotification : MonoBehaviour
             {
                 yield return new WaitForSeconds(1);
             }
-            yield return new WaitForSeconds(xSeconds);
         }
 
         notificationBeingDisplayed = false;

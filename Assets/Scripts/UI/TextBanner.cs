@@ -63,14 +63,17 @@ namespace UI
             completeText = text;
             position = 0;
 
+            //Text now always scrolls, so this check is not needed.
+            /* 
             if (text.Length <= MaxCharacters)
             {
                 textComponent.text = text;
                 ScrollingFinished.Invoke();
                 return;
             }
+            */
 
-            textComponent.text = text.Substring(0, MaxCharacters);
+            textComponent.text = text.Substring(0, completeText.Length);
 
             if (gameObject.activeInHierarchy)
                 coroutine = StartCoroutine(updateText());
@@ -94,14 +97,15 @@ namespace UI
         /// <returns></returns>
         private IEnumerator updateText()
         {
+            yield return new WaitForSeconds(1); //wait xSeconds at the beginning.
             if (Loop)
             {
-                completeText = completeText + new string(' ', MaxCharacters);
+                completeText = completeText + new string(' ', completeText.Length);
                 while (true)
                 {
                     yield return MoveText();
                     position = 0;
-                    textComponent.text = completeText.Substring(position, MaxCharacters);
+                    textComponent.text = completeText.Substring(position);
                 }
             }
             else
@@ -120,11 +124,11 @@ namespace UI
         /// <returns></returns>
         private IEnumerator MoveText()
         {
-            while (position + MaxCharacters < completeText.Length)
+            while (position < completeText.Length)
             {
                 yield return new WaitForSeconds(Speed);
                 position++;
-                textComponent.text = completeText.Substring(position, MaxCharacters);
+                textComponent.text = completeText.Substring(position); // The text that is shown, gets smaller and smaller, till the length is 0
             }
         }
     }
