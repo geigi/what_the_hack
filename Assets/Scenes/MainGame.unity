@@ -13072,6 +13072,10 @@ PrefabInstance:
       propertyPath: animationTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1892059930, guid: 8a5d873f842db8a4db44d362a04079a1, type: 3}
+      propertyPath: xSeconds
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6937705480729422923, guid: 8a5d873f842db8a4db44d362a04079a1,
         type: 3}
       propertyPath: m_HorizontalFit
