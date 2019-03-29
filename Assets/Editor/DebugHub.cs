@@ -143,7 +143,7 @@ public class DebugHub : EditorWindow
             
             if (GUILayout.Button("Post Notification", GUILayout.Width(85)))
             {
-                NotificationCenter.Instance.Info(notification);
+                NotificationManager.Instance.Info(notification);
             }
         }
         #endregion

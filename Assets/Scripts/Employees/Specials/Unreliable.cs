@@ -44,7 +44,7 @@ namespace Employees.Specials
             
             if (RandomUtils.rand() > chance) return;
             
-            NotificationCenter.Instance.Warning("An unreliable employee " + employee.Name + " has left the team.");
+            NotificationManager.Instance.Warning("An unreliable employee " + employee.Name + " has left the team.");
             EmployeeManager.Instance.FireEmployee(employee);
         }
     }

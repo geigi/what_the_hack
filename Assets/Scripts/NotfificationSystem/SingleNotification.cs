@@ -109,8 +109,8 @@ public class SingleNotification : MonoBehaviour
             var current = notifications.Dequeue();
             icon.sprite = current.GetCorrespondingIcon();
             scrollingFinished = false;
-            banner.Set(current.Message);
             current.Displayed = true;
+            banner.Set(current.Message);
             while (!scrollingFinished)
             {
                 yield return new WaitForSeconds(1);

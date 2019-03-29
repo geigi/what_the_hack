@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2617456203888737192}
   - component: {fileID: 3329118870072957098}
   - component: {fileID: 7909490152583033352}
+  - component: {fileID: 2060316829}
   m_Layer: 0
   m_Name: NotificationBar
   m_TagString: Untagged
@@ -75,6 +76,19 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &2060316829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130928770245454236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e462ca7801d3004f86750320219f77a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NotificationCenter: {fileID: 0}
 --- !u!1001 &2100626001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -185,12 +199,12 @@ PrefabInstance:
     - target: {fileID: 735313175500858321, guid: 04bb4004be2d69d48a71ab05ef792471,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 735313175500858321, guid: 04bb4004be2d69d48a71ab05ef792471,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 234064203, guid: 04bb4004be2d69d48a71ab05ef792471, type: 3}
       propertyPath: text
@@ -200,6 +214,42 @@ PrefabInstance:
       propertyPath: icon
       value: 
       objectReference: {fileID: 7190445453070649746}
+    - target: {fileID: 234064203, guid: 04bb4004be2d69d48a71ab05ef792471, type: 3}
+      propertyPath: NotificationBar
+      value: 
+      objectReference: {fileID: 1130928770245454236}
+    - target: {fileID: 234064203, guid: 04bb4004be2d69d48a71ab05ef792471, type: 3}
+      propertyPath: xSeconds
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 234064203, guid: 04bb4004be2d69d48a71ab05ef792471, type: 3}
+      propertyPath: animationTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 234064203, guid: 04bb4004be2d69d48a71ab05ef792471, type: 3}
+      propertyPath: maxHeight
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423384148823733700, guid: 04bb4004be2d69d48a71ab05ef792471,
+        type: 3}
+      propertyPath: m_MinWidth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423384148823733700, guid: 04bb4004be2d69d48a71ab05ef792471,
+        type: 3}
+      propertyPath: m_MinHeight
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423384148823733700, guid: 04bb4004be2d69d48a71ab05ef792471,
+        type: 3}
+      propertyPath: m_PreferredWidth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423384148823733700, guid: 04bb4004be2d69d48a71ab05ef792471,
+        type: 3}
+      propertyPath: m_PreferredHeight
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04bb4004be2d69d48a71ab05ef792471, type: 3}
 --- !u!224 &735313173838668160 stripped

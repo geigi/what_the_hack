@@ -112,9 +112,9 @@ namespace Assets.Tests
             manager.InitDefaultState();
             manager.factoryObject = factory;
             manager.bank = bank;
-            var notifications = Substitute.For<NotificationCenter>();
+            var notifications = Substitute.For<NotificationManager>();
             notifications.WhenForAnyArgs(x => x.Info(Arg.Any<string>())).DoNotCallBase();
-            manager.notificationCenter = notifications;
+            manager.NotificationManager = notifications;
             manager.GetData().hiredEmployees.Add(testEmployee);
             manager.WhenForAnyArgs(x => x.AddEmployeeForHireToGui(testEmployee)).DoNotCallBase();
             manager.DayChanged(new GameDate());
@@ -168,9 +168,9 @@ namespace Assets.Tests
             manager.minimumNumberOfEmployees = 0;
             EmployeeManager.rand = rand;
             manager.InitDefaultState();
-            var notifications = Substitute.For<NotificationCenter>();
+            var notifications = Substitute.For<NotificationManager>();
             notifications.WhenForAnyArgs(x => x.Info(Arg.Any<string>())).DoNotCallBase();
-            manager.notificationCenter = notifications;
+            manager.NotificationManager = notifications;
             manager.EmployeeToGuiMap = new Dictionary<EmployeeData, GameObject> { { testEmployee, new GameObject() } };
             manager.WhenForAnyArgs(x => x.AddEmployeeForHireToGui(Arg.Any<EmployeeData>())).DoNotCallBase();
             manager.WhenForAnyArgs(x => x.RemoveEmployeeForHire(Arg.Any<EmployeeData>())).DoNotCallBase();

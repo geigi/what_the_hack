@@ -64,9 +64,9 @@ namespace SaveGame
         public int balance;
 
         /// <summary>
-        /// All persistent Data from NotificationCenter
+        /// All persistent Data from NotificationManager
         /// </summary>
-        public NotificationCenterData NotificationCenterData;
+        public NotificationManagerData NotificationManagerData;
 
         /// <summary>
         /// Difficulty of the current game.

@@ -50,12 +50,12 @@ namespace Missions
 
         private Dictionary<Mission, MissionWorker> missionWorkers;
 
-        private NotificationCenter notificationCenter;
+        private NotificationManager _notificationManager;
 
         private void Awake()
         {
             missionWorkers = new Dictionary<Mission, MissionWorker>();
-            notificationCenter = NotificationCenter.Instance;
+            _notificationManager = NotificationManager.Instance;
 
             if (GameSettings.NewGame)
                 InitDefaultState();
@@ -304,10 +304,10 @@ namespace Missions
 
                 //Notification
                 if(mission.GetSuccessText() != null && mission.GetSuccessText() != "")
-                    notificationCenter.Success($"Mission: {mission.GetName()} completed! " +
+                    _notificationManager.Success($"Mission: {mission.GetName()} completed! " +
                                                $"{mission.GetSuccessText()} You've earned: {mission.RewardMoney}$.");
                 else
-                    notificationCenter.Success($"Mission: {mission.GetName()} completed! You've earned: {mission.RewardMoney}$.");
+                    _notificationManager.Success($"Mission: {mission.GetName()} completed! You've earned: {mission.RewardMoney}$.");
 
                 // Payout
                 ContentHub.Instance.bank.Income(mission.RewardMoney);

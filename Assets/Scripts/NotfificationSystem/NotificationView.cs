@@ -2,32 +2,31 @@
 using System.Collections.Generic;
 using Assets.Scripts.NotfificationSystem;
 using Assets.Scripts.NotificationSystem;
+using UnityEditor.Experimental.UIElements;
 using UnityEngine;
 
 public class NotificationView : MonoBehaviour
 {
     public GameObject NotificationUIPrefab;
     public GameObject Content;
-    private List<Notification> displayedNotifications => NotificationCenter.Instance.GetData().DisplayedNotifications;
+    private List<Notification> displayedNotifications => NotificationManager.Instance.GetData().DisplayedNotifications;
 
-    private void Start()
+    public void Start()
     {
         foreach (var current in displayedNotifications)
         {
             var element = Instantiate(NotificationUIPrefab);
-            element.transform.parent = Content.transform;
             element.GetComponent<NotificationUIElement>().SetNotification(current.Message, current.Date, current.GetCorrespondingIcon());
+            element.transform.parent = Content.transform;
+            element.transform.localScale = Vector3.one;
         }
     }
 
-    private void Update()
+    public void OnDisable()
     {
-        if (Input.GetMouseButtonDown(0))
+        for (var i = 0; i < Content.transform.childCount; i++)
         {
-            if (Input.mousePosition.y > gameObject.GetComponent<RectTransform>().rect.height)
-            {
-                gameObject.SetActive(false);
-            }
+            GameObject.Destroy(Content.transform.GetChild(i));
         }
     }
 }

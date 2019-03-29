@@ -25,7 +25,7 @@ namespace SaveGame
         public EmployeeManager EmployeeManager;
         public MissionManager MissionManager;
         public Bank bank;
-        public NotificationCenter NotificationCenter;
+        public NotificationManager NotificationManager;
 
         private MainSaveGame currentSaveGame;
         private int TutorialStage = 0;
@@ -69,7 +69,7 @@ namespace SaveGame
             saveGame.missionManagerData = MissionManager.GetData();
             saveGame.teamManagerData = TeamManager.Instance.GetData();
             saveGame.gameTime = GameTime.GameTime.Instance.GetData();
-            saveGame.NotificationCenterData = NotificationCenter.GetData();
+            saveGame.NotificationManagerData = NotificationManager.GetData();
             FillTileMapData(saveGame);
             saveGame.balance = bank.Balance;
             saveGame.Difficulty = SettingsManager.GetDifficulty();
