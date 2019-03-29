@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using Assets.Scripts.NotificationSystem;
 using Employees;
 using GameSystem;
 using SaveGame;
@@ -14,6 +15,7 @@ public class DebugHub : EditorWindow
 {
     public static readonly string LOAD_GAME = "DEBUG_LOAD_GAME";
     private Vector2 scrollPos;
+    private string notification = "";
     
     [MenuItem("Tools/Debug Hub")]
     public static void ShowWindow()
@@ -132,6 +134,17 @@ public class DebugHub : EditorWindow
             GUILayout.Space(10);
             EditorGUILayout.FloatField("Game Progress:", TeamManager.Instance.calcGameProgress(), GUILayout.ExpandWidth(true));
             GUILayout.EndHorizontal();
+            
+            GUILayout.Space(10);
+
+            notification = EditorGUILayout.TextField("Notification: ", notification, GUILayout.ExpandWidth(true));
+            
+            GUILayout.Space(10);
+            
+            if (GUILayout.Button("Post Notification", GUILayout.Width(85)))
+            {
+                NotificationCenter.Instance.Info(notification);
+            }
         }
         #endregion
         
