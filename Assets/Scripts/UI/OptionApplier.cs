@@ -41,6 +41,7 @@ namespace UI
 
             MusicVolumeSlider.value = SettingsManager.GetMusicVolume();
             SoundFxVolumeSlider.value = SettingsManager.GetSoundFxVolume();
+            GameTimeMode.value = (int) SettingsManager.GetGameTime();
             
             musicVolumeAction = musicVolumeChanged;
             MusicVolumeSlider.onValueChanged.AddListener(musicVolumeAction);
