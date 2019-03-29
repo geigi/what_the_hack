@@ -315,13 +315,43 @@ namespace Missions
             else
             {
                 // Mission has failed
+                List<string> failedSkills = new List<string>();
+                foreach (var skill in mission.Progress)
+                {
+                    if (skill.Value < 1f)
+                        failedSkills.Add(skill.Key.skillName);
+                }
 
+                string failedSkillsText;
+                if (failedSkills.Count > 1)
+                {
+                    failedSkillsText = "Skills ";
+                    
+                    for (int i = 0; i < failedSkills.Count; i++)
+                    {
+                        if (i == failedSkills.Count - 1)
+                        {
+                            failedSkillsText += failedSkills[i] + " ";
+                        }
+                        else
+                        {
+                            failedSkillsText += failedSkills[i] + ", ";
+                        }
+                    }
+
+                    failedSkillsText += "have failed.";
+                }
+                else
+                {
+                    failedSkillsText = "Skill " + failedSkills.First() + " has failed.";
+                }
+                
                 //Notification
                 if (mission.GetFailedText() != null && mission.GetFailedText() != "")
                     notificationCenter.Success($"Mission: {mission.GetName()} failed! " +
-                                               $"{mission.GetFailedText()}");
+                                               $"{mission.GetFailedText()} " + failedSkillsText);
                 else
-                    notificationCenter.Success($"Mission: {mission.GetName()} failed!");
+                    notificationCenter.Success($"Mission: {mission.GetName()} failed! " + failedSkillsText);
 
 
                 if (mission.Definition.Reappear)
