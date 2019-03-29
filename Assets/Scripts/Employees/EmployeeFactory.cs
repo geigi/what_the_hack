@@ -17,7 +17,7 @@ using Wth.ModApi.Names;
 using Wth.ModApi.Tools;
 using Random = System.Random;
 
-[assembly: InternalsVisibleTo("Tests")]
+[assembly: InternalsVisibleTo("Tests_EditMode")]
 /// <summary>
 /// Class for generating random EmployeeData and setting the Material for an Employee.
 /// </summary>

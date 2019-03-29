@@ -112,6 +112,47 @@ namespace Missions
         }
 
         /// <summary>
+        /// Estimates, whether this mission will complete successfully or not.
+        /// </summary>
+        /// <returns></returns>
+        public bool WillCompleteSuccessfully()
+        {
+            int completedSkills = mission.Progress.Count(s => s.Value >= 1f);
+            Dictionary<SkillDefinition, float> predictedProgress = mission.Progress.ToDictionary(entry => entry.Key,
+                entry => entry.Value);
+            
+            for (int i = 0; i < mission.RemainingTicks; i++)
+            {
+                List<SkillDefinition> skills = new List<SkillDefinition>(predictedProgress.Keys);
+                
+                foreach (var employee in employees)
+                {
+                    foreach (var skill in skills)
+                    {
+                        var value = predictedProgress[skill];
+                        if (value >= 1.0f)
+                        {
+                            // Skill is already fulfilled
+                            continue;
+                        }
+
+                        var newValue = WorkOnSkill(employee, skill, value, completedSkills);
+                        predictedProgress[skill] = newValue;
+                    }
+                }
+            }
+
+            if (predictedProgress.Values.All(v => v >= 0))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// This method calculates the mission progress for a given skill.
         /// The calculation can be manipulated and tuned with the <see cref="BASE_VALUE"/> and <see cref="RANDOM_FACTOR"/> constants.
         /// Calculation must be balanced for the entire length of a game.

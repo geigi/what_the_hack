@@ -27,6 +27,7 @@ public class ClockGameTimeListener : MonoBehaviour
         clockImage = GetComponent<Image>();
         tickAction += TickListener;
         GameTimeTickEvent.AddListener(tickAction);
+        //TickListener(GameTime.GameTime.Instance.Gettim);
     }
 
     /// <summary>

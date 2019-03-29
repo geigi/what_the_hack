@@ -27,7 +27,7 @@ namespace GameTime
         /// Number of real time minutes that elapse per in-game time tick.
         /// Only used in realtime game mode.
         /// </summary>
-        public float RealtimeMinutesPerTick = 20f;
+        public float RealtimeMinutesPerTick = 0.05f;
 
         /// <summary>
         /// Number of time ticks per day.
@@ -115,6 +115,15 @@ namespace GameTime
         public int GetTotalGameDays()
         {
             return (data.Date.GetDateTime() - new DateTime(1, 1, 1)).Days;
+        }
+
+        public int RemainingTicksTillPayday()
+        {
+            int dayTillPayDay = (int) (7 - data.Date.DayOfWeek);
+            int ticks = ClockSteps - data.Step;
+            ticks += dayTillPayDay * ClockSteps;
+            
+            return ticks;
         }
 
         /// <summary>

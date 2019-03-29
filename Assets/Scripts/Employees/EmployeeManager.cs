@@ -15,6 +15,7 @@ using UE.Events;
 using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
+using Utils;
 using World;
 using Wth.ModApi.Employees;
 using DayOfWeek = GameTime.DayOfWeek;
@@ -216,6 +217,18 @@ namespace Employees
             data.hiredEmployees.Add(employeeData);
 
             SpawnEmployee(employeeData, true);
+        }
+
+        public bool AllEmployeesIdle()
+        {
+            bool idle = true;
+            foreach (var employeeData in data.hiredEmployees)
+            {
+                if (employeeData.State == Enums.EmployeeState.WORKING)
+                    idle = false;
+            }
+
+            return idle;
         }
 
         private void SpawnEmployee(EmployeeData employeeData, bool isFreshman)

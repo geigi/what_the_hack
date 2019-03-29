@@ -1,5 +1,5 @@
 {
-    "name": "Tests",
+    "name": "Tests_EditMode",
     "references": [
         "MainAssembly",
         "Wth.ModApi",

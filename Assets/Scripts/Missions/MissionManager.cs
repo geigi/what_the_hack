@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Android.Notifications;
 using Assets.Scripts.NotificationSystem;
 using Base;
 using Employees;
@@ -336,6 +337,32 @@ namespace Missions
                 if (missionWorker.Value.HasEmployee(employee.EmployeeData))
                     missionWorker.Value.RemoveEmployee(employee.EmployeeData);
             }
+        }
+
+        /// <summary>
+        /// Generate notifications for the host in realtime mode.
+        /// </summary>
+        /// <returns></returns>
+        public List<HostNotification> GenerateHostNotifications()
+        {
+            var notifications = new List<HostNotification>();
+            
+            foreach (var worker in missionWorkers)
+            {
+                var remainingTime = Math.Max(
+                    (int) (worker.Key.RemainingTicks * GameTime.GameTime.Instance.RealtimeMinutesPerTick), 1);
+                if (worker.Value.WillCompleteSuccessfully())
+                {
+                    notifications.Add(new HostNotification("Mission \"" + worker.Key.GetName() + "\" has ended.", "Tap to see the result.", remainingTime));
+                }
+                else
+                {
+                    notifications.Add(new HostNotification("The mission \"" + worker.Key.GetName() + "\" is doing not so well.", "Tap to help your employees.", Math.Max(remainingTime / 2, 1)));
+                    notifications.Add(new HostNotification("Mission \"" + worker.Key.GetName() + "\" has ended.", "Tap to see the result.", remainingTime));
+                }
+            }
+
+            return notifications;
         }
 }
 }
