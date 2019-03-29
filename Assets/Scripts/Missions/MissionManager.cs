@@ -303,9 +303,9 @@ namespace Missions
                 CompletedMissionsChanged.Raise();
 
                 //Notification
-                if(mission.Definition.MissionSucceeded != null && mission.Definition.MissionSucceeded != "")
+                if(mission.GetSuccessText() != null && mission.GetSuccessText() != "")
                     notificationCenter.Success($"Mission: {mission.GetName()} completed! " +
-                                               $"{mission.Definition.MissionSucceeded} You've earned: {mission.RewardMoney}$.");
+                                               $"{mission.GetSuccessText()} You've earned: {mission.RewardMoney}$.");
                 else
                     notificationCenter.Success($"Mission: {mission.GetName()} completed! You've earned: {mission.RewardMoney}$.");
 
@@ -317,9 +317,9 @@ namespace Missions
                 // Mission has failed
 
                 //Notification
-                if (mission.Definition.MissionFailed != null && mission.Definition.MissionFailed != "")
+                if (mission.GetFailedText() != null && mission.GetFailedText() != "")
                     notificationCenter.Success($"Mission: {mission.GetName()} failed! " +
-                                               $"{mission.Definition.MissionFailed}");
+                                               $"{mission.GetFailedText()}");
                 else
                     notificationCenter.Success($"Mission: {mission.GetName()} failed!");
 

@@ -159,6 +159,26 @@ namespace Missions
             return Replacements.Aggregate(Definition.Description,
                 (current, value) => current.Replace(value.Key, value.Value));
         }
+        
+        /// <summary>
+        /// Returns the success text of the mission with replaced placeholders.
+        /// </summary>
+        /// <returns></returns>
+        public string GetSuccessText()
+        {
+            return Replacements.Aggregate(Definition.MissionSucceeded,
+                (current, value) => current.Replace(value.Key, value.Value));
+        }
+        
+        /// <summary>
+        /// Returns the failed text of the mission with replaced placeholders.
+        /// </summary>
+        /// <returns></returns>
+        public string GetFailedText()
+        {
+            return Replacements.Aggregate(Definition.MissionFailed,
+                (current, value) => current.Replace(value.Key, value.Value));
+        }
 
         /// <summary>
         /// Finishes this mission.
