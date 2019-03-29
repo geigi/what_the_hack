@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.NotfificationSystem;
 using Assets.Scripts.NotificationSystem;
-using UnityEditor.Experimental.UIElements;
 using UnityEngine;
 
 public class NotificationView : MonoBehaviour
