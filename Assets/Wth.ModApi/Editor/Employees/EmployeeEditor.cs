@@ -130,13 +130,6 @@ namespace Wth.ModApi.Editor.Employees
                     asset.employeeList[viewIndex - 1].image, typeof(Sprite), false) as Sprite;
 
                 GUILayout.Space(10);
-
-                GUILayout.BeginHorizontal();
-                asset.employeeList[viewIndex - 1].Level = EditorGUILayout.IntField("Level",
-                    asset.employeeList[viewIndex - 1].Level, GUILayout.ExpandWidth(false));
-                GUILayout.EndHorizontal();
-                
-                GUILayout.Space(10);
                     
                 GUILayout.BeginHorizontal();
                 asset.employeeList[viewIndex - 1].EmployeeSpecials[0] = EditorGUILayout.TextField("Special 1",

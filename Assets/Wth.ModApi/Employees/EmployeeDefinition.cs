@@ -18,11 +18,6 @@ public class EmployeeDefinition : ScriptableObject
     public string EmployeeName = "Max Mustermann";
 
     /// <summary>
-    /// Starting level of the employee.
-    /// </summary>
-    public int Level = 1;
-
-    /// <summary>
     /// Idle Animation. This is played when the employee is doing nothing.
     /// </summary>
     public AnimationClip IdleAnimation = null;
