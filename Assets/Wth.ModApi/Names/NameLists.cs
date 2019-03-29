@@ -69,6 +69,11 @@ public class NameLists : ScriptableObject
     /// </summary>
     public List<string> institutions = new List<string>();
 
+    /// <summary>
+    /// Defines, whether this namelists should be used exclusively or in combination with the build in lists.
+    /// </summary>
+    public bool UseExclusively = false;
+
     private static Random rng = new Random();
 
     /// <summary>

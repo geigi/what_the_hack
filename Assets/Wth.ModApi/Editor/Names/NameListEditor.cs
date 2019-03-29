@@ -86,6 +86,14 @@ namespace Wth.ModApi.Editor.Names
                     asset.institutions
                 };
                 
+                GUILayout.BeginHorizontal();
+                GUILayout.FlexibleSpace();
+                asset.UseExclusively = EditorGUILayout.Toggle("Use list exclusively", asset.UseExclusively);
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
+                
+                GUILayout.Space(10);
+                
                 // Make dropdown menu.
                 dropdownSelected = EditorGUILayout.Popup("Current List:", dropdownSelected, dropdownList);
                 currentList = dropdownStorage[dropdownSelected];
@@ -108,7 +116,7 @@ namespace Wth.ModApi.Editor.Names
                     currentList[viewIndex - 1] = EditorGUILayout.TextField("Name: ", currentList[viewIndex - 1]);
 
                     GUILayout.Space(5);
-                    if (GUILayout.Button("Save Names"))
+                    if (GUILayout.Button("Save"))
                         AssetDatabase.SaveAssets();
 
                     GUILayout.Space(10);

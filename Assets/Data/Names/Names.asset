@@ -541,3 +541,4 @@ MonoBehaviour:
   - state archive
   - city bank
   - national bank
+  UseExclusively: 1

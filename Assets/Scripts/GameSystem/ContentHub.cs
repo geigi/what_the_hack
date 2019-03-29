@@ -92,6 +92,8 @@ public class ContentHub: Singleton<ContentHub>
     /// </summary>
     public IntEvent GameStepEvent;
     #endregion
+
+    private NameLists cachedCombinedList;
     
     /// <summary>
     /// Get the current <see cref="SkillSet"/>. 
@@ -118,7 +120,49 @@ public class ContentHub: Singleton<ContentHub>
         var modNames = ModHolder.Instance.GetNameLists();
         if (modNames != null)
         {
-            return modNames;
+            if (modNames.UseExclusively)
+                return modNames;
+            else
+            {
+                if (cachedCombinedList == null)
+                {
+                    cachedCombinedList = ScriptableObject.CreateInstance<NameLists>();
+                    cachedCombinedList.firstNamesMale.AddRange(DefaultNameLists.firstNamesMale);
+                    cachedCombinedList.firstNamesMale.AddRange(modNames.firstNamesMale);
+                    
+                    cachedCombinedList.firstNamesFemale.AddRange(DefaultNameLists.firstNamesFemale);
+                    cachedCombinedList.firstNamesFemale.AddRange(modNames.firstNamesFemale);
+                    
+                    cachedCombinedList.lastNames.AddRange(DefaultNameLists.lastNames);
+                    cachedCombinedList.lastNames.AddRange(modNames.lastNames);
+                    
+                    cachedCombinedList.companyNames.AddRange(DefaultNameLists.companyNames);
+                    cachedCombinedList.companyNames.AddRange(modNames.companyNames);
+                    
+                    cachedCombinedList.passwordApplications.AddRange(DefaultNameLists.passwordApplications);
+                    cachedCombinedList.passwordApplications.AddRange(modNames.passwordApplications);
+                    
+                    cachedCombinedList.universities.AddRange(DefaultNameLists.universities);
+                    cachedCombinedList.universities.AddRange(modNames.universities);
+                    
+                    cachedCombinedList.webServices.AddRange(DefaultNameLists.webServices);
+                    cachedCombinedList.webServices.AddRange(modNames.webServices);
+                    
+                    cachedCombinedList.software.AddRange(DefaultNameLists.software);
+                    cachedCombinedList.software.AddRange(modNames.software);
+                    
+                    cachedCombinedList.towns.AddRange(DefaultNameLists.towns);
+                    cachedCombinedList.towns.AddRange(modNames.towns);
+                    
+                    cachedCombinedList.countries.AddRange(DefaultNameLists.countries);
+                    cachedCombinedList.countries.AddRange(modNames.countries);
+                    
+                    cachedCombinedList.institutions.AddRange(DefaultNameLists.institutions);
+                    cachedCombinedList.institutions.AddRange(modNames.institutions);
+                }
+
+                return cachedCombinedList;
+            }
         }
         else
         {
