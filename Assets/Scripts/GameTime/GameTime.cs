@@ -42,6 +42,7 @@ namespace GameTime
         private Coroutine tickRoutine;
 
         private bool running = false;
+        private bool gameLoaded = false;
 
         /// <summary>
         /// Initialize the game time system.
@@ -52,7 +53,24 @@ namespace GameTime
             if (GameSettings.NewGame)
                 Initialize();
             else
+            {
                 LoadState();
+            }
+        }
+
+        private void Start()
+        {
+            gameLoaded = true;
+            if (!GameSettings.NewGame && SettingsManager.GetGameTime() == SettingsManager.GameTimeMode.Realtime)
+                FirePastTicks();
+        }
+
+        void OnApplicationPause(bool isPaused)
+        {
+            if (gameLoaded && !isPaused && SettingsManager.GetGameTime() == SettingsManager.GameTimeMode.Realtime)
+            {
+                FirePastTicks();
+            }
         }
 
         public void StartGame()
@@ -145,21 +163,39 @@ namespace GameTime
                 {
                     yield return new WaitForSeconds(RealtimeMinutesPerTick * 60);
                 }
-            
-                data.Step++;
-                
-                // Update data
-                if (data.Step < ClockSteps)
-                {
-                    GameTickEvent.Raise(data.Step);
-                }
-                else
-                {
-                    data.Step = 0;
-                    data.Date.IncrementDay();
-                    GameTickEvent.Raise(data.Step);
-                    GameDayEvent.Raise(data.Date);
-                }
+
+                doTick();
+            }
+        }
+
+        private void doTick()
+        {
+            data.Step++;
+
+            // Update data
+            if (data.Step < ClockSteps)
+            {
+                GameTickEvent.Raise(data.Step);
+            }
+            else
+            {
+                data.Step = 0;
+                data.Date.IncrementDay();
+                GameTickEvent.Raise(data.Step);
+                GameDayEvent.Raise(data.Date);
+            }
+        }
+
+        private void FirePastTicks()
+        {
+            var now = DateTime.Now;
+            var span = now.Subtract(SaveGameSystem.Instance.GetCurrentSaveGame().saveDate);
+
+            int ticks = (int) (span.TotalMinutes / RealtimeMinutesPerTick);
+            Debug.Log("Starting progress recalculation now with " + ticks + " ticks.");
+            for (int i = 0; i < ticks; i++)
+            {
+                doTick();
             }
         }
     }
