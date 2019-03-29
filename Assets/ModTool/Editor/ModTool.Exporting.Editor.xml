@@ -81,7 +81,7 @@
             Main class for exporting a project as a mod.
             </summary>
         </member>
-        <member name="E:ModTool.Exporting.Editor.ModExporter.ExportStarting">
+        <member name="E:ModTool.Exporting.Editor.ModExporter.ExportShowing">
             <summary>
             Occurs when the export process is starting.
             </summary>
@@ -98,7 +98,7 @@
         </member>
         <member name="M:ModTool.Exporting.Editor.ModExporter.ExportMod(ModTool.Exporting.Editor.ExportSettings)">
             <summary>
-            Start exporting a Mod.
+            Show exporting a Mod.
             </summary>
             <param name="settings">The settings to use for exporting the Mod.</param>
         </member>

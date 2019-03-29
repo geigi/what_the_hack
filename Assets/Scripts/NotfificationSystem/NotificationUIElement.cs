@@ -17,7 +17,7 @@ namespace Assets.Scripts.NotfificationSystem
         public void SetNotification(string notificationText, GameTime.GameDate date, Sprite icon)
         {
             NotificationText.GetComponent<Text>().text = notificationText;
-            if(Date != null)
+            if (Date != null)
                 Date.GetComponent<Text>().text = date.DateTime.ToShortDateString();
             Icon.GetComponent<Image>().sprite = icon;
         }

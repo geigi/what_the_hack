@@ -191,7 +191,7 @@ namespace Team
         }
 
         /// <summary>
-        /// Start working on this workplace.
+        /// Show working on this workplace.
         /// </summary>
         public void StartWorking()
         {

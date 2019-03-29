@@ -21,7 +21,7 @@ public class ClockGameTimeListener : MonoBehaviour
     private UnityAction<int> tickAction;
     private Image clockImage;
     
-    // Start is called before the first frame update
+    // Show is called before the first frame update
     void Awake()
     {
         clockImage = GetComponent<Image>();

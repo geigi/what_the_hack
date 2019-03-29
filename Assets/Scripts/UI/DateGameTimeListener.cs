@@ -22,7 +22,7 @@ public class DateGameTimeListener : MonoBehaviour
 
     private Text dateText;
     private UnityAction<object> dayChangedAction;
-    // Start is called before the first frame update
+    // Show is called before the first frame update
     void Awake()
     {
         dateText = GetComponent<Text>();

@@ -9,9 +9,9 @@ public class NotificationView : MonoBehaviour
 {
     public GameObject NotificationUIPrefab;
     public GameObject Content;
-    private List<Notification> displayedNotifications => NotificationManager.Instance.GetData().DisplayedNotifications;
+    private List<Notification> displayedNotifications = new List<Notification>();
 
-    public void Start()
+    public void Show()
     {
         foreach (var current in displayedNotifications)
         {
@@ -22,11 +22,16 @@ public class NotificationView : MonoBehaviour
         }
     }
 
+    public void ShowDisplayedNotifications() =>
+        displayedNotifications = NotificationManager.Instance.GetData().DisplayedNotifications;
+
+    public void ShowSpecificNotifications(List<Notification> notifications) => displayedNotifications = notifications;
+
     public void OnDisable()
     {
         for (var i = 0; i < Content.transform.childCount; i++)
         {
-            GameObject.Destroy(Content.transform.GetChild(i));
+            GameObject.Destroy(Content.transform.GetChild(i).gameObject);
         }
     }
 }

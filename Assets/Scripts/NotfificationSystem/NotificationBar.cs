@@ -11,7 +11,7 @@ public class NotificationBar : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (Input.mousePosition.y < gameObject.GetComponent<RectTransform>().rect.height)
+            if (Input.mousePosition.y <= gameObject.GetComponent<RectTransform>().rect.height)
             {
                 NotificationCenter.SetActive(true);
             }

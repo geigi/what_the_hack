@@ -55,7 +55,7 @@ namespace UI
         {
             active = true;
 
-            GotItButton.GetComponentInChildren<Text>().text = "Start";
+            GotItButton.GetComponentInChildren<Text>().text = "Show";
 
             // connect UI events
             abortAction = End;

@@ -15,6 +15,7 @@ public class NotificationCenter : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.GetChild(0).GetComponent<NotificationView>().Start();
+        transform.GetChild(0).GetComponent<NotificationView>().ShowDisplayedNotifications();
+        transform.GetChild(0).GetComponent<NotificationView>().Show();
     }
 }

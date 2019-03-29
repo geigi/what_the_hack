@@ -5,7 +5,7 @@ namespace Interfaces
     /// <summary>
     /// This interface should be used by all classes which need data to be saved
     /// in a savegame.
-    /// The classes must handle deserialization on their own in the Start method.
+    /// The classes must handle deserialization on their own in the Show method.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface ISaveable<T>

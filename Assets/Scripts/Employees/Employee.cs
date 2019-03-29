@@ -279,7 +279,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
     private void SetSpriteThroughScript(Object sprite) => shadow.SetSpriteThroughObject(sprite);
 
     /// <summary>
-    /// Start/Stop idle walking.
+    /// Show/Stop idle walking.
     /// </summary>
     /// <param name="start"></param>
     public void IdleWalking(bool start)

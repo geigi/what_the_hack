@@ -50,12 +50,12 @@ namespace Missions
 
         private Dictionary<Mission, MissionWorker> missionWorkers;
 
-        private NotificationManager _notificationManager;
+        private NotificationManager notificationManager;
 
         private void Awake()
         {
             missionWorkers = new Dictionary<Mission, MissionWorker>();
-            _notificationManager = NotificationManager.Instance;
+            notificationManager = NotificationManager.Instance;
 
             if (GameSettings.NewGame)
                 InitDefaultState();
@@ -304,10 +304,10 @@ namespace Missions
 
                 //Notification
                 if(mission.GetSuccessText() != null && mission.GetSuccessText() != "")
-                    _notificationManager.Success($"Mission: {mission.GetName()} completed! " +
+                    notificationManager.Success($"Mission: {mission.GetName()} completed! " +
                                                $"{mission.GetSuccessText()} You've earned: {mission.RewardMoney}$.");
                 else
-                    _notificationManager.Success($"Mission: {mission.GetName()} completed! You've earned: {mission.RewardMoney}$.");
+                    notificationManager.Success($"Mission: {mission.GetName()} completed! You've earned: {mission.RewardMoney}$.");
 
                 // Payout
                 ContentHub.Instance.bank.Income(mission.RewardMoney);
@@ -348,10 +348,10 @@ namespace Missions
                 
                 //Notification
                 if (mission.GetFailedText() != null && mission.GetFailedText() != "")
-                    notificationCenter.Success($"Mission: {mission.GetName()} failed! " +
+                    notificationManager.Success($"Mission: {mission.GetName()} failed! " +
                                                $"{mission.GetFailedText()} " + failedSkillsText);
                 else
-                    notificationCenter.Success($"Mission: {mission.GetName()} failed! " + failedSkillsText);
+                    notificationManager.Success($"Mission: {mission.GetName()} failed! " + failedSkillsText);
 
 
                 if (mission.Definition.Reappear)
