@@ -67,7 +67,9 @@ namespace UI
             GameTimeMode.onValueChanged?.RemoveListener(gameTimeModeAction);
             MusicVolumeSlider.onValueChanged?.RemoveListener(musicVolumeAction);
             SoundFxVolumeSlider.onValueChanged?.RemoveListener(soundFxVolumeAction);
+#if UNITY_STANDALONE
             WindowModeToggle.onValueChanged?.RemoveListener(windowModeAction);
+#endif
         }
 
         private void gameTimeModeChanged(int state)
