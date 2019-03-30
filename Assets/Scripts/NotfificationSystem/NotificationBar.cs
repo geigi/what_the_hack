@@ -1,19 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class NotificationBar : MonoBehaviour
+namespace Assets.Scripts.NotificationSystem
 {
-    public GameObject NotificationCenter;
-
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Class that holds the logic for NotificationBar GameObject.
+    /// </summary>
+    public class NotificationBar : MonoBehaviour
     {
-        if (Input.GetMouseButtonDown(0))
+        /// <summary>
+        /// NotificationCenter GameObject
+        /// </summary>
+        public GameObject NotificationCenter;
+
+        private RectTransform rectTrans;
+
+        void Awake()
         {
-            if (Input.mousePosition.y <= gameObject.GetComponent<RectTransform>().rect.height)
+            rectTrans = gameObject.GetComponent<RectTransform>();
+        }
+
+        /// <summary>
+        /// Checks if this GameObject was clicked and opens the NotificationCenter
+        /// </summary>
+        void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                NotificationCenter.SetActive(true);
+                if (rectTrans.rect.Contains(rectTrans.InverseTransformPoint(Input.mousePosition)))
+                {
+                    NotificationCenter.SetActive(true);
+                }
             }
         }
     }

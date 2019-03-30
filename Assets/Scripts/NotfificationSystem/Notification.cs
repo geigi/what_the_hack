@@ -20,7 +20,9 @@ namespace Assets.Scripts.NotificationSystem
             Fail,
             Success
         }
-
+        /// <summary>
+        /// <see cref="Message"/>
+        /// </summary>
         private readonly string message;
 
         /// <summary>
@@ -28,6 +30,9 @@ namespace Assets.Scripts.NotificationSystem
         /// </summary>
         public string Message => message;
 
+        /// <summary>
+        /// <see cref="Category"/>
+        /// </summary>
         private readonly NotificationType category;
 
         /// <summary>
@@ -60,6 +65,10 @@ namespace Assets.Scripts.NotificationSystem
             this.date = date.Clone() as GameDate;
         }
 
+        /// <summary>
+        /// Returns the corresponding icon, for this notification type.
+        /// </summary>
+        /// <returns>Icon of this notification type</returns>
         public Sprite GetCorrespondingIcon()
         {
             var ch = ContentHub.Instance;
