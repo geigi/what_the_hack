@@ -7,17 +7,21 @@ using NotificationType = Assets.Scripts.NotificationSystem.Notification.Notifica
 
 namespace Assets.Scripts.NotificationSystem
 {
-
+    /// <summary>
+    /// Class for managing Notifications
+    /// </summary>
     public class NotificationManager : Singleton<NotificationManager>, ISaveable<NotificationManagerData>
     {
-
+        /// <summary>
+        /// Object which holds data.
+        /// </summary>
         private NotificationManagerData notificationData;
 
         public NetObjectEvent NewNotification;
 
         /// <summary>
-        /// Initialize the game time system.
-        /// Restores the game time if a savegame is present.
+        /// Initialize the notification system.
+        /// Restores the notifications if a savegame is present.
         /// </summary>
         public void Awake()
         {
@@ -44,26 +48,35 @@ namespace Assets.Scripts.NotificationSystem
             notificationData = saveGame.NotificationManagerData;
         }
 
-        public virtual void Info(string message)
-        {
-            newNotification(message, NotificationType.Info);
-        }
+        /// <summary>
+        /// Send an info notification
+        /// </summary>
+        /// <param name="message">Message of the notification</param>
+        public virtual void Info(string message) => newNotification(message, NotificationType.Info);
 
-        public void Success(string message)
-        {
-            newNotification(message, NotificationType.Success);
-        }
-
-        public void Fail(string message)
-        {
-            newNotification(message, NotificationType.Fail);
-        }
-
-        public void Warning(string message)
-        {
-            newNotification(message, NotificationType.Warning);
-        }
-
+        /// <summary>
+        /// Sends a success notification
+        /// </summary>
+        /// <param name="message">Message of the notification</param>
+        public void Success(string message) => newNotification(message, NotificationType.Success);
+        
+        /// <summary>
+        /// Sends a fail notification
+        /// </summary>
+        /// <param name="message">Message of the notification</param>
+        public void Fail(string message) => newNotification(message, NotificationType.Fail);
+        
+        /// <summary>
+        /// Sends a warning notification
+        /// </summary>
+        /// <param name="message">Message of the notification</param>
+        public void Warning(string message) => newNotification(message, NotificationType.Warning);
+        
+        /// <summary>
+        /// Sends a notification 
+        /// </summary>
+        /// <param name="message">Message of the notification</param>
+        /// <param name="type">notification type</param>
         private void newNotification(string message, NotificationType type)
         {
             Notification notification = new Notification(message, type, GameTime.GameTime.Instance.GetData().Date);
