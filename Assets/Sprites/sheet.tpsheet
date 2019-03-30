@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # https://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:72c90ccba08ed571341099d68f31fce0:f2d2ae709c8b18df48edd004135efe44:29aa05aa20a099423cfc27178fbd19f7$
+# $TexturePacker:SmartUpdate:f23d068d39a63efaa45be3b7e4cc1483:72150ece11c935dfefad644c220a8aed:29aa05aa20a099423cfc27178fbd19f7$
 #
 :format=40300
 :texture=sheet.png
@@ -87,11 +87,12 @@ character-Character04_M_7;828;1204;32;64; 0.5;0.12; 0;0;0;0
 character-Character04_M_8;865;1204;32;64; 0.5;0.12; 0;0;0;0
 character-Emojis-angry;367;23;32;32; 0.5;0.5; 0;0;0;0
 character-Emojis-bubble;404;23;32;32; 0.5;0.5; 0;0;0;0
-character-Emojis-levelup;441;23;32;32; 0.5;0.5; 0;0;0;0
-character-Emojis-no;478;23;32;32; 0.5;0.5; 0;0;0;0
-character-Emojis-ok;515;23;32;32; 0.5;0.5; 0;0;0;0
-character-Emojis-success;552;23;32;32; 0.5;0.5; 0;0;0;0
-character-Emojis-twitter;589;23;32;32; 0.5;0.5; 0;0;0;0
+character-Emojis-interaction;441;23;32;32; 0.5;0.5; 0;0;0;0
+character-Emojis-levelup;478;23;32;32; 0.5;0.5; 0;0;0;0
+character-Emojis-no;515;23;32;32; 0.5;0.5; 0;0;0;0
+character-Emojis-ok;552;23;32;32; 0.5;0.5; 0;0;0;0
+character-Emojis-success;589;23;32;32; 0.5;0.5; 0;0;0;0
+character-Emojis-twitter;626;23;32;32; 0.5;0.5; 0;0;0;0
 character-Specials-Trump_0;979;85;32;64; 0.5;0.12; 0;0;0;0
 character-Specials-Trump_1;996;16;32;64; 0.5;0.12; 0;0;0;0
 character-Specials-Trump_2;1164;85;32;64; 0.5;0.12; 0;0;0;0
@@ -126,16 +127,16 @@ character-Specials-Trump_30;1809;1204;32;64; 0.5;0.12; 0;0;0;0
 game-ambient-Room_Background;2;1282;600;400; 0.5;0.5; 0;0;0;0
 game-ambient-Room_FrontWall;607;1282;600;400; 0.5;0.5; 0;0;0;0
 game-ambient-Room_Ground_Floor;1212;1282;600;400; 0.5;0.5; 0;0;0;0
-game-icon-CoffeeMachine_2;626;23;32;32; 0.5;0.5; 0;0;0;0
-game-icon-CoffeeMachine_3;663;23;32;32; 0.5;0.5; 0;0;0;0
-game-icon-Computer_Backfaced_2;700;23;32;32; 0.5;0.5; 0;0;0;0
-game-icon-Computer_Backfaced_3;737;23;32;32; 0.5;0.5; 0;0;0;0
-game-icon-Computer_Backfaced_4;774;23;32;32; 0.5;0.5; 0;0;0;0
-game-icon-Router_1;811;23;32;32; 0.5;0.5; 0;0;0;0
-game-icon-Router_2;848;23;32;32; 0.5;0.5; 0;0;0;0
-game-icon-Router_3;557;1167;32;32; 0.5;0.5; 0;0;0;0
-game-icon-Router_4;594;1167;32;32; 0.5;0.5; 0;0;0;0
-game-icon-Router_5;631;1167;32;32; 0.5;0.5; 0;0;0;0
+game-icon-CoffeeMachine_2;663;23;32;32; 0.5;0.5; 0;0;0;0
+game-icon-CoffeeMachine_3;700;23;32;32; 0.5;0.5; 0;0;0;0
+game-icon-Computer_Backfaced_2;737;23;32;32; 0.5;0.5; 0;0;0;0
+game-icon-Computer_Backfaced_3;774;23;32;32; 0.5;0.5; 0;0;0;0
+game-icon-Computer_Backfaced_4;811;23;32;32; 0.5;0.5; 0;0;0;0
+game-icon-Router_1;848;23;32;32; 0.5;0.5; 0;0;0;0
+game-icon-Router_2;557;1167;32;32; 0.5;0.5; 0;0;0;0
+game-icon-Router_3;594;1167;32;32; 0.5;0.5; 0;0;0;0
+game-icon-Router_4;631;1167;32;32; 0.5;0.5; 0;0;0;0
+game-icon-Router_5;668;1167;32;32; 0.5;0.5; 0;0;0;0
 game-interior-Chair_1;2;1151;32;48; 0.5;0.5; 0;0;0;0
 game-interior-Chair_1_Backfaced_Rest;39;1151;32;48; 0.5;0.5; 0;0;0;0
 game-interior-Chair_1_Backfaced_Seat;76;1151;32;48; 0.5;0.5; 0;0;0;0
@@ -152,11 +153,11 @@ game-interior-Computer_Backfaced_2;1817;1480;48;64; 0.5;0.5; 0;0;0;0
 game-interior-Computer_Backfaced_3;1870;1480;48;64; 0.5;0.5; 0;0;0;0
 game-interior-Computer_Backfaced_4;1923;1480;48;64; 0.5;0.5; 0;0;0;0
 game-interior-Lamp;1809;1135;32;64; 0.5;0.5; 0;0;0;0
-game-interior-Router_1;668;1167;32;32; 0.5;0.5; 0;0;0;0
-game-interior-Router_2;705;1167;32;32; 0.5;0.5; 0;0;0;0
-game-interior-Router_3;742;1167;32;32; 0.5;0.5; 0;0;0;0
-game-interior-Router_4;779;1167;32;32; 0.5;0.5; 0;0;0;0
-game-interior-Router_5;816;1167;32;32; 0.5;0.5; 0;0;0;0
+game-interior-Router_1;705;1167;32;32; 0.5;0.5; 0;0;0;0
+game-interior-Router_2;742;1167;32;32; 0.5;0.5; 0;0;0;0
+game-interior-Router_3;779;1167;32;32; 0.5;0.5; 0;0;0;0
+game-interior-Router_4;816;1167;32;32; 0.5;0.5; 0;0;0;0
+game-interior-Router_5;853;1167;32;32; 0.5;0.5; 0;0;0;0
 game-interior-Table_1;1976;1451;48;64; 0.5;0.5; 0;0;0;0
 game-interior-Table_2;1817;1411;48;64; 0.5;0.5; 0;0;0;0
 game-interior-Table_bf_1;1817;1618;64;64; 0.5;0.5; 0;0;0;0
@@ -175,15 +176,15 @@ ui-base_game_banner;868;154;400;182; 0.5;0.5; 0;0;0;0
 ui-calendar;439;6;12;12; 0.5;0.5; 0;0;0;0
 ui-dropdown_arrow;456;6;12;12; 0.5;0.5; 0;0;0;0
 ui-error;261;1155;15;15; 0.5;0.5; 0;0;0;0
-ui-floor_icon;1883;1167;32;32; 0.5;0.5; 0;0;0;0
+ui-floor_icon;1846;1145;32;32; 0.5;0.5; 0;0;0;0
 ui-GameLogo;2;17;360;38; 0.5;0.5; 0;0;0;0
 ui-gray_box_border;2013;1436;10;10; 0.5;0.5; 1;1;1;1
 ui-help;281;1155;15;15; 0.5;0.5; 0;0;0;0
-ui-Icon_Exit;853;1167;32;32; 0.5;0.5; 0;0;0;0
-ui-Icon_Jobs;890;1167;32;32; 0.5;0.5; 0;0;0;0
-ui-Icon_Options;927;1167;32;32; 0.5;0.5; 0;0;0;0
-ui-Icon_Shop;964;1167;32;32; 0.5;0.5; 0;0;0;0
-ui-Icon_Team;1001;1167;32;32; 0.5;0.5; 0;0;0;0
+ui-Icon_Exit;890;1167;32;32; 0.5;0.5; 0;0;0;0
+ui-Icon_Jobs;927;1167;32;32; 0.5;0.5; 0;0;0;0
+ui-Icon_Options;964;1167;32;32; 0.5;0.5; 0;0;0;0
+ui-Icon_Shop;1001;1167;32;32; 0.5;0.5; 0;0;0;0
+ui-Icon_Team;1883;1167;32;32; 0.5;0.5; 0;0;0;0
 ui-info;301;1155;15;15; 0.5;0.5; 0;0;0;0
 ui-Loading_Bar_Green_0;2005;1602;33;8; 0.5;0.5; 0;0;0;0
 ui-Loading_Bar_Green_1;2005;1589;33;8; 0.5;0.5; 0;0;0;0

@@ -13,5 +13,6 @@ namespace Team
         public EmployeeData OccupyingEmployee;
         public Mission Mission;
         public bool IsWorking;
+        public MissionHook Hook;
     }
 }

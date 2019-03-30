@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2475241062331350239
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2200726557918589664, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_Name
+      value: InteractionSuccessSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260885296828698666, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 401250640727171956, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f4803ff8408554921b979307a5eb6fcf, type: 3}
+    - target: {fileID: 8248258640690523274, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: Event
+      value: 
+      objectReference: {fileID: 11400000, guid: b1274485411934fa1a3a949986945f32,
+        type: 2}
+    - target: {fileID: 8248258640690523274, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+        type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2866635674915217323}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4a0d21d4b22884221b289d3ade2f2d3d, type: 3}
+--- !u!82 &2866635674915217323 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 401250640727171956, guid: 4a0d21d4b22884221b289d3ade2f2d3d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2475241062331350239}
+  m_PrefabAsset: {fileID: 0}

@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9eb6fd1c7890f43dcba480978b1f3b8d, type: 3}
-  m_Name: TestHook
+  m_Script: {fileID: 11500000, guid: f2b088acf25b42ccadef9e94be7828c6, type: 3}
+  m_Name: MainUI_MissionInteraction
   m_EditorClassIdentifier: 
-  GUIPrefab: {fileID: 1849358919602906681, guid: 856512afdeb7b450da2303c5bcc2ed8c,
-    type: 3}
-  FailText: This hook has failed.
-  Appear: 0.3
+  stateManager: {fileID: 11400000, guid: 6455f5593b2e54b1980b0e94f78e92ca, type: 2}
+  DeveloperDescription: 

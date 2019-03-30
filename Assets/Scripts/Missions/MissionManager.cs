@@ -122,6 +122,9 @@ namespace Missions
         {
             for (int i = 0; i < data.InProgress.Count; i++)
             {
+                if (data.InProgress[i].Paused)
+                    continue;
+                
                 if (data.InProgress[i].WorkStarted)
                 {
                     data.InProgress[i].RemainingTicks -= 1;

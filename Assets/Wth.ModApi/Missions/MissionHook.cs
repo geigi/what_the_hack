@@ -9,6 +9,8 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "MissionHook", menuName = "What_The_Hack ModApi/Missions/Mission Hook", order = -399)]
 public sealed class MissionHook : ScriptableObject
 {
+    public class MissionHookCompletedEvent : UnityEvent<bool> {}
+    
     /// <summary>
     /// This GameObject contains the complete GUI.
     /// Be sure that the first element of the GUI is visible.
@@ -37,6 +39,11 @@ public sealed class MissionHook : ScriptableObject
     [Range(0f, 1f)]
     public float Appear;
 
+    public MissionHook()
+    {
+        Completed = new MissionHookCompletedEvent();
+    }
+    
     /// <summary>
     /// Successfully end this hook.
     /// </summary>

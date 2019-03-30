@@ -11,6 +11,8 @@ namespace Missions
     
     public class MissionFinishedEvent : UnityEvent<Mission> {}
     
+    public class MissionHookSpawnEvent : UnityEvent<MissionHook> {}
+    
     /// <summary>
     /// This class represents a finalized mission object.
     /// It differs from the <see cref="MissionDefinition"/> by including calculated Duration, RewardMoney
@@ -69,6 +71,13 @@ namespace Missions
         public Dictionary<SkillDefinition, float> Progress;
 
         /// <summary>
+        /// This list contains a entry for every hook of this mission.
+        /// The bool indicates, whether the interaction was handled or not.
+        /// The list is sorted by appearance time.
+        /// </summary>
+        public Dictionary<MissionHook, bool> HookStatus;
+
+        /// <summary>
         /// This boolean will be set to true when work has started on this mission.
         /// </summary>
         public bool WorkStarted = false;
@@ -77,6 +86,12 @@ namespace Missions
         /// The date when this mission was accepted.
         /// </summary>
         public GameTimeData AcceptDate;
+
+        /// <summary>
+        /// Is this mission paused?
+        /// This happens only when a interaction is pending.
+        /// </summary>
+        public bool Paused;
         
         /// <summary>
         /// This property is necessary because no constructor is being called on deserialization.
@@ -122,11 +137,57 @@ namespace Missions
             }
             private set => finished = value;
         }
+        
+        /// <summary>
+        /// This property is necessary because no constructor is being called on deserialization.
+        /// </summary>
+        [NonSerialized]
+        private MissionHookSpawnEvent missionHookSpawn;
+        /// <summary>
+        /// This event gets fired when a mission hook is spawned.
+        /// </summary>
+        public MissionHookSpawnEvent MissionHookSpawn
+        {
+            get
+            {
+                if (missionHookSpawn == null)
+                {
+                    missionHookSpawn = new MissionHookSpawnEvent();
+                }
+
+                return missionHookSpawn;
+            }
+            private set => missionHookSpawn = value;
+        }
+        
+        /// <summary>
+        /// This property is necessary because no constructor is being called on deserialization.
+        /// </summary>
+        [NonSerialized]
+        private MissionHook.MissionHookCompletedEvent missionHookCompleted;
+        /// <summary>
+        /// This event gets fired when a mission hook completes.
+        /// </summary>
+        public MissionHook.MissionHookCompletedEvent MissionHookCompleted
+        {
+            get
+            {
+                if (missionHookCompleted == null)
+                {
+                    missionHookCompleted = new MissionHook.MissionHookCompletedEvent();
+                }
+
+                return missionHookCompleted;
+            }
+            private set => missionHookCompleted = value;
+        }
 
         public Mission()
         {
             ProgressChanged = new MissionProgressEvent();
             Finished = new MissionFinishedEvent();
+            MissionHookSpawn = new MissionHookSpawnEvent();
+            MissionHookCompleted = new MissionHook.MissionHookCompletedEvent();
         }
         
         public Mission(MissionDefinition definition)
@@ -135,6 +196,8 @@ namespace Missions
             SkillDifficulty = new Dictionary<SkillDefinition, int>();
             Progress = new Dictionary<SkillDefinition, float>();
             definition.SkillsRequired.ForEach(s => Progress.Add(s, 0f));
+            HookStatus = new Dictionary<MissionHook, bool>();
+            definition.MissionHooks.MissionHooks.ForEach(h => HookStatus.Add(h, false));
             Replacements = new Dictionary<string, string>();
             ProgressChanged = new MissionProgressEvent();
             Finished = new MissionFinishedEvent();

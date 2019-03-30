@@ -376,6 +376,7 @@
             </struct>
             <key type="filename">Sprites/character/Emojis/angry.png</key>
             <key type="filename">Sprites/character/Emojis/bubble.png</key>
+            <key type="filename">Sprites/character/Emojis/interaction.png</key>
             <key type="filename">Sprites/character/Emojis/levelup.png</key>
             <key type="filename">Sprites/character/Emojis/no.png</key>
             <key type="filename">Sprites/character/Emojis/ok.png</key>

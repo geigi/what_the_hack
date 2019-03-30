@@ -5,6 +5,7 @@ using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using Wth.ModApi.Employees;
+using Wth.ModApi.Missions;
 using Wth.ModApi.Tools;
 using Random = System.Random;
 
@@ -56,9 +57,13 @@ namespace Missions
 
         private List<EmployeeData> employees;
         private Mission mission;
+        private MissionHook hook;
+
+        private float AverageProgress => mission.Progress.Average(m => m.Value);
 
         private Random random;
         private UnityAction<int> gameTickAction;
+        private UnityAction<bool> hookCompletedAction;
 
         public MissionWorker(Mission mission)
         {
@@ -66,7 +71,12 @@ namespace Missions
             this.mission = mission;
             random = new Random();
             gameTickAction += OnTimeStep;
+            hookCompletedAction = OnHookFinished;
             employees = new List<EmployeeData>();
+            
+            if (AverageProgress > 0f)
+                testMissionHooks();
+            
             ContentHub.Instance.GameStepEvent.AddListener(gameTickAction);
         }
 
@@ -201,6 +211,8 @@ namespace Missions
         /// <param name="step"></param>
         private void OnTimeStep(int step)
         {
+            if (mission.Paused) return;
+            
             int completedSkills = mission.Progress.Count(s => s.Value >= 1f);
             
             foreach (var employee in employees)
@@ -222,10 +234,46 @@ namespace Missions
                 }
             }
 
+            testMissionHooks();
+
             if (mission.Completed())
             {
                 mission.Finish();
             }
+        }
+
+        private void testMissionHooks()
+        {
+            var missionHooks = mission.Definition.MissionHooks.MissionHooks;
+            foreach (var missionHook in missionHooks)
+            {
+                if (!mission.HookStatus[missionHook] && missionHook.Appear <= AverageProgress && hook == null)
+                {
+                    // Pause mission and fire interaction
+                    mission.Paused = true;
+                    hook = missionHook;
+                    missionHook.Completed.AddListener(hookCompletedAction);
+                    mission.MissionHookSpawn.Invoke(missionHook);
+                }
+            }
+        }
+
+        private void OnHookFinished(bool success)
+        {
+            mission.MissionHookCompleted.Invoke(success);
+            
+            if (success)
+            {
+                mission.HookStatus[hook] = true;
+                mission.Paused = false;
+            }
+            else
+            {
+                MissionManager.Instance.AbortMission(mission);
+            }
+            
+            hook.Completed.RemoveListener(hookCompletedAction);
+            hook = null;
         }
     }
 }

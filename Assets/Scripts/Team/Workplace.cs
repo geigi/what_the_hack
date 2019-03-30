@@ -8,6 +8,8 @@ using Missions;
 using Pathfinding;
 using SaveGame;
 using UE.Events;
+using UE.StateMachine;
+using UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -29,12 +31,17 @@ namespace Team
         public SpriteRenderer Desk;
         public SpriteRenderer Pc;
         public SpriteRenderer Chair;
+        public SpriteRenderer InteractionBubble;
         public Vector2Int Position;
         public Animator Animator;
         public SpriteOutline SpriteOutline;
 
+        public InteractionWindow InteractionWindow;
+        public State InteractionState;
+
         [Header("Events")] 
         public ObjectEvent EmployeeFiredEvent;
+        public GameEvent InteractionSound, SuccessSound;
 
         public Mission Mission => data.Mission;
 
@@ -50,6 +57,8 @@ namespace Team
         private GameSelectionManager gameSelectionManager;
         private UnityAction<Mission> missionFinishedAction;
         private UnityAction<Object> employeeFiredAction;
+        private UnityAction<MissionHook> missionHookSpawnedAction;
+        private UnityAction<bool> missionHookCompletedAction;
         
         private void LoadState()
         {
@@ -60,6 +69,9 @@ namespace Team
                 employee = EmployeeManager.Instance.GetEmployee(data.OccupyingEmployee);
                 employee.GoToWorkplace(this, data.Mission);
             }
+            
+            if (data.Hook != null) 
+                InteractionBubble.gameObject.SetActive(true);
             
             Enable(data.Enabled);
         }
@@ -89,6 +101,8 @@ namespace Team
             Chair.sortingOrder = layer - 2;
 
             missionFinishedAction = onMissionFinished;
+            missionHookSpawnedAction = onMissionHookSpawned;
+            missionHookCompletedAction = onMissionHookCompleted;
             
             if  (GameSettings.NewGame)
                 InitDefaultState();
@@ -187,6 +201,8 @@ namespace Team
         {
             data.Mission = mission;
             data.Mission.Finished.AddListener(missionFinishedAction);
+            data.Mission.MissionHookSpawn.AddListener(missionHookSpawnedAction);
+            data.Mission.MissionHookCompleted.AddListener(missionHookCompletedAction);
             this.employee = employee;
         }
 
@@ -210,6 +226,8 @@ namespace Team
             employee.StopWorking(completedSuccessfully, showEmoji);
             employee = null;
             data.Mission.Finished.RemoveListener(missionFinishedAction);
+            data.Mission.MissionHookSpawn.RemoveListener(missionHookSpawnedAction);
+            data.Mission.MissionHookCompleted.RemoveListener(missionHookCompletedAction);
             data.Mission = null;
         } 
 
@@ -254,6 +272,16 @@ namespace Team
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            AudioPlayer.Instance.PlaySelect();
+            
+            if (data.Hook != null)
+            {
+                InteractionWindow.SetInteraction(data.Hook);
+                InteractionState.Enter();
+                SpriteOutline.enabled = false;
+                return;
+            }
+            
             gameSelectionManager.Workplace = this;
             
             if (gameSelectionManager.EmployeeSelected)
@@ -280,8 +308,6 @@ namespace Team
             {
                 SpriteOutline.enabled = true;
             }
-            
-            AudioPlayer.Instance.PlaySelect();
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -308,6 +334,24 @@ namespace Team
             {
                 StopWorking(false, false);
             }
+        }
+
+        private void onMissionHookSpawned(MissionHook hook)
+        {
+            data.Hook = hook;
+            InteractionBubble.gameObject.SetActive(true);
+            InteractionSound.Raise();
+        }
+
+        private void onMissionHookCompleted(bool success)
+        {
+            if (success)
+            {
+                EmojiBubbleFactory.Instance.EmpReaction(EmojiBubbleFactory.EmojiType.SUCCESS, employee, EmojiBubbleFactory.EMPLYOEE_OFFSET, EmojiBubbleFactory.StandardDisplayTime);
+            }
+            
+            data.Hook = null;
+            InteractionBubble.gameObject.SetActive(false);
         }
     }
 }
