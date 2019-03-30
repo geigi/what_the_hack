@@ -16,6 +16,7 @@ TagManager:
   - EmployeeManager
   - EmployeeReactions
   - Money
+  - Notification
   layers:
   - Default
   - TransparentFX

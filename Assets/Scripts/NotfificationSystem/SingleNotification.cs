@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using Assets.Scripts.NotificationSystem;
 using UE.Events;
 using UI;
 using UnityEngine;
@@ -35,10 +34,10 @@ namespace Assets.Scripts.NotificationSystem
         /// <summary>
         /// Queue to hold all incoming notifications.
         /// </summary>
-        private Queue<Notification> notifications = new Queue<Notification>();
+        internal Queue<Notification> notifications = new Queue<Notification>();
         private UnityAction<object> notificationAction;
-        private Rect notificationBarRect;
-        private bool notificationBarUp = false;
+        internal Rect notificationBarRect;
+        internal bool notificationBarUp = false;
         private UnityAction evtAction;
 
         private bool notificationBeingDisplayed = false;
@@ -96,6 +95,16 @@ namespace Assets.Scripts.NotificationSystem
         }
 
         /// <summary>
+        /// This function only exists, so a test class can call the coroutine, because it does not work otherwise.
+        /// </summary>
+        public void up() => StartCoroutine(NotificationBarUp());
+
+        /// <summary>
+        /// This function only exists, so a test class can call the coroutine, because it does not work otherwise.
+        /// </summary>
+        public void down() => StartCoroutine(NotificationBarDown());
+
+        /// <summary>
         /// Animates the retraction of NotificationBar
         /// </summary>
         /// <returns></returns>
@@ -103,7 +112,7 @@ namespace Assets.Scripts.NotificationSystem
         {
             notificationBarUp = false;
             Clear();
-
+            
             while (notificationBarRect.height > 0)
             {
                 var stepChange = (Time.deltaTime / animationTime) * maxHeight;
@@ -141,7 +150,6 @@ namespace Assets.Scripts.NotificationSystem
             {
                 yield return new WaitForSeconds(1);
             }
-
             notificationBeingDisplayed = true;
             var banner = text.GetComponent<TextBanner>();
             while (notifications.Count > 0)
@@ -166,6 +174,6 @@ namespace Assets.Scripts.NotificationSystem
         /// <summary>
         /// Scrolling of the notification message is finished.
         /// </summary>
-        private void ScrollingFinished() => this.scrollingFinished = true;
+        internal void ScrollingFinished() => this.scrollingFinished = true;
     }
 }
