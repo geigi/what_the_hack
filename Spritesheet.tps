@@ -403,6 +403,7 @@
             <key type="filename">Sprites/ui/Icon_Shop.png</key>
             <key type="filename">Sprites/ui/Icon_Team.png</key>
             <key type="filename">Sprites/ui/floor_icon.png</key>
+            <key type="filename">Sprites/ui/notifications.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

@@ -31,7 +31,7 @@ namespace UI
 
         private bool active = false;
 
-        private Button ShopButton, MissionsButton, EmployeesButton, OptionsButton;
+        private Button ShopButton, MissionsButton, EmployeesButton, OptionsButton, NotificationButton;
 
         private UnityAction abortAction,
             nextAction,
@@ -49,6 +49,7 @@ namespace UI
             MissionsButton = GameObject.Find("MissionButton").GetComponent<Button>();
             EmployeesButton = GameObject.Find("EmployeeButton").GetComponent<Button>();
             OptionsButton = GameObject.Find("OptionButton").GetComponent<Button>();
+            NotificationButton = GameObject.Find("NotificationButton").GetComponent<Button>();
         }
 
         private void Start()
@@ -241,6 +242,7 @@ namespace UI
             MissionsButton.interactable = enable;
             EmployeesButton.interactable = enable;
             OptionsButton.interactable = enable;
+            NotificationButton.interactable = enable;
         }
         
         private void OnDestroy()

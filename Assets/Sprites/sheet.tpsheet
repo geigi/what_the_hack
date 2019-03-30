@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # https://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:f23d068d39a63efaa45be3b7e4cc1483:72150ece11c935dfefad644c220a8aed:29aa05aa20a099423cfc27178fbd19f7$
+# $TexturePacker:SmartUpdate:31c41d4df0801af07e2651df9996f0ad:7ff311c9bf4efcb4d2ae5ea66ecc274c:29aa05aa20a099423cfc27178fbd19f7$
 #
 :format=40300
 :texture=sheet.png
@@ -197,6 +197,7 @@ ui-MainMenuBackground_1;2;341;512;400; 0.5;0.5; 0;0;0;0
 ui-MainMenuBackground_2;519;746;512;400; 0.5;0.5; 0;0;0;0
 ui-MainMenuBackground_3;519;341;512;400; 0.5;0.5; 0;0;0;0
 ui-MainMenuBackground_4;1292;877;512;400; 0.5;0.5; 0;0;0;0
+ui-notifications;1920;1148;32;32; 0.5;0.5; 0;0;0;0
 ui-popup;1870;1458;48;17; 0.5;0.5; 2;2;10;2
 ui-Skill_Icons_0;463;1157;13;13; 0.5;0.5; 0;0;0;0
 ui-Skill_Icons_1;481;1157;13;13; 0.5;0.5; 0;0;0;0
