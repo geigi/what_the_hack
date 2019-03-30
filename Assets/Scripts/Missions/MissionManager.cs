@@ -384,14 +384,24 @@ namespace Missions
             {
                 var remainingTime = Math.Max(
                     (int) (worker.Key.RemainingTicks * GameTime.GameTime.Instance.RealtimeMinutesPerTick), 1);
-                if (worker.Value.WillCompleteSuccessfully())
+
+                var interaction = worker.Value.WillPostInteraction();
+                if (interaction > -1)
                 {
-                    notifications.Add(new HostNotification("Mission \"" + worker.Key.GetName() + "\" has ended.", "Tap to see the result.", remainingTime));
+                    remainingTime = Math.Max((int) (interaction * GameTime.GameTime.Instance.RealtimeMinutesPerTick), 1);
+                    notifications.Add(new HostNotification("Mission \"" + worker.Key.GetName() + "\" requires your action!", "Your employees need your help.", remainingTime));
                 }
                 else
                 {
-                    notifications.Add(new HostNotification("The mission \"" + worker.Key.GetName() + "\" is doing not so well.", "Tap to help your employees.", Math.Max(remainingTime / 2, 1)));
-                    notifications.Add(new HostNotification("Mission \"" + worker.Key.GetName() + "\" has ended.", "Tap to see the result.", remainingTime));
+                    if (worker.Value.WillCompleteSuccessfully())
+                    {
+                        notifications.Add(new HostNotification("Mission \"" + worker.Key.GetName() + "\" has ended.", "Tap to see the result.", remainingTime));
+                    }
+                    else
+                    {
+                        notifications.Add(new HostNotification("The mission \"" + worker.Key.GetName() + "\" is doing not so well.", "Tap to help your employees.", Math.Max(remainingTime / 2, 1)));
+                        notifications.Add(new HostNotification("Mission \"" + worker.Key.GetName() + "\" has ended.", "Tap to see the result.", remainingTime));
+                    }
                 }
             }
 

@@ -134,22 +134,8 @@ namespace Missions
             for (int i = 0; i < mission.RemainingTicks; i++)
             {
                 List<SkillDefinition> skills = new List<SkillDefinition>(predictedProgress.Keys);
-                
-                foreach (var employee in employees)
-                {
-                    foreach (var skill in skills)
-                    {
-                        var value = predictedProgress[skill];
-                        if (value >= 1.0f)
-                        {
-                            // Skill is already fulfilled
-                            continue;
-                        }
 
-                        var newValue = WorkOnSkill(employee, skill, value, completedSkills);
-                        predictedProgress[skill] = newValue;
-                    }
-                }
+                calculateEstimateStep(skills, predictedProgress, completedSkills);
             }
 
             if (predictedProgress.Values.All(v => v >= 0))
@@ -160,6 +146,36 @@ namespace Missions
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Estimates, whether this mission will post an interaction while in offline realtime mode.
+        /// -1 equals no interaction.
+        /// </summary>
+        /// <returns>Number of ticks until the next interaction</returns>
+        public int WillPostInteraction()
+        {
+            int completedSkills = mission.Progress.Count(s => s.Value >= 1f);
+            Dictionary<SkillDefinition, float> predictedProgress = mission.Progress.ToDictionary(entry => entry.Key,
+                entry => entry.Value);
+
+            for (int i = 0; i < mission.RemainingTicks; i++)
+            {
+                List<SkillDefinition> skills = new List<SkillDefinition>(predictedProgress.Keys);
+                
+                calculateEstimateStep(skills, predictedProgress, completedSkills);
+                
+                var missionHooks = mission.Definition.MissionHooks.MissionHooks;
+                foreach (var missionHook in missionHooks)
+                {
+                    if (!mission.HookStatus[missionHook] && missionHook.Appear <= predictedProgress.Average(m => m.Value))
+                    {
+                        return i + 1;
+                    }
+                }
+            }
+
+            return -1;
         }
 
         /// <summary>
@@ -274,6 +290,25 @@ namespace Missions
             
             hook.Completed.RemoveListener(hookCompletedAction);
             hook = null;
+        }
+        
+        private void calculateEstimateStep(List<SkillDefinition> skills, Dictionary<SkillDefinition, float> predictedProgress, int completedSkills)
+        {
+            foreach (var employee in employees)
+            {
+                foreach (var skill in skills)
+                {
+                    var value = predictedProgress[skill];
+                    if (value >= 1.0f)
+                    {
+                        // Skill is already fulfilled
+                        continue;
+                    }
+
+                    var newValue = WorkOnSkill(employee, skill, value, completedSkills);
+                    predictedProgress[skill] = newValue;
+                }
+            }
         }
     }
 }
