@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb6fd1c7890f43dcba480978b1f3b8d, type: 3}
+  m_Name: TestHook
+  m_EditorClassIdentifier: 
+  GUIPrefab: {fileID: 1498248564076850595, guid: f2d92b5ae11aa4f7d8c1db1f9ca87168,
+    type: 3}
+  FailText: This hook has failed.
+  Appear: 0.3

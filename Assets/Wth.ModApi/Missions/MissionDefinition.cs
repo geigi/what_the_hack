@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Wth.ModApi.Missions;
 
 /// <summary>
 /// This class defines a mission which will be later shown in the mission manager.
@@ -57,7 +58,7 @@ public sealed class MissionDefinition : ScriptableObject
     /// A List of hooks that will be called in mission progress.
     /// This is optional.
     /// </summary>
-    public List<MissionHook> MissionHooks = new List<MissionHook>();
+    public MissionHookList MissionHooks;
 
     /// <summary>
     /// Required level of one employee for this mission to appear.

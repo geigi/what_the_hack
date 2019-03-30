@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,14 +18,38 @@ public sealed class MissionHook : ScriptableObject
     public GameObject GUIPrefab;
 
     /// <summary>
-    /// Fire this event when the hook has completed successfully.
+    /// Fire this event when the hook has completed.
     /// The mission will not continue until one of the hooks is fired.
+    /// Fire true for success, false for fail.
     /// </summary>
-    public event EventHandler HookSuccessful;
+    public UnityEvent<bool> Completed;
 
     /// <summary>
-    /// Fire this event when the hook has failed.
-    /// The mission will not continue until one of the hooks is fired.
+    /// This text will be displayed in the failed notification
+    /// when this hook was not completed successfully.
     /// </summary>
-    public event EventHandler HookFailed;
+    public string FailText;
+
+    /// <summary>
+    /// Defines when this hook should appear.
+    /// Must be between 0 and 1.
+    /// </summary>
+    [Range(0f, 1f)]
+    public float Appear;
+
+    /// <summary>
+    /// Successfully end this hook.
+    /// </summary>
+    public void RaiseSuccess()
+    {
+        Completed.Invoke(true);
+    }
+
+    /// <summary>
+    /// Fail this hook.
+    /// </summary>
+    public void RaiseFailed()
+    {
+        Completed.Invoke(false);
+    }
 }

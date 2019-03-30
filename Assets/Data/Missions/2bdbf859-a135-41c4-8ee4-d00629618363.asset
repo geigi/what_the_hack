@@ -24,10 +24,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6356987175fb34f9aae18590a80f7ab8, type: 2}
   Difficulty: 0
   Hardness: 1
-  MissionHooks: []
+  MissionHooks: {fileID: 11400000, guid: 681edfdb61ddc4b44893843ff84c6ab6, type: 2}
   RequiredLevel: 0
   RequiredEmployees: 0
   AppearAfterDays: 0
   RequiredMissions: {fileID: 11400000, guid: 7743215f4115f426ebcc49c7b70ceaed, type: 2}
   ForceAppear: 0
-  ReApper: 0
+  Reappear: 0

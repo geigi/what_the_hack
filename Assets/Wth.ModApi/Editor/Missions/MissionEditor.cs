@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using Wth.ModApi.Editor.Tools;
+using Wth.ModApi.Missions;
 
 namespace Wth.ModApi.Editor.Missions
 {
@@ -20,8 +21,9 @@ namespace Wth.ModApi.Editor.Missions
         private bool requirementsFold = true;
         private bool difficultyDescriptionFold = false;
         private MissionRequirements requiredMissions;
-        private SerializedObject soRequiredMissions;
-        private ReorderableList listRequiredMissions;
+        private MissionHookList hooks;
+        private SerializedObject soRequiredMissions, soHooks;
+        private ReorderableList listRequiredMissions, listHooks;
         private Vector2 scrollPos;
 
         private string[] difficultyOptions = new[] {MissionList.DifficultyOption.Easy.ToString(),
@@ -165,6 +167,7 @@ namespace Wth.ModApi.Editor.Missions
             
             CreateSkillSelector(mission);
             CreateRequirements(mission);
+            CreateHooks(mission);
             
             EditorGUILayout.EndScrollView();
         }
@@ -253,6 +256,31 @@ namespace Wth.ModApi.Editor.Missions
             }
         }
 
+        void CreateHooks(MissionDefinition mission)
+        {
+            if (mission.MissionHooks == null)
+                createHookAsset(mission);
+            
+            if (soHooks == null || hooks != mission.MissionHooks)
+            {
+                hooks = mission.MissionHooks;
+                soHooks = new SerializedObject(hooks);
+                listHooks = new ReorderableList(soHooks, soHooks.FindProperty("MissionHooks"), false, true, true, true);
+                listHooks.drawHeaderCallback = rect =>
+                {
+                    EditorGUI.LabelField(rect, "Interactive hooks", EditorStyles.boldLabel);
+                };
+                listHooks.drawElementCallback = 
+                    (Rect rect, int index, bool isActive, bool isFocused) => {
+                        EditorGUI.PropertyField(rect, listHooks.serializedProperty.GetArrayElementAtIndex(index));
+                    };
+            }
+            
+            soHooks.Update();
+            listHooks.DoLayoutList();
+            soHooks.ApplyModifiedProperties();
+        }
+
         private void CreateDifficultyDescription()
         {
             difficultyDescriptionFold = EditorGUILayout.Foldout(difficultyDescriptionFold, "Difficulty Description");
@@ -307,7 +335,17 @@ namespace Wth.ModApi.Editor.Missions
             AssetDatabase.CreateAsset(requirements, "Assets/Data/Missions/Requirements/" + Guid.NewGuid() + ".asset");
             asset.RequiredMissions = requirements;
             
+            createHookAsset(asset);
+
             SaveAssets();
+        }
+
+        private void createHookAsset(MissionDefinition asset)
+        {
+            var hooks = CreateInstance<MissionHookList>();
+            CreateDirectories("Assets/Data/Missions/Hooks/");
+            AssetDatabase.CreateAsset(hooks, "Assets/Data/Missions/Hooks/" + Guid.NewGuid() + ".asset");
+            asset.MissionHooks = hooks;
         }
 
         void DeleteItem(int index)
