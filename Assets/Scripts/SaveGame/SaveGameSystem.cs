@@ -201,7 +201,8 @@ namespace SaveGame
                 typeof(ScriptableObject),
                 typeof(NameLists),
                 typeof(ItemDefinition),
-                typeof(MissionDefinition)
+                typeof(MissionDefinition),
+                typeof(MissionHook)
             };
         
             // Create a SurrogateSelector

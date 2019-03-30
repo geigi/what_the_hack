@@ -73,3 +73,5 @@ MonoBehaviour:
     ScriptableObject: {fileID: 11400000, guid: 8649f3774327746c3b04871828264f9c, type: 2}
   - Key: Assets/Data/Missions/d01b52ac-2390-4455-b6d7-2491641a7a55.asset
     ScriptableObject: {fileID: 11400000, guid: f0965a62e657d4d9587535cc0ca4766e, type: 2}
+  - Key: Assets/Data/Missions/TestHook.asset
+    ScriptableObject: {fileID: 11400000, guid: 349ea77e767dc45359daa92972647107, type: 2}

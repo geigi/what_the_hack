@@ -247,13 +247,18 @@ namespace Wth.ModApi.Editor
             if (asset == null)
                 return;
 
-            var dictionary = EditorTools.GetScriptableObjectDictionary();
+            AddToSoDictionary(GetList());
+        }
 
-            foreach (var item in GetList())
+        internal static void AddToSoDictionary(List<ScriptableObject> list)
+        {
+            var dictionary = EditorTools.GetScriptableObjectDictionary();
+            
+            foreach (var item in list)
             {
                 dictionary.AddUpdate(AssetDatabase.GetAssetPath(item), item);
             }
-
+            
             EditorUtility.SetDirty(dictionary);
             AssetDatabase.SaveAssets();
         }

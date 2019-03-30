@@ -98,6 +98,7 @@ namespace Wth.ModApi.Editor.Missions
                 if (GUILayout.Button("Save Missions"))
                 {
                     SaveAssets();
+                    updateHooksInSo();
                 }
             }
                 
@@ -113,6 +114,17 @@ namespace Wth.ModApi.Editor.Missions
                     }
                 }
             }
+        }
+
+        private void updateHooksInSo()
+        {
+            var missionHookElements = new List<ScriptableObject>();
+            foreach (var m in asset.missionList)
+            {
+                missionHookElements = missionHookElements.Concat(m.MissionHooks.MissionHooks).ToList();
+            }
+
+            AddToSoDictionary(missionHookElements);
         }
 
         void CreateMissionGui()
@@ -338,6 +350,7 @@ namespace Wth.ModApi.Editor.Missions
             createHookAsset(asset);
 
             SaveAssets();
+            updateHooksInSo();
         }
 
         private void createHookAsset(MissionDefinition asset)
@@ -352,6 +365,7 @@ namespace Wth.ModApi.Editor.Missions
         {
             var item = asset.missionList[index];
             AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(item.RequiredMissions));
+            AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(item.MissionHooks));
             AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(item));
             asset.missionList.RemoveAt(index);
             viewIndex = asset.missionList.Count;
@@ -360,6 +374,7 @@ namespace Wth.ModApi.Editor.Missions
             dictionary.Delete(item);
             EditorUtility.SetDirty(dictionary);
             AssetDatabase.SaveAssets();
+            updateHooksInSo();
         }
 
         /// <summary>
@@ -442,6 +457,7 @@ namespace Wth.ModApi.Editor.Missions
                     viewIndex = this.asset.missionList.Count;
                     EditorUtility.SetDirty(asset);
                     SaveAssets();
+                    updateHooksInSo();
                 } catch (Exception e)
                 {
                     Debug.Log(e);

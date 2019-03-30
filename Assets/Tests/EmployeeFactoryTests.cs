@@ -17,6 +17,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine.Rendering;
 using Wth.ModApi.Employees;
 using Wth.ModApi.Items;
+using Wth.ModApi.Missions;
 using Wth.ModApi.Names;
 using Random = System.Random;
 
@@ -156,6 +157,8 @@ namespace Assets.Tests
                 { Date = new GameDate() { DateTime = new DateTime(1, 1, 20) } });
 
             var mission = new MissionDefinition();
+            mission.MissionHooks = new MissionHookList();
+            mission.MissionHooks.MissionHooks = new List<MissionHook>();
 
             var empDef = Substitute.For<EmployeeDefinition>();
             empDef.SpawnWhenAllConditionsAreMet = true;
