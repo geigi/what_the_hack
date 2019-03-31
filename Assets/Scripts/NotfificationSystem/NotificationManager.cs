@@ -1,5 +1,6 @@
 ﻿using Base;
 using GameSystem;
+using GameTime;
 using Interfaces;
 using SaveGame;
 using UE.Events;
@@ -17,6 +18,8 @@ namespace Assets.Scripts.NotificationSystem
         /// </summary>
         private NotificationManagerData notificationData;
 
+        internal GameTime.GameTime time;
+
         public NetObjectEvent NewNotification;
 
         /// <summary>
@@ -25,6 +28,7 @@ namespace Assets.Scripts.NotificationSystem
         /// </summary>
         public void Awake()
         {
+            time = GameTime.GameTime.Instance;
             if (GameSettings.NewGame)
                 Initialize();
             else
@@ -34,7 +38,7 @@ namespace Assets.Scripts.NotificationSystem
         /// <summary>
         /// Initialize the default state.
         /// </summary>
-        private void Initialize()
+        internal void Initialize()
         {
             notificationData = new NotificationManagerData();
         }
@@ -77,9 +81,9 @@ namespace Assets.Scripts.NotificationSystem
         /// </summary>
         /// <param name="message">Message of the notification</param>
         /// <param name="type">notification type</param>
-        private void newNotification(string message, NotificationType type)
+        internal virtual void newNotification(string message, NotificationType type)
         {
-            Notification notification = new Notification(message, type, GameTime.GameTime.Instance.GetData().Date);
+            Notification notification = new Notification(message, type, time.GetData().Date);
             notificationData.Notifications.Add(notification);
             NewNotification.Raise(notification);
         }
