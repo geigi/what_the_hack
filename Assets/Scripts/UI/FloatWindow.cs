@@ -166,7 +166,7 @@ namespace UI
 
         private void OnStateEntered(State state)
         {
-            if (state == ScreenSpaceOverlayGameObject && Canvas.enabled)
+            if (state == ScreenSpaceOverlayGameObject && Content.activeInHierarchy)
             {
                 tempHidden = true;
                 Content.SetActive(false);
