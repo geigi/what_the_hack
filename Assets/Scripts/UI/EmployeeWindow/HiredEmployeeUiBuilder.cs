@@ -1,9 +1,11 @@
-﻿using UE.Common;
+﻿using System.Runtime.Serialization;
+using UE.Common;
 using UI;
 using UI.EmployeeWindow;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Utils;
 
 namespace Assets.Scripts.UI.EmployeeWindow
 {
@@ -29,8 +31,6 @@ namespace Assets.Scripts.UI.EmployeeWindow
         
         [Header("Events")]
         public UnityEvent stateEvent;
-
-        private void UpdateEmployeeState() => employeeState.Set(emp.State.ToString());
         
         private SkillEmployeeUi SkillEmployeeUi;
         private Color defaultButtonColor;
@@ -110,6 +110,19 @@ namespace Assets.Scripts.UI.EmployeeWindow
         private void onLevelChanged(int level)
         {
             EmployeeLevel.text = emp.EmployeeData.Level.ToString();
+        }
+        
+        private void UpdateEmployeeState()
+        {
+            string text;
+            
+            if (emp.State == Enums.EmployeeState.WORKING)
+                text = "Working";
+            else
+                text = "Idle";
+            
+            if (!employeeState.GetText().Equals(text))
+                employeeState.Set(text);
         }
     }
 }

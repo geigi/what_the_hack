@@ -120,6 +120,18 @@ namespace UI
         }
 
         /// <summary>
+        /// Get the complete text of the text banner.
+        /// </summary>
+        /// <returns></returns>
+        public string GetText()
+        {
+            if (completeText == null)
+                return "";
+            
+            return completeText;
+        }
+
+        /// <summary>
         /// The animation coroutine starts here.
         /// It loops the animation or fires the scrolling finished event.
         /// </summary>
