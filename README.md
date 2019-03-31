@@ -1,5 +1,3 @@
-![][image-3]
-
 ![What\_the\_Hack][image-1]
 
 ![][image-2]
@@ -74,6 +72,11 @@ The following third party libraries are used by this game:
 
 ## Sounds
 sf3-sfx-menu-select.wav by broumbroum freesound.org
+
+## Fonts
+http://www.zone38.net/font/
+
+![][image-3]
 
 [1]:	https://unity3d.com/de/get-unity/download/archive
 [2]:	#mod-development
