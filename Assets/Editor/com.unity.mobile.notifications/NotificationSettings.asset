@@ -32,5 +32,11 @@ MonoBehaviour:
     keys:
     - UnityNotificationAndroidRescheduleOnDeviceRestart
     values:
-    - False
-  TrackedResourceAssets: []
+    - True
+  TrackedResourceAssets:
+  - Id: small
+    Type: 0
+    Asset: {fileID: 2800000, guid: 7a0d6386f170f45ac891e93e842a24b1, type: 3}
+  - Id: large
+    Type: 1
+    Asset: {fileID: 2800000, guid: cf1e1ca3ca8694326ac0e954e54ada82, type: 3}

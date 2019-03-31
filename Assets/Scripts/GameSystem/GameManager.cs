@@ -88,6 +88,8 @@ namespace GameSystem
 				IGameNotification n = NotificationsManager.CreateNotification();
 				n.Title = notification.Title;
 				n.Body = notification.Body;
+				n.SmallIcon = "small";
+				n.LargeIcon = "large";
 				DateTime date = DateTime.Now;
 				n.DeliveryTime = date.Add(new TimeSpan(0, notification.Delay, 0));
 				NotificationsManager.ScheduleNotification(n);
