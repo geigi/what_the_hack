@@ -2,16 +2,31 @@
 
 ![][image-2]
 
-Have you ever wondered what "White Hat Hacking" is all about? Try it yourself as the head of an white hat hacking company in **What the Hack**!
+Have you ever wondered what "White Hat Hacking" is all about? Try it yourself as the head of a white hat hacking company in **What the Hack**!
 Get started by hiring your first employee, buy your first computer and accept one of many generated missions. But it's not as easy as it sounds - each employee has it's strengths and weaknesses, so be sure to find the perfect mission for your team.
 While playing the game you'll learn a lot about IT security, hacking and prevention of cyber attacks.
 
 **What the Hack** is a modular game. Creating extensions is easy with the free [Unity Editor][1]. Have a look at section [Mod Development][2] for more information.
 
+# Features
+- What the Hack is a platform
+	- Support for all kind of different extensions! (called *Mods*)
+	- Multiple difficulties: game content for everyone
+	- Interactive missions that test your knowledge
+- Base Game
+	- The base game ships with a special employee and basic missions about IT-security
+- Two game modes: Classic and Realtime!
+	- **Classic**: Just as every other game. Start it and enjoy! Automatic saving is included.
+	- **Realtime**: Even when you close the game, the game time passes. Without draining your battery. You’ll get notifications when your employees need your assistance! 
+
 # How to play
 **What the Hack** is designed for your smartphone, but you can also try it on PC.
 
-## Installing a mod
+# Installing a mod
+## Addon-Apps on Android
+On Android you can install special Addon-Apps, that contain extensions for **What the Hack**!
+
+## Manual
 Mods are served as a zip file and contain a folder which needs to be copied to specific locations depending on your operating system.
 - **Android:** `Android/data/com.hsd.wth/files/Mods/` (on external storage or SD card)
 - **Linux & macOS & Windows:** `Mods` directory side by side with the executable
@@ -19,7 +34,9 @@ Mods are served as a zip file and contain a folder which needs to be copied to s
 
 # Development
 ## Requirements
-Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity \>= 2018.3.2f1**][3].
+Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity v2018.3.5f1**][3]. 
+
+**Important**: You must use this exact version of Unity because **What the Hack** can only load Mods that are compiled with the same version as the base game. 
 
 ## Components
 There are four main components:
@@ -38,8 +55,8 @@ There are four main components:
 
 # Mod Development
 ## How far can I go?
-What the Hack allows all kinds of changes to the game. Each mod will be it's own "game mode" with unique skill requirements, employees, skills and missions. This allows you to create a mod with very specific learning content aswell as new gameplay aspects. Here is a list of possible modifications:
-- Create unique employees with special behaviours
+What the Hack allows all kinds of changes to the game. Each mod will be it's own "game mode" with unique names, employees, skills and missions. This allows you to create a mod with very specific learning content as well as new gameplay aspects. None of those modifications are mandatory. Here is a list of possible modifications:
+- Create unique employees with custom sprites
 - Create a specific set of skills
 - Create missions with custom actions for the player
 - Implement multiple difficulty levels
@@ -48,9 +65,9 @@ What the Hack allows all kinds of changes to the game. Each mod will be it's own
 1. Before you create a mod, have a look at the [development requirements][4]. 
 2. After installing Unity, create a new Unity Project and drag the `Wth.ModCreator.unitypackage` into the Editor. 
 3. Create a `ModInfo` Scriptable Object: `Assets > Create > What_The_Hack ModApi > Mod Info`. Each mod requires a unique ID and a banner image with the resolution _400\*182_. This scriptable object will be the gathering point for your content.
-4. Get started by using the custom Employee, Skill, Mission and Item Creater windows which can be found under `Tools > What_The_Hack ModApi`. 
+4. Get started by using the custom Employee, Skill, Mission and Name Creator GUIs which can be found under `Tools > What_The_Hack ModApi`. 
 
-To export your mod, go to `Tools > ModTool` and hit `Export`. Your code will be checked for any incompatibilities with the main game.
+To export your mod, go to `Tools > ModTool` and hit `Export`. Your code will be checked for any incompatibilities with the main game. 
 
 # Third party libraries
 The following third party libraries are used by this game:
@@ -65,10 +82,10 @@ The following third party libraries are used by this game:
 - [ModTool][10] - MIT
 - [KinoGlitch][11] - No licence
 - [unityglitch][12] - [Creative Commons Attribution 3.0 Unported][13]
-- [NSubstitute][15] - BSD Licence
+- [NSubstitute][14] - BSD Licence
 
 ## WTH contains code based on projects
-- [Pathfinding][14] - MIT
+- [Pathfinding][15] - MIT
 
 ## Sounds
 sf3-sfx-menu-select.wav by broumbroum freesound.org
@@ -91,9 +108,9 @@ http://www.zone38.net/font/
 [11]:	https://github.com/keijiro/KinoGlitch
 [12]:	https://github.com/staffantan/unityglitch
 [13]:	http://creativecommons.org/licenses/by/3.0/deed.en_GB
-[14]:	https://github.com/SebLague/Pathfinding
-[15]:   http://nsubstitute.github.io
+[14]:	http://nsubstitute.github.io
+[15]:	https://github.com/SebLague/Pathfinding
 
 [image-1]:	Sprites/ui/GameLogo.png
 [image-2]:	Sprites/ui/base_game_banner.png
-[image-3]:	https://gitlab.com/geigi/what\_the\_hack/badges/master/build.svg
+[image-3]:	https://gitlab.com/geigi/what%5C_the%5C_hack/badges/master/build.svg

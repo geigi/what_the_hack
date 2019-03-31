@@ -12,9 +12,9 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: "Hochschule D\xFCsseldorf"
+  companyName: geigi
   productName: What_the_Hack
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: 4a5277f00e47d447592981ebf1e2edc0, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
@@ -161,7 +161,7 @@ PlayerSettings:
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 21
-  AndroidTargetSdkVersion: 0
+  AndroidTargetSdkVersion: 28
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -265,7 +265,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: cbd727261348b4a55b8f61de416d3325, type: 3}
+      m_Icon: {fileID: 2800000, guid: a3df07f95e5b849dd90beb8b23b0014a, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -273,121 +273,147 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - m_Textures:
-      - {fileID: 2800000, guid: cbd727261348b4a55b8f61de416d3325, type: 3}
-      m_Width: 192
-      m_Height: 192
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: cd0b2822a99c54594905c14a32090ade, type: 3}
-      m_Width: 144
-      m_Height: 144
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 96
-      m_Height: 96
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 72
-      m_Height: 72
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 48
-      m_Height: 48
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 36
-      m_Height: 36
-      m_Kind: 0
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
-      m_Width: 192
-      m_Height: 192
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: 82bd92d4bbbe94c58931ed4c71f6f34f, type: 3}
-      m_Width: 144
-      m_Height: 144
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: 59631528f9fc641ecb48405796fc7330, type: 3}
-      m_Width: 96
-      m_Height: 96
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
-      m_Width: 72
-      m_Height: 72
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: ec3922049eafb4ce2a04fc21b468ebb2, type: 3}
-      m_Width: 48
-      m_Height: 48
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: fe57d38843a5744f6bc45c211958fd43, type: 3}
-      m_Width: 36
-      m_Height: 36
-      m_Kind: 1
-      m_SubKind: 
-    - m_Textures:
-      - {fileID: 2800000, guid: e8ae0c7e291f24b5d86b557a14b8eeec, type: 3}
-      - {fileID: 2800000, guid: cbd727261348b4a55b8f61de416d3325, type: 3}
+      - {fileID: 2800000, guid: 9760fa5a075694412b81573ed9b290c2, type: 3}
+      - {fileID: 2800000, guid: a3df07f95e5b849dd90beb8b23b0014a, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      - {fileID: 2800000, guid: cd0b2822a99c54594905c14a32090ade, type: 3}
+    - m_Textures: []
       m_Width: 324
       m_Height: 324
       m_Kind: 2
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      - {fileID: 2800000, guid: ab0b3c123248d4d788a4a747d1b0aa3a, type: 3}
+    - m_Textures: []
       m_Width: 216
       m_Height: 216
       m_Kind: 2
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      - {fileID: 2800000, guid: 1b95d5fd9b1a240398f9a55b6d8f3b35, type: 3}
+    - m_Textures: []
       m_Width: 162
       m_Height: 162
       m_Kind: 2
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      - {fileID: 2800000, guid: 3ebab343df30a4771b36d626c02ad5b7, type: 3}
+    - m_Textures: []
       m_Width: 108
       m_Height: 108
       m_Kind: 2
       m_SubKind: 
-    - m_Textures:
-      - {fileID: 0}
-      - {fileID: 2800000, guid: 4a1378a6489994e33a71cf6c3b45e731, type: 3}
+    - m_Textures: []
       m_Width: 81
       m_Height: 81
       m_Kind: 2
       m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 144
+      m_Height: 144
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 96
+      m_Height: 96
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 72
+      m_Height: 72
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 48
+      m_Height: 48
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 36
+      m_Height: 36
+      m_Kind: 1
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 2800000, guid: a3df07f95e5b849dd90beb8b23b0014a, type: 3}
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 144
+      m_Height: 144
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 96
+      m_Height: 96
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 72
+      m_Height: 72
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 48
+      m_Height: 48
+      m_Kind: 0
+      m_SubKind: 
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 36
+      m_Height: 36
+      m_Kind: 0
+      m_SubKind: 
   - m_BuildTarget: iPhone
     m_Icons:
+    - m_Textures:
+      - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
+      m_Width: 87
+      m_Height: 87
+      m_Kind: 1
+      m_SubKind: iPhone
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 58
+      m_Height: 58
+      m_Kind: 1
+      m_SubKind: iPhone
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 29
+      m_Height: 29
+      m_Kind: 1
+      m_SubKind: iPhone
+    - m_Textures:
+      - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
+      m_Width: 58
+      m_Height: 58
+      m_Kind: 1
+      m_SubKind: iPad
+    - m_Textures:
+      - {fileID: 0}
+      m_Width: 29
+      m_Height: 29
+      m_Kind: 1
+      m_SubKind: iPad
+    - m_Textures:
+      - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
+      m_Width: 1024
+      m_Height: 1024
+      m_Kind: 4
+      m_SubKind: App Store
     - m_Textures:
       - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
       m_Width: 180
@@ -444,36 +470,6 @@ PlayerSettings:
       m_SubKind: iPad
     - m_Textures:
       - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
-      m_Width: 87
-      m_Height: 87
-      m_Kind: 1
-      m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 58
-      m_Height: 58
-      m_Kind: 1
-      m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 29
-      m_Height: 29
-      m_Kind: 1
-      m_SubKind: iPhone
-    - m_Textures:
-      - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
-      m_Width: 58
-      m_Height: 58
-      m_Kind: 1
-      m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 0}
-      m_Width: 29
-      m_Height: 29
-      m_Kind: 1
-      m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
       m_Width: 60
       m_Height: 60
       m_Kind: 2
@@ -496,12 +492,6 @@ PlayerSettings:
       m_Height: 20
       m_Kind: 2
       m_SubKind: iPad
-    - m_Textures:
-      - {fileID: 2800000, guid: ec67789dcb2334d608f46cf75250faac, type: 3}
-      m_Width: 1024
-      m_Height: 1024
-      m_Kind: 4
-      m_SubKind: App Store
   m_BuildTargetBatching:
   - m_BuildTarget: Standalone
     m_StaticBatching: 1
