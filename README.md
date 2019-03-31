@@ -1,3 +1,5 @@
+![][image-3]
+
 ![What\_the\_Hack][image-1]
 
 ![][image-2]
@@ -6,7 +8,7 @@ Have you ever wondered what "White Hat Hacking" is all about? Try it yourself as
 Get started by hiring your first employee, buy your first computer and accept one of many generated missions. But it's not as easy as it sounds - each employee has it's strengths and weaknesses, so be sure to find the perfect mission for your team.
 While playing the game you'll learn a lot about IT security, hacking and prevention of cyber attacks.
 
-**What the Hack** is a modular game. Creating extensions is easy with the free [Unity Editor][1]. Have a look at section [Creating a Mod][2] for more information.
+**What the Hack** is a modular game. Creating extensions is easy with the free [Unity Editor][1]. Have a look at section [Mod Development][2] for more information.
 
 # How to play
 **What the Hack** is designed for your smartphone, but you can also try it on PC.
@@ -40,10 +42,8 @@ There are four main components:
 ## How far can I go?
 What the Hack allows all kinds of changes to the game. Each mod will be it's own "game mode" with unique skill requirements, employees, skills and missions. This allows you to create a mod with very specific learning content aswell as new gameplay aspects. Here is a list of possible modifications:
 - Create unique employees with special behaviours
-- Create unique employee behaviour extensions for the default employees
 - Create a specific set of skills
 - Create missions with custom actions for the player
-- Create new items for the office
 - Implement multiple difficulty levels
 
 ## Getting Started
@@ -76,7 +76,7 @@ The following third party libraries are used by this game:
 sf3-sfx-menu-select.wav by broumbroum freesound.org
 
 [1]:	https://unity3d.com/de/get-unity/download/archive
-[2]:	#creating-a-mod
+[2]:	#mod-development
 [3]:	https://unity3d.com/de/get-unity/download/archive
 [4]:	#requirements
 [5]:	https://github.com/Unity-Technologies/2d-extras
@@ -93,3 +93,4 @@ sf3-sfx-menu-select.wav by broumbroum freesound.org
 
 [image-1]:	Sprites/ui/GameLogo.png
 [image-2]:	Sprites/ui/base_game_banner.png
+[image-3]:	https://gitlab.com/geigi/what\_the\_hack/badges/master/build.svg
