@@ -93,6 +93,11 @@ namespace GameTime
             else if (!running && !pause)
                 StartGame();
         }
+
+        public int GetCurrentStep()
+        {
+            return data.Step;
+        }
         
         private void stop()
         {

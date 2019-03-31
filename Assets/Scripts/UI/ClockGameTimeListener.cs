@@ -1,4 +1,5 @@
-﻿using UE.Events;
+﻿using GameSystem;
+using UE.Events;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -28,6 +29,14 @@ public class ClockGameTimeListener : MonoBehaviour
         tickAction += TickListener;
         GameTimeTickEvent.AddListener(tickAction);
         //TickListener(GameTime.GameTime.Instance.Gettim);
+    }
+
+    private void Start()
+    {
+        if (!GameSettings.NewGame)
+        {
+            TickListener(GameTime.GameTime.Instance.GetCurrentStep());
+        }
     }
 
     /// <summary>
