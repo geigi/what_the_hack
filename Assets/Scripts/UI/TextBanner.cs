@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 namespace UI
 {
+    public enum TextBannerMode
+    {
+        Normal,
+        CharacterWidth
+    }
+
     /// <summary>
     /// This component creates a running banner text out of a text field
     /// </summary>
@@ -13,11 +19,22 @@ namespace UI
     {
         [Range(0.1f, 3.0f)]
         public float Speed = 1.0f;
+        [Range(0, 10)]
+        public int BeginPause = 1;
+        /// <summary>
+        /// Defines, whether the max characters are set manually
+        /// or calculated from character width and length.
+        /// </summary>
+        public TextBannerMode Mode;
         /// <summary>
         /// Number of maximum showed characters.
         /// If the text is shorter, no scrolling will happen.
         /// </summary>
         public int MaxCharacters = 5;
+        /// <summary>
+        /// Defines the width of a character. Only needed, when character mode is set.
+        /// </summary>
+        public int CharacterWidth = 15;
         /// <summary>
         /// Loop the animation?
         /// </summary>
@@ -31,12 +48,27 @@ namespace UI
         private string completeText;
         private int position = 0;
         private Text textComponent;
+        private RectTransform rect;
         private Coroutine coroutine;
         private bool awaitStart = false;
         
         private void Awake()
         {
             textComponent = GetComponent<Text>();
+            rect = GetComponent<RectTransform>();
+        }
+
+        private void Start()
+        {
+            if (Mode == TextBannerMode.CharacterWidth)
+                StartCoroutine(calculateMaxCharacters());
+        }
+
+        private IEnumerator calculateMaxCharacters()
+        {
+            // We need to wait one frame because the layout scripts need to do their work in the first frame.
+            yield return new WaitForEndOfFrame();
+            MaxCharacters = (int) (rect.rect.width / CharacterWidth);
         }
 
         private void OnEnable()
@@ -96,16 +128,18 @@ namespace UI
         {
             if (Loop)
             {
-                completeText = completeText + new string(' ', MaxCharacters);
                 while (true)
                 {
+                    yield return new WaitForSeconds(BeginPause);
                     yield return MoveText();
+                    yield return new WaitForSeconds(BeginPause);
                     position = 0;
                     textComponent.text = completeText.Substring(position, MaxCharacters);
                 }
             }
             else
             {
+                yield return new WaitForSeconds(BeginPause);
                 yield return MoveText();
                 ScrollingFinished.Invoke();
             }

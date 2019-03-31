@@ -87,8 +87,9 @@ namespace Assets.Scripts.NotificationSystem
                 else
                     notificationBarRect.height += stepChange;
 
+                var sizeDelta = NotificationBar.GetComponent<RectTransform>().sizeDelta;
                 NotificationBar.GetComponent<RectTransform>().sizeDelta =
-                    new Vector2(notificationBarRect.width, notificationBarRect.height);
+                    new Vector2(sizeDelta.x, notificationBarRect.height);
                 yield return null;
             }
 
@@ -114,8 +115,9 @@ namespace Assets.Scripts.NotificationSystem
                 else
                     notificationBarRect.height -= stepChange;
 
+                var sizeDelta = NotificationBar.GetComponent<RectTransform>().sizeDelta;
                 NotificationBar.GetComponent<RectTransform>().sizeDelta =
-                    new Vector2(notificationBarRect.width, notificationBarRect.height);
+                    new Vector2(sizeDelta.x, notificationBarRect.height);
                 yield return null;
             }
         }
@@ -143,7 +145,6 @@ namespace Assets.Scripts.NotificationSystem
             }
 
             notificationBeingDisplayed = true;
-            var banner = text.GetComponent<TextBanner>();
             while (notifications.Count > 0)
             {
                 var current = notifications.Dequeue();
