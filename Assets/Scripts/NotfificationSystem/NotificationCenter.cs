@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.NotificationSystem
 {
@@ -9,11 +10,13 @@ namespace Assets.Scripts.NotificationSystem
     {
         private RectTransform rectTrans;
         private NotificationView view;
+        private ScrollRect scrollRect;
 
         void Awake()
         {
             rectTrans = gameObject.GetComponent<RectTransform>();
             view = transform.GetChild(0).GetComponent<NotificationView>();
+            scrollRect = GetComponentInChildren<ScrollRect>();
         }
 
         /// <summary>
@@ -23,6 +26,7 @@ namespace Assets.Scripts.NotificationSystem
         {
             view.DisplayedNotifications();
             view.Show();
+            scrollRect.normalizedPosition = new Vector2(0, 0);
         }
     }
 }
