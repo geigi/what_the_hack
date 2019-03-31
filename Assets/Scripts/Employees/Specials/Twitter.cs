@@ -27,7 +27,7 @@ namespace Employees.Specials
 
         public override void OnTimeStepChanged(object employeeData)
         {
-            if (RandomUtils.RollDice(5) == 1)
+            if (RandomUtils.RollDice(10) == 1)
                 EmojiBubbleFactory.Instance.EmpReaction(EmojiBubbleFactory.EmojiType.TWITTER, 
                     EmployeeManager.Instance.GetEmployee((EmployeeData) employeeData), 
                     EmojiBubbleFactory.EMPLYOEE_OFFSET, EmojiBubbleFactory.StandardDisplayTime);
