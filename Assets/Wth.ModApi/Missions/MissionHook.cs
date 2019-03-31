@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,12 +20,26 @@ public sealed class MissionHook : ScriptableObject
     /// </summary>
     public GameObject GUIPrefab;
 
+    [NonSerialized]
+    private UnityEvent<bool> completed;
     /// <summary>
     /// Fire this event when the hook has completed.
     /// The mission will not continue until one of the hooks is fired.
     /// Fire true for success, false for fail.
     /// </summary>
-    public UnityEvent<bool> Completed;
+    public UnityEvent<bool> Completed
+    {
+        get
+        {
+            if (completed == null)
+            {
+                completed = new MissionHookCompletedEvent();
+            }
+
+            return completed;
+        }
+        private set => completed = value;
+    }
 
     /// <summary>
     /// This text will be displayed in the failed notification

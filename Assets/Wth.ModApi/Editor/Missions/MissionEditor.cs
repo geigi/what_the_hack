@@ -356,8 +356,8 @@ namespace Wth.ModApi.Editor.Missions
         private void createHookAsset(MissionDefinition asset)
         {
             var hooks = CreateInstance<MissionHookList>();
-            CreateDirectories("Assets/Data/Missions/Hooks/");
-            AssetDatabase.CreateAsset(hooks, "Assets/Data/Missions/Hooks/" + Guid.NewGuid() + ".asset");
+            CreateDirectories("Assets/Data/Missions/HookLists/");
+            AssetDatabase.CreateAsset(hooks, "Assets/Data/Missions/HookLists/" + Guid.NewGuid() + ".asset");
             asset.MissionHooks = hooks;
         }
 
