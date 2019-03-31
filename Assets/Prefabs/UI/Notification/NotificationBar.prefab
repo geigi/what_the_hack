@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NotificationCenter: {fileID: 0}
+  SingleNotification: {fileID: 1892059930}
 --- !u!1001 &2100626001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -323,6 +324,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2100626001}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1892059930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 234064203, guid: 04bb4004be2d69d48a71ab05ef792471,
+    type: 3}
+  m_PrefabInstance: {fileID: 2100626001}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9e7c2fce9ea37d4fac9f4671d3a415c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7190445453070649746 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7190445450974743491, guid: 04bb4004be2d69d48a71ab05ef792471,

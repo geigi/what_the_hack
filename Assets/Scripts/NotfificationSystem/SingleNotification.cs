@@ -43,6 +43,8 @@ namespace Assets.Scripts.NotificationSystem
         private bool notificationBeingDisplayed = false;
         private bool scrollingFinished = true;
 
+        private Coroutine displayRoutine;
+
         private TextBanner banner => text.GetComponent<TextBanner>();
 
         void Awake()
@@ -92,7 +94,7 @@ namespace Assets.Scripts.NotificationSystem
                 yield return null;
             }
 
-            StartCoroutine(ShowNotificationQueue());
+            displayRoutine = StartCoroutine(ShowNotificationQueue());
         }
 
         /// <summary>
@@ -104,6 +106,24 @@ namespace Assets.Scripts.NotificationSystem
         /// This function only exists, so a test class can call the coroutine, because it does not work otherwise.
         /// </summary>
         public void down() => StartCoroutine(NotificationBarDown());
+
+        /// <summary>
+        /// Stop the notification bar display process.
+        /// </summary>
+        public void Stop()
+        {
+            banner.Set("");
+            StopCoroutine(displayRoutine);
+            notificationBeingDisplayed = false;
+            scrollingFinished = true;
+            StartCoroutine(NotificationBarDown());
+
+            while (notifications.Count > 0)
+            {
+                var n = notifications.Dequeue();
+                n.Displayed = true;
+            }
+        }
 
         /// <summary>
         /// Animates the retraction of NotificationBar
@@ -170,6 +190,7 @@ namespace Assets.Scripts.NotificationSystem
 
             notificationBeingDisplayed = false;
             StartCoroutine(NotificationBarDown());
+            displayRoutine = null;
         }
 
         /// <summary>

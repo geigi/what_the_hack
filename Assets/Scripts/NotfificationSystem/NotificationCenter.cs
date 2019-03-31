@@ -7,25 +7,13 @@ namespace Assets.Scripts.NotificationSystem
     /// </summary>
     public class NotificationCenter : MonoBehaviour
     {
-
         private RectTransform rectTrans;
+        private NotificationView view;
 
         void Awake()
         {
             rectTrans = gameObject.GetComponent<RectTransform>();
-        }
-        /// <summary>
-        /// Checks if the mouse was clicked outside of this GameObject and closes the NotifiactionCenter
-        /// </summary>
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (!rectTrans.rect.Contains(rectTrans.InverseTransformPoint(Input.mousePosition)))
-                {
-                    gameObject.SetActive(false);
-                }
-            }
+            view = transform.GetChild(0).GetComponent<NotificationView>();
         }
 
         /// <summary>
@@ -33,8 +21,8 @@ namespace Assets.Scripts.NotificationSystem
         /// </summary>
         private void OnEnable()
         {
-            transform.GetChild(0).GetComponent<NotificationView>().DisplayedNotifications();
-            transform.GetChild(0).GetComponent<NotificationView>().Show();
+            view.DisplayedNotifications();
+            view.Show();
         }
     }
 }
