@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db10d37bc7aa45d78d4a567b73b380f0, type: 3}
   m_Name: 7289a903-9db7-4944-bcc3-0b539954418a
   m_EditorClassIdentifier: 
-  MissionHooks:
-  - {fileID: 11400000, guid: 349ea77e767dc45359daa92972647107, type: 2}
+  MissionHooks: []
