@@ -34,7 +34,7 @@ namespace UI
         /// <summary>
         /// Defines the width of a character. Only needed, when character mode is set.
         /// </summary>
-        public int CharacterWidth = 15;
+        public float CharacterWidth = 15;
         /// <summary>
         /// Loop the animation?
         /// </summary>

@@ -18,6 +18,7 @@ namespace Assets.Scripts.NotificationSystem
         public Image icon;
         public NetObjectEvent newNotification;
         public GameObject NotificationBar;
+        public GameObject NotificationCenterButton;
         /// <summary>
         /// How long to show the notification, after scrolling has finished.
         /// </summary>
@@ -76,6 +77,7 @@ namespace Assets.Scripts.NotificationSystem
         /// <returns></returns>
         private IEnumerator NotificationBarUp()
         {
+            NotificationCenterButton.SetActive(false);
             notificationBarUp = true;
             Clear();
             while (notificationBarRect.height < maxHeight)
@@ -149,6 +151,8 @@ namespace Assets.Scripts.NotificationSystem
                     new Vector2(sizeDelta.x, notificationBarRect.height);
                 yield return null;
             }
+            
+            NotificationCenterButton.SetActive(true);
         }
 
         /// <summary>
