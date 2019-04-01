@@ -21,20 +21,27 @@ While playing the game you'll learn a lot about IT security, hacking and prevent
 
 # Download
 ## Main Game
-Android: 
-Linux:
-macOS:
-Windows:
+Android:	[Download v1.0.2](https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack-1.0.2.apk)
 
-## Software Engineering Addon
+Linux:		[Download v1.0.2](https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack_1.0.2_linux.zip)
+
+macOS:		[Download v1.0.2](https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack_1.0.2_macOS.zip)
+
+Windows:	[Download v1.0.2](https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack_1.0.2_win.zip)
+
+## Java Crypto API Addon
 Desktop:
+
 Android:
+
 Source:
 
 ## Development
-Mod Creator: UnityPackage
+Mod Creator: [Download UnityPackage v1.0.2](https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack.Mod.Tools.v1.0.2.unitypackage)
+
 Mod Assets
-Template for Addon-APK
+
+Template for Addon-APK: [GitHub Repository](https://github.com/geigi/wth-examplemod-apk)
 
 # Installing a mod
 ## Addon-Apps on Android
