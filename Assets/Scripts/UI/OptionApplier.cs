@@ -13,7 +13,6 @@ namespace UI
     {
         [Header("UI Elements")] 
         public Dropdown GameTimeMode;
-        public Dropdown Difficulty;
         public Slider MusicVolumeSlider;
         public Slider SoundFxVolumeSlider;
         public GameObject GraphicsContainer;
@@ -34,12 +33,6 @@ namespace UI
             {
                 gameTimeModeAction = gameTimeModeChanged;
                 GameTimeMode.onValueChanged.AddListener(gameTimeModeAction);
-            }
-
-            if (Difficulty != null)
-            {
-                difficultyChangedAction = DifficultyChanged;
-                Difficulty.onValueChanged.AddListener(difficultyChangedAction);
             }
 
             if (MusicVolumeSlider != null)
@@ -82,7 +75,6 @@ namespace UI
             GameTimeMode?.onValueChanged?.RemoveListener(gameTimeModeAction);
             MusicVolumeSlider?.onValueChanged?.RemoveListener(musicVolumeAction);
             SoundFxVolumeSlider?.onValueChanged?.RemoveListener(soundFxVolumeAction);
-            Difficulty?.onValueChanged?.RemoveListener(difficultyChangedAction);
 #if UNITY_STANDALONE
             WindowModeToggle.onValueChanged?.RemoveListener(windowModeAction);
 #endif
@@ -92,8 +84,6 @@ namespace UI
         {
             SettingsManager.SetGameTime(state);
         }
-
-        private void DifficultyChanged(int difficulty) => GameSettings.Difficulty = (MissionList.DifficultyOption) difficulty;
 
         private void musicVolumeChanged(float value)
         {
