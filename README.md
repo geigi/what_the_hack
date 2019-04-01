@@ -41,7 +41,7 @@ Mod Creator: [Download UnityPackage v1.0.2](https://github.com/geigi/what_the_ha
 
 Mod Assets
 
-Template for Addon-APK
+Template for Addon-APK: [GitHub Repository](https://github.com/geigi/wth-examplemod-apk)
 
 # Installing a mod
 ## Addon-Apps on Android
