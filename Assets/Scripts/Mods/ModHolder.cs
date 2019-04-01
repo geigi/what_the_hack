@@ -22,10 +22,7 @@ public sealed class ModHolder: Singleton<ModHolder>
 
     private void Awake()
     {
-        if (GameSettings.NewGame)
-        {
-            GetLoadedMod();
-        }
+        GetLoadedMod();
     }
 
     /// <summary>
@@ -51,6 +48,14 @@ public sealed class ModHolder: Singleton<ModHolder>
     public ModInfo GetModInfo()
     {
         return this.mod;
+    }
+
+    public bool IsModLoaded()
+    {
+        if (mod != null)
+            return true;
+        else
+            return false;
     }
 
     /// <summary>

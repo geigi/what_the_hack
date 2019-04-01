@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using Assets.Scripts.NotificationSystem;
@@ -8,10 +9,12 @@ using Base;
 using Employees;
 using GameSystem;
 using Missions;
+using ModTool;
 using Pathfinding;
 using Team;
 using UnityEngine;
 using Wth.ModApi.Items;
+using Wth.ModApi.Tools;
 
 namespace SaveGame
 {
@@ -60,7 +63,7 @@ namespace SaveGame
         /// </summary>
         /// <param name="saveGameName"></param>
         /// <returns></returns>
-        private MainSaveGame CreateNewSaveGame(string saveGameName)
+        private MainSaveGame CreateNewSaveGame(string saveGameName, string modName)
         {
             MainSaveGame saveGame = new MainSaveGame();
             saveGame.name = saveGameName;
@@ -74,6 +77,7 @@ namespace SaveGame
             saveGame.balance = bank.Balance;
             saveGame.Difficulty = SettingsManager.GetDifficulty();
             saveGame.TutorialStage = TutorialStage;
+            saveGame.modId = modName;
             return saveGame;
         }
 
@@ -84,7 +88,23 @@ namespace SaveGame
         /// <returns></returns>
         public bool SaveGame(string saveGameName)
         {
-            var saveGame = CreateNewSaveGame(saveGameName);
+            string id = "";
+            if (ModHolder.Instance.IsModLoaded())
+            {
+                if (File.Exists(GetSavePath("modinfo")))
+                    File.Delete(GetSavePath("modinfo"));
+                
+                var mod = ModManager.instance.mods.First(m => m.loadState == ResourceLoadState.Loaded);
+                id = mod.name;
+                using(StreamWriter writetext = new StreamWriter(GetSavePath("modinfo")))
+                {
+                    writetext.Write(id);
+                }
+            }
+            else if (File.Exists(GetSavePath("modinfo")))
+                File.Delete(GetSavePath("modinfo"));
+            
+            var saveGame = CreateNewSaveGame(saveGameName, id);
             return SaveGameToFile(saveGame);
         }
 
@@ -124,6 +144,16 @@ namespace SaveGame
                 return null;
             }
 
+            if (File.Exists(GetSavePath("modinfo")))
+            {
+                ScriptableObjectManager.Instance.RefreshModDictionary();
+            }
+            
+            return doLoad(saveGameName);
+        }
+
+        private MainSaveGame doLoad(string saveGameName)
+        {
             var formatter = CreateBinaryFormatter();
             MainSaveGame saveGame;
 
@@ -224,7 +254,7 @@ namespace SaveGame
         /// </summary>
         /// <param name="saveGameName">Name of the savegame.</param>
         /// <returns>Path of the savegame.</returns>
-        private static string GetSavePath(string saveGameName)
+        public static string GetSavePath(string saveGameName)
         {
             return Path.Combine(Application.persistentDataPath, saveGameName + ".sav");
         }

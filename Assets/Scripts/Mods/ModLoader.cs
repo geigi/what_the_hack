@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Android;
+using SaveGame;
 using UE.StateMachine;
 #if !UNITY_WEBGL
 using ModTool;
@@ -52,7 +54,7 @@ public class ModLoader : MonoBehaviour {
 		addonAppManager.RefreshMods();
 #endif
 		startState.Enter();
-		modManager.refreshInterval = 15;
+		modManager.refreshInterval = 1;
 
         foreach (Mod mod in modManager.mods)
             OnModFound(mod);

@@ -27,7 +27,7 @@ namespace Wth.ModApi.Tools
         /// <summary>
         /// Refreshes the <see cref="ScriptableObjectDictionary"/> reference of the currently loaded mod.
         /// </summary>
-        private void RefreshModDictionary()
+        public void RefreshModDictionary()
         {
             foreach (var mod in ModManager.instance.mods)
             {
@@ -37,6 +37,7 @@ namespace Wth.ModApi.Tools
                     break;
                 }
             }
+            Debug.Log("No Mod SO dictionary found.");
         }
         
         /// <summary>
@@ -51,7 +52,7 @@ namespace Wth.ModApi.Tools
                 return "";
             
             string key = MainDictionary.GetKey(obj);
-            if (key == null && ModDictionary != null)
+            if (String.IsNullOrEmpty(key) && ModDictionary != null)
                 key = ModDictionary.GetKey(obj);
 
             return key;
