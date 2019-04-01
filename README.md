@@ -19,8 +19,22 @@ While playing the game you'll learn a lot about IT security, hacking and prevent
 	- **Classic**: Just as every other game. Start it and enjoy! Automatic saving is included.
 	- **Realtime**: Even when you close the game, the game time passes. Without draining your battery. You’ll get notifications when your employees need your assistance! 
 
-# How to play
-**What the Hack** is designed for your smartphone, but you can also try it on PC.
+# Download
+## Main Game
+Android: 
+Linux:
+macOS:
+Windows:
+
+## Software Engineering Addon
+Desktop:
+Android:
+Source:
+
+## Development
+Mod Creator: UnityPackage
+Mod Assets
+Template for Addon-APK
 
 # Installing a mod
 ## Addon-Apps on Android
@@ -28,9 +42,8 @@ On Android you can install special Addon-Apps, that contain extensions for **Wha
 
 ## Manual
 Mods are served as a zip file and contain a folder which needs to be copied to specific locations depending on your operating system.
-- **Android:** `Android/data/com.hsd.wth/files/Mods/` (on external storage or SD card)
+- **Android:** `Android/data/com.github.geigi.wth/files/Mods/` (on external storage or SD card)
 - **Linux & macOS & Windows:** `Mods` directory side by side with the executable
-
 
 # Development
 ## Requirements
