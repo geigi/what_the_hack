@@ -2,7 +2,7 @@
 
 # Development
 ## Requirements
-The only thing you'll need is [**Unity version 2018.2.9f**][1]. It is important that you use exactly the version of Unity that is used to build the game and the mod package.
+The only thing you'll need is [**Unity version 2018.3.7f**][1]. It is important that you use exactly the version of Unity that is used to build the game and the mod package.
 
 ## How far can I go?
 What the Hack allows all kinds of changes to the game. Each mod will be it's own "game mode" with unique skill requirements, employees, skills and missions. This allows you to create a mod with very specific learning content aswell as new gameplay aspects. Here is a list of possible modifications:

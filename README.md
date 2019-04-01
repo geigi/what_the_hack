@@ -34,7 +34,7 @@ Mods are served as a zip file and contain a folder which needs to be copied to s
 
 # Development
 ## Requirements
-Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity v2018.3.5f1**][3]. 
+Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity v2018.3.7f1**][3]. 
 
 **Important**: You must use this exact version of Unity because **What the Hack** can only load Mods that are compiled with the same version as the base game. 
 
