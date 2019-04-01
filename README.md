@@ -89,6 +89,9 @@ What the Hack allows all kinds of changes to the game. Each mod will be it's own
 
 To export your mod, go to `Tools > ModTool` and hit `Export`. Your code will be checked for any incompatibilities with the main game. 
 
+# Known bugs
+- Game does not open when tapping on a notification (Android). This is a bug in the Unity Mobile Notifications package.
+
 # Third party libraries
 The following third party libraries are used by this game:
 
