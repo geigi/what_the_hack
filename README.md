@@ -92,6 +92,15 @@ To export your mod, go to `Tools > ModTool` and hit `Export`. Your code will be 
 # Known bugs
 - Game does not open when tapping on a notification (Android). This is a bug in the Unity Mobile Notifications package.
 
+# Cheers to the original creators! ❤️
+- Hendrik Schulte ([@hendrik-schulte](https://github.com/hendrik-schulte))
+- Florian Kaulfertsch
+- Dominik Köhler
+
+# Special Thanks 🎉
+- Tobias Melzer
+- Prof. Dr. Holger Schmidt
+
 # Third party libraries
 The following third party libraries are used by this game:
 
