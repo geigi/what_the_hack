@@ -30,8 +30,11 @@ namespace UI
         
         private void Start()
         {
-            gameTimeModeAction = gameTimeModeChanged;
-            GameTimeMode.onValueChanged.AddListener(gameTimeModeAction);
+            if (GameTimeMode != null)
+            {
+                gameTimeModeAction = gameTimeModeChanged;
+                GameTimeMode.onValueChanged.AddListener(gameTimeModeAction);
+            }
 
             if (Difficulty != null)
             {
@@ -39,19 +42,31 @@ namespace UI
                 Difficulty.onValueChanged.AddListener(difficultyChangedAction);
             }
 
-            MusicVolumeSlider.value = SettingsManager.GetMusicVolume();
-            SoundFxVolumeSlider.value = SettingsManager.GetSoundFxVolume();
-            GameTimeMode.value = (int) SettingsManager.GetGameTime();
+            if (MusicVolumeSlider != null)
+            {
+                MusicVolumeSlider.value = SettingsManager.GetMusicVolume();
+                SoundFxVolumeSlider.value = SettingsManager.GetSoundFxVolume();
+                GameTimeMode.value = (int) SettingsManager.GetGameTime();
+            }
             
-            musicVolumeAction = musicVolumeChanged;
-            MusicVolumeSlider.onValueChanged.AddListener(musicVolumeAction);
+            if (MusicVolumeSlider != null)
+            {
+                musicVolumeAction = musicVolumeChanged;
+                MusicVolumeSlider.onValueChanged.AddListener(musicVolumeAction);
+            }
             
-            soundFxVolumeAction = soundFxVolumeChanged;
-            SoundFxVolumeSlider.onValueChanged.AddListener(soundFxVolumeAction);
+            if (SoundFxVolumeSlider != null)
+            {
+                soundFxVolumeAction = soundFxVolumeChanged;
+                SoundFxVolumeSlider.onValueChanged.AddListener(soundFxVolumeAction);
+            }
 
-            tutorialAction = tutorialChanged;
-            TutorialToggle.onValueChanged.AddListener(tutorialAction);
-            TutorialToggle.isOn = SettingsManager.GetTutorialState();
+            if (TutorialToggle != null)
+            {
+                tutorialAction = tutorialChanged;
+                TutorialToggle.onValueChanged.AddListener(tutorialAction);
+                TutorialToggle.isOn = SettingsManager.GetTutorialState();
+            }
             
             #if UNITY_STANDALONE
             GraphicsContainer.SetActive(true);
@@ -64,9 +79,10 @@ namespace UI
 
         private void OnDestroy()
         {
-            GameTimeMode.onValueChanged?.RemoveListener(gameTimeModeAction);
-            MusicVolumeSlider.onValueChanged?.RemoveListener(musicVolumeAction);
-            SoundFxVolumeSlider.onValueChanged?.RemoveListener(soundFxVolumeAction);
+            GameTimeMode?.onValueChanged?.RemoveListener(gameTimeModeAction);
+            MusicVolumeSlider?.onValueChanged?.RemoveListener(musicVolumeAction);
+            SoundFxVolumeSlider?.onValueChanged?.RemoveListener(soundFxVolumeAction);
+            Difficulty?.onValueChanged?.RemoveListener(difficultyChangedAction);
 #if UNITY_STANDALONE
             WindowModeToggle.onValueChanged?.RemoveListener(windowModeAction);
 #endif
@@ -77,7 +93,7 @@ namespace UI
             SettingsManager.SetGameTime(state);
         }
 
-        private void DifficultyChanged(int difficulty) => SettingsManager.SetDifficulty(difficulty);
+        private void DifficultyChanged(int difficulty) => GameSettings.Difficulty = (MissionList.DifficultyOption) difficulty;
 
         private void musicVolumeChanged(float value)
         {

@@ -22,5 +22,7 @@ namespace GameSystem
         /// Can be null.
         /// </summary>
         public static string ModID;
+
+        public static MissionList.DifficultyOption Difficulty = MissionList.DifficultyOption.Easy;
     }
 }

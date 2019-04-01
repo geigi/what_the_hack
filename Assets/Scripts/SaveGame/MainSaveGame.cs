@@ -71,7 +71,7 @@ namespace SaveGame
         /// <summary>
         /// Difficulty of the current game.
         /// </summary>
-        public SettingsManager.Difficulty Difficulty;
+        public MissionList.DifficultyOption Difficulty;
 
         /// <summary>
         /// The current stage the tutorial is at.

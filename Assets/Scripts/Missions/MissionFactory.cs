@@ -5,6 +5,7 @@ using Base;
 using Employees;
 using GameSystem;
 using Team;
+using UE.Common;
 using UnityEngine;
 using Wth.ModApi.Names;
 using Wth.ModApi.Tools;
@@ -90,12 +91,10 @@ namespace Missions
         /// <returns>Random mission object</returns>
         public Mission CreateMission(float difficulty)
         {
-            var difficultyOption = SettingsManager.GetDifficulty();
             MissionDefinition definition;
             do
             {
-                definition = missionList.missionList.FindAll(currentMission => (int) currentMission.Difficulty <= (int) difficultyOption)
-                    [Random.Range(0, missionList.missionList.Count(currentMission => (int)currentMission.Difficulty <= (int)difficultyOption))];
+                definition = missionList.missionList.RandomElement();
             } while (definition.ForceAppear || !RequirementsFullfilled(definition));
 
             var mission = new Mission(definition);
@@ -241,6 +240,11 @@ namespace Missions
         public bool RequirementsFullfilled(MissionDefinition mission)
         {
             if (mission == null) return false;
+
+            if (mission.Difficulty != GameSettings.Difficulty)
+            {
+                return false;
+            }
             
             if (mission.RequiredLevel != 0 && 
                 EmployeeManager.Instance.GetCurrentMaxEmployeeLevel() < mission.RequiredLevel)

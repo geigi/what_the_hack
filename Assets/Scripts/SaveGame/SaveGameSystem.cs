@@ -75,7 +75,7 @@ namespace SaveGame
             saveGame.NotificationManagerData = NotificationManager.GetData();
             FillTileMapData(saveGame);
             saveGame.balance = bank.Balance;
-            saveGame.Difficulty = SettingsManager.GetDifficulty();
+            saveGame.Difficulty = GameSettings.Difficulty;
             saveGame.TutorialStage = TutorialStage;
             saveGame.modId = modName;
             return saveGame;
@@ -163,6 +163,7 @@ namespace SaveGame
                 {
                     saveGame = formatter.Deserialize(stream) as MainSaveGame;
                     if (saveGame != null) TutorialStage = saveGame.TutorialStage;
+                    if (saveGame != null) GameSettings.Difficulty = saveGame.Difficulty;
                 }
                 catch (Exception e)
                 {
@@ -172,6 +173,7 @@ namespace SaveGame
                 }
             }
 
+            
             //RestoreTileMapData(saveGame);
             return saveGame;
         }

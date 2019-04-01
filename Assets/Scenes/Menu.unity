@@ -6585,12 +6585,12 @@ PrefabInstance:
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 108
+      value: 456
       objectReference: {fileID: 0}
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 108
+      value: 456
       objectReference: {fileID: 0}
     - target: {fileID: 1395288684559623214, guid: 79146834a5c374be3909cacf7c6fc457,
         type: 3}
@@ -9101,6 +9101,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66db47a020e54b188676c94e9160c264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1830974782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1830974784}
+  - component: {fileID: 1830974783}
+  m_Layer: 0
+  m_Name: (Singleton)ContentHub
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1830974783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830974782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0fba123e2864eacad9bcb922bf9e50c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _persistent: 0
+  DefaultNameLists: {fileID: 0}
+  DefaultSkillSet: {fileID: 0}
+  DefaultSpecialEmployees: {fileID: 0}
+  GeneralPurposeSkill: {fileID: 0}
+  DefaultMissionList: {fileID: 0}
+  DefaultEmpMaterial: {fileID: 0}
+  DefaultSpecialEmpMaterial: {fileID: 0}
+  DefaultEmpUiMaterial: {fileID: 0}
+  maleAnimationClips: []
+  femaleAnimationClips: []
+  EmployeeAnimations: {fileID: 0}
+  SaveGameSystem: {fileID: 0}
+  bank: {fileID: 0}
+  InfoNotificationSprite: {fileID: 0}
+  WarningNotificationSprite: {fileID: 0}
+  FailNotificationSprite: {fileID: 0}
+  SuccessNotificationSprite: {fileID: 0}
+  TileBlockedEvent: {fileID: 0}
+  GameStepEvent: {fileID: 0}
+--- !u!4 &1830974784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830974782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1882454602
 GameObject:
   m_ObjectHideFlags: 0
@@ -9962,7 +10025,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Difficulty
       value: 
-      objectReference: {fileID: 1261322217}
+      objectReference: {fileID: 0}
     - target: {fileID: 2252993696324274899, guid: 4d5fc9d3b2c224e119513045e68b67d9,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -10782,6 +10845,7 @@ GameObject:
   - component: {fileID: 1949342390}
   - component: {fileID: 1949342392}
   - component: {fileID: 1949342391}
+  - component: {fileID: 1949342393}
   m_Layer: 0
   m_Name: DifficultySelection
   m_TagString: Untagged
@@ -10908,6 +10972,26 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &1949342393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949342389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea381f2cb6644b6bfa27a6d5fe14dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameTimeMode: {fileID: 0}
+  Difficulty: {fileID: 1261322217}
+  MusicVolumeSlider: {fileID: 0}
+  SoundFxVolumeSlider: {fileID: 0}
+  GraphicsContainer: {fileID: 0}
+  WindowModeToggle: {fileID: 0}
+  TutorialToggle: {fileID: 0}
+  AudioMixer: {fileID: 0}
 --- !u!1 &1953433107
 GameObject:
   m_ObjectHideFlags: 0

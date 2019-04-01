@@ -23,22 +23,22 @@ public class DifficultySelection : MonoBehaviour
 
     private void ChangeDescription(int difficulty)
     {
-        var diff = (SettingsManager.Difficulty) difficulty;
+        var diff = (MissionList.DifficultyOption) difficulty;
         var missionList = ModHolder.Instance.GetMissionList() ?? DefaultMissionList;
         string description = "";
         string title = diff.ToString();
         switch (diff)
         {
-            case SettingsManager.Difficulty.Easy:
+            case MissionList.DifficultyOption.Easy:
                 description = missionList.easyDifficultyDescription;
                 break;
-            case SettingsManager.Difficulty.Normal:
+            case MissionList.DifficultyOption.Normal:
                 description = missionList.normalDifficultyDescription;
                 break;
-            case SettingsManager.Difficulty.Hard:
+            case MissionList.DifficultyOption.Hard:
                 description = missionList.hardDifficultyDescription;
                 break;
-            case SettingsManager.Difficulty.Guru:
+            case MissionList.DifficultyOption.Guru:
                 description = missionList.guruDifficultyDescription;
                 break;
         }
