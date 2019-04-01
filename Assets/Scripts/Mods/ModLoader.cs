@@ -60,6 +60,10 @@ public class ModLoader : MonoBehaviour {
         modManager.ModFound += OnModFound;
         modManager.ModRemoved += OnModRemoved;
 		modManager.ModLoaded += OnModLoaded;
+		foreach (var m in mods)
+		{
+			m.Unload();
+		}
 #endif
 	}
 
@@ -164,6 +168,13 @@ public class ModLoader : MonoBehaviour {
 		Debug.Log(mod.assemblyNames);
 		Debug.Log("AssetPaths:");
 		Debug.Log(mod.assetPaths);
+	}
+
+	private void OnDestroy()
+	{
+		modManager.ModFound -= OnModFound;
+		modManager.ModRemoved -= OnModRemoved;
+		modManager.ModLoaded -= OnModLoaded;
 	}
 #endif
 }
