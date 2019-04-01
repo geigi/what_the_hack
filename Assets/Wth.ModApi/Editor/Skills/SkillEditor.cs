@@ -114,68 +114,72 @@ namespace Wth.ModApi.Editor.Skills
                        asset.keys[viewIndex - 1].skillName as string);
                 asset.keys[viewIndex - 1].skillSprite = EditorGUILayout.ObjectField("Skill Icon",
                     asset.keys[viewIndex - 1].skillSprite, typeof(Sprite), false) as Sprite;
-
-                GUILayout.Space(10);
-
-                GUILayout.BeginHorizontal();
-                GUILayout.FlexibleSpace();
-                EditorGUILayout.LabelField("SkillSet spawn probabilities", EditorStyles.boldLabel);
-                GUILayout.FlexibleSpace();
-                GUILayout.EndHorizontal();
-
-                GUILayout.Space(5);
-
-                //Adjust the probability, if all probabilities together exceeds 100%.
-                if (percentagesAdded > 100)
-                {
-                    asset.values[skillIndexToDecrease] -= valueToDecreaseBy;
-                }
-
-                this.percentagesAdded = 0;
-                //Set the skill to be decreased, to the skill with the biggest percentage
-                this.skillIndexToDecrease = asset.values.IndexOf(asset.values.Max());
-                //Calculate the second biggest probability, in case the biggest skillProbability is being modified.
-                int secondBiggestPercentageSkillIndex = asset.values.IndexOf(asset.values.Min());
-                SkillDefinition lastModified = asset.keys[0];
-
-                for (int i = 0; i < asset.keys.Count; i++)
-                {
-                    //Create a new slider for the percentage
-                    asset.values[i] = EditorGUILayout.Slider(asset.keys[i].skillName, asset.values[i], 0, 100);
-
-                    //Get the skill with the second biggest percentage
-                    if (base.asset.values[i] > base.asset.values[secondBiggestPercentageSkillIndex]
-                        && i != skillIndexToDecrease)
-                    {
-                        secondBiggestPercentageSkillIndex = i;
-                    }
-
-                    //Get the skill which was last modified
-                    if (lastValues != null && lastValues.Count > i && base.asset.values[i] != lastValues[i])
-                    {
-                        lastModified = base.asset.keys[i];
-                    }
-
-                    // Add all percentages together
-                    percentagesAdded += base.asset.values[i];
-                }
-                if (percentagesAdded > 100)
-                {
-                    //Make sure, that the Slider which is currently being modified, does not decrease.
-                    if (lastModified == base.asset.keys[skillIndexToDecrease])
-                    {
-                        skillIndexToDecrease = secondBiggestPercentageSkillIndex;
-                    }
-                    //Set the amount to decrease;
-                    this.valueToDecreaseBy = percentagesAdded - 100;
-                }
-                this.lastValues = new List<float>(asset.values);
             }
             else
             {
                 GUILayout.Label("This Skill Set is Empty.");
                 viewIndex = 0;
             }
+        }
+
+        private void drawSpawnProbabilities()
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField("SkillSet spawn probabilities", EditorStyles.boldLabel);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+
+            GUILayout.Space(5);
+
+            //Adjust the probability, if all probabilities together exceeds 100%.
+            if (percentagesAdded > 100)
+            {
+                asset.values[skillIndexToDecrease] -= valueToDecreaseBy;
+            }
+
+            this.percentagesAdded = 0;
+            //Set the skill to be decreased, to the skill with the biggest percentage
+            this.skillIndexToDecrease = asset.values.IndexOf(asset.values.Max());
+            //Calculate the second biggest probability, in case the biggest skillProbability is being modified.
+            int secondBiggestPercentageSkillIndex = asset.values.IndexOf(asset.values.Min());
+            SkillDefinition lastModified = asset.keys[0];
+
+            for (int i = 0; i < asset.keys.Count; i++)
+            {
+                //Create a new slider for the percentage
+                asset.values[i] = EditorGUILayout.Slider(asset.keys[i].skillName, asset.values[i], 0, 100);
+
+                //Get the skill with the second biggest percentage
+                if (base.asset.values[i] > base.asset.values[secondBiggestPercentageSkillIndex]
+                    && i != skillIndexToDecrease)
+                {
+                    secondBiggestPercentageSkillIndex = i;
+                }
+
+                //Get the skill which was last modified
+                if (lastValues != null && lastValues.Count > i && base.asset.values[i] != lastValues[i])
+                {
+                    lastModified = base.asset.keys[i];
+                }
+
+                // Add all percentages together
+                percentagesAdded += base.asset.values[i];
+            }
+
+            if (percentagesAdded > 100)
+            {
+                //Make sure, that the Slider which is currently being modified, does not decrease.
+                if (lastModified == base.asset.keys[skillIndexToDecrease])
+                {
+                    skillIndexToDecrease = secondBiggestPercentageSkillIndex;
+                }
+
+                //Set the amount to decrease;
+                this.valueToDecreaseBy = percentagesAdded - 100;
+            }
+
+            this.lastValues = new List<float>(asset.values);
         }
 
         #endregion
