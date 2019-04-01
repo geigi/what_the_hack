@@ -175,7 +175,6 @@ namespace Wth.ModApi.Editor.Missions
             
             GUILayout.BeginHorizontal();
             GUILayout.Label("Deadline", GUILayout.Width(146));
-            mission.Deadline = EditorGUILayout.IntSlider(mission.Deadline, 1, 14);
             GUILayout.EndHorizontal();
             
             CreateSkillSelector(mission);
@@ -427,8 +426,6 @@ namespace Wth.ModApi.Editor.Missions
                         Debug.Log(mission["duration"].GetType());
                         missionDefinition.Hardness = float.Parse(mission["hardness"].ToString());
                         Debug.Log(missionDefinition.Hardness);
-                        missionDefinition.Deadline = int.Parse(mission["duration"].ToString());
-                        Debug.Log(missionDefinition.Deadline);
                         missionDefinition.RequiredLevel = int.Parse(mission["minLevel"].ToString());
                         
                         Debug.Log(mission["skill"].GetType());

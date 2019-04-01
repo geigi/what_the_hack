@@ -24,12 +24,6 @@ public sealed class MissionDefinition : ScriptableObject
     public string Description = "";
 
     /// <summary>
-    /// The maximum timeframe for the mission in hours.
-    /// This is also used to calculate the workflow for the employees.
-    /// </summary>
-    public int Deadline = 1;
-
-    /// <summary>
     /// The text that will be displayed on a completed mission.
     /// </summary>
     public string MissionSucceeded = "Success!";

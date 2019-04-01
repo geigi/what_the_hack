@@ -10835,7 +10835,13 @@ PrefabInstance:
     - target: {fileID: 3549788978582921469, guid: ff5f24169327b45808b2113542880f0c,
         type: 3}
       propertyPath: m_Text
-      value: "Hendrik Schulte\nFlorian Kaulfertsch\nDominik K\xF6hler\nJulian Geywitz"
+      value: 'Hendrik Schulte
+
+        Florian Kaulfertsch
+
+        Dominik Koehler
+
+        Julian Geywitz'
       objectReference: {fileID: 0}
     - target: {fileID: 3549788978582921469, guid: ff5f24169327b45808b2113542880f0c,
         type: 3}
@@ -12943,7 +12949,7 @@ PrefabInstance:
     - target: {fileID: 5566873374595074731, guid: 8a5d873f842db8a4db44d362a04079a1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 9.4999695
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 5566873374595074731, guid: 8a5d873f842db8a4db44d362a04079a1,
         type: 3}
