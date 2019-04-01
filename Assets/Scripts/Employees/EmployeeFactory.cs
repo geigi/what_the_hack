@@ -113,7 +113,7 @@ public class EmployeeFactory {
         employeeManager = EmployeeManager.Instance;
         names = contentHub.GetNameLists();
         skills = contentHub.GetSkillSet().keys;
-        allPurpSkillDef = skills.Find(x => x.skillName.Equals("All Purpose"));
+        allPurpSkillDef = ContentHub.Instance.GeneralPurposeSkill;
         empMaterial = contentHub.DefaultEmpMaterial;
         empUiMaterial = contentHub.DefaultEmpUiMaterial;
         InitColorSwapTex();

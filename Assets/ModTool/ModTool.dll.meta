@@ -5,7 +5,7 @@ PluginImporter:
   serializedVersion: 2
   iconMap: {}
   executionOrder:
-    ModTool.ModManager: -205
+    ModTool.ModManager: -207
   defineConstraints: []
   isPreloaded: 0
   isOverridable: 0
