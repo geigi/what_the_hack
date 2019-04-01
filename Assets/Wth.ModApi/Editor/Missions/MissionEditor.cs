@@ -66,7 +66,8 @@ namespace Wth.ModApi.Editor.Missions
                 CreateAssetNavigation(asset.missionList.Count);
                 GUILayout.Space(10);
 
-                dropdownSelected = (int) asset.missionList[viewIndex - 1].Difficulty;
+                if (asset.missionList.Count > 0)
+                    dropdownSelected = (int) asset.missionList[viewIndex - 1].Difficulty;
 
                 GUILayout.BeginHorizontal();
                 GUILayout.FlexibleSpace();
