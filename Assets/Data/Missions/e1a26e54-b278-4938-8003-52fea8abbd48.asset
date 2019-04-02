@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Gossip factory
   Description: Rumors tell that the %WEBSERVICE% hosed by %COMPANY% uses an outdated
     HTTPS protocol that allows session hijacking. Scout a viable attack scenario.
-  Deadline: 6
   MissionSucceeded: You created a script that intercepts data sent to the %WEBSERVICE%
     and may insert any kind of code. You sell your exploit profitably on the darknet.
   MissionFailed: 

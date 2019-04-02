@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: '%TOWN% tech festival'
   Description: You have the opportunity to present your company at the %TOWN% tech
     festival. Gather together some cool gadgets and choreograph them with custom software.
-  Deadline: 4
   MissionSucceeded: 
   MissionFailed: 
   SkillsRequired:

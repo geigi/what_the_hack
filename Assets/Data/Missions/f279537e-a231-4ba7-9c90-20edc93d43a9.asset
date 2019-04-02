@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Security audit
   Description: You are hired for holding a security audit at a %COMPANY% facility
     in %TOWN%. Hack into their %PW_APPLICATION% to raise security awareness.
-  Deadline: 5
   MissionSucceeded: Your demo was convincing. Certainly, nobody has ever cracked a
     %PW_APPLICATION% like this.
   MissionFailed: The seminar was a disaster! The %PW_APPLICATION% resisted your demo

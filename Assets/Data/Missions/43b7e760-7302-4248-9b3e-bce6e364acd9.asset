@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Golden Age of Piracy
   Description: The %TOWN% %UNIVERSITY% spin-of %COMPANY% launches an innovative %SOFTWARE%.
     You are asked to audit their piracy protection system.
-  Deadline: 5
   MissionSucceeded: Wow, this tech is amazing! Now those pirates are gonna have a
     hard time.
   MissionFailed: Somehow you missed that obvious vulnerability. The %SOFTWARE% was

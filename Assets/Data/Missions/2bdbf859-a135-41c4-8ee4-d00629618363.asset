@@ -16,7 +16,6 @@ MonoBehaviour:
   Description: '%COMPANY%, a smart home equipment manufacturer has been hijacked.
     All it''s products are now part of a botnet. You need to wipe the malware and
     find the companies security leak.'
-  Deadline: 7
   MissionSucceeded: 
   MissionFailed: 
   SkillsRequired:

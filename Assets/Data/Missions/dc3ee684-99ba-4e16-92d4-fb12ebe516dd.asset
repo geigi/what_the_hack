@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: IT security lecture
   Description: Mister %CONTACT%, CEO at %COMPANY% in %TOWN% wants you to give a lecture
     on IT security in cooperation with the %TOWN% %UNIVERSITY%.
-  Deadline: 5
   MissionSucceeded: 
   MissionFailed: 
   SkillsRequired:

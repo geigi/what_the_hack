@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Title: Fixing potholes
   Description: '%COMPANY% has problems integrating a new %SOFTWARE% into their %WEBSERVICE%. '
-  Deadline: 4
   MissionSucceeded: Easy Peasy. This %SOFTWARE% is absolutely amazing.
   MissionFailed: This %SOFTWARE% and their %WEBSERVICE% must be written in gibberish++.
     After days of nonsense you give up.

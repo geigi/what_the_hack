@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Catch a ride
   Description: The %COMPANY% motor company is evaluating the security of their cars
     electronic key system. Implement a new technique to complement it.
-  Deadline: 4
   MissionSucceeded: You intercept the keys radio signal and copy it onto a duplicate
     you soldered last night. How about a new BMW?
   MissionFailed: The keys feature an advanced cryptography algorithm you can't bite

@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Hack me if you can
   Description: The %TOWN% %UNIVERSITY% organizes a hackaton for fun and profit. Objective
     is to hack a fictional %INSTITUTION%.
-  Deadline: 5
   MissionSucceeded: You compromised the %PW_APPLICATION% %INSTITUTION%
   MissionFailed: 
   SkillsRequired:

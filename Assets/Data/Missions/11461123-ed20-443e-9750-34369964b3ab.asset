@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Best standard
   Description: The %TOWN% %UNIVERSITY% develops a new %SOFTWARE% and needs your help
     for implementing a %WEBSERVICE% featuring the latest security standards.
-  Deadline: 5
   MissionSucceeded: The new %WEBSERVICE% now implements the ISO 27000 standard and
     it's rocksolid.
   MissionFailed: 

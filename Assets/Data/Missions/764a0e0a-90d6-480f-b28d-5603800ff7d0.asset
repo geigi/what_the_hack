@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Crack'n'Hack
   Description: '%CONTACT% from %COMPANY% called us today. They accidentally deleted
     their %PW_APPLICATION% passwords and need some cracking power.'
-  Deadline: 8
   MissionSucceeded: Fortunately, they only used passwords shorter than 8 digits.
   MissionFailed: You stress their %PW_APPLICATION% protection with brute force, but
     after days you give up.

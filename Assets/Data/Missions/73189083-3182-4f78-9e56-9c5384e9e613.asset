@@ -16,7 +16,6 @@ MonoBehaviour:
   Description: '%COMPANY% and the %TOWN% %UNIVERSITY% are cooperating to develop an
     open-source anti censorship software to support free journalism in %COUNTRY%.
     Help improving their protocol with some extra manpower.'
-  Deadline: 7
   MissionSucceeded: 
   MissionFailed: 
   SkillsRequired:

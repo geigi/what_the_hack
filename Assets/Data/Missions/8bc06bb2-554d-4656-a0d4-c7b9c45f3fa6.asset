@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: You have no power here
   Description: The %TOWN% %INSTITUTION% organizes a competition for hackers to find
     security vulnerabilities in their IT system.
-  Deadline: 5
   MissionSucceeded: You won the competition! After dropping some USB sticks with the
     exploit code it only took hours until you could control the test system. Piece
     of cake since they are still running on XP.

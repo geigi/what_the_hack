@@ -16,7 +16,6 @@ MonoBehaviour:
   Description: '%COMPANY% hosts a %WEBSERVICE% that has been jammed by frequent DDOS
     attacks. You need to identify the origin of the threat and implement a robust
     counter mechanism.'
-  Deadline: 9
   MissionSucceeded: The attack has been routed across the planet but you could track
     them to a command and control server in %COUNTRY%.
   MissionFailed: Seems like there is no distinct attack pattern you can focus on.

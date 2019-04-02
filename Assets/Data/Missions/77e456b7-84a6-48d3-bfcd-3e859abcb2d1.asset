@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Memeful intermezzo
   Description: The monitoring screens at %COMPANY% suddenly started displaying some
     dank memes. CEO %CONTACT% turns to you in desperate need of help.
-  Deadline: 4
   MissionSucceeded: You did it! They were using Win XP and an old Flash version vulnerable
     to man in the middle attacks. Of course you saved the dankest memes for your private
     collection.

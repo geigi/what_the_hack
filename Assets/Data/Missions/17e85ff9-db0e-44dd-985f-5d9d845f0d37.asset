@@ -16,7 +16,6 @@ MonoBehaviour:
   Description: You are contacted by agent %CONTACT_L%. The %COUNTRY% government develops
     a trojan that comprehensively spies on suspicious targets. They need you for developing
     some zero day exploits.
-  Deadline: 5
   MissionSucceeded: The news report on mass imprisonment of journalists and members
     of oppositional movement. Certainly just a coincident.
   MissionFailed: These modern operating systems really are a hard nut to crack.

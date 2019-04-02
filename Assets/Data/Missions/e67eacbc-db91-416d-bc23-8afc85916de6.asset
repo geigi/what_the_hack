@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Security awareness lecture
   Description: Prof. %CONTACT%, head of %TOWN% %UNIVERSITY% asked you to give a lecture
     on security awareness.
-  Deadline: 7
   MissionSucceeded: It was great. Your demonstration of an attack on a %WEBSERVICE%
     really kicked ass.
   MissionFailed: The lecture was a complete disaster. Prof. %CONTACT% will probably

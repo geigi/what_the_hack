@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: Homefront
   Description: The guy next door, %CONTACT_M%, has a barking dog that really upsets
     you. Hack his %PW_APPLICATION% as payback.
-  Deadline: 4
   MissionSucceeded: His the password of his %PW_APPLICATION% actually was 'abc123'.
     Shame if someone changed it.
   MissionFailed: You tried a brute force attack using a dictionary of the most common

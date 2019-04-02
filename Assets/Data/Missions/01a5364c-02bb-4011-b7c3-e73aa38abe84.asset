@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: I'm too broke for this ****.
   Description: You got a job offer at the %TOWN% film studios for a supernumerary
     role as an evil super hacker. Don't forget to bring some impressive equipment.
-  Deadline: 4
   MissionSucceeded: It's doubtful that this movie will receive much attention but
     at least the villain is convincing.
   MissionFailed: In front of the cameras you suddenly become stage fright and have

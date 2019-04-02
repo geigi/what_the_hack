@@ -173,10 +173,6 @@ namespace Wth.ModApi.Editor.Missions
             mission.Hardness = EditorGUILayout.Slider(mission.Hardness, 0.5f, 10f);
             GUILayout.EndHorizontal();
             
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Deadline", GUILayout.Width(146));
-            GUILayout.EndHorizontal();
-            
             CreateSkillSelector(mission);
             CreateRequirements(mission);
             CreateHooks(mission);
@@ -358,6 +354,7 @@ namespace Wth.ModApi.Editor.Missions
             var hooks = CreateInstance<MissionHookList>();
             CreateDirectories("Assets/Data/Missions/HookLists/");
             AssetDatabase.CreateAsset(hooks, "Assets/Data/Missions/HookLists/" + Guid.NewGuid() + ".asset");
+            hooks.MissionHooks = new List<MissionHook>();
             asset.MissionHooks = hooks;
         }
 

@@ -15,7 +15,6 @@ MonoBehaviour:
   Title: C'mon Honey
   Description: The %TOWN% %INSTITUTION% frequently gets hacked by some bad guys. Install
     a honeypot in their IT system to catch those script kiddies.
-  Deadline: 8
   MissionSucceeded: You setup a sandboxed server with some fake data that looks like
     an easy target. In fact, every access is logged and carefully analysed. Two day
     later the fish gets caught in the net.

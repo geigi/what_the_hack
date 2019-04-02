@@ -29,10 +29,6 @@ MonoBehaviour:
     ScriptableObject: {fileID: 11400000, guid: 31dccd8e681f3451ab1616ef772cff77, type: 2}
   - Key: Assets/Data/Skills/Skill 6.asset
     ScriptableObject: {fileID: 11400000, guid: 1ed05134a75da42249cd6d83424b16bb, type: 2}
-  - Key: Assets/Data/Missions/0fdc0dd9-5bd5-4f7d-8b97-0344fe1938e4.asset
-    ScriptableObject: {fileID: 0}
-  - Key: Assets/Data/Missions/6ccafc64-c048-4a34-b7e7-58be23921386.asset
-    ScriptableObject: {fileID: 0}
   - Key: Assets/Data/Missions/764a0e0a-90d6-480f-b28d-5603800ff7d0.asset
     ScriptableObject: {fileID: 11400000, guid: 6c81edc41f7d9421c847e1a73851facb, type: 2}
   - Key: Assets/Data/Missions/e67eacbc-db91-416d-bc23-8afc85916de6.asset
