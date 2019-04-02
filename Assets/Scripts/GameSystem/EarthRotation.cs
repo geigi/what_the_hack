@@ -50,7 +50,7 @@ namespace GameSystem
                 else if (date.Hour == SunsetHour)
                 {
                     // Sunset
-                    var value = Math.Min(1f - ((float) date.Minute / (float) TransitionMinutes), 0f);
+                    var value = Math.Max(1f - ((float) date.Minute / (float) TransitionMinutes), 0f);
                     LightingController.SetDayTime(value);
                 }
                 
