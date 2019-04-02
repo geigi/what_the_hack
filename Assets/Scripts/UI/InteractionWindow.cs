@@ -21,6 +21,9 @@ namespace UI
 
         public void SetInteraction(MissionHook interaction)
         {
+            if (this.interaction == interaction)
+                return;
+            
             gameObject.transform.DestroyChildren();
             var go = Instantiate(interaction.GUIPrefab, gameObject.transform, true);
             var rect = go.GetComponent<RectTransform>();
