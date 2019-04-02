@@ -3687,18 +3687,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 525210826}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &525454460 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2042532363374075593, guid: 4d5fc9d3b2c224e119513045e68b67d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 2042532363060597429}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &536610369 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7762164805870039353, guid: 3e63cb5f76dff4cd893a039de4cb1a86,
@@ -4050,7 +4038,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1372586686}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10460,7 +10448,7 @@ PrefabInstance:
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00000018310733
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224398310212413360, guid: 01e51dc4902b04242af98d3c874eb32e,
         type: 3}
@@ -15443,6 +15431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1856728280}
   - component: {fileID: 1856728281}
+  - component: {fileID: 1856728282}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -15495,13 +15484,28 @@ MonoBehaviour:
   FloorLampPoints:
   - {fileID: 849215581}
   - {fileID: 1649964830}
-  DaytimeSlider: {fileID: 525454460}
   WorldMin: 0
   WorldMax: 0.6
   RoomMin: 0.15
   RoomMax: 0.8
   FloorLampMax: 1
   FloorLampMin: 0
+--- !u!114 &1856728282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856728279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c5c56c5405f4a3dad0ba25952a6df3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightingController: {fileID: 1856728281}
+  SunriseHour: 7
+  SunsetHour: 19
+  TransitionMinutes: 60
 --- !u!114 &1867581696 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114011423469688558, guid: 72a41ed579c814c2eb8f4f009a7719d4,

@@ -10,7 +10,6 @@ namespace World
         public Light[] RoomLights;
         public Light[] FloorLampSpots;
         public Light[] FloorLampPoints;
-        public Slider DaytimeSlider;
 
         public float WorldMin = 0f;
         public float WorldMax = 0.6f;
@@ -19,36 +18,29 @@ namespace World
         public float FloorLampMax = 1f;
         public float FloorLampMin = 0f;
 
-        private void Start()
+        public void SetDayTime(float daytime)
         {
-            DaytimeSlider.value = SettingsManager.GetDayTime();
-            UpdateDayTime();
-            DaytimeSlider.onValueChanged.AddListener(delegate {UpdateDayTime();});
-        }
-
-        private void UpdateDayTime()
-        {
-            SettingsManager.SetDayTime(DaytimeSlider.value);
+            SettingsManager.SetDayTime(daytime);
             
             var worldRange = WorldMax - WorldMin;
-            EnvironmentLight.intensity = worldRange * DaytimeSlider.value + WorldMin;
+            EnvironmentLight.intensity = worldRange * daytime + WorldMin;
 
             var roomRange = RoomMax - RoomMin;
             foreach (var roomLight in RoomLights)
             {
-                roomLight.intensity = RoomMax - roomRange * DaytimeSlider.value;
+                roomLight.intensity = RoomMax - roomRange * daytime;
             }
             
             var floorLampRange = FloorLampMax - FloorLampMin;
             foreach (var floorLamp in FloorLampSpots)
             {
-                floorLamp.intensity = FloorLampMax - floorLampRange * DaytimeSlider.value;
+                floorLamp.intensity = FloorLampMax - floorLampRange * daytime;
             }
             
             floorLampRange = (FloorLampMax / 2) - FloorLampMin;
             foreach (var floorLamp in FloorLampPoints)
             {
-                floorLamp.intensity = (FloorLampMax / 2) - floorLampRange * DaytimeSlider.value;
+                floorLamp.intensity = (FloorLampMax / 2) - floorLampRange * daytime;
             }
         }
     }
