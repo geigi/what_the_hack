@@ -344,7 +344,14 @@ namespace Employees
             if (gameDate.DayOfWeek == DayOfWeek.Monday)
             {
                 NotificationManager.Info("Payday is here!");
-                data.hiredEmployees.ForEach(emp => bank.Pay(emp.Salary));
+                foreach (var emp in data.hiredEmployees)
+                {
+                    if (!bank.Pay(emp.Salary))
+                    {
+                        NotificationManager.Info(emp.Name + " has left the company. Your bank balance was too low for the paycheck.");
+                        FireEmployee(emp);
+                    }
+                }
             }
             else if (gameDate.DayOfWeek == DayOfWeek.Sunday)
                 NotificationManager.Info("Only one day left till payday.");
