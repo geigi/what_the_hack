@@ -348,7 +348,6 @@ namespace Wth.ModApi.Editor.Missions
                 "Assets/Data/Missions/" + Guid.NewGuid() + ".asset");
             asset.Title = "Think about new missions";
             this.asset.missionList.Add(asset);
-            viewIndex = this.asset.missionList.Count;
 
             var requirements = CreateInstance<MissionRequirements>();
             CreateDirectories("Assets/Data/Missions/Requirements/");
@@ -359,6 +358,8 @@ namespace Wth.ModApi.Editor.Missions
 
             SaveAssets();
             updateHooksInSo();
+            
+            viewIndex = this.asset.missionList.Count;
         }
 
         private void createHookAsset(MissionDefinition asset)
