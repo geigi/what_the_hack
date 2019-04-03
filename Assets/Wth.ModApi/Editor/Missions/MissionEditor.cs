@@ -165,6 +165,7 @@ namespace Wth.ModApi.Editor.Missions
             mission.MissionFailed = EditorGUILayout.TextArea(mission.MissionFailed, EditorStyles.textArea, GUILayout.Height(80));
             GUILayout.EndHorizontal();
             
+            GUILayout.Space(10);
             GUILayout.BeginHorizontal();
             //Difficulty Dropdown
             dropdownSelected = EditorGUILayout.Popup("Difficulty", dropdownSelected, difficultyOptions);
@@ -173,8 +174,11 @@ namespace Wth.ModApi.Editor.Missions
             mission.Hardness = EditorGUILayout.Slider(mission.Hardness, 0.5f, 10f);
             GUILayout.EndHorizontal();
             
+            GUILayout.Space(10);
             CreateSkillSelector(mission);
+            GUILayout.Space(10);
             CreateRequirements(mission);
+            GUILayout.Space(10);
             CreateHooks(mission);
             
             EditorGUILayout.EndScrollView();
@@ -227,6 +231,14 @@ namespace Wth.ModApi.Editor.Missions
                 GUILayout.Space(25f);
                 EditorGUILayout.BeginVertical();
                 
+                mission.ForceAppear = EditorGUILayout.ToggleLeft("Story mission (force Appear only once)", mission.ForceAppear);
+                GUILayout.Space(10);
+                
+                EditorGUILayout.BeginHorizontal();
+                GUILayout.Label("Appear after days", GUILayout.Width(146));
+                mission.AppearAfterDays = EditorGUILayout.IntSlider(mission.AppearAfterDays, 0, 365);
+                EditorGUILayout.EndHorizontal();
+                
                 EditorGUILayout.BeginHorizontal();
                 GUILayout.Label("Required Level", GUILayout.Width(146));
                 mission.RequiredLevel = EditorGUILayout.IntSlider(mission.RequiredLevel, 0, 100);
@@ -236,9 +248,9 @@ namespace Wth.ModApi.Editor.Missions
                 GUILayout.Label("Required Employees", GUILayout.Width(146));
                 mission.RequiredEmployees = EditorGUILayout.IntSlider(mission.RequiredEmployees, 0, 4);
                 EditorGUILayout.EndHorizontal();
-                
-                mission.ForceAppear = EditorGUILayout.ToggleLeft("Force Appear", mission.ForceAppear);
 
+                GUILayout.Space(10);
+                
                 if (soRequiredMissions == null || requiredMissions != mission.RequiredMissions)
                 {
                     requiredMissions = mission.RequiredMissions;

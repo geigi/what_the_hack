@@ -13,8 +13,6 @@ public class ModInfo : ScriptableObject {
     /// Required for each mod.
     /// </summary>
     [Header("Unique ID (required)")]
-    [Space(10)]
-    [Header("This asset contains references to important mod data")]
     [Tooltip("Each mod requires a unique id to identify within the game.")]
     public string id = "com.abc.myWthMod";
 
