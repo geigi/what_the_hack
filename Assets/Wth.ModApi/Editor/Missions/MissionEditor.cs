@@ -231,7 +231,7 @@ namespace Wth.ModApi.Editor.Missions
                 GUILayout.Space(25f);
                 EditorGUILayout.BeginVertical();
                 
-                mission.ForceAppear = EditorGUILayout.ToggleLeft("Story mission (force Appear only once)", mission.ForceAppear);
+                mission.ForceAppear = EditorGUILayout.ToggleLeft("Story mission (force appear only once)", mission.ForceAppear);
                 GUILayout.Space(10);
                 
                 EditorGUILayout.BeginHorizontal();

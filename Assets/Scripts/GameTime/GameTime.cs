@@ -137,7 +137,7 @@ namespace GameTime
         /// <returns></returns>
         public int GetTotalGameDays()
         {
-            return (data.Date.GetDateTime() - new DateTime(1, 1, 1)).Days;
+            return (data.Date.GetDateTime() - new DateTime(1, 1, 1)).Days + 1;
         }
 
         public int RemainingTicksTillPayday()
