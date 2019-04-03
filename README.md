@@ -37,7 +37,7 @@ Android: [Download v1.0][8]
 Source: [GitHub Repository][9]
 
 ## Development
-Mod Creator: [Download UnityPackage v1.0.2][10]
+Mod Creator: [Download UnityPackage v1.0.3][10]
 
 Mod Assets: [Download UnityPackage v1.0][11] 
 
@@ -197,7 +197,7 @@ http://www.zone38.net/font/
 [7]:	https://github.com/geigi/wth-java-crypto-mod/releases/download/1.0/What_the_Hack.JCE.v1.0.zip
 [8]:	https://github.com/geigi/wth-java-crypto-mod/releases/download/1.0/What_the_Hack.JCE.v1.0.apk
 [9]:	https://github.com/geigi/wth-java-crypto-mod
-[10]:	https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack.Mod.Tools.v1.0.2.unitypackage
+[10]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack.Mod.Tools.v1.0.3.unitypackage
 [11]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack.Mod.Assets.v1.0.unitypackage
 [12]:	https://github.com/geigi/wth-examplemod-apk
 [13]:	https://unity3d.com/de/get-unity/download/archive
