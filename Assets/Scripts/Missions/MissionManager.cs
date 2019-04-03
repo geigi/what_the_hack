@@ -75,7 +75,7 @@ namespace Missions
             if (missionList == null)
                 missionList = ContentHub.Instance.DefaultMissionList;
         }
-
+        
         /// <summary>
         /// Initializes the MissionManager. This Method should be called before using the Manager.
         /// </summary>
@@ -84,7 +84,6 @@ namespace Missions
             data = new MissionManagerData();
 
             data.ForceAppearPool = MissionFactory.Instance.GetForceAppearMissions();
-            fillOpenMissions();
             AvailableMissionsChanged.Raise();
         }
 
@@ -106,8 +105,10 @@ namespace Missions
             }
         }
 
-        void Start()
+        private void Start()
         {
+            if (GameSettings.NewGame)
+                fillOpenMissions();
         }
 
         /// <summary>
