@@ -83,7 +83,6 @@ namespace Missions
                 var uiElement = child.GetComponent<MissionUIElement>();
                 if (!missions.Contains(uiElement.GetMission()))
                 {
-                    child.parent = null;
                     Destroy(child.gameObject);
                 }
             }
