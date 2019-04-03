@@ -21,27 +21,27 @@ While playing the game you'll learn a lot about IT security, hacking and prevent
 
 # Download
 ## Main Game
-Android:	[Download v1.0.2][3]
+Android:	[Download v1.0.3][3]
 
-Linux:		[Download v1.0.2][4]
+Linux:		[Download v1.0.3][4]
 
-macOS:		[Download v1.0.2][5]
+macOS:		[Download v1.0.3][5]
 
-Windows:	[Download v1.0.2][6]
+Windows:	[Download v1.0.3][6]
 
 ## Java Crypto API Addon
-Desktop:
+Desktop: [Download v1.0][7]
 
-Android:
+Android: [Download v1.0][8]
 
-Source:
+Source: [GitHub Repository][9]
 
 ## Development
-Mod Creator: [Download UnityPackage v1.0.2][7]
+Mod Creator: [Download UnityPackage v1.0.2][10]
 
-Mod Assets
+Mod Assets: [Download UnityPackage v1.0][11] 
 
-Template for Addon-APK: [GitHub Repository][8]
+Template for Addon-APK: [GitHub Repository][12]
 
 # Installing a mod
 ## Addon-Apps on Android
@@ -54,7 +54,7 @@ Mods are served as a zip file and contain a folder which needs to be copied to s
 
 # Development
 ## Requirements
-Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity v2018.3.7f1**][9]. 
+Whether you want to contribute to the source code or you want to create a mod, the only thing you'll need is [**Unity v2018.3.7f1**][13]. 
 
 **Important**: You must use this exact version of Unity because **What the Hack** can only load Mods that are compiled with the same version as the base game. 
 
@@ -78,7 +78,7 @@ _What the Hack_ allows all kinds of changes to the game. Each mod will be it's o
 - Implement multiple difficulty levels
 
 ## Getting Started
-1. Before you create a mod, have a look at the [development requirements][10]. 
+1. Before you create a mod, have a look at the [development requirements][14]. 
 2. After installing Unity, create a new Unity Project and drag the `What_the_Hack Mod Tools.unitypackage` into the Editor. This package contains the API as well as the GUI tools to create new mods.
 3. If you want to create interactive missions: Drag the `What the Hack Mod Assets.unitypackage` into the Editor. This contains prefabs for commonly used UI items like buttons, dropdowns, toggles, scroll views and all of the official sprites and fonts.
 4. Create a `ModInfo` Scriptable Object: `Assets > Create > What_The_Hack ModApi > Mod Info`. Each mod requires a unique ID and a banner image with the resolution _400\*182_. This scriptable object will be the gathering point for your content. If some content is missing when loading the mod, it probably isn't included in the `ModInfo`.
@@ -154,31 +154,31 @@ Each ScriptableObject you define (the files in the `Assets/Data` folder) need to
 - Game does not open when tapping on a notification (Android). This is a bug in the Unity Mobile Notifications package.
 
 # Cheers to the original creators! ❤️
-- Hendrik Schulte ([@hendrik-schulte][11])
+- Hendrik Schulte ([@hendrik-schulte][15])
 - Florian Kaulfertsch
 - Dominik Köhler
 
 # Special Thanks 🎉
-- Tobias Melzer
+- Tobias Melzer ([@tobias-melzer][16])
 - Prof. Dr. Holger Schmidt
 
 # Third party libraries
 The following third party libraries are used by this game:
 
 ## Libraries by Unity3D:
-- [2d-extras][12] - MIT
-- [Asset Bundle Browser][13] (not included in build) - [Unity Companion License][14]
-- [Legacy Image Effects][15] - No Licence
+- [2d-extras][17] - MIT
+- [Asset Bundle Browser][18] (not included in build) - [Unity Companion License][19]
+- [Legacy Image Effects][20] - No Licence
 
 ## Other Libraries
-- [Unity Enhanced][16] - MIT
-- [ModTool][17] - MIT
-- [KinoGlitch][18] - No licence
-- [unityglitch][19] - [Creative Commons Attribution 3.0 Unported][20]
-- [NSubstitute][21] - BSD Licence
+- [Unity Enhanced][21] - MIT
+- [ModTool][22] - MIT
+- [KinoGlitch][23] - No licence
+- [unityglitch][24] - [Creative Commons Attribution 3.0 Unported][25]
+- [NSubstitute][26] - BSD Licence
 
 ## WTH contains code based on projects
-- [Pathfinding][22] - MIT
+- [Pathfinding][27] - MIT
 
 ## Sounds
 sf3-sfx-menu-select.wav by broumbroum freesound.org
@@ -190,26 +190,31 @@ http://www.zone38.net/font/
 
 [1]:	https://unity3d.com/de/get-unity/download/archive
 [2]:	#mod-development
-[3]:	https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack-1.0.2.apk
-[4]:	https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack_1.0.2_linux.zip
-[5]:	https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack_1.0.2_macOS.zip
-[6]:	https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack_1.0.2_win.zip
-[7]:	https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack.Mod.Tools.v1.0.2.unitypackage
-[8]:	https://github.com/geigi/wth-examplemod-apk
-[9]:	https://unity3d.com/de/get-unity/download/archive
-[10]:	#requirements
-[11]:	https://github.com/hendrik-schulte
-[12]:	https://github.com/Unity-Technologies/2d-extras
-[13]:	https://assetstore.unity.com/packages/slug/93571
-[14]:	https://unity3d.com/legal/licenses/Unity_Companion_License
-[15]:	https://assetstore.unity.com/packages/essentials/legacy-image-effects-83913
-[16]:	https://github.com/hendrik-schulte/UnityEnhanced
-[17]:	https://github.com/Hello-Meow/ModTool
-[18]:	https://github.com/keijiro/KinoGlitch
-[19]:	https://github.com/staffantan/unityglitch
-[20]:	http://creativecommons.org/licenses/by/3.0/deed.en_GB
-[21]:	http://nsubstitute.github.io
-[22]:	https://github.com/SebLague/Pathfinding
+[3]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack-1.0.3.apk
+[4]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack_1.0.3_linux.zip
+[5]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack_1.0.3_macOS.zip
+[6]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack_1.0.3_win.zip
+[7]:	https://github.com/geigi/wth-java-crypto-mod/releases/download/1.0/What_the_Hack.JCE.v1.0.zip
+[8]:	https://github.com/geigi/wth-java-crypto-mod/releases/download/1.0/What_the_Hack.JCE.v1.0.apk
+[9]:	https://github.com/geigi/wth-java-crypto-mod
+[10]:	https://github.com/geigi/what_the_hack/releases/download/1.0.2/What_the_Hack.Mod.Tools.v1.0.2.unitypackage
+[11]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack.Mod.Assets.v1.0.unitypackage
+[12]:	https://github.com/geigi/wth-examplemod-apk
+[13]:	https://unity3d.com/de/get-unity/download/archive
+[14]:	#requirements
+[15]:	https://github.com/hendrik-schulte
+[16]:	https://github.com/Tobias-Melzer
+[17]:	https://github.com/Unity-Technologies/2d-extras
+[18]:	https://assetstore.unity.com/packages/slug/93571
+[19]:	https://unity3d.com/legal/licenses/Unity_Companion_License
+[20]:	https://assetstore.unity.com/packages/essentials/legacy-image-effects-83913
+[21]:	https://github.com/hendrik-schulte/UnityEnhanced
+[22]:	https://github.com/Hello-Meow/ModTool
+[23]:	https://github.com/keijiro/KinoGlitch
+[24]:	https://github.com/staffantan/unityglitch
+[25]:	http://creativecommons.org/licenses/by/3.0/deed.en_GB
+[26]:	http://nsubstitute.github.io
+[27]:	https://github.com/SebLague/Pathfinding
 
 [image-1]:	Sprites/ui/GameLogo.png
 [image-2]:	Sprites/ui/base_game_banner.png
