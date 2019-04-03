@@ -115,7 +115,8 @@ namespace Assets.Scripts.NotificationSystem
         public void Stop()
         {
             banner.Set("");
-            StopCoroutine(displayRoutine);
+            if (displayRoutine != null)
+                StopCoroutine(displayRoutine);
             notificationBeingDisplayed = false;
             scrollingFinished = true;
             StartCoroutine(NotificationBarDown());
