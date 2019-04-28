@@ -31,7 +31,6 @@ variables:
   - apt-get update
   - apt-get -y install git
   - git submodule sync --recursive
-  - git submodule update  --remote --recursive
 
 .unity_android_before_script: &unity_android_before_script
   before_script:
@@ -42,7 +41,6 @@ variables:
   - apt-get update
   - apt-get -y install git
   - git submodule sync --recursive
-  - git submodule update  --remote --recursive
 
 
 #test-android:
