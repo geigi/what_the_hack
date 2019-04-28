@@ -28,9 +28,6 @@ variables:
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
   - cp -rf ./AndroidPlugin/androidunitybridge/build/outputs/aar/* ./Assets/Plugins/Android/
-  - apt-get update
-  - apt-get -y install git
-  - git submodule sync --recursive
 
 .unity_android_before_script: &unity_android_before_script
   before_script:
@@ -38,10 +35,6 @@ variables:
   - mkdir -p /root/.local/share/unity3d/Unity/
   - echo "$UNITY_LICENSE_CONTENT_ANDROID" | tr -d '\r' > /root/.local/share/unity3d/Unity/Unity_lic.ulf
   - cp -rf ./AndroidPlugin/androidunitybridge/build/outputs/aar/* ./Assets/Plugins/Android/
-  - apt-get update
-  - apt-get -y install git
-  - git submodule sync --recursive
-
 
 #test-android:
 #  image: openjdk:8-jdk
