@@ -435,7 +435,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
         bool success = false;
         while (!success)
         {
-            int roll = RandomUtils.RollDice(12);
+            int roll = RandomUtils.RollDice(20);
 
             switch (roll)
             {
@@ -459,7 +459,6 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                     return; //wasting time playing video games
                 case 13:
                     break;
-                //TODO: Implement more features for Employees!
                 case 20:
                     //this is a magic employee and gets a super skill!
                     break;
