@@ -110,6 +110,12 @@ namespace Assets.Scripts.UI.EmployeeWindow
         private void onLevelChanged(int level)
         {
             EmployeeLevel.text = emp.EmployeeData.Level.ToString();
+
+            if (emp.EmployeeData.Skills.Count != skillPanel.gameObject.transform.childCount)
+            {
+                skillPanel.gameObject.transform.DestroyChildren();
+                GenerateSkillGui();
+            }
         }
         
         private void UpdateEmployeeState()
