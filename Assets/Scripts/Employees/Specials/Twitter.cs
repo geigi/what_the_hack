@@ -25,6 +25,11 @@ namespace Employees.Specials
             return 0;
         }
 
+        public override bool IsLearnable()
+        {
+            return false;
+        }
+
         public override void OnTimeStepChanged(object employeeData)
         {
             if (RandomUtils.RollDice(10) == 1)
