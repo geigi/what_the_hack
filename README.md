@@ -21,13 +21,13 @@ While playing the game you'll learn a lot about IT security, hacking and prevent
 
 # Download
 ## Main Game
-Android:	[Download v1.0.3][3]
+Android:	[Download v1.0.4][3]
 
-Linux:		[Download v1.0.3][4]
+Linux:		[Download v1.0.4][4]
 
-macOS:		[Download v1.0.3][5]
+macOS:		[Download v1.0.4][5]
 
-Windows:	[Download v1.0.3][6]
+Windows:	[Download v1.0.4][6]
 
 ## Java Cryptography Extension Addon
 Desktop: [Download v1.0][7]
@@ -37,7 +37,7 @@ Android: [Download v1.0][8]
 Source: [GitHub Repository][9]
 
 ## Development
-Mod Creator: [Download UnityPackage v1.0.3][10]
+Mod Creator: [Download UnityPackage v1.0.4][10]
 
 Mod Assets: [Download UnityPackage v1.0][11] 
 
@@ -190,14 +190,14 @@ http://www.zone38.net/font/
 
 [1]:	https://unity3d.com/de/get-unity/download/archive
 [2]:	#mod-development
-[3]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack-1.0.3.apk
-[4]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack_1.0.3_linux.zip
-[5]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack_1.0.3_macOS.zip
-[6]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack_1.0.3_win.zip
+[3]:	https://github.com/geigi/what_the_hack/releases/download/1.0.4/What_the_Hack-1.0.4.apk
+[4]:	https://github.com/geigi/what_the_hack/releases/download/1.0.4/What_the_Hack_1.0.4_linux.zip
+[5]:	https://github.com/geigi/what_the_hack/releases/download/1.0.4/What_the_Hack_1.0.4_macOS.zip
+[6]:	https://github.com/geigi/what_the_hack/releases/download/1.0.4/What_the_Hack_1.0.4_win.zip
 [7]:	https://github.com/geigi/wth-java-crypto-mod/releases/download/1.0/What_the_Hack.JCE.v1.0.zip
 [8]:	https://github.com/geigi/wth-java-crypto-mod/releases/download/1.0/What_the_Hack.JCE.v1.0.apk
 [9]:	https://github.com/geigi/wth-java-crypto-mod
-[10]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack.Mod.Tools.v1.0.3.unitypackage
+[10]:	https://github.com/geigi/what_the_hack/releases/download/1.0.4/What_the_Hack.Mod.Tools.v1.0.4.unitypackage
 [11]:	https://github.com/geigi/what_the_hack/releases/download/1.0.3/What_the_Hack.Mod.Assets.v1.0.unitypackage
 [12]:	https://github.com/geigi/wth-examplemod-apk
 [13]:	https://unity3d.com/de/get-unity/download/archive
