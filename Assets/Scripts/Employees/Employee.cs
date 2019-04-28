@@ -451,17 +451,22 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                 case 8:
                 case 9:
                 case 10:
-                    break;
+                    return; //wasting time playing video games
                 case 11:
                     success = gainSpecial();
                     break;
                 case 12:
-                    return; //wasting time playing video games
                 case 13:
-                    break;
+                case 14:
+                case 15:
+                case 16:
+                case 17:
+                case 18:
+                case 19:
+                    return; //wasting time playing video games
                 case 20:
                     //this is a magic employee and gets a super skill!
-                    break;
+                    return;
             }
         }
     }
