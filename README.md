@@ -29,7 +29,7 @@ macOS:		[Download v1.0.3][5]
 
 Windows:	[Download v1.0.3][6]
 
-## Java Crypto API Addon
+## Java Cryptography Extension Addon
 Desktop: [Download v1.0][7]
 
 Android: [Download v1.0][8]
