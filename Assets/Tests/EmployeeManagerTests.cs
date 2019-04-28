@@ -73,7 +73,7 @@ namespace Assets.Tests
         [Test]
         public void FireEmployee_NonExistingEmp_Test()
         {
-            emp.FireEmployee(testEmployee);
+            emp.FireEmployeeData(testEmployee);
             Assert.IsEmpty(emp.GetData().exEmplyoees);
         }
 
@@ -87,7 +87,7 @@ namespace Assets.Tests
             var evt = Substitute.ForPartsOf<IntEvent>();
             emp.EmployeesNumChangedEvent = evt;
             emp.GetData().hiredEmployees.Add(testEmployee);
-            emp.FireEmployee(testEmployee);
+            emp.FireEmployeeData(testEmployee);
             Assert.IsEmpty(emp.GetData().hiredEmployees);
             Assert.IsNotEmpty(emp.GetData().exEmplyoees);
             Assert.AreSame(testEmployee, emp.GetData().exEmplyoees[0]);

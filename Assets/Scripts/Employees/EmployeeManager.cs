@@ -242,8 +242,6 @@ namespace Employees
             employeeGUI.GetComponent<HiredEmployeeUiBuilder>().SetEmp(emp, emp.stateEvent, () =>
             {
                 FireEmployee(emp);
-                Destroy(emp.gameObject);
-                Destroy(employeeGUI);
             }, SkillEmployeeUi);
         }
 
@@ -283,34 +281,6 @@ namespace Employees
                 FirstEmployeeHired.Raise(GetEmployee(empData));
             }
         }
-
-        /// <summary>
-        /// Fires an employee. The employee will be removed from hiredEmployees and placed in exEmployees.
-        /// Note: The employee fired event is not raised in this method!
-        /// </summary>
-        /// <param name="emp"></param>
-        public void FireEmployee(EmployeeData emp)
-        {
-            if (!data.hiredEmployees.Contains(emp)) return;
-
-            data.hiredEmployees.Remove(emp);
-
-            if (emp.EmployeeDefinition?.SpawnLikelihood == 1)
-            {
-                AddEmployeeForHire(emp);
-            }
-            else
-            {
-                data.exEmplyoees.Add(emp);
-            }
-
-            if (HiredEmployees < MaxNumberOfHiredEmployees)
-            {
-                data.employeesForHire.ForEach(empGUI =>
-                    EmployeeToGuiMap[empGUI].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(false));
-            }
-            EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
-        }
         
         /// <summary>
         /// Fires an employee. The employee will be removed from hiredEmployees and placed in exEmployees.  
@@ -318,8 +288,21 @@ namespace Employees
         /// <param name="emp"></param>
         public void FireEmployee(Employee emp)
         {
-            FireEmployee(emp.EmployeeData);
+            FireEmployeeData(emp.EmployeeData);
+            Destroy(emp.gameObject);
+            var employeeGui = EmployeeHiredContent
+                .GetComponentsInChildren<HiredEmployeeUiBuilder>().First(e => e.emp == emp).gameObject;
+            Destroy(employeeGui);
             EmployeeFired.Raise(emp);
+        }
+        
+        /// <summary>
+        /// Fires an employee. The employee will be removed from hiredEmployees and placed in exEmployees.  
+        /// </summary>
+        /// <param name="emp"></param>
+        public void FireEmployee(EmployeeData emp)
+        {
+            FireEmployee(GetEmployee(emp));
         }
 
         public int minimumNumberOfEmployees = 2;
@@ -344,8 +327,9 @@ namespace Employees
             if (gameDate.DayOfWeek == DayOfWeek.Monday)
             {
                 NotificationManager.Info("Payday is here!");
-                foreach (var emp in data.hiredEmployees)
+                for (int i = 0; i < data.hiredEmployees.Count; i++)
                 {
+                    var emp = data.hiredEmployees[i];
                     if (!bank.Pay(emp.Salary))
                     {
                         NotificationManager.Info(emp.Name + " has left the company. Your bank balance was too low for the paycheck.");
@@ -403,6 +387,34 @@ namespace Employees
                 HireEmployee(employeeData, empGUI);
             });
             EmployeeToGuiMap.Add(employeeData, empGUI);
+        }
+        
+        /// <summary>
+        /// Fires an employee. The employee will be removed from hiredEmployees and placed in exEmployees.
+        /// Note: The employee fired event is not raised in this method!
+        /// </summary>
+        /// <param name="emp"></param>
+        internal void FireEmployeeData(EmployeeData emp)
+        {
+            if (!data.hiredEmployees.Contains(emp)) return;
+
+            data.hiredEmployees.Remove(emp);
+
+            if (emp.EmployeeDefinition?.SpawnLikelihood == 1)
+            {
+                AddEmployeeForHire(emp);
+            }
+            else
+            {
+                data.exEmplyoees.Add(emp);
+            }
+
+            if (HiredEmployees < MaxNumberOfHiredEmployees)
+            {
+                data.employeesForHire.ForEach(empGUI =>
+                    EmployeeToGuiMap[empGUI].GetComponent<HireableEmployeeUiBuilder>().DisableHireButton(false));
+            }
+            EmployeesNumChangedEvent.Raise(data.hiredEmployees.Count);
         }
     }
 }

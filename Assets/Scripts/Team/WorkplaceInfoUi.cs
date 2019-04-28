@@ -36,10 +36,12 @@ namespace Team
         [Header("Events")]
         public IntEvent GameTickEvent;
         public GameEvent CompletedMissionChanged, WorkplaceInfoOpened;
+        public ObjectEvent EmployeeFired;
 
         private Workplace workplace;
         private UnityAction<int> onGameTickAction;
         private UnityAction onCompletedMissionAction;
+        private UnityAction<Object> onEmployeeFiredAction;
         
         private GameSelectionManager gameSelectionManager;
 
@@ -51,6 +53,8 @@ namespace Team
             StopWorkingButton.onClick.AddListener(onStopWorking);
             onCompletedMissionAction = onCompletedMission;
             CompletedMissionChanged.AddListener(onCompletedMissionAction);
+            onEmployeeFiredAction = onEmployeeFired;
+            EmployeeFired.AddListener(onEmployeeFiredAction);
         }
 
         /// <summary>
@@ -113,6 +117,15 @@ namespace Team
         private void onGameTick(int tick)
         {
             if (!workplace.IsTrueNull()) UpdateRemainingTime();
+        }
+
+        private void onEmployeeFired(Object emp)
+        {
+            if (workplace.GetOccupyingEmployee() == (Employee) emp)
+            {
+                Deselect();
+                gameSelectionManager.ClearWorkplace();
+            }
         }
     }
 }
