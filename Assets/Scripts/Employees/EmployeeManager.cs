@@ -3,6 +3,7 @@ using SaveGame;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Assets.Scripts.NotificationSystem;
 using Assets.Scripts.UI.EmployeeWindow;
 using Base;
@@ -22,6 +23,7 @@ using DayOfWeek = GameTime.DayOfWeek;
 using Object = UnityEngine.Object;
 using Random = System.Random;
 
+[assembly: InternalsVisibleTo("Tests_EditMode")]
 namespace Employees
 {
     /// <summary>
