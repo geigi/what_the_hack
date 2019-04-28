@@ -451,6 +451,7 @@ public class Employee : MonoBehaviour, ISelectable, IPointerUpHandler, IPointerD
                 case 8:
                 case 9:
                 case 10:
+                    break;
                 case 11:
                     success = gainSpecial();
                     break;
